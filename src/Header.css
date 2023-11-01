@@ -1,0 +1,54 @@
+@import url("https://fonts.googleapis.com/css2?family=Kalam:wght@300;400&family=Kanit:ital,wght@0,400;1,100;1,300&family=Poor+Story&display=swap");
+
+header {
+  width: 100%;
+  height: 150px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.header_left {
+  width: 70%;
+  display: flex;
+  flex-direction: row;
+  margin-right: 40%;
+}
+.header_img {
+  width: 20%;
+  text-align: end;
+  margin: auto;
+}
+.header_img img {
+  width: 90%;
+}
+.header_left_text {
+  width: 70%;
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  margin-top: -5px;
+  margin-right: 8%;
+}
+.header_left_text h1 {
+  font-family: "Kanit";
+  font-size: 300%;
+}
+.header_left_text p {
+  font-family: "Kanit";
+  font-style: italic;
+  font-weight: 300;
+  margin-top: -40px;
+  margin-left: 8px;
+}
+.header_right {
+  width: 30%;
+  display: flex;
+  flex-direction: row;
+  margin: auto;
+  justify-content: end;
+  margin-right: 100px;
+}
+.header_right p {
+  margin: auto 5px;
+}
