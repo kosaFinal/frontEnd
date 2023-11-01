@@ -1,0 +1,22 @@
+.Manager_Nav {
+  width: 100%;
+  height: 100px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  background-color: #e3b488;
+}
+.Manager_Nav_left {
+  margin: auto;
+  width: 50%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.Manager_Nav_right {
+  margin: auto;
+  width: 50%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}

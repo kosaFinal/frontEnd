@@ -1,0 +1,58 @@
+@import url("https://fonts.googleapis.com/css2?family=Kalam:wght@300;400&family=Kanit:ital,wght@0,400;1,100;1,300&family=Poor+Story&display=swap");
+
+.user_main_template1 {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  background-color: #f5f5f5;
+  height: 600px;
+  margin-top: 100px;
+}
+.user_main_template1_text {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  margin: auto;
+  text-align: center;
+}
+.user_main_template1_text h2 {
+  font-family: "Kalam";
+
+  font-size: 500%;
+}
+.user_main_template1_text p {
+  font-size: 200%;
+  font-family: "Poor Story", serif;
+}
+.user_main_template1_img {
+  margin: auto;
+  width: 40%;
+}
+.user_main_template2 {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  height: 600px;
+  margin-top: 10px;
+}
+.user_main_template2_text {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  margin: auto;
+  text-align: center;
+}
+.user_main_template2_text h2 {
+  font-family: "Poort Story";
+  font-size: 400%;
+}
+.user_main_template2_text p {
+  font-size: 200%;
+  font-family: "Poor Story", serif;
+}
+.user_main_template2_img {
+  margin: auto;
+  width: 40%;
+}
