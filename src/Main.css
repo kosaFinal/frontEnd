@@ -1,0 +1,162 @@
+@import url("https://fonts.googleapis.com/css2?family=Kalam:wght@300;400&family=Kanit:ital,wght@0,400;1,100;1,300&family=Poor+Story&display=swap");
+
+.main_header {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 300px;
+  margin-top: 2%;
+}
+.Main_header_img {
+  text-align: end;
+  width: 50%;
+  margin-left: -50px;
+}
+.Main_header_img img {
+  width: 28%;
+  height: 180px;
+  margin: auto;
+  margin-top: 10px;
+}
+.Main_header_text {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  justify-content: space-around;
+  height: 200px;
+}
+.Main_header_text h1 {
+  font-size: 700%;
+  font-family: "Kanit";
+  font-weight: 400;
+  margin-top: -10px;
+}
+.Main_header_text p {
+  font-size: 150%;
+  font-family: "Kanit";
+  font-style: italic;
+  font-weight: 300;
+  margin-top: -100px;
+  margin-left: 80px;
+}
+.Main_nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%;
+}
+.Main_nav_left {
+  background-color: #e3b488;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 30%;
+  height: 150px;
+  border-radius: 15px;
+}
+.Manager_link {
+  width: 100%;
+  height: 150px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.Manager_link img {
+  width: 25%;
+  margin: auto;
+}
+.Manager_link h2 {
+  margin: auto;
+  font-size: 200%;
+  color: black;
+}
+a {
+  text-decoration: none;
+}
+.Main_nav_right {
+  background-color: #9a7553;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 30%;
+  height: 150px;
+  border-radius: 15px;
+}
+.Main_nav_right Link {
+  text-decoration-line: none;
+}
+.user_link {
+  width: 100%;
+  height: 150px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.user_link img {
+  width: 25%;
+  margin: auto;
+}
+.user_link h2 {
+  text-decoration-line: none;
+  color: black;
+  margin: auto;
+  font-size: 200%;
+}
+
+.main_template1 {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  background-color: #f5f5f5;
+  height: 600px;
+  margin-top: 100px;
+}
+.main_template1_text {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  margin: auto;
+  text-align: center;
+}
+.main_template1_text h2 {
+  font-family: "Kalam";
+
+  font-size: 500%;
+}
+.main_template1_text p {
+  font-size: 200%;
+  font-family: "Poor Story", serif;
+}
+.main_template1_img {
+  margin: auto;
+  width: 40%;
+}
+.main_template2 {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  height: 600px;
+  margin-top: 10px;
+}
+.main_template2_text {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  margin: auto;
+  text-align: center;
+}
+.main_template2_text h2 {
+  font-family: "Poort Story";
+  font-size: 400%;
+}
+.main_template2_text p {
+  font-size: 200%;
+  font-family: "Poor Story", serif;
+}
+.main_template2_img {
+  margin: auto;
+  width: 40%;
+}
