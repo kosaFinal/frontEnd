@@ -6,11 +6,7 @@ const header = () => {
     <header>
       <div className="header_left">
         <div className="header_img">
-          <img src="./assets/logo_3.png" />
-        </div>
-        <div className="header_left_text">
-          <h1>cafe-in</h1>
-          <p>wherever you want</p>
+          <img src="./assets/logo_text_4-1.png" />
         </div>
       </div>
       <div className="header_right">
