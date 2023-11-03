@@ -4,7 +4,8 @@
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  background-color: #e3b488;
+  background-color: black;
+  opacity: 0.8;
 }
 .Manager_Nav_left {
   margin: auto;
@@ -19,4 +20,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+a {
+  color: white;
 }

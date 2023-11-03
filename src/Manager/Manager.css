@@ -1,5 +1,19 @@
 @import url("https://fonts.googleapis.com/css2?family=Kalam:wght@300;400&family=Kanit:ital,wght@0,400;1,100;1,300&family=Poor+Story&display=swap");
-
+.manager {
+  background-image: url(../img/background_img5.jpg);
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: cover;
+  background-attachment: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: -1;
+}
+.managermain {
+  height: 100vh;
+}
 .manager_main_template1 {
   width: 100%;
   display: flex;
