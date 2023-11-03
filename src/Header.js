@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
 import "./Header.css";
 
-const header = () => {
+const Header = () => {
   return (
     <header>
       <div className="header_left">
         <div className="header_img">
-          <img src="./assets/logo_text_4-1.png" />
+          <img src="/assets/logo_text_4-1.png" />
         </div>
       </div>
       <div className="header_right">
@@ -21,4 +21,4 @@ const header = () => {
     </header>
   );
 };
-export default header;
+export default Header;
