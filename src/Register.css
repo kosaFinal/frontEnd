@@ -1,0 +1,99 @@
+.register-container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 5%;
+}
+
+.logo-section {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.logo-icon {
+    /* 로고 아이콘 이미지를 넣어주면 됩니다. */
+    width: 5rem;
+    height: 5rem;
+    margin-right: 1rem;
+    background-color: #fff;
+    /* 임시로 하얀색으로 설정 */
+}
+
+.logo-icon img {
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+}
+
+.login-titles {
+    margin-bottom: 1rem;
+}
+
+.register-title {
+    display: flex;
+    flex-direction: column;
+    font-size: 2rem;
+}
+
+.register-subtitle {
+    font-size: 1rem;
+    color: gray;
+}
+
+.register-box {
+    width: 30rem;
+    height: 25rem;
+    background-color: #E3B488;
+    padding: 2rem;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.register-box input {
+    margin-bottom: 1.8rem;
+    padding: 1rem;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+}
+
+.id-section {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+}
+
+.id-section input {
+    width: 75%;
+}
+
+.id-section button {
+    margin-left: 1rem;
+    width: 5rem;
+    height: 3rem;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.register-button {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.register-button button {
+    height: 3rem;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    color: #fff;
+}

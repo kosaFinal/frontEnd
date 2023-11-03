@@ -1,0 +1,91 @@
+.login-container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 5%;
+}
+
+.logo-section {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.logo-icon {
+  /* 로고 아이콘 이미지를 넣어주면 됩니다. */
+  width: 60px;
+  height: 60px;
+  background-color: #fff;
+  /* 임시로 하얀색으로 설정 */
+
+  border-radius: 50%;
+}
+
+.login-titles {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-title {
+  font-size: 2rem;
+  margin-top: 1rem;
+}
+
+.login-subtitle {
+  font-size: 1rem;
+  color: gray;
+}
+
+.login-box {
+  width: 30rem;
+  height: 20rem;
+  background-color: #e3b488;
+  padding: 2rem;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.login-inputs {
+  margin-top: 2rem;
+  display: flex;
+  gap: 2rem;
+  flex-direction: column;
+}
+
+.login-box input {
+  margin-bottom: 1rem;
+  padding: 1rem;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+}
+
+.login-buttons {
+  display: flex;
+  margin-bottom: 2rem;
+  width: 100%;
+  height: 100%;
+  padding-top: 2rem;
+}
+
+.login-button,
+.login-register-button {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.login-button button,
+.login-register-button button {
+  padding: 0.5rem 1.5rem;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+}
