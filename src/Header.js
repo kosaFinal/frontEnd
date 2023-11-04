@@ -4,19 +4,21 @@ import "./Header.css";
 const header = () => {
   return (
     <header>
-      <div className="header_left">
-        <div className="header_img">
-          <img src="./assets/logo_text_4-1.png" />
+      <div className="header">
+        <div className="header_left">
+          <div className="header_img">
+            <img src="/assets/logo_reimg.png" />
+          </div>
         </div>
-      </div>
-      <div className="header_right">
-        <Link to="/login">
-          <p>로그인</p>
-        </Link>
-        <p>|</p>
-        <Link to="/register">
-          <p>회원가입</p>
-        </Link>
+        <div className="header_right">
+          <Link to="/login">
+            <p>로그인</p>
+          </Link>
+          <p>|</p>
+          <Link to="/register">
+            <p>회원가입</p>
+          </Link>
+        </div>
       </div>
     </header>
   );
