@@ -1,0 +1,43 @@
+.EmptyRegister-container {
+  margin: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center; /* 아이템들을 수직 가운데 정렬합니다. */
+}
+
+.EmptyRegister-items {
+  display: flex;
+  flex-flow: column;
+  text-align: center; /* 아이템들을 가로 가운데 정렬합니다. */
+}
+
+.EmptyRegister-img-div {
+  width: auto;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center; /* 이미지를 수직 가운데 정렬합니다. */
+  margin-bottom: 1rem;
+}
+
+.EmptyRegister-items img {
+  width: 20rem;
+  height: 20rem;
+  /* text-align: center; 이미지는 텍스트와 관련이 없으므로 이 속성은 제거합니다. */
+}
+
+.EmptyRegister-items p {
+  font-size: 2rem;
+  margin: 0.5rem;
+}
+
+.EmptyRegister-button-div{
+  margin-top: 2rem;
+}
+
+.EmptyRegister-items button {
+  margin-top: 2rem;
+  width: 15rem;
+  height: 4rem;
+  font-size: 1.5rem;
+}

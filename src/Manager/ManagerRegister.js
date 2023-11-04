@@ -1,20 +1,19 @@
-import "./Manager.css";
+import "./ManagerRegister.css";
 import Footer from "../Footer";
 import Header from "../Header";
 import EmptyRegister from "./EmptyRegister"
 import ManagerNav from "./ManagerNav";
+import { Link } from "react-router-dom";
 
-const Manager = () => {
+const ManagerRegister = () => {
   return (
-    <manager>
+    <div className="manager">
       <Header />
       <ManagerNav />
-      <div className="manager_main">
-        <div className="manager_link"></div>
-      </div>
-
+      
+      <EmptyRegister/>
       <Footer />
-    </manager>
+    </div>
   );
 };
-export default Manager;
+export default ManagerRegister;
