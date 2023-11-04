@@ -5,21 +5,25 @@
     flex-direction: column;
     align-items: center;
     padding-top: 5%;
+    background-color: #E8E8E8;
 }
 
 .logo-section {
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-bottom: 2rem;
+    margin: 0;
+    
 }
 
 .logo-icon {
     /* 로고 아이콘 이미지를 넣어주면 됩니다. */
-    width: 5rem;
-    height: 5rem;
-    margin-right: 1rem;
-    background-color: #fff;
+    width: 20rem;
+    height: 15rem;
+    margin-right: 10rem;
+    margin-right: auto;
+    margin-left: auto;
+    background-color: #E8E8E8;
     /* 임시로 하얀색으로 설정 */
 }
 
@@ -27,6 +31,10 @@
     border-radius: 50%;
     width: 100%;
     height: 100%;
+    border: none;
+
+    object-fit: contain;
+    background-color: #E8E8E8;
 }
 
 .login-titles {
@@ -51,6 +59,7 @@
     padding: 2rem;
     border-radius: 20px;
     display: flex;
+
     flex-direction: column;
 }
 
@@ -60,7 +69,46 @@
     border: none;
     border-radius: 10px;
     font-size: 1rem;
+    
 }
+
+.register-radio {
+    margin-bottom: 0.8rem;
+    
+    padding: 0.6rem;
+    display: flex;
+    flex-direction: row;
+    font-size: 1.0rem;
+    background-color: #fff;
+    border-radius: 10px;
+    color: gray;
+    height: 20rem;
+    align-items: center;
+}
+
+.register-radio-child label {
+
+    margin-left: 4.0rem;
+    font-size: 1.0rem;
+    
+    color: black;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.register-radio-child {
+    padding: auto;
+    margin-top: 1.1rem;
+    font-size: 1.0rem;
+    /* align-items: center; */
+    color: black;
+    
+    display: flex;
+    justify-content: center;
+    
+}
+ 
 
 .id-section {
     display: flex;
