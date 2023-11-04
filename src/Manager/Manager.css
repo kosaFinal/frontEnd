@@ -1,6 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Kalam:wght@300;400&family=Kanit:ital,wght@0,400;1,100;1,300&family=Poor+Story&display=swap");
 
+.manager {
+  /* background-image: url(../img/background_img5.jpg); */
+}
+
 .manager_main {
+
   background-repeat: no-repeat;
   background-position: top center;
   background-size: cover;
