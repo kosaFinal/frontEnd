@@ -1,11 +1,21 @@
 .register-container {
     width: 100%;
-    height: 100vh;
+    height: 89.5vh;
+    
     display: flex;
     flex-direction: column;
     align-items: center;
     padding-top: 5%;
-    background-color: #E8E8E8;
+    background-color: black;
+    /* background-color: rgba(0, 0, 0, 0.2); */
+    opacity: 1.5;
+    background-image: url(./img/register-background.png);
+    background-repeat: no-repeat;
+    background-position: top center;
+    background-size: cover;
+    background-attachment: fixed;
+    
+    
 }
 
 .logo-section {
@@ -18,12 +28,13 @@
 
 .logo-icon {
     /* 로고 아이콘 이미지를 넣어주면 됩니다. */
-    width: 20rem;
-    height: 15rem;
+    width: 16rem;
+    height: 10.8rem;
     margin-right: 10rem;
     margin-right: auto;
     margin-left: auto;
-    background-color: #E8E8E8;
+    background: none;
+    margin-bottom: 1.5rem;
     /* 임시로 하얀색으로 설정 */
 }
 
@@ -34,7 +45,8 @@
     border: none;
 
     object-fit: contain;
-    background-color: #E8E8E8;
+    /* background-color: white; */
+    background: none;
 }
 
 .login-titles {
@@ -54,60 +66,72 @@
 
 .register-box {
     width: 30rem;
-    height: 25rem;
-    background-color: #E3B488;
+    height: 41rem;
+    background-color: #f5f5f5;
     padding: 2rem;
-    border-radius: 20px;
+    border-radius: 8px;
     display: flex;
-
+    opacity: 0.93;
     flex-direction: column;
+
+    /* 그림자 효과 추가 */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4); /* X축 오프셋, Y축 오프셋, 흐림 반경, 색상 */
+  transition: box-shadow 0.3s ease-in-out; /* 그림자 효과에 애니메이션을 적용합니다. */
 }
 
 .register-box input {
     margin-bottom: 1.8rem;
     padding: 1rem;
     border: none;
-    border-radius: 10px;
+    border-radius: 7px;
     font-size: 1rem;
-    
+    box-shadow: inset 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
+
 
 .register-radio {
-    margin-bottom: 0.8rem;
-    
-    padding: 0.6rem;
+
     display: flex;
     flex-direction: row;
-    font-size: 1.0rem;
+    align-items: center; /* This will vertically align the items in the center */
+    justify-content: start; /* Align items to the start of the container */
+    padding: 0.6rem;
     background-color: #fff;
-    border-radius: 10px;
+    border-radius: 7px;
+    justify-content: space-between;
+    box-shadow: inset 0px 4px 8px rgba(0, 0, 0, 0.2);
+
+}
+
+.register-radio label {
+    margin-top: 1rem;
+    margin-right: 1.2rem; 
+    margin-left: 0.5rem;
+    white-space: nowrap; /* Prevents the label from wrapping*/
+    height: 100%;
+} 
+
+.usertype-label {
     color: gray;
-    height: 20rem;
-    align-items: center;
 }
 
-.register-radio-child label {
-
-    margin-left: 4.0rem;
-    font-size: 1.0rem;
-    
-    color: black;
-    align-items: center;
-    justify-content: center;
-    
-}
-
-.register-radio-child {
-    padding: auto;
-    margin-top: 1.1rem;
-    font-size: 1.0rem;
-    /* align-items: center; */
-    color: black;
-    
+.register-radio-button {
+    margin: 0 0.1rem; /* Adjust space around the radio buttons */
+    /* Align the text within the button if necessary */
     display: flex;
+    align-items: center;
     justify-content: center;
-    
+    color: black;
+    margin-right: 1rem;
 }
+
+/* Assuming Radio component renders an input[type="radio"] followed by a label */
+input[type="radio"] {
+    margin: 0 0.5rem;
+    padding: 0;
+    vertical-align: middle; 
+}
+
  
 
 .id-section {
@@ -121,27 +145,40 @@
 }
 
 .id-section button {
+    margin-top: 0.45rem;
     margin-left: 1rem;
-    width: 5rem;
-    height: 3rem;
+    width: 4rem;
+    height: 2.5rem;
+    /* border-color: #6b4e39; */
     border: none;
+    border-width: 0.19rem;
     border-radius: 10px;
-    font-size: 1.2rem;
+    font-size: 1rem;
     cursor: pointer;
+    color: white;
+    background-color: #6b4e39;
+    /* background-color: white; */
 }
 
 .register-button {
     width: 100%;
     display: flex;
     justify-content: center;
+    margin-top: 1rem;
     margin-bottom: 1rem;
+    color: white;
 }
+  
 
 .register-button button {
     height: 3rem;
+    width: 17rem;
     border: none;
     border-radius: 10px;
     font-size: 1rem;
     cursor: pointer;
-    color: #fff;
+    /* color: #fff; */
+    color: white;
+    background-color: #6b4e39;
 }
+
