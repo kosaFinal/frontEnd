@@ -33,10 +33,10 @@ function App() {
           element={<ManagerReservationStatus />}
         />
         <Route
-          path="./manager/reservationlist"
+          path="/manager/reservationlist"
           element={<ManagerReservationList />}
         />
-        <Route path="./user/search" element={<UserSearch />} />
+        <Route path="/user/search" element={<UserSearch />} />
         <Route path="/user/find" element={<UserFind />} />
         <Route
           path="/user/reservationstatus"
