@@ -9,6 +9,7 @@ import ManagerCafeInfo from "./Manager/ManagerCafeInfo";
 import ManagerReservation from "./Manager/ManagerReservation";
 import ManagerReservationStatus from "./Manager/ManagerReservationStatus";
 import ManagerReservationList from "./Manager/ManagerReservationList";
+import ManagerRegister from "./Manager/ManagerRegister"
 import UserSearch from "./User/UserSearch";
 import UserFind from "./User/UserFind";
 import UserReservationStatus from "./User/UserReservationStatus";
@@ -36,6 +37,7 @@ function App() {
           path="./manager/reservationlist"
           element={<ManagerReservationList />}
         />
+        <Route path="/manager/register" element={<ManagerRegister />} />
         <Route path="./user/search" element={<UserSearch />} />
         <Route path="/user/find" element={<UserFind />} />
         <Route
