@@ -2,7 +2,7 @@
 
 .header {
   width: 100%;
-  height: 150px;
+  height: 115px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -15,7 +15,7 @@
   margin-right: 40%;
 }
 .header_img {
-  width: 40%;
+  width: 30%;
   text-align: end;
   margin: auto;
 }
