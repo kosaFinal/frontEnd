@@ -1,12 +1,17 @@
-import Header from "../Header";
+import Header from "../../Header";
+import ManagerNav from "../ManagerNav";
+import TabContent from "./TabContent";
 
 const ManagerReservationStatus = () => {
   return (
     <managerreservationstatus>
       <Header />
+      <ManagerNav />
       <div>
-        <p>고객 예약 현황 페이지 입니다.</p>
+        <p>예약현황</p>
+        <TabContent />
       </div>
+      <footer />
     </managerreservationstatus>
   );
 };

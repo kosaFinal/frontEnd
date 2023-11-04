@@ -1,0 +1,31 @@
+.tab-buttons{
+  margin-left: 15%;
+}
+.inProgressButton,
+.upcomingButton {
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  text-align: center;
+  padding: 23px;
+}
+
+.inProgressButton {
+  border-top-left-radius: 40px;
+  border-bottom-left-radius: 40px;
+}
+
+.upcomingButton {
+  border-top-right-radius: 40px;
+  border-bottom-right-radius: 40px;
+}
+
+.tab-buttons button:focus {
+  background-color: #7CD0FF;
+}
+
+.tab-content {
+  text-align: center;
+  padding: 20px;
+
+}
