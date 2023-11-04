@@ -6,15 +6,15 @@ import ManagerNav from "./ManagerNav";
 
 const Manager = () => {
   return (
-    <div className="manager">
+    <manager>
       <Header />
       <ManagerNav />
-      {/* <div className="manager_main"
-      ></div>
-      <div></div> */}
-      <EmptyRegister/>
+      <div className="manager_main">
+        <div className="manager_link"></div>
+      </div>
+
       <Footer />
-    </div>
+    </manager>
   );
 };
 export default Manager;
