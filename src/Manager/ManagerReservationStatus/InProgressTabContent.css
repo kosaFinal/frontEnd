@@ -1,3 +1,8 @@
+@font-face {
+  font-family: "HakgyoansimSantteutdotumL";
+  src: url("/src/fonts/HakgyoansimSantteutdotumL.ttf") format("truetype");
+}
+
 .reservation-item {
   display: flex;
   align-items: center;
@@ -6,15 +11,17 @@
   padding: 20px;
   margin: auto;
   margin-bottom: 30px;
-  width: 80%;
+  width: 66%;
   border: 3px solid #000;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  font-family: "HakgyoansimSantteutdotumL";
+  height: 100px;
 }
 
 .inprogress-name {
   font-weight: bold;
   font-size: 25px;
-  margin: auto;
+  margin: 20px;
 }
 
 .inprogress-info {
@@ -23,11 +30,18 @@
   flex-direction: column;
   text-align: left;
   margin-left: 100px;
+  font-size: 20px;
 }
+
+.inprogress-info div {
+  margin-top: 5px;
+}
+
 
 .inprogress-button {
   display: flex;
   align-items: center;
+  margin-right: 30px;
 }
 
 .inprogress-button button {
@@ -37,6 +51,8 @@
   border-radius: 5px;
   cursor: pointer;
   font-size: 16px;
+  margin: 5px;
+  font-weight: bold;
 }
 
 .inprogress-button button:hover {

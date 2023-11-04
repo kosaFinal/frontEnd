@@ -7,7 +7,7 @@ import Login from "./Login";
 import Register from "./Register";
 import ManagerCafeInfo from "./Manager/ManagerCafeInfo";
 import ManagerReservation from "./Manager/ManagerReservation";
-import ManagerReservationStatus from "./Manager/ManagerReservationStatus";
+import ManagerReservationStatus from "./Manager/ManagerReservationStatus/ManagerReservationStatus";
 import ManagerReservationList from "./Manager/ManagerReservationList";
 import ManagerRegister from "./Manager/ManagerRegister"
 import UserSearch from "./User/UserSearch";

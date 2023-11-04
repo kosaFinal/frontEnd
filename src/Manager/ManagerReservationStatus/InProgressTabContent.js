@@ -2,9 +2,9 @@ import "./InProgressTabContent.css";
 
 const InProgressTabContent = () => {
   const inProgressReservations = [
-    { name: '윤형우', type: '4인석', time: '12 : 00 ~ 3: 00', cnt: '3명', seat: 'A1' },
-    { name: '윤형우', type: '4인석', time: '12 : 00 ~ 3: 00', cnt: '3명', seat: 'B2' },
-    { name: '윤형우', type: '4인석', time: '12 : 00 ~ 3: 00', cnt: '3명', seat: 'C3' }
+    { name: '윤형우', type: '4인석', time: '12 : 00 ~ 15 : 00', cnt: '3명', seat: 'A1' },
+    { name: '윤형우', type: '4인석', time: '12 : 00 ~ 15 : 00', cnt: '3명', seat: 'B2' },
+    { name: '윤형우', type: '4인석', time: '12 : 00 ~ 15 : 00', cnt: '3명', seat: 'C3' }
   ];
 
   return (

@@ -1,17 +1,20 @@
+import Footer from "../../Footer";
 import Header from "../../Header";
 import ManagerNav from "../ManagerNav";
-import TabContent from "./TabContent";
+
+import "./ManagerReservationStatus.css";
+import StatusTab from "./StatusTab";
 
 const ManagerReservationStatus = () => {
   return (
     <managerreservationstatus>
       <Header />
       <ManagerNav />
-      <div>
+      <div className="reservation-status-title">
         <p>예약현황</p>
-        <TabContent />
       </div>
-      <footer />
+      <StatusTab />
+      <Footer />
     </managerreservationstatus>
   );
 };

@@ -1,0 +1,45 @@
+@font-face {
+  font-family: "HakgyoansimSantteutdotumL";
+  src: url("/src/fonts/HakgyoansimSantteutdotumL.ttf") format("truetype");
+}
+
+.tab-buttons {
+  margin-left: 17%;
+  margin-bottom: 30px;
+}
+
+.inProgressButton,
+.upcomingButton {
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  text-align: center;
+  padding: 10px 20px;
+  background-color: #e8e8e8;
+  font-weight: bold;
+}
+
+.inProgressButton {
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+}
+
+.upcomingButton {
+  border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px;
+}
+
+.inProgressButton.active,
+.upcomingButton.active {
+  background-color: #7CD0FF;
+  color: #fff;
+}
+
+.tab-buttons button:focus {
+  outline: none;
+}
+
+.tab-content {
+  text-align: center;
+  padding: 20px;
+}
