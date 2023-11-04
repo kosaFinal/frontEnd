@@ -1,0 +1,84 @@
+.ManagerUpdateBasic{
+  width: auto;
+  height: auto;
+}
+.ManagerUpdateBasic-Container{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+.ManagerUpdateBasic-Container-Items{
+  display: flex;
+  flex-flow: column;
+  margin-bottom: 3rem;
+}
+
+
+.ManagerUpdateBasic-Container-Items label{
+  margin-top: 4rem;
+  margin-right: 5rem;
+  font-size: 1.2rem;
+}
+.ManagerUpdateBasic-Container-Items input{
+  margin-top: 1rem;
+  width: 25rem;
+  height: 2.3rem;
+  border-radius: 8px;
+}
+.ManagerUpdateBasic-Container-Items button{
+  width: 5rem;
+  height: 2rem;
+  margin-top: 4rem;
+}
+
+/* 이름 섹션 */
+.ManagerUpdateBasic-Container-Names{
+  display: flex;
+  flex-flow: column;
+}
+/* 유형 섹션 */
+.ManagerUpdateBasic-Container-Case{
+  display: flex;
+  flex-flow: column;
+}
+/* 주소 섹션 */
+.ManagerUpdateBasic-Container-Address{
+  display: flex;
+  flex-flow: column;
+  
+}
+.ManagerUpdateBasic-Container-Address-labeling{
+  display: flex;
+  justify-content: space-between;
+  
+}
+.ManagerUpdateBasic-Container-Address-text{
+  display: flex;
+  flex-flow: column;
+}
+
+/* 주소 업데이트 섹션 */
+.ManagerUpdateBasic-Container-Address-Update{
+  display: flex;
+  flex-flow: column;
+}
+.ManagerUpdateBasic-Container-Address-Update-labeling{
+  display: flex;
+  justify-content: space-between;
+}
+.ManagerUpdateBasic-Container-Address-Update-labeling label{
+  margin-right: 0rem;
+}
+
+.ManagerUpdateBasic-Container-Address-Update-findAddress button{
+  margin-left: 1rem;
+}
+.ManagerUpdateBasic-Container-Address-Update-text{
+  display: flex;
+  flex-flow: column;
+}
+
+.hidden{
+  display: none;
+}
