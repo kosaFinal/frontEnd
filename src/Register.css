@@ -1,53 +1,41 @@
-.register-container {
-    width: 100%;
-    height: 89.5vh;
-    
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 5%;
-    background-color: black;
-    /* background-color: rgba(0, 0, 0, 0.2); */
-    opacity: 1.5;
+@font-face {
+    font-family: "HakgyoansimSantteutdotumL";
+    src: url("/src/fonts/HakgyoansimSantteutdotumL.ttf") format("truetype");
+  }
+
+  .register {
     background-image: url(./img/register-background.png);
     background-repeat: no-repeat;
     background-position: top center;
     background-size: cover;
     background-attachment: fixed;
-    
-    
-}
 
-.logo-section {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin: 0;
-    
-}
+  }
 
-.logo-icon {
-    /* 로고 아이콘 이미지를 넣어주면 됩니다. */
-    width: 16rem;
-    height: 10.8rem;
-    margin-right: 10rem;
-    margin-right: auto;
-    margin-left: auto;
-    background: none;
-    margin-bottom: 1.5rem;
-    /* 임시로 하얀색으로 설정 */
-}
 
-.logo-icon img {
-    border-radius: 50%;
+.register-container {
     width: 100%;
-    height: 100%;
-    border: none;
-
-    object-fit: contain;
-    /* background-color: white; */
-    background: none;
+    height: 73vh;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 5%;
+    
+    
 }
+
+.register-title {
+    font-family: "HakgyoansimSantteutdotumL";
+    color: white;
+    
+    
+}
+
+.usertype-label {
+    margin-top: 1rem;
+}
+
 
 .login-titles {
     margin-bottom: 1rem;
@@ -56,7 +44,19 @@
 .register-title {
     display: flex;
     flex-direction: column;
-    font-size: 2rem;
+    font-size: 1.2rem;
+    position: absolute; /* 또는 relative, 상황에 따라 다름 */
+  top: 185px; /* 상단에서부터의 거리, 상황에 맞게 조절 */
+  left: 50%; /* 가운데 정렬을 위한 설정 */
+  transform: translateX(-50%); /* 정확한 가운데 정렬을 위한 설정 */
+}
+
+.register-intro {
+    font-size: 1.0rem;
+    color: black;
+    margin: 0;
+    margin-bottom: 1rem;
+    margin-left: 6rem;
 }
 
 .register-subtitle {
@@ -65,27 +65,32 @@
 }
 
 .register-box {
-    width: 30rem;
-    height: 41rem;
-    background-color: #f5f5f5;
-    padding: 2rem;
-    border-radius: 8px;
     display: flex;
-    opacity: 0.93;
+    position: absolute;
+    top: 230px;
+    width: 24rem;
+    height: 24rem;
+    background-color: #f5f5f5;
+    padding: 1.5rem;
+    /* border-radius: 8px; */
+    display: flex;
+    opacity: 0.97;
     flex-direction: column;
-
+    
     /* 그림자 효과 추가 */
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4); /* X축 오프셋, Y축 오프셋, 흐림 반경, 색상 */
   transition: box-shadow 0.3s ease-in-out; /* 그림자 효과에 애니메이션을 적용합니다. */
 }
 
 .register-box input {
-    margin-bottom: 1.8rem;
-    padding: 1rem;
+    height: 2rem;
+    margin-bottom: 1.4rem;
+    padding: 0.2rem;
     border: none;
-    border-radius: 7px;
-    font-size: 1rem;
+    border-radius: 3px;
+    font-size: 0.9rem;
     box-shadow: inset 0px 4px 8px rgba(0, 0, 0, 0.2);
+    font-family: "HakgyoansimSantteutdotumL";
 }
 
 
@@ -95,24 +100,25 @@
     flex-direction: row;
     align-items: center; /* This will vertically align the items in the center */
     justify-content: start; /* Align items to the start of the container */
-    padding: 0.6rem;
-    background-color: #fff;
+    padding: 0rem;
+    /* background-color: #fff; */
     border-radius: 7px;
     justify-content: space-between;
-    box-shadow: inset 0px 4px 8px rgba(0, 0, 0, 0.2);
+    /* box-shadow: inset 0px 4px 8px rgba(0, 0, 0, 0.2); */
 
 }
 
 .register-radio label {
-    margin-top: 1rem;
     margin-right: 1.2rem; 
-    margin-left: 0.5rem;
-    white-space: nowrap; /* Prevents the label from wrapping*/
+    /* margin-left: -1; */
+    white-space: nowrap; 
     height: 100%;
+    font-family: "HakgyoansimSantteutdotumL";
 } 
 
 .usertype-label {
-    color: gray;
+    color: black;
+    font-family: "HakgyoansimSantteutdotumL";
 }
 
 .register-radio-button {
@@ -130,9 +136,8 @@ input[type="radio"] {
     margin: 0 0.5rem;
     padding: 0;
     vertical-align: middle; 
+    box-shadow: none;
 }
-
- 
 
 .id-section {
     display: flex;
@@ -141,44 +146,41 @@ input[type="radio"] {
 }
 
 .id-section input {
-    width: 75%;
-}
+    width: 80%;
+} 
 
 .id-section button {
-    margin-top: 0.45rem;
+    margin-top: 0.2rem;
     margin-left: 1rem;
-    width: 4rem;
-    height: 2.5rem;
-    /* border-color: #6b4e39; */
+    width: 3rem;
+    height: 2rem;
     border: none;
     border-width: 0.19rem;
-    border-radius: 10px;
     font-size: 1rem;
     cursor: pointer;
     color: white;
     background-color: #6b4e39;
-    /* background-color: white; */
+    font-family: "HakgyoansimSantteutdotumL";
 }
 
 .register-button {
     width: 100%;
     display: flex;
     justify-content: center;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
     color: white;
+    font-family: "HakgyoansimSantteutdotumL";
 }
   
-
 .register-button button {
     height: 3rem;
-    width: 17rem;
+    width: 10rem;
     border: none;
-    border-radius: 10px;
+    border-radius: 6px;
     font-size: 1rem;
     cursor: pointer;
     /* color: #fff; */
     color: white;
     background-color: #6b4e39;
+    font-family: "HakgyoansimSantteutdotumL";
 }
 
