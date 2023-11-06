@@ -16,7 +16,9 @@
   text-align: center;
   padding: 10px 20px;
   background-color: #e8e8e8;
+  color: #000;
   font-weight: bold;
+  font-family: "HakgyoansimSantteutdotumL";
 }
 
 .inProgressButton {

@@ -10,9 +10,7 @@ const ManagerReservationStatus = () => {
     <managerreservationstatus>
       <Header />
       <ManagerNav />
-      <div className="reservation-status-title">
-        <p>예약현황</p>
-      </div>
+      <p className="reservation-status-title">예약현황</p>
       <StatusTab />
       <Footer />
     </managerreservationstatus>

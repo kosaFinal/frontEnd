@@ -1,4 +1,7 @@
+import { useState } from "react";
+import CancleModal from "./CancleModal";
 import "./InProgressTabContent.css";
+import ReactModal from "react-modal";
 
 const InProgressTabContent = () => {
   const inProgressReservations = [
@@ -7,24 +10,55 @@ const InProgressTabContent = () => {
     { name: '윤형우', type: '4인석', time: '12 : 00 ~ 15 : 00', cnt: '3명', seat: 'C3' }
   ];
 
+  const [isCancleModalOpen, setIsCancleModalOpen] = useState(false);
+
+  const handleOpenCancleModal = () => {
+    setIsCancleModalOpen(true);
+  };
+
+  const handleCloseCancleModal = () => {
+    setIsCancleModalOpen(false);
+  };
+
+  const handleCancleConfirm = () => {
+    // 취소 처리 로직
+
+    handleCloseCancleModal();
+  };
+
   return (
     <div>
+      <hr className="divider" />
       {inProgressReservations.map((reservation, index) => (
-        <div key={index} className="reservation-item">
-          <div className="inprogress-name">{reservation.name}</div>
-          <div className="inprogress-info">
-            <div>예약 테이블: {reservation.type}</div>
-            <div>예약 좌석: {reservation.seat}</div>
-            <div>인원수: {reservation.cnt}</div>
-            <div>예약 시간: {reservation.time}</div>
+        <div key={index}>
+          <div className="reservation-item">
+            <div className="inprogress-name">{reservation.name}</div>
+            <div className="inprogress-info">
+              <div>예약 테이블: {reservation.type}</div>
+              <div>예약 좌석: {reservation.seat}</div>
+              <div>인원수: {reservation.cnt}</div>
+              <div>예약 시간: {reservation.time}</div>
+            </div>
+            <div className="inprogress-button">
+              <button onClick={() => handleOpenCancleModal()}>취소하기</button>
+            </div>
           </div>
-          <div className="inprogress-button">
-            <button>취소하기</button>
-          </div>
-        </div>
+          {index < inProgressReservations.length - 1 && <hr className="divider" />}
+        </div> 
       ))}
+      <hr className="divider" />
+      {isCancleModalOpen && (
+        <div className="backdrop"></div>
+      )}
+      {isCancleModalOpen && (
+        <CancleModal
+          isOpen={isCancleModalOpen}
+          onClose={handleCloseCancleModal}
+          onConfirm={handleCancleConfirm}
+        />
+      )}
     </div>
-  );
+  );   
 };
 
 export default InProgressTabContent;

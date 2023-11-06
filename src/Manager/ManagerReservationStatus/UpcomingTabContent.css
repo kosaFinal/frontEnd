@@ -25,16 +25,16 @@
 }
 
 .upcoming-button button {
-  background-color: #E3B488;
+  background-color: #FFCD4A;
+  color: #000;
   border: none;
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
   font-size: 16px;
   margin: 5px;
-  font-weight: bold;
 }
 
 .upcoming-button button:hover {
-  background-color: #ac7643; /* Button background color on hover */
+  background-color: #feecbf; /* Button background color on hover */
 }
