@@ -1,10 +1,61 @@
-@import url("https://fonts.googleapis.com/css2?family=Kalam:wght@300;400&family=Kanit:ital,wght@0,400;1,100;1,300&family=Poor+Story&display=swap");
-
+@font-face {
+  font-family: "HakgyoansimSantteutdotumL";
+  src: url("/src/fonts/HakgyoansimSantteutdotumL.ttf") format("truetype");
+}
 .user_index {
-  background-repeat: no-repeat;
-  background-position: top center;
-  background-size: cover;
-  height: 80vh;
-  padding: 100px;
-  background-image: url(../img/user_sample3.jpg);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.user_index_text {
+  font-family: "HakgyoansimSantteutdotumL";
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  /* margin: 50px auto; */
+}
+.user_index_text h1 {
+  font-family: "HakgyoansimSantteutdotumL";
+  font-size: 500%;
+  font-style: italic;
+}
+.user_index_section1_text p {
+  font-family: "HakgyoansimSantteutdotumL";
+  font-size: 200%;
+}
+.user_index_section1 {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+.user_index_section1 img {
+  width: 50%;
+  height: 400px;
+}
+.user_index_section1_text {
+  width: 50%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  font-family: "HakgyoansimSantteutdotumL";
+  justify-content: center;
+}
+.user_index_section2 {
+  width: 100%;
+  display: flex;
+  font-family: "HakgyoansimSantteutdotumL";
+  flex-direction: row;
+}
+.user_index_section2_text {
+  width: 50%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.user_index_section2 img {
+  height: 400px;
+
+  width: 50%;
 }
