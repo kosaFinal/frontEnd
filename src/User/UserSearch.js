@@ -20,22 +20,44 @@ const UserSearch = () => {
   return (
     <usersearch>
       <div className="map_nav">
-        <div id="map"></div>
+        <div className="user_search">
+          <div id="map"></div>
+        </div>
 
         <div className="searchnav">
-          <h5 onClick={() => setShowInput(!showInput)}>MAP</h5>
-          <Link to="/user/reservationstatus">
-            <h5>실시간 예약 현황</h5>
+          <Link to="/">
+            <div className="searchnav_to_home">
+              <img src="/assets/logo_reimg.png" />
+            </div>
           </Link>
-          <Link to="/user/mypage">
-            <h5>마이 페이지</h5>
-          </Link>
-          <Link to="/user/myreservation">
-            <h5>
-              날짜별 예약
-              <br /> 내역 조회
-            </h5>
-          </Link>
+          <div
+            className="searchnav_map"
+            onClick={() => setShowInput(!showInput)}
+          >
+            <img src="/assets/searchnav_map.png" />
+            <h5>MAP</h5>
+          </div>
+          <div className="searchnav_time">
+            <Link to="/user/reservationstatus">
+              <img src="/assets/searchnav_time.png" />
+              <h5>실시간 예약 현황</h5>
+            </Link>
+          </div>
+          <div className="searchnav_mypage">
+            <Link to="/user/mypage">
+              <img src="/assets/searchnav_mypage.png" />
+              <h5>마이 페이지</h5>
+            </Link>
+          </div>
+          <div className="searchnav_calendar">
+            <Link to="/user/myreservation">
+              <img src="/assets/searchnav_calendar.png" />
+              <h5>
+                날짜별 예약
+                <br /> 내역 조회
+              </h5>
+            </Link>
+          </div>
         </div>
         {showInput && (
           <div className="searchnav-right">

@@ -4,6 +4,26 @@ import UserSearchCafeInfo from "./UserSearchCafeInfo";
 
 const UserSearchTest = () => {
   const [showInfo, setShowInfo] = useState(false);
+  const [showtoggle, setShowtoggle] = useState(false);
+  const [buttonStates, setButtonStates] = useState({
+    button1: false,
+    button2: false,
+    button3: false,
+    button4: false,
+    button5: false,
+    button6: false,
+    button7: false,
+    button8: false,
+  });
+
+  const handleButtonClick = (buttonName) => {
+    setButtonStates((prevButtonStates) => ({
+      ...prevButtonStates,
+      [buttonName]: !prevButtonStates[buttonName],
+    }));
+    console.log(handleButtonClick);
+  };
+
   return (
     <usersearchinput>
       <div className="searchinput_form">
@@ -17,26 +37,76 @@ const UserSearchTest = () => {
             <option>개인</option>
             <option>프랜차이즈</option>
           </select>
-          <button>카공 가능</button>
+          <button
+            onClick={() => handleButtonClick("button1")}
+            className={buttonStates.button1 ? "active" : ""}
+          >
+            카공 가능
+          </button>
           <button>필터</button>
         </div>
         <div className="searchinput_section2">
-          <button>단체석</button>
-          <button>영업중</button>
+          <button
+            onClick={() => handleButtonClick("button2")}
+            className={buttonStates.button2 ? "active" : ""}
+          >
+            단체석
+          </button>
+          <button
+            onClick={() => handleButtonClick("button3")}
+            className={buttonStates.button3 ? "active" : ""}
+          >
+            영업중
+          </button>
         </div>
         <div className="searchinput_section3">
-          <button>편한 좌석</button>
-          <button>디저트</button>
-          <button>콘센트</button>
-          <div className="section3_toggle">
+          <button
+            onClick={() => handleButtonClick("button4")}
+            className={buttonStates.button4 ? "active" : ""}
+          >
+            편한 좌석
+          </button>
+          <button
+            onClick={() => handleButtonClick("button5")}
+            className={buttonStates.button5 ? "active" : ""}
+          >
+            디저트
+          </button>
+          <button
+            onClick={() => handleButtonClick("button6")}
+            className={buttonStates.button6 ? "active" : ""}
+          >
+            콘센트
+          </button>
+          <div
+            className="section3_toggle"
+            onClick={() => setShowtoggle(!showtoggle)}
+          >
             <button>...</button>
           </div>
         </div>
-        <div className="searchinput_toggle">
-          <button>조용함</button>
-          <button>음악없음</button>
-          <button>감성적</button>
-        </div>
+        {showtoggle && (
+          <div className="searchinput_toggle">
+            <button
+              onClick={() => handleButtonClick("button7")}
+              className={buttonStates.button7 ? "active" : ""}
+            >
+              조용함
+            </button>
+            <button
+              onClick={() => handleButtonClick("button8")}
+              className={buttonStates.button8 ? "active" : ""}
+            >
+              음악없음
+            </button>
+            <button
+              onClick={() => handleButtonClick("button9")}
+              className={buttonStates.button9 ? "active" : ""}
+            >
+              감성적
+            </button>
+          </div>
+        )}
         <div className="search_submit">
           <button type="submit">검색</button>
         </div>

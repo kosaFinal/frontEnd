@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Kalam:wght@300;400&family=Kanit:ital,wght@0,400;1,100;1,300&family=Poor+Story&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Kalam:wght@300;400&family=Kanit:ital,wght@0,400;1,100;1,300&family=Poor+Story&display=swap");
 
 .header {
   width: 100%;
@@ -19,10 +19,10 @@
   text-align: end;
   margin: auto;
 }
-.header_img img {
+/* .header_img img {
   width: 100%;
-}
-.header_left_text {
+} */
+/* .header_left_text {
   width: 70%;
   height: 150px;
   display: flex;
@@ -53,4 +53,4 @@
 .header_right p {
   margin: auto 5px;
   color: black;
-}
+} */

@@ -5,7 +5,7 @@
 .manager_index {
   width: 100%;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-around;
   height: 90vh;
   margin: auto;
@@ -16,37 +16,26 @@
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  width: 40%;
+  width: 100%;
   height: 50vh;
   margin: auto;
+  padding-bottom: 50px;
 }
 .manager_index_text h1 {
   font-size: 500%;
+  font-style: italic;
+  font-family: "HakgyoansimSantteutdotumL";
 }
 .manager_index_text p {
   font-size: 130%;
 }
 .manager_index_img {
-  width: 60%;
+  width: 100%;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: space-around;
   margin: auto;
-  height: 50vh;
-}
-.manager_index_img1 {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-}
-.manager_index_img2 {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
 }
 .manager_index_img img {
-  width: 500px;
-  height: 425px;
+  width: 20%;
 }

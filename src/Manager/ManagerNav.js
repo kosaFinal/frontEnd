@@ -6,7 +6,7 @@ const ManagerNav = () => {
     <managernav>
       <div className="manager_nav">
         <div className="header_img">
-          <img src="/assets/logo_reimg.png" />
+          <img src="/assets/text_logo_black.png" />
         </div>
         <div className="manager_nav_item">
           <Link to="/manager/cafeinfo">
@@ -43,7 +43,6 @@ const ManagerNav = () => {
           <Link to="/register">
             <p>회원가입</p>
           </Link>
-
         </div>
       </div>
     </managernav>
