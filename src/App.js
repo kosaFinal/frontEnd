@@ -6,6 +6,17 @@ import User from "./User/User";
 import Login from "./Login";
 import Register from "./Register";
 import ManagerCafeInfo from "./Manager/ManagerCafeInfo";
+import ManagerReservation from "./Manager/ManagerReservation";
+import ManagerReservationStatus from "./Manager/ManagerReservationStatus";
+import ManagerReservationList from "./Manager/ManagerReservationList";
+import ManagerRegister from "./Manager/ManagerRegister"
+import UserSearch from "./User/UserSearch";
+import UserFind from "./User/UserFind";
+import UserReservationStatus from "./User/UserReservationStatus";
+import UserMyReservation from "./User/UserMyReservation";
+import UserMypage from "./User/UserMypage";
+import UserMyInfo from "./User/UserMyReservation";
+import UserSearchTest from "./User/UserSearchInput";
 
 function App() {
   return (
@@ -17,6 +28,28 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/manager/cafeinfo" element={<ManagerCafeInfo />} />
+        <Route path="/manager/reservation" element={<ManagerReservation />} />
+        <Route
+          path="/manager/reservationstatus"
+          element={<ManagerReservationStatus />}
+        />
+        <Route
+          path="/manager/reservationlist"
+          element={<ManagerReservationList />}
+        />
+
+        <Route path="/manager/register" element={<ManagerRegister />} />
+
+        <Route path="/user/search" element={<UserSearch />} />
+
+        <Route path="/user/find" element={<UserFind />} />
+        <Route
+          path="/user/reservationstatus"
+          element={<UserReservationStatus />}
+        />
+        <Route path="/user/mypage" element={<UserMypage />} />
+        <Route path="/user/myinfo" element={<UserMyInfo />} />
+        <Route path="/user/myreservation" element={<UserMyReservation />} />
       </Routes>
     </BrowserRouter>
   );
