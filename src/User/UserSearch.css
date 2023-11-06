@@ -29,6 +29,15 @@
   text-align: start;
   z-index: 1;
 }
+.searchnav_to_home {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 35px auto;
+}
+.searchnav_to_home img {
+  width: 100%;
+}
 .searchnav h5 {
   flex: 1;
   display: flex;
@@ -36,10 +45,52 @@
   justify-content: center;
   height: 80px;
   margin: auto;
-  border: 1px solid black;
 }
 .searchtest {
   position: relative;
   width: 20%;
   flex: 1;
+}
+.searchnav_map img {
+  width: 30%;
+  margin: auto;
+}
+.searchnav_time img {
+  width: 30%;
+  margin: auto;
+}
+.searchnav_mypage img {
+  width: 30%;
+  margin: auto;
+}
+.searchnav_calendar img {
+  width: 30%;
+  margin: auto;
+}
+.searchnav_map {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 35px auto;
+}
+.searchnav_time a {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 35px auto;
+  color: black;
+}
+.searchnav_mypage a {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: black;
+  margin: 35px auto;
+}
+.searchnav_calendar a {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: black;
+  margin: 35px auto;
 }
