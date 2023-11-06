@@ -5,6 +5,9 @@ const UserNav = () => {
   return (
     <usernav>
       <div className="user_nav">
+        <div className="header_img">
+          <img src="/assets/text_logo_black.png" />
+        </div>
         <div className="user_nav_item">
           <Link to="/user/search">
             <h3>카페 검색</h3>
@@ -34,6 +37,15 @@ const UserNav = () => {
               </Link>
             </div>
           </div>
+        </div>
+        <div className="header_right">
+          <Link to="/login">
+            <p>로그인</p>
+          </Link>
+          <p>|</p>
+          <Link to="/register">
+            <p>회원가입</p>
+          </Link>
         </div>
       </div>
     </usernav>

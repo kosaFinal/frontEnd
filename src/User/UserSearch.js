@@ -1,8 +1,69 @@
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import "./UserSearch.css";
+import UserSearchInput from "./UserSearchInput";
+const { kakao } = window;
+
 const UserSearch = () => {
+  const [showInput, setShowInput] = useState(false);
+  useEffect(() => {
+    kakao.maps.load(() => {
+      const container = document.getElementById("map");
+      const options = {
+        center: new kakao.maps.LatLng(33.450701, 126.570667),
+        level: 3,
+      };
+      const map = new kakao.maps.Map(container, options);
+    });
+  }, []);
+
   return (
     <usersearch>
-      <div>
-        <p>유저 카페 검색 페이지 입니다.</p>
+      <div className="map_nav">
+        <div className="user_search">
+          <div id="map"></div>
+        </div>
+
+        <div className="searchnav">
+          <Link to="/">
+            <div className="searchnav_to_home">
+              <img src="/assets/logo_reimg.png" />
+            </div>
+          </Link>
+          <div
+            className="searchnav_map"
+            onClick={() => setShowInput(!showInput)}
+          >
+            <img src="/assets/searchnav_map.png" />
+            <h5>MAP</h5>
+          </div>
+          <div className="searchnav_time">
+            <Link to="/user/reservationstatus">
+              <img src="/assets/searchnav_time.png" />
+              <h5>실시간 예약 현황</h5>
+            </Link>
+          </div>
+          <div className="searchnav_mypage">
+            <Link to="/user/mypage">
+              <img src="/assets/searchnav_mypage.png" />
+              <h5>마이 페이지</h5>
+            </Link>
+          </div>
+          <div className="searchnav_calendar">
+            <Link to="/user/myreservation">
+              <img src="/assets/searchnav_calendar.png" />
+              <h5>
+                날짜별 예약
+                <br /> 내역 조회
+              </h5>
+            </Link>
+          </div>
+        </div>
+        {showInput && (
+          <div className="searchnav-right">
+            <UserSearchInput />
+          </div>
+        )}
       </div>
     </usersearch>
   );

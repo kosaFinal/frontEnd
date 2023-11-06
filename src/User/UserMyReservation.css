@@ -1,0 +1,20 @@
+@font-face {
+  font-family: "HakgyoansimSantteutdotumL";
+  src: url("/src/fonts/HakgyoansimSantteutdotumL.ttf") format("truetype");
+}
+
+.myReservation-container{
+  width: 78%;
+  margin: auto;
+}
+
+.myReservation-title p{
+  font-weight: bold;
+  font-size: 30px;
+  font-family: "HakgyoansimSantteutdotumL";
+  margin-top: 50px;
+}
+
+.myReservation-title hr{
+  margin-bottom: 50px;
+}

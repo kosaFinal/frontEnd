@@ -1,0 +1,76 @@
+@font-face {
+  font-family: "HakgyoansimSantteutdotumL";
+  src: url("/src/fonts/HakgyoansimSantteutdotumL.ttf") format("truetype");
+}
+
+.status-tab-container {
+  display: flex;
+  flex-direction: column;
+  width: 78%;
+  margin: auto;
+
+}
+
+.tab-header {
+  display: flex;
+  flex-direction: row;
+  margin-top: 20px;
+}
+
+.reservation-status-title {
+  margin-left: 30px;
+  margin-right: 50px;
+  font-weight: bold;
+  font-size: 30px;
+  font-family: "HakgyoansimSantteutdotumL";
+}
+
+.status-tab-hr{
+  margin-left: 3%;
+  color: #ccc;
+  width: 95%;
+}
+
+.tab-buttons{
+  display: flex;
+  align-items: center;
+}
+
+.tab-buttons button:focus {
+  outline: none;
+}
+
+.inProgressButton,
+.upcomingButton {
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  text-align: center;
+  padding: 10px 30px;
+  background-color: #e8e8e8;
+  color: #000;
+  font-family: "HakgyoansimSantteutdotumL";
+}
+
+.inProgressButton {
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+}
+
+.upcomingButton {
+  border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px;
+}
+
+.inProgressButton.active,
+.upcomingButton.active {
+  background-color: #7CD0FF;
+  color: #fff;
+}
+
+.tab-content {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding: 20px;
+}

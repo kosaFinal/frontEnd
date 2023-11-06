@@ -1,0 +1,11 @@
+.no-reservation-section {
+    /* display: flex; */
+    position: absolute;
+    top: 250px;
+    width: 27rem;
+    height: 24.4rem;
+}
+
+.current-img {
+  
+}
