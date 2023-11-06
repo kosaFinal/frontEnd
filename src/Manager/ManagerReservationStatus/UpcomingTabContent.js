@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./UpcomingTabContent.css";
 import CancleModal from "./CancleModal";
+import ConfirmModal from "./ConfirmModal";
 
 const UpcomingTabContent = () => {
   const upComingReservations = [
@@ -19,11 +20,28 @@ const UpcomingTabContent = () => {
     setIsCancleModalOpen(false);
   };
 
-  const handleConfirm = () => {
+  const handleCancleConfirm = () => {
     // 취소 처리 로직
 
     handleCloseCancleModal();
   };
+
+  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
+
+  const handleOpenConfirmModal = () => {
+    setIsConfirmModalOpen(true);
+  };
+
+  const handleCloseConfirmModal = () => {
+    setIsConfirmModalOpen(false);
+  };
+
+  const handleReservationConfirm = () => {
+    // 예약 완료 로직
+
+    handleCloseConfirmModal();
+  };
+
 
   return (
     <div>
@@ -39,14 +57,25 @@ const UpcomingTabContent = () => {
             <div>예약 시간: {reservation.time}</div>
           </div>
           <div className="upcoming-button">
-            <button>확정하기</button>
-            <button onClick={() => handleOpenCancleModal()}>취소하기</button>
+          <button onClick={() => handleOpenConfirmModal()}>확정하기</button>
+              <button onClick={() => handleOpenCancleModal()}>취소하기</button>
           </div>
         </div>
         {/* {index < upComingReservations.length - 1 && <hr className="divider" />} */}
       </div>
       ))}
       {/* <hr className="divider" /> */}
+      {isConfirmModalOpen && (
+        <div className="backdrop"></div>
+      )}
+      {isConfirmModalOpen && (
+        <ConfirmModal
+          isOpen={isConfirmModalOpen}
+          onClose={handleCloseConfirmModal}
+          onConfirm={handleReservationConfirm}
+        />
+      )}
+
       {isCancleModalOpen && (
         <div className="backdrop"></div>
       )}
@@ -54,7 +83,7 @@ const UpcomingTabContent = () => {
         <CancleModal
           isOpen={isCancleModalOpen}
           onClose={handleCloseCancleModal}
-          onConfirm={handleConfirm}
+          onConfirm={handleCancleConfirm}
         />
       )}
     </div>
