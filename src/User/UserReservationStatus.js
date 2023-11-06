@@ -1,12 +1,17 @@
-import UserReservationStatusStatusNo from "./UserReservationStatusNo";
+import ManagerNav from "../Manager/ManagerNav";
+import UserReservationStatusStatusNo from "./UserReservationStatusEmpty";
+import "./UserReservationStatus.css";
+import UserReservationStatusStatusEmpty from "./UserReservationStatusEmpty";
+import Footer from "../Footer";
 
 const UserReservationStatus = () => {
   return (
     <userreservationstatus>
-      <div>
-        <p>실시간 예약 현황 페이지 입니다.</p>
-        <UserReservationStatusStatusNo/>
+      <ManagerNav/>
+      <div className="status">
+        <UserReservationStatusStatusEmpty/>
       </div>
+      <Footer/>
     </userreservationstatus>
   );
 };

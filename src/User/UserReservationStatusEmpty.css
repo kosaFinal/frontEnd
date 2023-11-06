@@ -1,0 +1,47 @@
+.noreserv {
+    /* display: flex; */
+   
+    margin: auto;
+    
+    /* height: 24.4rem; */
+    /* margin-left: 10rem; */
+  }
+  .nocurrent-reservation-container{
+  width: 100%;
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.x {
+  background-color: #FFCD4A;
+  color: white;
+  width: 250px;
+  height: 250px;
+  border-radius: 1000rem;
+  font-size: 10rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  margin: auto;
+}
+
+.noreserv {
+  display: flex;
+  flex-direction: column;
+  width: 25rem;
+  height: 25rem;
+  text-align: center;
+}
+
+.no-reserve-main-content {
+  /* margin-left:5rem; */
+  text-align: center;
+  font-size: 2rem;
+  width: 100%;
+}
+.status-content {
+  width:auto;
+}
