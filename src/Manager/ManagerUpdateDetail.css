@@ -1,0 +1,23 @@
+/* 컨테이너 섹션 */
+
+.ManagerUpdateDetail {
+    width: auto;
+    height: auto;
+}
+
+.ManagerUpdateDetail-Container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.ManagerUpdateDetail-Container-Items {
+    display: flex;
+    flex-flow: column;
+    margin-bottom: 3rem;
+}
+
+.hidden {
+    display: none;
+}
