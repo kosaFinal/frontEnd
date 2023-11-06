@@ -9,13 +9,11 @@
   justify-content: space-between;
   padding: 30px;
   margin: auto;
-  width: 66%;
   font-family: "HakgyoansimSantteutdotumL";
   height: 100px;
 }
 
 .divider{
-  width: 66%;
   margin: 0 auto;
   border: 1px solid #ccc;
 }
@@ -23,7 +21,8 @@
 .inprogress-name {
   font-weight: bold;
   font-size: 25px;
-  margin: 20px;
+  padding: 20px;
+  margin-left: 20px;
 }
 
 .inprogress-info {
@@ -58,5 +57,5 @@
 }
 
 .inprogress-button button:hover {
-  background-color: #feecbf;
+  background-color: #ffd876;
 }

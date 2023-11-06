@@ -1,7 +1,22 @@
 .upcoming-name {
   font-weight: bold;
   font-size: 25px;
-  margin: 20px;
+  padding: 20px;
+  margin-left: 20px;
+}
+
+.reservation-item {
+  display: flex;
+  border: 1px solid #ccc; 
+  border-radius: 5px; 
+  margin: 10px;
+  padding: 10px;
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2); 
+
+}
+
+.reservation-item:hover {
+  box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.3);
 }
 
 .upcoming-info {
@@ -36,5 +51,5 @@
 }
 
 .upcoming-button button:hover {
-  background-color: #feecbf; /* Button background color on hover */
+  background-color: #ffd876;
 }

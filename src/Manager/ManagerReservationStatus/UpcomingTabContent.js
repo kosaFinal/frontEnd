@@ -4,9 +4,9 @@ import CancleModal from "./CancleModal";
 
 const UpcomingTabContent = () => {
   const upComingReservations = [
-    { name: '윤형우', type: '4인석', time: '12 : 00 ~ 15 : 00', cnt: '3명', seat: 'A1' },
-    { name: '윤형우', type: '4인석', time: '12 : 00 ~ 15 : 00', cnt: '3명', seat: 'B2' },
-    { name: '윤형우', type: '4인석', time: '12 : 00 ~ 15 : 00', cnt: '3명', seat: 'C3' }
+    { name: '윤형우', type: '4인석', time: '12:00 ~ 15:00', cnt: '3명', seat: 'A1' },
+    { name: '윤형우', type: '4인석', time: '12:00 ~ 15:00', cnt: '3명', seat: 'B2' },
+    { name: '윤형우', type: '4인석', time: '12:00 ~ 15:00', cnt: '3명', seat: 'C3' }
   ];
 
   const [isCancleModalOpen, setIsCancleModalOpen] = useState(false);
@@ -27,7 +27,7 @@ const UpcomingTabContent = () => {
 
   return (
     <div>
-      <hr className="divider" />
+      {/* <hr className="divider" /> */}
       {upComingReservations.map((reservation, index) => (
         <div key={index}>
           <div className="reservation-item">
@@ -43,10 +43,10 @@ const UpcomingTabContent = () => {
             <button onClick={() => handleOpenCancleModal()}>취소하기</button>
           </div>
         </div>
-        {index < upComingReservations.length - 1 && <hr className="divider" />}
+        {/* {index < upComingReservations.length - 1 && <hr className="divider" />} */}
       </div>
       ))}
-      <hr className="divider" />
+      {/* <hr className="divider" /> */}
       {isCancleModalOpen && (
         <div className="backdrop"></div>
       )}
