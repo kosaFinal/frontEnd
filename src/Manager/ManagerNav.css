@@ -2,21 +2,12 @@
   font-family: "HakgyoansimSantteutdotumL";
   src: url("/src/fonts/HakgyoansimSantteutdotumL.ttf") format("truetype");
 }
-
-.header_img{
-  width: 10rem;
-}
 .manager_nav {
-  width: 80%;
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   font-family: "HakgyoansimSantteutdotumL";
-<<<<<<< HEAD
-  opacity: 0.9;
-  height: 70px;
-  margin-left: 6rem;
-=======
   opacity: 0.8;
   height: 130px;
   border-bottom: 1px solid black;
@@ -29,27 +20,16 @@
   width: 50%;
   margin-left: 80px;
   padding-top: 10px;
->>>>>>> 3cec6006bf4823987ba9270115d69f9cb132b0cb
 }
 .manager_nav_item {
-<<<<<<< HEAD
-  /* position: absolute; */
-  width: 100%;
-=======
   /* background-color: #ffcd4a; */
   position: relative;
   width: 40%;
->>>>>>> 3cec6006bf4823987ba9270115d69f9cb132b0cb
   text-align: center;
-  display: flex;
+  display: inline-block;
   margin: auto;
-<<<<<<< HEAD
-  justify-content: space-between;
-
-=======
   height: 100px;
   margin-right: -150px;
->>>>>>> 3cec6006bf4823987ba9270115d69f9cb132b0cb
 }
 .manager_nav_item h3 {
   color: black;
