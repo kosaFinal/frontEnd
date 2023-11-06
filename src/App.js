@@ -16,7 +16,6 @@ import UserReservationStatus from "./User/UserReservationStatus";
 import UserMyReservation from "./User/UserMyReservation";
 import UserMypage from "./User/UserMypage";
 import UserMyInfo from "./User/UserMyReservation";
-import Maintest from "./Maintest";
 
 function App() {
   return (
@@ -50,7 +49,6 @@ function App() {
         <Route path="/user/mypage" element={<UserMypage />} />
         <Route path="/user/myinfo" element={<UserMyInfo />} />
         <Route path="/user/myreservation" element={<UserMyReservation />} />
-        <Route path="/test" element={<Maintest />} />
       </Routes>
     </BrowserRouter>
   );
