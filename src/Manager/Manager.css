@@ -1,28 +1,52 @@
-@import url("https://fonts.googleapis.com/css2?family=Kalam:wght@300;400&family=Kanit:ital,wght@0,400;1,100;1,300&family=Poor+Story&display=swap");
-
-.manager {
-  /* background-image: url(../img/background_img5.jpg); */
+@font-face {
+  font-family: "HakgyoansimSantteutdotumL";
+  src: url("/src/fonts/HakgyoansimSantteutdotumL.ttf") format("truetype");
 }
-
-.manager_main {
-
-  background-repeat: no-repeat;
-  background-position: top center;
-  background-size: cover;
-  height: 80vh;
-  padding: 100px;
-  background-image: url(../img/manager_background.jpg);
-  align-items: end;
-}
-.manager_link {
+.manager_index {
+  width: 100%;
   display: flex;
-  justify-content: end;
+  flex-direction: row;
+  justify-content: space-around;
+  height: 90vh;
+  margin: auto;
 }
-.manager_img_text {
-  background-color: rgb(232, 144, 37);
-  opacity: 0.4;
-  width: 30%;
+.manager_index_text {
+  font-family: "HakgyoansimSantteutdotumL";
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 40%;
+  height: 50vh;
+  margin: auto;
 }
-.manager_img_text p {
-  font-size: 150%;
+.manager_index_text h1 {
+  font-size: 500%;
+}
+.manager_index_text p {
+  font-size: 130%;
+}
+.manager_index_img {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: auto;
+  height: 50vh;
+}
+.manager_index_img1 {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.manager_index_img2 {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.manager_index_img img {
+  width: 500px;
+  height: 425px;
 }
