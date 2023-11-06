@@ -2,13 +2,21 @@ import React from "react";
 import "./Register.css";
 import Radio from "./Radio";
 import Header from "./Header";
+import { Link, useNavigate } from "react-router-dom";
 
 function Register() {
+  const navigate = useNavigate();
+
+  const login=()=>{
+    navigate("/login");
+  };
+
+
   return (
     <register>
       <Header />
       <div className="register">
-        <h1 className="register-title">회원가입</h1>
+        <h1 className="register-title">SIGN UP</h1>
         <div className="register-container">
           <div className="register-box">
             <h1 className="register-intro">안녕하세요 카페인입니다.</h1>
@@ -36,7 +44,7 @@ function Register() {
               </Radio>
             </div>
             <div className="id-section">
-              <input type="text" placeholder="아이디" />
+              <input className="id-signin" type="text" placeholder="아이디" />
               <button>확인</button>
             </div>
 
@@ -45,7 +53,13 @@ function Register() {
             <input type="password" placeholder="비밀번호" />
             <input type="password" placeholder="비밀번호 확인" />
             <div className="register-button">
-              <button>회원가입</button>
+              <button onClick={login}>회원가입</button>
+            </div>
+            <div className="go-login-section">
+              <label className="already-signin">
+                이미 회원가입하셨다면
+              </label>
+              <Link to={"/login"} className="go-login">Login</Link>
             </div>
           </div>
         </div>
