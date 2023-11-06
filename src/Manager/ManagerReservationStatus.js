@@ -1,6 +1,9 @@
+import Header from "../Header";
+
 const ManagerReservationStatus = () => {
   return (
     <managerreservationstatus>
+      <Header />
       <div>
         <p>고객 예약 현황 페이지 입니다.</p>
       </div>

@@ -1,11 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Kalam:wght@300;400&family=Kanit:ital,wght@0,400;1,100;1,300&family=Poor+Story&display=swap");
 
-header {
+.header {
   width: 100%;
-  height: 150px;
+  height: 115px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  background-color: #f7f7f7;
 }
 .header_left {
   width: 70%;
@@ -14,12 +15,12 @@ header {
   margin-right: 40%;
 }
 .header_img {
-  width: 20%;
+  width: 30%;
   text-align: end;
   margin: auto;
 }
 .header_img img {
-  width: 90%;
+  width: 100%;
 }
 .header_left_text {
   width: 70%;
@@ -51,4 +52,5 @@ header {
 }
 .header_right p {
   margin: auto 5px;
+  color: black;
 }

@@ -16,7 +16,6 @@ import UserReservationStatus from "./User/UserReservationStatus";
 import UserMyReservation from "./User/UserMyReservation";
 import UserMypage from "./User/UserMypage";
 import UserMyInfo from "./User/UserMyReservation";
-import UserSearchTest from "./User/UserSearchInput";
 
 function App() {
   return (

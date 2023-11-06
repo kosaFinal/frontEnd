@@ -1,28 +1,26 @@
 import { Link } from "react-router-dom";
 import "./Header.css";
 
-const header = () => {
+const Header = () => {
   return (
     <header>
-      <div className="header_left">
-        <div className="header_img">
-          <img src="./assets/logo_3.png" />
+      <div className="header">
+        <div className="header_left">
+          <div className="header_img">
+            <img src="/assets/logo_reimg.png" />
+          </div>
         </div>
-        <div className="header_left_text">
-          <h1>cafe-in</h1>
-          <p>wherever you want</p>
+        <div className="header_right">
+          <Link to="/login">
+            <p>로그인</p>
+          </Link>
+          <p>|</p>
+          <Link to="/register">
+            <p>회원가입</p>
+          </Link>
         </div>
-      </div>
-      <div className="header_right">
-        <Link to="/login">
-          <p>로그인</p>
-        </Link>
-        <p>|</p>
-        <Link to="/register">
-          <p>회원가입</p>
-        </Link>
       </div>
     </header>
   );
 };
-export default header;
+export default Header;

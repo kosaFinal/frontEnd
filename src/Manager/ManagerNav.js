@@ -43,6 +43,7 @@ const ManagerNav = () => {
           <Link to="/register">
             <p>회원가입</p>
           </Link>
+
         </div>
       </div>
     </managernav>

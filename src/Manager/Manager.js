@@ -35,7 +35,6 @@ const Manager = () => {
           </div>
         </div>
       </div>
-
       <Footer />
     </manager>
   );

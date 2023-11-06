@@ -1,3 +1,4 @@
+
 @font-face {
   font-family: "HakgyoansimSantteutdotumL";
   src: url("/src/fonts/HakgyoansimSantteutdotumL.ttf") format("truetype");
@@ -47,6 +48,7 @@ a {
   flex-direction: column;
   justify-content: space-around;
 }
+
 .manager_dropdown_content p {
   color: black;
 }
