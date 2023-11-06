@@ -1,7 +1,6 @@
 import { useState } from "react";
 import CancleModal from "./CancleModal";
 import "./InProgressTabContent.css";
-import ReactModal from "react-modal";
 
 const InProgressTabContent = () => {
   const inProgressReservations = [
@@ -29,7 +28,6 @@ const InProgressTabContent = () => {
   return (
     <div>
       {inProgressReservations.map((reservation, index) => (
-        <div key={index}>
           <div className="reservation-item">
             <div className="inprogress-name">{reservation.name}</div>
             <div className="inprogress-info">
@@ -42,7 +40,6 @@ const InProgressTabContent = () => {
               <button onClick={() => handleOpenCancleModal()}>취소하기</button>
             </div>
           </div>
-        </div> 
       ))}
       {isCancleModalOpen && (
         <div className="backdrop"></div>
