@@ -7,6 +7,7 @@ import ManagerNav from "./ManagerNav";
 const Manager = () => {
   return (
     <manager>
+      
       <ManagerNav />
       <div className="manager_index">
         <div className="manager_index_text">
