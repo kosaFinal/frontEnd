@@ -1,0 +1,10 @@
+.status-content{
+  /* margin-left: 30rem; */
+}
+
+.status {
+  text-align: center;
+  margin: 100px auto;
+  display: flex;
+  
+}
