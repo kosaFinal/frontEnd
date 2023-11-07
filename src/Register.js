@@ -3,21 +3,17 @@ import "./Register.css";
 import Radio from "./Radio";
 import Header from "./Header";
 import { Link, useNavigate } from "react-router-dom";
-import ManagerNav from "./Manager/ManagerNav";
 
 function Register() {
   const navigate = useNavigate();
 
-  const login=()=>{
+  const login = () => {
     navigate("/login");
   };
 
-
   return (
     <register>
-      
       <div className="register">
-        <Header />
         <h1 className="register-title">SIGN UP</h1>
         <div className="register-container">
           <div className="register-box">
@@ -58,10 +54,10 @@ function Register() {
               <button onClick={login}>회원가입</button>
             </div>
             <div className="go-login-section">
-              <label className="already-signin">
-                이미 회원가입하셨다면
-              </label>
-              <Link to={"/login"} className="go-login">Login</Link>
+              <label className="already-signin">이미 회원가입하셨다면</label>
+              <Link to={"/login"} className="go-login">
+                Login
+              </Link>
             </div>
           </div>
         </div>
