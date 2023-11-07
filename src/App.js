@@ -22,6 +22,7 @@ import ManagerUpdateDetail from "./Manager/ManagerUpdateDetail";
 import ManagerUpdateBasic from "./Manager/ManagerUpdateBasic";
 import ManagerUpdate from "./Manager/ManagerUpdate";
 import UserReservation from "./User/UserReservation";
+import CafeRegister from "./Manager/CafeRegister";
 
 import CafeType from "./Manager/CafeRegister/CafeType";
 import CafeImage from "./Manager/CafeRegister/CafeImage";
@@ -64,6 +65,10 @@ function App() {
           <Route path="updatebasic" element={<ManagerUpdateBasic />} />
           <Route path="updatedetail" element={<ManagerUpdateDetail />} />
           <Route path="updatesetting" element={<ManagerUpdateStudySetting />} />
+        </Route>
+
+        <Route path="/manager/cafe/register" element={<CafeRegister/>} >
+          {/* <Route path="type" ele */}
         </Route>
 
         {/* <Route path="/manager/update" element={<ManagerUpdate />} />

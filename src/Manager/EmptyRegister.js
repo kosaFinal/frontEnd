@@ -1,5 +1,6 @@
+import { Link } from "react-router-dom";
 import "./EmptyRegister.css";
-import "./ManagerCommon.css"
+import "./ManagerCommon.css";
 
 const EmptyRegister = () => {
   return (
@@ -9,12 +10,13 @@ const EmptyRegister = () => {
           <div className="EmptyRegister-img-div">
             <img src="/assets/warning.png" alt="이미지" />
           </div>
-        <p>아직 등록된 카페가 없습니다.</p>
-        <p>점주님의 카페를 소개해주세요.</p>
-        <div className="EmptyRegister-button-div">
-          <button>등록하러 가기</button>
-        </div>
-        
+          <p>아직 등록된 카페가 없습니다.</p>
+          <p>점주님의 카페를 소개해주세요.</p>
+          <div className="EmptyRegister-button-div">
+            <Link to="/manager/update">
+              <button>등록하러 가기</button>
+            </Link>
+          </div>
         </div>
       </div>
     </div>

@@ -11,7 +11,7 @@ const ManagerNav = () => {
           </Link>
         </div>
         <div className="manager_nav_item">
-          <Link to="/manager/cafeinfo">
+          <Link to="/manager/update">
             <h3>카페 정보 관리</h3>
           </Link>
           <div className="manager_dropdown_content">

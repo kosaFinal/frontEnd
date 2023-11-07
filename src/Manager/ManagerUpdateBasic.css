@@ -56,6 +56,11 @@
     flex-flow: column;
 }
 
+/* 전화번호 섹션  */
+.ManagerUpdateBasic-Container-Number-labeling{
+    display: flex;
+    justify-content: space-between;
+}
 
 /* 주소 섹션 */
 
