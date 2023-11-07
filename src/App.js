@@ -23,10 +23,16 @@ import ManagerUpdateBasic from "./Manager/ManagerUpdateBasic";
 import ManagerUpdate from "./Manager/ManagerUpdate";
 import UserReservation from "./User/UserReservation";
 
+import CafeType from "./Manager/CafeRegister/CafeType";
+import CafeImage from "./Manager/CafeRegister/CafeImage";
+
 function App() {
   return (
     <BrowserRouter>
       <Routes>
+      <Route path="/cafetype" element={<CafeType />} />
+        <Route path="/cafeimage" element={<CafeImage />} />
+
         <Route path="/" element={<Main />} />
         <Route path="/manager" element={<Manager />} />
         <Route path="/user" element={<User />} />

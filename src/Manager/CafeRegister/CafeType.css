@@ -1,0 +1,34 @@
+.cafe-register-box{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cafe-register-title {
+  width: 50%; /*hr 길이조절*/
+}
+
+.cafe-register-title p{
+  font-size: 40px;
+  text-align: center;
+}
+
+.cafe-register-content{
+  font-size: 30px;
+  margin-top: 2%;
+  height: 20vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.type-radio{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.type-radio div{
+  padding: 0 25px;
+}
+
