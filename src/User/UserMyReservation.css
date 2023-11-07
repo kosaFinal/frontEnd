@@ -4,7 +4,7 @@
 }
 
 .myReservation-container{
-  width: 78%;
+  width: 60%;
   margin: auto;
 }
 
@@ -13,8 +13,10 @@
   font-size: 30px;
   font-family: "HakgyoansimSantteutdotumL";
   margin-top: 50px;
+  text-align: center;
 }
 
 .myReservation-title hr{
   margin-bottom: 50px;
+  width: 20%;
 }
