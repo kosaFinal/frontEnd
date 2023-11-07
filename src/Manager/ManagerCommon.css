@@ -1,6 +1,17 @@
+@font-face {
+  font-family: "HakgyoansimSantteutdotumL";
+  src: url("/src/fonts/HakgyoansimSantteutdotumL.ttf") format("truetype");
+}
+
+
+p, span, h2, label{
+  font-family: "HakgyoansimSantteutdotumL";
+}
+
 button {
-  background-color: #815C3A;
-  color: white;
+  font-family: "HakgyoansimSantteutdotumL";
+  background-color: #FFCD4A;
+  color: black;
   border-radius: 5px;
 }
 
