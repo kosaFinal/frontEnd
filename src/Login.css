@@ -17,7 +17,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 5%;
+  padding-top: 10%;
 }
 
 .login-title {
@@ -26,18 +26,17 @@
     flex-direction: column;
     font-size: 2rem;
     position: absolute; /* 또는 relative, 상황에 따라 다름 */
-  top: 100px; /* 상단에서부터의 거리, 상황에 맞게 조절 */
+  top: 130px; /* 상단에서부터의 거리, 상황에 맞게 조절 */
   left: 50%; /* 가운데 정렬을 위한 설정 */
   transform: translateX(-50%); /* 정확한 가운데 정렬을 위한 설정 */
   font-family: "HakgyoansimSantteutdotumL";
   
 }
 
-
 .login-box {
   display: flex;
     position: absolute;
-    top: 180px;
+    top: 210px;
     width: 27rem;
     height: 24.4rem;
     background-color: #f5f5f5;

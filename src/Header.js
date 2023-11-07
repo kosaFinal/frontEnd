@@ -7,10 +7,12 @@ const Header = () => {
       <div className="header">
         <div className="header_left">
           <div className="header_img">
-            <img src="/assets/logo_reimg.png" />
+            <Link to="/">
+              <img src="./assets/logo_text_4-1.png" />
+            </Link>            
           </div>
         </div>
-        <div className="header_right">
+        <div className="login_header_right">
           <Link to="/login">
             <p>로그인</p>
           </Link>

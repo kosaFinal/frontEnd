@@ -13,7 +13,7 @@ function Login() {
 
   return (
     <div className="login">
-      {/* <ManagerNav/> */}
+      <Header />
       <div className="login-container">
         <h1 className="login-title">LOGIN</h1>
         <div className="login-box">

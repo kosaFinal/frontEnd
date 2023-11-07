@@ -17,7 +17,7 @@ function Register() {
     <register>
       
       <div className="register">
-      {/* <ManagerNav/> */}
+        <Header />
         <h1 className="register-title">SIGN UP</h1>
         <div className="register-container">
           <div className="register-box">
