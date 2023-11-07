@@ -3,6 +3,7 @@ import "./Register.css";
 import Radio from "./Radio";
 import Header from "./Header";
 import { Link, useNavigate } from "react-router-dom";
+import ManagerNav from "./Manager/ManagerNav";
 
 function Register() {
   const navigate = useNavigate();
@@ -14,8 +15,9 @@ function Register() {
 
   return (
     <register>
-      <Header />
+      
       <div className="register">
+      {/* <ManagerNav/> */}
         <h1 className="register-title">SIGN UP</h1>
         <div className="register-container">
           <div className="register-box">

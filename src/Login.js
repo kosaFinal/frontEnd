@@ -2,6 +2,7 @@ import React from "react";
 import "./Login.css";
 import Header from "./Header";
 import { Link, useNavigate } from "react-router-dom";
+import ManagerNav from "./Manager/ManagerNav";
 
 function Login() {
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ function Login() {
 
   return (
     <div className="login">
-      <Header />
+      {/* <ManagerNav/> */}
       <div className="login-container">
         <h1 className="login-title">LOGIN</h1>
         <div className="login-box">
