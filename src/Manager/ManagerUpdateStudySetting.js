@@ -4,7 +4,7 @@ import './ManagerUpdateStudySetting.css';
 function ManagerUpdateStudySetting() {
     const [selectedFileName, setSelectedFileName] = useState('');
     const [isEditingCafeStatus, setIsEditingCafeStatus] = useState(false);
-    const [cafeStatus, setCafeStatus] = useState(null);
+    const [cafeStatus, setCafeStatus] = useState(false);
     const [tempCafeStatus, setTempCafeStatus] = useState(null);
     const [isEditingFloorPlan, setIsEditingFloorPlan] = useState(false);
     const [floorPlanImage, setFloorPlanImage] = useState('/assets/floor_plan.png');
@@ -12,24 +12,16 @@ function ManagerUpdateStudySetting() {
     const [tempFloorPlanImage, setTempFloorPlanImage] = useState('');
 
 
-    const handleFileChange = (event) => {
-        const file = event.target.files[0];
-        if (file) {
-            setSelectedFileName(file.name);
-        } else {
-            setSelectedFileName('');
-        }
-    };
-
     const handleEditClick = () => {
         setIsEditingCafeStatus(true); // 수정: 여기를 변경했습니다.
         setTempCafeStatus(cafeStatus); // Set temporary status to current status
     };
 
-    const handleCafeStatusChange = (event) => {
-        setTempCafeStatus(event.target.value);
-    };
-
+  const handleCafeStatusChange = (event) => {
+    // 문자열 'true'나 'false'를 boolean 값으로 변환합니다.
+    const value = event.target.value === 'true';
+    setTempCafeStatus(value);
+};
     const handleSaveClick = () => {
         setCafeStatus(tempCafeStatus);
         setIsEditingCafeStatus(false); // 수정: 여기를 변경했습니다.
@@ -62,6 +54,56 @@ function ManagerUpdateStudySetting() {
         setIsEditingFloorPlan(false);
     };
 
+     // State hooks for seats
+  const [isEditingSeats, setIsEditingSeats] = useState(false);
+  const [seatInput, setSeatInput] = useState({ A: '', B: '', C: '', D: ''});
+  const [seats, setSeats] = useState({ A: [], B: [], C: [], D: [] });
+  const [isEditingSection, setIsEditingSection] = useState({
+    A: false,
+    B: false,
+    C: false,
+    D: false
+  });
+
+  // ... (other handler functions)
+
+  // Handler functions for seats
+  const handleSeatInputChange = (section, value) => {
+    setSeatInput(prevInput => ({ ...prevInput, [section]: value }));
+  };
+
+  const handleAddSeat = (section, seatNumber) => {
+    if (seatNumber) {
+      setSeats(prevSeats => ({
+        ...prevSeats,
+        [section]: [...prevSeats[section], seatNumber],
+      }));
+      setSeatInput(prevInput => ({ ...prevInput, [section]: '' })); // Clear input field
+    }
+  };
+
+  const handleRemoveSeat = (section) => {
+    setSeats(prevSeats => ({
+      ...prevSeats,
+      [section]: prevSeats[section].slice(0, -1), // Remove the last seat
+    }));
+  };
+
+  const handleEditSectionToggle = (section) => {
+    setIsEditingSection(prevState => ({
+      ...prevState,
+      [section]: !prevState[section]
+    }));
+  };
+  const handleSaveSeats = (section) => {
+    // 저장 로직을 여기에 구현하세요.
+    setIsEditingSection(prevState => ({
+      ...prevState,
+      [section]: false
+    }));
+  };
+
+
 
     return (
         <div className="ManagerUpdateStudySetting">
@@ -90,14 +132,14 @@ function ManagerUpdateStudySetting() {
                                             type="radio" 
                                             name="CafeIf-Change" 
                                             value="true" 
-                                            checked={tempCafeStatus === 'true'} 
+                                            checked={tempCafeStatus === true} 
                                             onChange={handleCafeStatusChange}
                                         /> O
                                         <input 
                                             type="radio" 
                                             name="CafeIf-Change" 
                                             value="false" 
-                                            checked={tempCafeStatus === 'false'} 
+                                            checked={tempCafeStatus === false} 
                                             onChange={handleCafeStatusChange}
                                         /> X
                                     </div>
@@ -120,7 +162,7 @@ function ManagerUpdateStudySetting() {
 {isEditingFloorPlan && (
     <div className="ManagerUpdateStudySetting-FloorPlan-Container-Update">
         <div className="ManagerUpdateStudySetting-FloorPlan-img FloorPlan-Update">
-            {/* 수정된 부분: tempFloorPlanImage로 바뀌어야 합니다. */}
+            
             <img src={tempFloorPlanImage} alt="New Floor Plan" />
         </div>
         <input
@@ -138,14 +180,59 @@ function ManagerUpdateStudySetting() {
         </div>
     </div>
                 )}
-            </div>
-            {/* 카페 카공 좌석 선택 */}
+            </div >
+             {/* 좌석 선택 섹션 */}
 
-                    </div>
+             <h2>카공 좌석 </h2>
+             <div className='ManagerUpdateStudySetting-SeatContainer'>
+
+             
+             {['A', 'B', 'C', 'D'].map(section => (
+              <div key={section} className="ManagerUpdateStudySetting-SeatSection">
+                <h3>{`섹션 ${section}`}</h3>
+                <div className='ManagerUpdateStudySetting-SeatItems'>
+
+                <div className='ManagerUpdateStudySetting-SeatButtons'> 
+                 
+                  <button 
+                    onClick={() => handleAddSeat(section, seatInput[section])} 
+                    disabled={!isEditingSection[section]}> + </button>
+                  <button 
+                    onClick={() => handleRemoveSeat(section)} 
+                    disabled={!isEditingSection[section]}> - </button>
+
+                {isEditingSection[section] ? (
+                  <button onClick={() => handleSaveSeats(section)}>
+                    저장
+                  </button>
+                ) : (
+                  <button onClick={() => handleEditSectionToggle(section)}>
+                    수정
+                  </button>
+                )}      
+                     
                 </div>
+                    <div className='ManagerUpdateStudySetting-SeatInput'>
+                    <input 
+                    disabled={!isEditingSection[section]}
+                    value={seatInput[section]}
+                    onChange={e => handleSeatInputChange(section, e.target.value)}/>
+                    </div>
+                    </div>
+
+                <div className='ManagerUpdateStudySetting-SeatPrint'>
+                  {seats[section].map((seat, index) => <input type='text' disabled key={index} value={seat}></input>)}
+                </div>
+                <hr></hr>
+              </div>
+              
+            ))}
+            
             </div>
-        
-    )
+          </div> 
+        </div>  
+      </div> 
+    );
 }
 
 export default ManagerUpdateStudySetting;
