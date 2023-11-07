@@ -1,11 +1,8 @@
 .noreserv {
-    /* display: flex; */
-   
     margin: auto;
-    
-    /* height: 24.4rem; */
-    /* margin-left: 10rem; */
   }
+
+  
   .nocurrent-reservation-container{
   width: 100%;
   margin: auto;
