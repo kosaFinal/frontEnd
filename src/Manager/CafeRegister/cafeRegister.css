@@ -1,0 +1,62 @@
+@font-face {
+  font-family: "HakgyoansimSantteutdotumL";
+  src: url("/src/fonts/HakgyoansimSantteutdotumL.ttf") format("truetype");
+}
+
+/* .register-full-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+} */
+
+.register-number {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 7rem;
+  /* background-color: #FFCD4A; */
+}
+
+.stepNumber {
+  font-family: "HakgyoansimSantteutdotumL";
+  color: #FFCD4A;
+  margin-right: 0.9rem;
+  font-size: 2rem;
+  
+}
+
+.totalNumber {
+  font-family: "HakgyoansimSantteutdotumL";
+  color: black;
+  font-size: 2rem;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20rem;
+  margin-bottom: 8rem;
+}
+
+.register-buttons {
+  width: 20rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  
+}
+
+.previous {
+  border-color: rgb(249, 249, 249);
+  border-radius: 0rem;
+  background-color: white;
+  height: 2rem;
+  width: 4rem;
+}
+
+.next {
+  border-color: rgb(249, 249, 249);
+  border-radius: 0rem;
+  height: 2rem;
+  width: 4rem;
+}

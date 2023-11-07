@@ -1,1 +1,9 @@
-const Cafe
+const CafeName = () => {
+  return (
+    <>
+    
+    </>
+  );
+};
+
+export default CafeName;
