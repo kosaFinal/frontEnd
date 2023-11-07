@@ -171,6 +171,53 @@
     justify-content: space-between;
 }
 
+.ManagerUpdateStudySetting-SeatContainer{
+    height: auto;
+}
+
+
+
+.ManagerUpdateStudySetting-SeatItems{
+    display: flex;
+    flex-flow: row;
+    
+}
+
+.ManagerUpdateStudySetting-SeatInput{
+    margin-top: auto;
+    margin-bottom: auto;
+    
+}
+.ManagerUpdateStudySetting-SeatInput input{
+    height: 1.3rem;
+}
+
+
+.ManagerUpdateStudySetting-SeatButtons{
+    display: flex;
+    flex-flow: column;
+    gap: 0.5rem;
+    margin-right: 1rem;
+}
+
+
+.ManagerUpdateStudySetting-SeatPrint{
+    display: flex;
+    flex-flow: column;
+    margin-top: 1rem;
+    height: auto;
+   
+    
+}
+.ManagerUpdateStudySetting-SeatPrint input{
+    width: 99%;
+    height: 2rem;
+    margin: 0.5rem 0;
+    padding: 0;
+    text-align: center;
+    justify-content: end;
+}
+
 .hidden {
     display: none;
 }

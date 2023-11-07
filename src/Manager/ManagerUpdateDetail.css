@@ -103,7 +103,7 @@
 
 /* 드롭다운 컨테이너의 크기를 조정 */
 .react-datepicker-popper {
-    width: 20.4rem !important;
+    width: 23.5rem !important;
   }
   
   /* 드롭다운 리스트 아이템의 크기 조정 */
@@ -168,7 +168,7 @@
 }
 
 .select-Chips{
-    background-color: #FFCD4A;
+    background-color: #7CD0FF;
     color: black;
 }
 
