@@ -18,3 +18,7 @@ button {
 button:hover {
   cursor: pointer;
 }
+
+input {
+  padding-left: 1rem;
+}
