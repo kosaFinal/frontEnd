@@ -1,37 +1,55 @@
+@font-face {
+  font-family: "HakgyoansimSantteutdotumL";
+  src: url("/src/fonts/HakgyoansimSantteutdotumL.ttf") format("truetype");
+}
 .user_reservation_form {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   width: 90%;
-  margin: auto;
-  text-align: center;
-  height: 80vh;
+  margin: 30px auto;
+  text-align: left;
+  height: 85vh;
+  font-family: "HakgyoansimSantteutdotumL";
 }
 .user_reservation_left {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-between;
   width: 20%;
-  text-align: start;
   margin: auto;
   height: 70vh;
 }
 .user_reservation_left h1 {
-  margin: auto;
-}
-hr {
   width: 100%;
+  border-bottom: 1px solid gray;
+  text-align: center;
+  height: 7vh;
 }
+
 .user_reservation_counter {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
   width: 100%;
-  margin: auto;
-  margin: -15px 0;
+  text-align: start;
+  height: 9vh;
 }
 .user_reservation_counter h5 {
   font-size: 100%;
+  margin: auto;
+  width: 30%;
+}
+.user_reservation_counter_no {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin: auto;
+  width: 70%;
+}
+.user_reservation_counter_no h5 {
+  margin: auto;
+  text-align: center;
 }
 .user_reservation_counter button {
   border-radius: 1000px;
@@ -47,17 +65,24 @@ hr {
 .user_reservation_date {
   display: flex;
   flex-direction: row;
-  justify-content: start;
+  justify-content: space-between;
   width: 100%;
-  margin: auto;
   text-align: start;
+  height: 9vh;
 }
 .user_reservation_date h5 {
   font-size: 100%;
   margin: auto;
+  width: 30%;
 }
 .user_reservation_date input {
   width: 70%;
+  text-align: center;
+  margin: auto;
+  height: 10px;
+}
+.react-datepicker-wrapper {
+  margin: auto;
 }
 .react-datepicker {
   width: 73.5%;
@@ -65,33 +90,89 @@ hr {
 .user_reservation_radio {
   display: flex;
   flex-direction: column;
-  justify-content: start;
+  width: 100%;
 }
+.user_reservation_radio h5 {
+  font-size: 100%;
+  height: 3vh;
+  margin-bottom: -10px;
+}
+
 .user_reservation_radio_button {
+  height: 80%;
   display: flex;
   flex-direction: row-reverse;
   justify-content: center;
+  margin: auto;
+  height: 5vh;
 }
 .user_reservation_radio_button label {
+  margin: auto;
   display: flex;
   flex-direction: row-reverse;
 }
+
 .user_reservation_seatno {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 9vh;
 }
-.user_reservation_counter {
+.user_reservation_seatno h5 {
+  font-size: 100%;
+  height: 20%;
+  margin: auto 0;
+}
+.user_reservation_seatno select {
+  width: 25%;
+  height: 35px;
+  border: 2px solid black;
+  border-radius: 10px;
+  margin: auto;
+}
+.user_reservation_seatno button {
+  width: 30%;
+  height: 35px;
+  margin: auto;
+  color: black;
+  background-color: #ffcd4a;
+  font-family: "HakgyoansimSantteutdotumL";
+  border: none;
+}
+.user_reservation_time {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-between;
+  width: 100%;
+  text-align: start;
+  height: 9vh;
 }
-.user_reservation_counter {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
+.user_reservation_time h5 {
+  font-size: 100%;
+  height: 20%;
+  margin: auto 0;
+}
+.user_reservation_time p {
+  margin: auto;
+}
+.user_reservation_submit {
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+}
+.user_reservation_submit button {
+  width: 50%;
+  height: 50px;
+  margin: 0 auto;
+  color: black;
+  background-color: #ffcd4a;
+  font-size: 100%;
+  font-family: "HakgyoansimSantteutdotumL";
+  border: none;
 }
 .user_reservation_right {
+  text-align: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -99,8 +180,10 @@ hr {
   margin: auto;
   border: 2px solid black;
   border-radius: 10px;
-  height: 70vh;
+  height: 73vh;
+  margin-top: 7.5vh;
 }
+
 .user_reservation_right img {
   width: 70%;
   margin: auto;
