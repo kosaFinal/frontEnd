@@ -6,7 +6,9 @@ const ManagerNav = () => {
     <managernav>
       <div className="manager_nav">
         <div className="header_img">
-          <img src="/assets/text_logo_black.png" />
+          <Link to="/manager">
+            <img src="/assets/text_logo_black.png" />
+          </Link>
         </div>
         <div className="manager_nav_item">
           <Link to="/manager/cafeinfo">

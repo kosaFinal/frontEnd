@@ -6,7 +6,9 @@ const UserNav = () => {
     <usernav>
       <div className="user_nav">
         <div className="header_img">
-          <img src="/assets/text_logo_black.png" />
+          <Link to="/user">
+            <img src="/assets/text_logo_black.png" />
+          </Link>
         </div>
         <div className="user_nav_item">
           <Link to="/user/search">
