@@ -2,6 +2,7 @@ import React from "react";
 import "./Login.css";
 import Header from "./Header";
 import { Link, useNavigate } from "react-router-dom";
+import ManagerNav from "./Manager/ManagerNav";
 
 function Login() {
   const navigate = useNavigate();
@@ -27,11 +28,13 @@ function Login() {
               <input type="password" placeholder="비밀번호" />
             </div>
           </div>
-            <div className="login-button">
-              <button>로그인</button>
-            </div>
+          <div className="login-button">
+            <button>로그인</button>
+          </div>
           <div className="go-register-section">
-            <label className="notyet-register">아직 회원가입을 하지 않았다면?</label>
+            <label className="notyet-register">
+              아직 회원가입을 하지 않았다면?
+            </label>
             <Link to={"/register"} className="go-register">
               회원가입
             </Link>

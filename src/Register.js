@@ -7,17 +7,16 @@ import { Link, useNavigate } from "react-router-dom";
 function Register() {
   const navigate = useNavigate();
 
-  const login=()=>{
+  const login = () => {
     navigate("/login");
   };
 
-
   return (
     <register>
-      <Header />
       <div className="register">
+      <Header />
+      <div className="register-container">
         <h1 className="register-title">SIGN UP</h1>
-        <div className="register-container">
           <div className="register-box">
             <h1 className="register-intro">안녕하세요 카페인입니다.</h1>
             <div className="register-radio">
@@ -56,10 +55,10 @@ function Register() {
               <button onClick={login}>회원가입</button>
             </div>
             <div className="go-login-section">
-              <label className="already-signin">
-                이미 회원가입하셨다면
-              </label>
-              <Link to={"/login"} className="go-login">Login</Link>
+              <label className="already-signin">이미 회원가입하셨다면</label>
+              <Link to={"/login"} className="go-login">
+                Login
+              </Link>
             </div>
           </div>
         </div>
