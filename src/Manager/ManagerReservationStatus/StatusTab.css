@@ -4,36 +4,35 @@
 }
 
 .status-tab-container {
-  display: flex;
-  flex-direction: column;
-  width: 78%;
+  width: 60%;
   margin: auto;
-
 }
 
-.tab-header {
-  display: flex;
-  flex-direction: row;
-  margin-top: 20px;
+.reservation-status-top{
+  margin: auto;
+  margin-top: 50px;
+  margin-bottom: 10px;
 }
 
 .reservation-status-title {
-  margin-left: 30px;
-  margin-right: 50px;
+  text-align: center;
   font-weight: bold;
   font-size: 30px;
   font-family: "HakgyoansimSantteutdotumL";
+  margin: auto;
+  margin-bottom: 15px;
 }
 
 .status-tab-hr{
-  margin-left: 3%;
+  width: 20%;
   color: #ccc;
-  width: 95%;
+  margin-bottom: 50px;  
 }
 
 .tab-buttons{
   display: flex;
   align-items: center;
+  margin-left: 3%;
 }
 
 .tab-buttons button:focus {
