@@ -5,8 +5,8 @@ const Header = () => {
   return (
     <header>
       <div className="header">
-        <div className="header_left">
-          <div className="header_img">
+        <div className="login_header_left">
+          <div className="login_header_img">
             <Link to="/">
               <img src="./assets/logo_text_4-1.png" />
             </Link>            

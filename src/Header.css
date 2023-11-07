@@ -14,22 +14,27 @@
   /* transition: box-shadow 0.3s ease-in-out;*/
 } 
 
-.header_left {
+.login_header_left {
   width: 70%;
   display: flex;
   flex-direction: row;
   margin-right: 40%;
 }
-.header_img {
+.login_header_img {
+  width: 30%;
+  margin-top: 1.5rem;
+  margin-left: 4rem;
+}
+.login_header_right {
   width: 30%;
   margin-top: 1.5rem;
   margin-left: -2rem;
 }
 
-.header_img img {
+.login_header_img img {
   width: 100%;
 }
-.header_right {
+.login_header_right {
   width: 30%;
   display: flex;
   flex-direction: row;
@@ -37,7 +42,7 @@
   justify-content: end;
   margin-right: 100px;
 }
-.header_right p {
+.login_header_right p {
   margin: auto 5px;
   color: black;
 }
