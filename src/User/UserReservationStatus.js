@@ -1,4 +1,4 @@
-import ManagerNav from "../Manager/ManagerNav";
+import UserNav from "./UserNav";
 import "./UserReservationStatus.css";
 import UserReservationStatusStatusEmpty from "./UserReservationStatusEmpty";
 import Footer from "../Footer";
@@ -6,7 +6,7 @@ import Footer from "../Footer";
 const UserReservationStatus = () => {
   return (
     <userreservationstatus>
-      <ManagerNav/>
+      <UserNav/>
       <div className="status">
         <UserReservationStatusStatusEmpty/>
       </div>
