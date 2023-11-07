@@ -1,5 +1,4 @@
 import ManagerNav from "../Manager/ManagerNav";
-import UserReservationStatusStatusNo from "./UserReservationStatusEmpty";
 import "./UserReservationStatus.css";
 import UserReservationStatusStatusEmpty from "./UserReservationStatusEmpty";
 import Footer from "../Footer";
