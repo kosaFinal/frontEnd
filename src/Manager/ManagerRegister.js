@@ -11,7 +11,6 @@ import { Link } from "react-router-dom";
 const ManagerRegister = () => {
   return (
     <div className="manager">
-      <Header />
       <ManagerNav />
       
       {/* <EmptyRegister/> */}

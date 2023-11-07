@@ -1,0 +1,42 @@
+.ManagerSide-container{
+width: 8rem;
+margin-left: 1rem;
+margin-top: 1rem;
+position: fixed;
+
+}
+
+.ManagerSide-container-items{
+display: flex;
+flex-flow: column;
+justify-content: space-around;
+text-align: center;
+height: auto;
+background-color: white;
+border: 0.1rem solid;
+border-radius: 10px;
+
+}
+
+.ManagerSide-container-items p{
+font-size: 0.8em;
+}
+
+.updateText {
+    padding: 0.5rem;
+}
+
+.updateText span{
+    font-size: 1rem;
+    font-weight: bold;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.hidden{
+    display: none;
+}
+
+.yellow{
+    background-color: #FFCD4A;
+}

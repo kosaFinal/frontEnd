@@ -42,7 +42,7 @@ const UserNav = () => {
           <Link to="/login">
             <p>로그인</p>
           </Link>
-          <p>|</p>
+          <p> | </p>
           <Link to="/register">
             <p>회원가입</p>
           </Link>
