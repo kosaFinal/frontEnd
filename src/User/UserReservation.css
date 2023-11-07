@@ -1,0 +1,107 @@
+.user_reservation_form {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 90%;
+  margin: auto;
+  text-align: center;
+  height: 80vh;
+}
+.user_reservation_left {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 20%;
+  text-align: start;
+  margin: auto;
+  height: 70vh;
+}
+.user_reservation_left h1 {
+  margin: auto;
+}
+hr {
+  width: 100%;
+}
+.user_reservation_counter {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%;
+  margin: auto;
+  margin: -15px 0;
+}
+.user_reservation_counter h5 {
+  font-size: 100%;
+}
+.user_reservation_counter button {
+  border-radius: 1000px;
+  background-color: rgb(222, 222, 222);
+  height: 30px;
+  width: 30px;
+  color: black;
+  text-align: center;
+  margin: auto;
+  border: none;
+  font-size: 130%;
+}
+.user_reservation_date {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  width: 100%;
+  margin: auto;
+  text-align: start;
+}
+.user_reservation_date h5 {
+  font-size: 100%;
+  margin: auto;
+}
+.user_reservation_date input {
+  width: 70%;
+}
+.react-datepicker {
+  width: 73.5%;
+}
+.user_reservation_radio {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+}
+.user_reservation_radio_button {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+}
+.user_reservation_radio_button label {
+  display: flex;
+  flex-direction: row-reverse;
+}
+.user_reservation_seatno {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.user_reservation_counter {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.user_reservation_counter {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.user_reservation_right {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 70%;
+  margin: auto;
+  border: 2px solid black;
+  border-radius: 10px;
+  height: 70vh;
+}
+.user_reservation_right img {
+  width: 70%;
+  margin: auto;
+}

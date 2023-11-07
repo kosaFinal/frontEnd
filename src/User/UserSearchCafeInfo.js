@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "./UserSearchCafeInfo.css";
 
 const UserSearchCafeInfo = () => {
@@ -31,9 +32,11 @@ const UserSearchCafeInfo = () => {
           <p>카공 여부 체크자리</p>
         </div>
       </div>
-      <div className="go_to_reservation">
-        <button>예약하기</button>
-      </div>
+      <Link to="/user/reservation">
+        <div className="go_to_reservation">
+          <button>예약하기</button>
+        </div>
+      </Link>
     </usersearchcafeinfo>
   );
 };
