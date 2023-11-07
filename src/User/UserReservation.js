@@ -3,6 +3,7 @@ import Radio from "../Radio";
 import DatePicker from "react-datepicker";
 import "./UserReservation.css";
 import UserNav from "./UserNav";
+import Footer from "../Footer";
 
 const UserReservation = () => {
   const [counter, setCounter] = useState(0);
@@ -12,14 +13,16 @@ const UserReservation = () => {
       <UserNav />
       <div className="user_reservation_form">
         <div className="user_reservation_left">
-          <h1>
-            윰형 커피 <hr />
-          </h1>
+          <h1>윰형 커피</h1>
           <div className="user_reservation_counter">
             <h5>인원</h5>
-            <button onClick={() => setCounter(counter - 1)}>-</button>
-            <h5>{counter}</h5>
-            <button onClick={() => setCounter(counter + 1)}>+</button>
+            <div className="user_reservation_counter_no">
+              <button onClick={() => setCounter(counter > 0 ? counter - 1 : 0)}>
+                -
+              </button>
+              <h5>{counter}</h5>
+              <button onClick={() => setCounter(counter + 1)}>+</button>
+            </div>
           </div>
           <div className="user_reservation_date">
             <h5>날짜</h5>
@@ -31,7 +34,7 @@ const UserReservation = () => {
           </div>
 
           <div className="user_reservation_radio">
-            <h5>좌석 예약</h5>
+            <h5>테이블 예약</h5>
             <div className="user_reservation_radio_button">
               <Radio
                 className="user_reservation_radio_btn"
@@ -39,7 +42,7 @@ const UserReservation = () => {
                 value="multitable"
                 defaultchecked
               >
-                <h5>단체석</h5>
+                <p>단체석</p>
               </Radio>
               <Radio
                 className="user_reservation_radio_btn"
@@ -47,7 +50,7 @@ const UserReservation = () => {
                 value="fourtable"
                 defaultchecked
               >
-                <h5>4인석</h5>
+                <p>4인석</p>
               </Radio>
               <Radio
                 className="user_reservation_radio_btn"
@@ -55,7 +58,7 @@ const UserReservation = () => {
                 value="twotable"
                 defaultchecked
               >
-                <h5>2인석</h5>
+                <p>2인석</p>
               </Radio>
               <Radio
                 className="user_reservation_radio_btn"
@@ -63,7 +66,7 @@ const UserReservation = () => {
                 value="onetable"
                 defaultchecked
               >
-                <h5>1인석</h5>
+                <p>1인석</p>
               </Radio>
             </div>
           </div>
@@ -89,11 +92,19 @@ const UserReservation = () => {
             </select>
             <button> 시간 선택 </button>
           </div>
+          <div className="user_reservation_time">
+            <h5>예약 시간대</h5>
+            <p>14 : 00 ~ 17 : 00</p>
+          </div>
+          <div className="user_reservation_submit">
+            <button>예약하기</button>
+          </div>
         </div>
         <div className="user_reservation_right">
           <img src="/assets/cafe_seat.png" />
         </div>
       </div>
+      <Footer />
     </userreservation>
   );
 };

@@ -15,14 +15,13 @@ import UserFind from "./User/UserFind";
 import UserReservationStatus from "./User/UserReservationStatus";
 import UserMyReservation from "./User/UserMyReservation";
 import UserMypage from "./User/UserMypage";
-import UserMyInfo from "./User/UserMyReservation";
-import EmptyRegister from "./Manager/EmptyRegister"
-import ManagerUpdateStudySetting from "./Manager/ManagerUpdateStudySetting"
-import ManagerUpdateDetail from "./Manager/ManagerUpdateDetail"
-import ManagerUpdateBasic from "./Manager/ManagerUpdateBasic"
-import ManagerUpdate from "./Manager/ManagerUpdate"
+import UserMyInfo from "./User/UserMyInfo";
+import EmptyRegister from "./Manager/EmptyRegister";
+import ManagerUpdateStudySetting from "./Manager/ManagerUpdateStudySetting";
+import ManagerUpdateDetail from "./Manager/ManagerUpdateDetail";
+import ManagerUpdateBasic from "./Manager/ManagerUpdateBasic";
+import ManagerUpdate from "./Manager/ManagerUpdate";
 import UserReservation from "./User/UserReservation";
-
 
 function App() {
   return (
@@ -33,11 +32,17 @@ function App() {
         <Route path="/user" element={<User />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-              
+
         <Route path="/manager/cafeinfo" element={<ManagerCafeInfo />} />
         <Route path="/manager/reservation" element={<ManagerReservation />} />
-        <Route path="/manager/reservationstatus" element={<ManagerReservationStatus />} />
-        <Route path="/manager/reservationlist" element={<ManagerReservationList />}/>
+        <Route
+          path="/manager/reservationstatus"
+          element={<ManagerReservationStatus />}
+        />
+        <Route
+          path="/manager/reservationlist"
+          element={<ManagerReservationList />}
+        />
 
         <Route path="/manager/emptyregister" element={<EmptyRegister />} />
         <Route path="/manager/register" element={<ManagerRegister />} />
@@ -54,7 +59,7 @@ function App() {
           <Route path="updatedetail" element={<ManagerUpdateDetail />} />
           <Route path="updatesetting" element={<ManagerUpdateStudySetting />} />
         </Route>
-        
+
         {/* <Route path="/manager/update" element={<ManagerUpdate />} />
         <Route path="/manager/updatebasic" element={<ManagerUpdateBasic />} />
         <Route path="/manager/updatedetail" element={<ManagerUpdateDetail />} />

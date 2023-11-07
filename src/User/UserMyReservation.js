@@ -1,5 +1,6 @@
 import UserNav from "./UserNav";
 import './UserMyReservation.css';
+import Footer from "../Footer";
 
 const UserMyReservation = () => {
 
@@ -29,9 +30,8 @@ const UserMyReservation = () => {
             </div>
           ))} 
         </div>
-      </div>
-        
-      
+      </div>       
+      <Footer />
     </usermyreservation>
   );
 };
