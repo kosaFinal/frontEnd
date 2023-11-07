@@ -14,8 +14,9 @@ function Register() {
   return (
     <register>
       <div className="register">
+      <Header />
+      <div className="register-container">
         <h1 className="register-title">SIGN UP</h1>
-        <div className="register-container">
           <div className="register-box">
             <h1 className="register-intro">안녕하세요 카페인입니다.</h1>
             <div className="register-radio">

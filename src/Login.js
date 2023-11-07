@@ -13,6 +13,7 @@ function Login() {
 
   return (
     <div className="login">
+      <Header />
       <div className="login-container">
         <h1 className="login-title">LOGIN</h1>
         <div className="login-box">

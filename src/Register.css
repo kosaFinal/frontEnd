@@ -3,7 +3,7 @@
     src: url("/src/fonts/HakgyoansimSantteutdotumL.ttf") format("truetype");
   }
 
-  .register {
+.register {
     background-image: url(./img/register-background.png);
     background-repeat: no-repeat;
     background-position: top center;
