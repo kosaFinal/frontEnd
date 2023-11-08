@@ -59,19 +59,13 @@
   margin-bottom: 8rem;
 }
 
-.register-buttons {
-  width: auto;
-  display: flex;
-  flex-direction: row;
-}
 
 .register-buttons {
-  width:30rem;
+  width:50rem;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   margin-top: 5rem;
-  
 }
 
 .previous {
@@ -91,6 +85,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-left: 6rem;
+  margin-right: 6rem;
 }
 
 .next {
