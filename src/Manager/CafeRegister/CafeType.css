@@ -5,20 +5,21 @@
 }
 
 .cafe-register-title {
-  width: 50%; /*hr 길이조절*/
+  width: 25%; /*hr 길이조절*/
+  margin-top: 1.5rem;
 }
 
 .cafe-register-title p{
-  font-size: 40px;
+  font-size: 2rem;
   text-align: center;
 }
 
 .cafe-register-content{
-  font-size: 30px;
+  font-size: 2rem;
   margin-top: 2%;
   height: 20vh;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
 }
 
@@ -29,6 +30,6 @@
 }
 
 .type-radio div{
-  padding: 0 25px;
+  padding: 0 1.5rem;
 }
 
