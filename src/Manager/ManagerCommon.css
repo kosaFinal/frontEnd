@@ -3,18 +3,20 @@
   src: url("/src/fonts/HakgyoansimSantteutdotumL.ttf") format("truetype");
 }
 
-
-p, span, h2, label{
+p,
+span,
+h2,
+label {
   font-family: "HakgyoansimSantteutdotumL";
 }
 
-input{
+input {
   padding-left: 1rem;
 }
 
 button {
   font-family: "HakgyoansimSantteutdotumL";
-  background-color: #FFCD4A;
+  background-color: #ffcd4a;
   color: black;
   border-radius: 5px;
 }
