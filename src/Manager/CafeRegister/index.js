@@ -6,6 +6,7 @@ import CafeType from "./CafeType";
 import CafeImage from "./CafeImage";
 import CafeStudySetting from "./CafeStudySetting";
 import CafeName from "./CafeName";
+import CafeFeature from "./CafeFeature";
 
 const CafeRegister = () => {
   const [number, setNumer] = useState(1);
@@ -44,7 +45,13 @@ const CafeRegister = () => {
             </button>
             </div>
             <div className="register-stepbox">
-              <CafeType />
+            {number === 1 && <CafeName />}
+              {number === 2 && <CafeType />}
+              {number === 3 && <CafeName />}
+              {number === 4 && <CafeImage />}
+              {number === 5 && <CafeFeature />}
+              {number === 6 && <CafeStudySetting />}
+              
             </div>
             <div className="button-next">
             <button className="next" onClick={addNumber}>
