@@ -1,13 +1,6 @@
-import { useState } from "react";
-import "./CafeType.css";
+import "./CafeImage.css";
 
-const CafeType = () => {
-
-  const [cafeType, setCafeType] = useState("");
-
-  const handleTypeRadioChange = (event) => {
-    setCafeType(event.target.value);
-  };
+const CafeImage = () => {
 
   return (
     <div className="cafe-register-box">
@@ -31,4 +24,4 @@ const CafeType = () => {
   );
 };
 
-export default CafeType;
+export default CafeImage;
