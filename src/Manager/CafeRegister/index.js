@@ -7,6 +7,24 @@ import "./cafeRegister.css";import Footer from "../../Footer";
 const CafeRegister = () => {
   const [number,setNumer] = useState(1);
 
+  const addNumber = () =>{
+    setNumer((prevNumber) => {
+      if(prevNumber >= 6){
+        return 6;
+      }
+      return prevNumber + 1;
+    });
+  };
+
+  const subNumber = () =>{
+    setNumer((prevNumber) => {
+      if(prevNumber <= 1){
+        return 1;
+      }
+      return prevNumber - 1;
+    });
+  };
+
   return (
     <caferegister>
       <ManagerNav/>
@@ -21,8 +39,8 @@ const CafeRegister = () => {
         </div>
         <div className="button-container">
         <div className="register-buttons">
-          <button className="previous">이전</button>
-          <button className="next">다음</button>
+          <button className="previous" onClick={subNumber}>이전</button>
+          <button className="next" onClick={addNumber}>다음</button>
         </div>
         </div>
       </div>

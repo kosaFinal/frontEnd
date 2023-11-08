@@ -24,6 +24,7 @@ import ManagerUpdate from "./Manager/ManagerUpdate";
 import UserReservation from "./User/UserReservation";
 import UserReservationStatusStatusEmpty from "./User/UserReservationStatusEmpty";
 import UserReservationStatusCancle from "./User/UserReservationStatusCancle";
+import CafeRegister from "./Manager/CafeRegister";
 
 function App() {
   return (
@@ -61,6 +62,8 @@ function App() {
           <Route path="updatedetail" element={<ManagerUpdateDetail />} />
           <Route path="updatesetting" element={<ManagerUpdateStudySetting />} />
         </Route>
+
+        <Route path="/manager/cafe/initial" element={<CafeRegister/>}/>
 
         {/* <Route path="/manager/update" element={<ManagerUpdate />} />
         <Route path="/manager/updatebasic" element={<ManagerUpdateBasic />} />
