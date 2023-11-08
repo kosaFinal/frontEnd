@@ -1,7 +1,7 @@
 .ManagerSide-container{
 width: 8rem;
-margin-left: 1rem;
-margin-top: 1rem;
+margin-left:5rem;
+margin-top: 3rem;
 position: fixed;
 
 }
@@ -14,7 +14,6 @@ text-align: center;
 height: auto;
 background-color: white;
 border: 0.1rem solid;
-border-radius: 10px;
 
 }
 
