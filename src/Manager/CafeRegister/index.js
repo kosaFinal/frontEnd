@@ -3,6 +3,7 @@ import ManagerNav from "../ManagerNav";
 import "./cafeRegister.css";
 import Footer from "../../Footer";
 import CafeType from "./CafeType";
+import CafeName from "./CafeName";
 const CafeRegister = () => {
   const [number, setNumer] = useState(1);
 
@@ -40,7 +41,7 @@ const CafeRegister = () => {
             </button>
             </div>
             <div className="register-stepbox">
-              <CafeType />
+              <CafeName />
             </div>
             <div className="button-next">
             <button className="next" onClick={addNumber}>
