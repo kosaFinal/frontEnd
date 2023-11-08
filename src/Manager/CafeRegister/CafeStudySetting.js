@@ -18,37 +18,36 @@ const CafeStudySetting = () => {
         <hr />
       </div>
       <div className="cafe-register-content">
-        <div className="study-setting-input">
-          <div className="study-setting-div">
-            <p>카공 운영</p>
-            <div className="study-setting-radio">
-              <div>
-                <input
-                    type="radio"
-                    name="studySetting"
-                    value="yes"
-                    checked={studySetting === "yes"}
-                    onChange={handleStudySettingRadioChange} /> 
-                <label>YES</label>
-              </div>
-              <div>
-                <input
+        <div className="study-setting-div">
+          <p>카공 운영</p>
+          <div className="study-setting-radio">
+            <div>
+              <input
                   type="radio"
                   name="studySetting"
-                  value="no"
-                  checked={studySetting === "no"}
+                  value="yes"
+                  checked={studySetting === "yes"}
                   onChange={handleStudySettingRadioChange} /> 
-                <label>NO</label>
-              </div>
+              <label>YES</label>
+            </div>
+            <div>
+              <input
+                type="radio"
+                name="studySetting"
+                value="no"
+                checked={studySetting === "no"}
+                onChange={handleStudySettingRadioChange} /> 
+              <label>NO</label>
             </div>
           </div>
-          {isDivVisible && (
-            <div className="study-setting-div">
-              <p>평면도 등록</p>
-              <button>이미지 불러오기</button>
-          </div>
-          )}
         </div>
+        
+        {isDivVisible && (
+          <div className="study-setting-div">
+            <p>평면도 등록</p>
+            <button>이미지 불러오기</button>
+        </div>
+        )}
       </div>
     </div>
   );

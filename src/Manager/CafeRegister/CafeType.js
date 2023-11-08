@@ -12,7 +12,7 @@ const CafeType = () => {
   return (
     <div className="cafe-register-box">
       <div className="cafe-register-title">
-        <p>카페 유형 선택</p>
+        <p>카페 유형을 <br />선택해주세요</p>
         <hr />
       </div>
       <div className="cafe-register-content">

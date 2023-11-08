@@ -8,15 +8,15 @@
   margin-bottom: 1rem;
 }
 
-.study-setting-input p {
+.study-setting-div p {
   margin-left: 2rem;
   font-size: 1.5rem;
 }
 
-.study-setting-input button {
+.study-setting-div button {
   font-size: 1rem;
-  padding: 5px 10px;
-  background-color: #ccc;
+  padding: 0.8rem 1.5rem;
+  background-color: #FFCD4A;
   margin-right: 2rem;
   border: none;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);

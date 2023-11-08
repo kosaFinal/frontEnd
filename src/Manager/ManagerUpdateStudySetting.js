@@ -183,15 +183,15 @@ function ManagerUpdateStudySetting() {
             </div >
              {/* 좌석 선택 섹션 */}
 
-             <h2>카공 좌석 </h2>
+             
              <div className='ManagerUpdateStudySetting-SeatContainer'>
-
+             <h2 >카공 좌석 </h2>
              
              {['A', 'B', 'C', 'D'].map(section => (
               <div key={section} className="ManagerUpdateStudySetting-SeatSection">
-                <h3>{`섹션 ${section}`}</h3>
-                <div className='ManagerUpdateStudySetting-SeatItems'>
 
+                <div className='ManagerUpdateStudySetting-SeatItems'>
+                <h3 className='ManagerUpdateStudySetting-SeatText'>{`좌석 ${section}`}</h3>
                 <div className='ManagerUpdateStudySetting-SeatButtons'> 
                  
                   <button 
@@ -219,7 +219,7 @@ function ManagerUpdateStudySetting() {
                     onChange={e => handleSeatInputChange(section, e.target.value)}/>
                     </div>
                     </div>
-
+                
                 <div className='ManagerUpdateStudySetting-SeatPrint'>
                   {seats[section].map((seat, index) => <input type='text' disabled key={index} value={seat}></input>)}
                 </div>
