@@ -2,24 +2,32 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: none;
+  width: 50rem;
 }
 
 .cafe-register-title {
-  width: 25%; /*hr 길이조절*/
-  margin-top: 1.5rem;
+  width:38%; /*hr 길이조절*/
+  /* margin-top: 1.5rem; */
+  margin-bottom: 6rem;
+  padding: 0;
+  
 }
 
 .cafe-register-title p{
-  font-size: 2rem;
+  font-size:3rem;
   text-align: center;
+  font-weight: 600;
+  padding: 0;
+  margin-bottom: 1.5rem;
 }
 
 .cafe-register-content{
-  font-size: 2rem;
-  margin-top: 2%;
-  height: 20vh;
+  font-size: 2.5rem;
+  /* margin-top: 2%; */
+  height: 5vh;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
 }
 
@@ -31,5 +39,9 @@
 
 .type-radio div{
   padding: 0 1.5rem;
+}
+
+hr {
+  border-color: black;
 }
 
