@@ -7,7 +7,6 @@ import CafeImage from "./CafeImage";
 import CafeStudySetting from "./CafeStudySetting";
 import CafeName from "./CafeName";
 
-import CafeName from "./CafeName";
 const CafeRegister = () => {
   const [number, setNumer] = useState(1);
 
