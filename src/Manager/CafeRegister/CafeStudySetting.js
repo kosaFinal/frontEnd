@@ -29,16 +29,16 @@ const CafeStudySetting = () => {
                     value="yes"
                     checked={studySetting === "yes"}
                     onChange={handleStudySettingRadioChange} /> 
-                <label>o</label>
+                <label>YES</label>
               </div>
               <div>
-                <inputz
+                <input
                   type="radio"
                   name="studySetting"
                   value="no"
                   checked={studySetting === "no"}
                   onChange={handleStudySettingRadioChange} /> 
-                <label>x</label>
+                <label>NO</label>
               </div>
             </div>
           </div>
