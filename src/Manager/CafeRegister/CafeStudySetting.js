@@ -14,7 +14,7 @@ const CafeStudySetting = () => {
   return (
     <div className="cafe-register-box">
       <div className="cafe-register-title">
-        <p>카공 정보를 입력해주세요</p>
+        <p>카공 정보를 <br />입력해주세요</p>
         <hr />
       </div>
       <div className="cafe-register-content">
@@ -32,7 +32,7 @@ const CafeStudySetting = () => {
                 <label>o</label>
               </div>
               <div>
-                <input
+                <inputz
                   type="radio"
                   name="studySetting"
                   value="no"

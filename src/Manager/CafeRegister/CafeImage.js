@@ -5,7 +5,7 @@ const CafeImage = () => {
   return (
     <div className="cafe-register-box">
       <div className="cafe-register-title">
-        <p>카페 사진을 등록하세요</p>
+        <p>카페 사진을 <br />등록해주세요</p>
         <hr />
       </div>
       <div className="cafe-register-content">
