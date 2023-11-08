@@ -75,13 +75,14 @@
 }
 
 .previous {
-  /* border-color: rgb(249, 249, 249);
-  border-radius: 0rem;
-  background-color: white;
-  height: 3rem;
-  width: 4.5rem; */
   border: none;
   background-color: white;
+  font-size: 4rem;
+}
+
+.previous:hover {
+  border: none;
+  color: #FFCD4A;
   font-size: 4rem;
 }
 
@@ -93,17 +94,19 @@
 }
 
 .next {
-  /* border-color: rgb(249, 249, 249);
-  border-radius: 0rem;
-  height: 3rem;
-  width: 4.5rem; */
   border: none;
   background-color: white;
+  font-size: 4rem;
+}
+
+
+.next:hover {
+  border: none;
+  color: #FFCD4A;
   font-size: 4rem;
 }
 
 .hr1 {
   border-color: gray;
   width:30rem;
-
 }
