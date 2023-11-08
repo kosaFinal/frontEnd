@@ -7,16 +7,44 @@
 .map_nav {
   width: 100%;
 }
-
+.map_button {
+  position: fixed;
+  display: flex;
+  justify-content: space-between;
+  height: 20px;
+  margin-top: 48vh;
+  width: 50%;
+  text-align: center;
+  z-index: 1;
+  margin-left: 47%;
+}
+.map_button .map_button1 {
+  height: 40px;
+  border: none;
+  opacity: 0.8;
+  border-radius: 10px;
+  width: 150px;
+}
+.map_button .map_button2 {
+  border-radius: 100px;
+  width: 50px;
+  height: 50px;
+  margin-top: -1vh;
+  background-color: #e8e8e8;
+}
+.map_button .map_button2 img {
+  width: 25px;
+  margin: auto;
+}
 .searchnav {
   position: absolute;
   background-color: white;
   height: 100vh;
-  top: 10px;
-  margin-top: -10px;
-  width: 5%;
+  width: 4.5%;
   text-align: center;
   z-index: 1;
+  font-size: 80%;
+  box-shadow: 5px;
 }
 .searchnav-right {
   position: absolute;
@@ -24,7 +52,7 @@
   height: 100vh;
   top: 10px;
   margin-top: -10px;
-  left: 5%;
+  left: 4.5%;
   width: 20%;
   text-align: start;
   z-index: 1;
@@ -36,7 +64,8 @@
   margin: 35px auto;
 }
 .searchnav_to_home img {
-  width: 100%;
+  width: 30%;
+  margin: auto;
 }
 .searchnav h5 {
   flex: 1;
@@ -45,6 +74,10 @@
   justify-content: center;
   height: 80px;
   margin: auto;
+}
+
+.searchnav h5:hover {
+  color: #ffcd4a;
 }
 .searchtest {
   position: relative;
