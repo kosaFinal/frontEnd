@@ -44,7 +44,12 @@ const CafeRegister = () => {
             </button>
             </div>
             <div className="register-stepbox">
-              <CafeType />
+              {number === 1 && <CafeName />}
+              {number === 2 && <CafeType />}
+              {number === 3 && <CafeName />}
+              {number === 4 && <CafeImage />}
+              {number === 5 && <CafeName />}
+              {number === 6 && <CafeStudySetting />}
             </div>
             <div className="button-next">
             <button className="next" onClick={addNumber}>
