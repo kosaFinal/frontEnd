@@ -1,0 +1,108 @@
+@font-face {
+  font-family: "HakgyoansimSantteutdotumL";
+  src: url("/src/fonts/HakgyoansimSantteutdotumL.ttf") format("truetype");
+}
+
+.register-full-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  justify-content: center;
+}
+
+.register-stepbox {
+  display: flex;
+  width: auto;
+  height: auto;
+  /* margin-top: 2rem;  */
+  padding: none;
+  /* border: 0.2rem solid gray;
+  border-radius: 5rem; */
+  box-shadow: none;
+  background-color: white;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 15%;
+} 
+
+.register-number {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 7rem;
+  margin-bottom: 2rem;
+  /* background-color: #FFCD4A; */
+}
+
+.stepNumber {
+  font-family: "HakgyoansimSantteutdotumL";
+  color: #FFCD4A;
+  margin-right: 0.9rem;
+  font-size: 2rem;
+  
+}
+
+.totalNumber {
+  font-family: "HakgyoansimSantteutdotumL";
+  color: black;
+  font-size: 2rem;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  
+  width: auto;
+  margin-top: 1rem;
+  margin-bottom: 8rem;
+}
+
+
+.register-buttons {
+  width:50rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 5rem;
+}
+
+.previous {
+  border: none;
+  background-color: white;
+  font-size: 4rem;
+}
+
+.previous:hover {
+  border: none;
+  color: #FFCD4A;
+  font-size: 4rem;
+}
+
+.button-previous, .button-next {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-left: 6rem;
+  margin-right: 6rem;
+}
+
+.next {
+  border: none;
+  background-color: white;
+  font-size: 4rem;
+}
+
+
+.next:hover {
+  border: none;
+  color: #FFCD4A;
+  font-size: 4rem;
+}
+
+.hr1 {
+  border-color: gray;
+  width:30rem;
+}

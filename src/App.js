@@ -15,13 +15,16 @@ import UserFind from "./User/UserFind";
 import UserReservationStatus from "./User/UserReservationStatus";
 import UserMyReservation from "./User/UserMyReservation";
 import UserMypage from "./User/UserMypage";
-import UserMyInfo from "./User/UserMyInfo";
+import UserMyInfo from "./User/UserMyReservation";
 import EmptyRegister from "./Manager/EmptyRegister";
 import ManagerUpdateStudySetting from "./Manager/ManagerUpdateStudySetting";
 import ManagerUpdateDetail from "./Manager/ManagerUpdateDetail";
 import ManagerUpdateBasic from "./Manager/ManagerUpdateBasic";
 import ManagerUpdate from "./Manager/ManagerUpdate";
 import UserReservation from "./User/UserReservation";
+import UserReservationStatusStatusEmpty from "./User/UserReservationStatusEmpty";
+import UserReservationStatusCancle from "./User/UserReservationStatusCancle";
+import CafeRegister from "./Manager/CafeRegister";
 
 function App() {
   return (
@@ -60,6 +63,8 @@ function App() {
           <Route path="updatesetting" element={<ManagerUpdateStudySetting />} />
         </Route>
 
+        <Route path="/manager/cafe/initial" element={<CafeRegister/>}/>
+
         {/* <Route path="/manager/update" element={<ManagerUpdate />} />
         <Route path="/manager/updatebasic" element={<ManagerUpdateBasic />} />
         <Route path="/manager/updatedetail" element={<ManagerUpdateDetail />} />
@@ -76,6 +81,14 @@ function App() {
         <Route path="/user/myinfo" element={<UserMyInfo />} />
         <Route path="/user/myreservation" element={<UserMyReservation />} />
         <Route path="/user/reservation" element={<UserReservation />} />
+        <Route
+          path="/user/reservationstatus/empty"
+          element={<UserReservationStatusStatusEmpty />}
+        />
+        <Route
+          path="/user/reservationstatus/cancle"
+          element={<UserReservationStatusCancle />}
+        />
       </Routes>
     </BrowserRouter>
   );
