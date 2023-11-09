@@ -30,6 +30,8 @@ import CafeType from "./Manager/CafeRegister/CafeType";
 import CafeImage from "./Manager/CafeRegister/CafeImage";
 import CafeFeature from "./Manager/CafeRegister/CafeFeature";
 import CafeStudySetting from "./Manager/CafeRegister/CafeStudySetting";
+import CafeName from "./Manager/CafeRegister/CafeName";
+import CafeBasic from "./Manager/CafeRegister/CafeBasic";
 
 function App() {
   return (
@@ -69,17 +71,13 @@ function App() {
 
         <Route path="/manager/cafe/initial" element={<CafeRegister/>}>
           {/* <Route index element={<CafeRegister/>}/>
+          <Route path="cafename" element={<CafeName/>}/>
           <Route path="cafetype" element={<CafeType/>}/>
-          <Route path="cafetype" element={<CafeType/>}/>
+          <Route path="cafebasic" element={<CafeBasic />} />
           <Route path="cafeimage" element={<CafeImage/>}/>
           <Route path="cafefeature" element={<CafeFeature/>}/>
           <Route path="cafestudysetting" element={<CafeStudySetting/>}/> */}
         </Route>
-
-        {/* <Route path="/manager/update" element={<ManagerUpdate />} />
-        <Route path="/manager/updatebasic" element={<ManagerUpdateBasic />} />
-        <Route path="/manager/updatedetail" element={<ManagerUpdateDetail />} />
-        <Route path="/manager/updatesetting" element={<ManagerUpdateStudySetting />} /> */}
 
         <Route path="/user/search" element={<UserSearch />} />
         <Route path="/user/find" element={<UserFind />} />
