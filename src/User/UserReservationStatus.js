@@ -12,7 +12,7 @@ const UserReservationStatus = () => {
     // todo:백엔드에서 받아온 값 훅 넣기
     if (reservationStatus === "C") {
       navigate("/user/reservationstatus/cancle");
-    } else {
+    } else if (reservationStatus === "N") {
       navigate("/user/reservationstatus/empty");
     }
   }, []);
