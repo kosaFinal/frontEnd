@@ -2,21 +2,36 @@ import React, { useState } from 'react';
 import { ko } from "date-fns/esm/locale";
 import 'react-datepicker/dist/react-datepicker.css';
 import './ManagerReservationList.css';
-import DatePicker from 'react-datepicker';
+import DatePicker, { registerLocale } from 'react-datepicker';
+import { addWeeks, subMonths, format } from 'date-fns';
 import Footer from "../Footer";
 import ManagerNav from "./ManagerNav";
 
-const ManagerReservationList = () => {
-  const [Cdate, setDate] = useState(new Date());
+registerLocale('ko', ko);
 
-  // Date 객체를 'yyyy-MM-dd' 형식의 문자열로 변환하는 함수
-  const formatDate = (date) => {
-    const d = new Date(date);
-    const year = d.getFullYear();
-    const month = (`0${d.getMonth() + 1}`).slice(-2); // 월은 0부터 시작하므로 1을 더해줌
-    const day = (`0${d.getDate()}`).slice(-2);
-    return `${year}-${month}-${day}`;
+const ManagerReservationList = () => {
+  const [startDate, setStartDate] = useState(new Date());
+  const [currentDate, setCurrentDate] = useState(new Date());
+
+  const minDate = subMonths(new Date(), 1); // 한 달 전
+  const maxDate = addWeeks(new Date(), 1); // 일주일 후
+
+  const [dateRange, setDateRange] = useState({
+    minDate: new Date(currentDate.getFullYear(), currentDate.getMonth(), 1),
+    maxDate: new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0)
+  });
+
+  // 달력의 달이 변경될 때 호출됩니다.
+  const handleMonthChange = (newMonth) => {
+    // 새로운 달의 첫날과 마지막날을 계산합니다.
+    setDateRange({
+      minDate: new Date(newMonth.getFullYear(), newMonth.getMonth(), 1),
+      maxDate: new Date(newMonth.getFullYear(), newMonth.getMonth() + 1, 0)
+    });
   };
+
+
+  
 
   return (
     <managerreservationlist>
@@ -32,13 +47,39 @@ const ManagerReservationList = () => {
           {/* 달력 섹션 */}
           <div className='ManagerReservationList-Container-Date'>
         <div className='DatePicker-Section'>
-          <DatePicker
-          locale={ko}
-          selected={Cdate}
-          onChange={(date) => setDate(date)}
-          dateFormat="yyyy-MM-dd" // 날짜 형식을 '년-월-일'로 설정
-          inline
-        />
+        <DatePicker
+         renderCustomHeader={({
+          date,
+          changeYear,
+          changeMonth,
+          decreaseMonth,
+          increaseMonth,
+          prevMonthButtonDisabled,
+          nextMonthButtonDisabled
+        }) => (
+          <div style={{width: 480}} > 
+            {/* 월을 선택하는 드롭다운이나 버튼을 여기에 배치 */}
+            <button onClick={decreaseMonth} disabled={prevMonthButtonDisabled} style={{marginRight: 50}}>
+              {"<"}
+            </button>
+            <span>{format(date, "MMMM", { locale: ko })}</span>
+            <button onClick={increaseMonth} disabled={nextMonthButtonDisabled} style={{marginLeft: 50}}>
+              {">"}
+            </button>
+            {/* 년도를 선택하는 드롭다운이나 추가적인 UI 요소는 여기에 포함시키지 않습니다. */}
+          </div>
+        )}
+        minDate={minDate}
+        maxDate={maxDate}
+            locale={ko}
+            selected={currentDate}
+            onChange={(date) => setCurrentDate(date)}
+            dateFormat="yyyy-MM-dd"
+            inline
+            
+            onMonthChange={handleMonthChange}
+            showDisabledMonthNavigation
+          />
         </div>
         
         <h3>예약자 현황</h3>
@@ -55,9 +96,9 @@ const ManagerReservationList = () => {
               <p>예약 시간 : 12:00 ~ 15:00</p>
             </div>
         </div>
-        <div ManagerReservationListc-Container-Date></div>
+        <div ManagerReservationListc-Container-Date>
         
-
+      </div>
     </div>
        
       </div>
