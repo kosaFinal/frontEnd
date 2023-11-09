@@ -66,7 +66,6 @@ function App() {
           <Route path="updatedetail" element={<ManagerUpdateDetail />} />
           <Route path="updatesetting" element={<ManagerUpdateStudySetting />} />
         </Route>
-<<<<<<< HEAD
 
         <Route path="/manager/cafe/initial" element={<CafeRegister/>}>
           {/* <Route index element={<CafeRegister/>}/>
@@ -82,9 +81,6 @@ function App() {
         <Route path="/manager/updatedetail" element={<ManagerUpdateDetail />} />
         <Route path="/manager/updatesetting" element={<ManagerUpdateStudySetting />} /> */}
 
-=======
-        <Route path="/manager/cafe/initial" element={<CafeRegister/>}/>
->>>>>>> a84eb820e634ef0d195cfdee09d73bb8789b7631
         <Route path="/user/search" element={<UserSearch />} />
         <Route path="/user/find" element={<UserFind />} />
         <Route
