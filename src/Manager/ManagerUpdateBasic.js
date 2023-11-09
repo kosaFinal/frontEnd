@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./ManagerUpdateBasic.css";
 import DaumPost from "./Component/DaumPost";
 
+
 function ManagerUpdateBasic() {
   const [showFindAddress, setShowFindAddress] = useState(false);
   const [showFindNumber, setShowFindNumber] = useState(false);

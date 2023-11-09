@@ -1,8 +1,15 @@
+import React, { useState } from 'react';
+import 'react-datepicker/dist/react-datepicker.css';
+import DatePicker from 'react-datepicker';
+
 const ManagerReservation = () => {
+  const [Cdate, setDate] = useState(new Date());
   return (
     <managerreservation>
       <div>
-        <p>카페 예약 관리 페이지 입니다.</p>
+    
+  
+
       </div>
     </managerreservation>
   );
