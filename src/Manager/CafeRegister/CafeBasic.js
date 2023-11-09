@@ -95,11 +95,19 @@ const handleAddressChange = (e, field) => {
         <div className='cafe-register-basic'>
           <p>카페주소</p>
           <div className='register-addr'>
-            <input type="text" placeholder="주소 찾기 버튼을 클릭해주세요" disabled />
+            <input 
+              type="text" 
+              placeholder="주소 찾기 버튼을 클릭해주세요"
+              value={editAddressObj.townAddress}
+              onChange={(e) => handleAddressChange(e, "townAddress")}
+              disabled />
             <DaumPost setAddressObj={setEditAddressObj} />
           </div>
           <div className='register-addr-extra'>
-          <input type="test" placeholder="상세주소"/>
+          <input 
+            type="text" 
+            placeholder="상세주소"
+            onChange={(e) => handleAddressChange(e, "areaAddress")} />
           </div>
         </div>
         <div className='cafe-register-basic'>
