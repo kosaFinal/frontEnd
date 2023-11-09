@@ -1,0 +1,103 @@
+.ManagerReservationList{
+    margin: 2rem 0;
+    width: auto;
+    height: auto;
+}
+
+.ManagerReservationList-Container{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    
+}
+
+.ManagerReservationList-Container-Items{
+    display: flex;
+    justify-content: center;
+    flex-flow: column;
+    
+    
+}
+.ManagerReservationList-Container-Date{
+    margin: 0 auto;
+    margin-top: 2rem;
+}
+
+.ManagerReservationList-Container-Date-Text{
+    width: 30rem;
+}
+
+/* 예약 출력 섹션 */
+.ReservationList-Section:hover{cursor: pointer; background-color: whitesmoke;}
+.ReservationList-Section{
+    display: flex;
+    margin: 2rem 0;
+    justify-content: space-between;
+    padding: 0.5rem;
+    height: 25%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
+}
+
+.ReservationList-UserName {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 2rem;
+    
+}
+.ReservationList-UserName h3{
+    font-size: 1.5rem;
+   margin-left: auto;
+   margin-right: auto;
+}
+
+.ReservationList-Status{
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 1.5rem;
+    
+}
+
+.ReservationList-Status p{
+    margin: 0.8rem, 0.5rem;
+    font-weight: bold;
+}
+
+/* DatePicker Custom */
+.DatePicker-Section .react-datepicker{
+    width: 30rem;
+    height: 18rem;
+}
+
+.react-datepicker__header .react-datepicker__month-container {
+    width: 30rem;
+}
+
+.react-datepicker__header {
+    background-color: #FFCD4A;
+}
+.react-datepicker__current-month{
+    width: 30rem;
+}
+
+.react-datepicker__month{
+    margin-top: 1rem;
+}
+
+.react-datepicker__day-names {
+    margin-top: 0.5rem;
+    display: flex;
+    justify-content: space-around;
+}
+
+.react-datepicker__week{
+    display: flex;
+    font-size: 1.3rem;
+    justify-content: space-around;
+}
+
+
+
+
