@@ -26,6 +26,10 @@ import UserReservationStatusStatusEmpty from "./User/UserReservationStatusEmpty"
 import UserReservationStatusCancle from "./User/UserReservationStatusCancle";
 import UserInfoUpdate from "./User/UserInfoUpdate";
 import CafeRegister from "./Manager/CafeRegister";
+import CafeType from "./Manager/CafeRegister/CafeType";
+import CafeImage from "./Manager/CafeRegister/CafeImage";
+import CafeFeature from "./Manager/CafeRegister/CafeFeature";
+import CafeStudySetting from "./Manager/CafeRegister/CafeStudySetting";
 
 function App() {
   return (
@@ -62,7 +66,25 @@ function App() {
           <Route path="updatedetail" element={<ManagerUpdateDetail />} />
           <Route path="updatesetting" element={<ManagerUpdateStudySetting />} />
         </Route>
+<<<<<<< HEAD
+
+        <Route path="/manager/cafe/initial" element={<CafeRegister/>}>
+          {/* <Route index element={<CafeRegister/>}/>
+          <Route path="cafetype" element={<CafeType/>}/>
+          <Route path="cafetype" element={<CafeType/>}/>
+          <Route path="cafeimage" element={<CafeImage/>}/>
+          <Route path="cafefeature" element={<CafeFeature/>}/>
+          <Route path="cafestudysetting" element={<CafeStudySetting/>}/> */}
+        </Route>
+
+        {/* <Route path="/manager/update" element={<ManagerUpdate />} />
+        <Route path="/manager/updatebasic" element={<ManagerUpdateBasic />} />
+        <Route path="/manager/updatedetail" element={<ManagerUpdateDetail />} />
+        <Route path="/manager/updatesetting" element={<ManagerUpdateStudySetting />} /> */}
+
+=======
         <Route path="/manager/cafe/initial" element={<CafeRegister/>}/>
+>>>>>>> a84eb820e634ef0d195cfdee09d73bb8789b7631
         <Route path="/user/search" element={<UserSearch />} />
         <Route path="/user/find" element={<UserFind />} />
         <Route
