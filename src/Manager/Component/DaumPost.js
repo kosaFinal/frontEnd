@@ -2,7 +2,7 @@ import { useDaumPostcodePopup } from 'react-daum-postcode';
 
 
 function DaumPost({ setAddressObj }) {
-  const open = useDaumPostcodePopup("88c94d3418da2b884ed0188f97905df6");
+  const open = useDaumPostcodePopup("//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js");
   
   const handleComplete = (data) => {
     let fullAddress = data.address;
