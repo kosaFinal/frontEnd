@@ -6,6 +6,9 @@ const { kakao } = window;
 
 const UserSearch = () => {
   const [showInput, setShowInput] = useState(false);
+  const toggleUserSearchInput = () => {
+    setShowInput(!showInput);
+  };
   useEffect(() => {
     kakao.maps.load(() => {
       const container = document.getElementById("map");
@@ -27,7 +30,8 @@ const UserSearch = () => {
         <div className="searchnav">
           <Link to="/">
             <div className="searchnav_to_home">
-              <img src="/assets/logo_reimg.png" />
+              <img src="/assets/home.png" />
+              <h5>HOME</h5>
             </div>
           </Link>
           <div
@@ -40,7 +44,10 @@ const UserSearch = () => {
           <div className="searchnav_time">
             <Link to="/user/reservationstatus">
               <img src="/assets/searchnav_time.png" />
-              <h5>실시간 예약 현황</h5>
+              <h5>
+                실시간 예약
+                <br /> 현황
+              </h5>
             </Link>
           </div>
           <div className="searchnav_mypage">
@@ -58,10 +65,16 @@ const UserSearch = () => {
               </h5>
             </Link>
           </div>
+          <div className="map_button">
+            <button className="map_button1">현 지도에서 검색</button>
+            <button className="map_button2">
+              <img src="/assets/search-target.png" />
+            </button>
+          </div>
         </div>
         {showInput && (
           <div className="searchnav-right">
-            <UserSearchInput />
+            <UserSearchInput onClose={toggleUserSearchInput} />
           </div>
         )}
       </div>
