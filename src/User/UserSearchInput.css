@@ -4,63 +4,135 @@
   text-align: center;
   border-left: 1px solid black;
 }
+.searchinput_form hr {
+  margin: 3vh 0 3vh;
+}
 .searchinput_header {
   text-align: center;
   background-color: #ffcd4a;
   height: 130px;
 }
-.searchinput_header h1 {
+.searchinput_header img {
+  width: 40%;
   margin: auto;
-  padding: 20px 0;
+  margin-top: -18px;
+  padding-bottom: 10px;
+}
+.searchinput_form .img_x {
+  width: 15px;
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  height: 15px;
+  margin: 0;
+  margin-left: 90%;
+  padding-top: 10px;
+}
+.searchinput_input {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: auto;
+  margin-right: 3%;
+}
+
+.searchinput_input img {
+  width: 20px;
+  height: 20px;
+  margin: 5px auto 0 -14%;
 }
 .searchinput_header input {
-  width: 90%;
+  width: 85%;
   height: 30px;
   margin: auto;
   margin-bottom: 10px;
+  border-radius: 5px;
+  background-color: #f4ebd2;
+  border: none;
 }
 .searchinput_section1 {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   margin: 15px auto;
+  width: 100%;
 }
+.searchinput_section1 select {
+  width: 90px;
+  border-radius: 20px;
+  border: 1.5px solid black;
+}
+
 .searchinput_section1 button {
   width: 90px;
   height: 30px;
   color: black;
   background-color: white;
-  border: 1.5px solid black;
-  border-radius: 5px;
+  border-radius: 20px;
+  border: 1.5px solid rgb(185, 185, 185);
+}
+.search_button_filter {
+  width: 30%;
+}
+.search_button_filter button {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  box-shadow: 1px 2px #929292;
+  border: none;
+}
+
+.search_button_filter img {
+  width: 25%;
+  margin: auto;
+}
+.search_button_filter p {
+  margin: auto;
 }
 .searchinput_section1 button.active {
-  background-color: #ffcd4a;
+  background-color: #f4ebd2;
+  color: #dea71d;
+  font-weight: bold;
+  border: 1px solid #ffcd4a;
+  box-shadow: 1px 1px;
 }
 .searchinput_section2 button.active {
-  background-color: #ffcd4a;
+  background-color: #f4ebd2;
+  color: #dea71d;
+  font-weight: bold;
+  border: 1px solid #ffcd4a;
+  box-shadow: 1px 1px;
 }
 .searchinput_section3 button.active {
-  background-color: #ffcd4a;
+  background-color: #f4ebd2;
+  color: #dea71d;
+  font-weight: bold;
+  border: 1px solid #ffcd4a;
+  box-shadow: 1px 1px;
 }
 .searchinput_toggle button.active {
-  background-color: #ffcd4a;
+  background-color: #f4ebd2;
+  color: #dea71d;
+  font-weight: bold;
+  border: 1px solid #ffcd4a;
+  box-shadow: 1px 1px;
 }
 
 .searchinput_section2 {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  margin-left: 12px;
+  margin-left: 2.8%;
 }
 .searchinput_section2 button {
   width: 90px;
   text-align: center;
   height: 30px;
-  margin-right: 23px;
+  margin-right: 5.8%;
   background-color: white;
   color: black;
-  border: 1.5px solid black;
-  border-radius: 5px;
+  border: 1.5px solid rgb(185, 185, 185);
+  border-radius: 20px;
 }
 .searchinput_section3 {
   margin: 25px auto 10px;
@@ -72,33 +144,44 @@
   width: 80px;
   height: 30px;
   background-color: white;
-  border-radius: 5px;
-  border: 1.5px solid black;
+  border-radius: 20px;
+  border: 1.5px solid rgb(185, 185, 185);
   color: black;
 }
 .section3_toggle button {
-  width: 30px;
-  border-radius: 5px;
-  color: black;
-  border: 1.5px solid black;
+  width: 35px;
+  border-radius: 12px;
+  color: #dea71d;
+  background-color: #ffffff;
+  border: none;
+  font-size: 200%;
+  margin: auto 0;
+}
+.section3_toggle img {
+  width: 70%;
+  margin: 0 auto 10%;
+}
+
+.section3_toggle button:hover {
+  font-weight: 900;
+}
+.searrch_toggle_btn button {
+  background-color: #929292;
 }
 .searchinput_toggle {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
-  margin-right: 16px;
-  width: 86%;
+  justify-content: space-between;
+  margin-left: 2.3%;
+  width: 80%;
 }
 .searchinput_toggle button {
   width: 80px;
   height: 30px;
   background-color: white;
-  border-radius: 5px;
+  border-radius: 20px;
   color: black;
-  border: 1.5px solid black;
-}
-.search_submit {
-  margin: 20px auto;
+  border: 1.5px solid rgb(185, 185, 185);
 }
 .search_submit button {
   background-color: #ffcd4a;
@@ -108,11 +191,14 @@
   color: black;
   border: none;
 }
-.sea .search_cafe_info_list {
+.search_cafe_info_list {
   width: 90%;
   height: 55vh;
-  border: 0.5px solid black;
-  margin: 20px auto 0;
+
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 .search_cafe_info {
   cursor: pointer;

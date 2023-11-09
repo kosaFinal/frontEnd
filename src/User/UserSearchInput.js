@@ -2,8 +2,9 @@ import { useState } from "react";
 import "./UserSearchInput.css";
 import UserSearchCafeInfo from "./UserSearchCafeInfo";
 
-const UserSearchTest = () => {
+const UserSearchInput = ({ onClose }) => {
   const [showInfo, setShowInfo] = useState(false);
+  const [showInput, setShowInput] = useState(false);
   const [showtoggle, setShowtoggle] = useState(false);
   const [buttonStates, setButtonStates] = useState({
     button1: false,
@@ -14,6 +15,7 @@ const UserSearchTest = () => {
     button6: false,
     button7: false,
     button8: false,
+    button9: false,
   });
 
   const handleButtonClick = (buttonName) => {
@@ -24,12 +26,28 @@ const UserSearchTest = () => {
     console.log(handleButtonClick);
   };
 
+  const handleCloseComponent = () => {
+    setShowInput(false);
+    onClose();
+  };
+
+  const toggleUserSearchCafeInfo = () => {
+    setShowInfo(!showInfo);
+  };
   return (
     <usersearchinput>
       <div className="searchinput_form">
         <div className="searchinput_header">
-          <h1>매장 찾기</h1>
-          <input type="text" placeholder="카페명으로 검색하기"></input>
+          <img
+            className="img_x"
+            onClick={handleCloseComponent}
+            src="/assets/search-x.png"
+          />
+          <img src="/assets/text_logo_black.png" />
+          <div className="searchinput_input">
+            <input type="text" placeholder="카페명으로 검색하기"></input>
+            <img src="/assets/search-img.png" />
+          </div>
         </div>
         <div className="searchinput_section1">
           <select>
@@ -43,7 +61,12 @@ const UserSearchTest = () => {
           >
             카공 가능
           </button>
-          <button>필터</button>
+          <div className="search_button_filter">
+            <button>
+              <img src="/assets/search_filter.png" />
+              <p>필터</p>
+            </button>
+          </div>
         </div>
         <div className="searchinput_section2">
           <button
@@ -82,7 +105,9 @@ const UserSearchTest = () => {
             className="section3_toggle"
             onClick={() => setShowtoggle(!showtoggle)}
           >
-            <button>...</button>
+            <button>
+              <img src="/assets/dotdotdot_yellow.png" />
+            </button>
           </div>
         </div>
         {showtoggle && (
@@ -107,10 +132,8 @@ const UserSearchTest = () => {
             </button>
           </div>
         )}
-        <div className="search_submit">
-          <button type="submit">검색</button>
-        </div>
         <hr />
+
         <div className="search_cafe_info_list">
           <div className="search_cafe_info">
             <div className="search_cafe_info_img">
@@ -127,7 +150,7 @@ const UserSearchTest = () => {
           </div>
           {showInfo && (
             <div className="searchcafeinfo">
-              <UserSearchCafeInfo />
+              <UserSearchCafeInfo onClose={toggleUserSearchCafeInfo} />
             </div>
           )}
         </div>
@@ -135,4 +158,4 @@ const UserSearchTest = () => {
     </usersearchinput>
   );
 };
-export default UserSearchTest;
+export default UserSearchInput;
