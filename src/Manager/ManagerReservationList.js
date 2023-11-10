@@ -57,13 +57,13 @@ const ManagerReservationList = () => {
           prevMonthButtonDisabled,
           nextMonthButtonDisabled
         }) => (
-          <div style={{width: 480}} > 
+          <div className="ManagerDatePicker-header-section" style={{width: 480}} > 
             {/* 월을 선택하는 드롭다운이나 버튼을 여기에 배치 */}
-            <button onClick={decreaseMonth} disabled={prevMonthButtonDisabled} style={{marginRight: 50}}>
+            <button className='ManagerDatePickerButton' onClick={decreaseMonth} disabled={prevMonthButtonDisabled} style={{marginRight: 50}}>
               {"<"}
             </button>
-            <span>{format(date, "MMMM", { locale: ko })}</span>
-            <button onClick={increaseMonth} disabled={nextMonthButtonDisabled} style={{marginLeft: 50}}>
+            <span className='ManagerDatePickerText'>{format(date, "MMMM", { locale: ko })}</span>
+            <button className='ManagerDatePickerButton' onClick={increaseMonth} disabled={nextMonthButtonDisabled} style={{marginLeft: 50}}>
               {">"}
             </button>
             {/* 년도를 선택하는 드롭다운이나 추가적인 UI 요소는 여기에 포함시키지 않습니다. */}
