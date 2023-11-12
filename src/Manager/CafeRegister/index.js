@@ -7,6 +7,7 @@ import CafeImage from "./CafeImage";
 import CafeStudySetting from "./CafeStudySetting";
 import CafeName from "./CafeName";
 import CafeBasic from "./CafeBasic";
+import CafeFeature from "./CafeFeature";
 
 const CafeRegister = () => {
   const [number, setNumer] = useState(1);
@@ -49,7 +50,7 @@ const CafeRegister = () => {
               {number === 2 && <CafeType />}
               {number === 3 && <CafeBasic />}
               {number === 4 && <CafeImage />}
-              {number === 5 && <CafeName />}
+              {number === 5 && <CafeFeature />}
               {number === 6 && <CafeStudySetting />}
             </div>
             <div className="button-next">

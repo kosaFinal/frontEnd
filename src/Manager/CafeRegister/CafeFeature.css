@@ -8,7 +8,6 @@
 }
 
 .cafeFeature-Chips {
-  
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 1.3rem;
@@ -17,7 +16,7 @@
 }
 
 .cafeFeature-Chips button{
-  width: 10rem;
+  width: 15rem;
   height: 5rem;
   font-family: "HakgyoansimSantteutdotumL";
   font-size: 2rem;

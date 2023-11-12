@@ -13,7 +13,7 @@ const EmptyRegister = () => {
           <p>아직 등록된 카페가 없습니다.</p>
           <p>점주님의 카페를 소개해주세요.</p>
           <div className="EmptyRegister-button-div">
-            <Link to="/manager/update">
+            <Link to="/manager/cafe/initial">
               <button>등록하러 가기</button>
             </Link>
           </div>
