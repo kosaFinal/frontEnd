@@ -7,18 +7,18 @@ import { useState } from "react";
 import EmptyRegister from "./EmptyRegister";
 
 const ManagerUpdate = () => {
-  const[CheckCafeReg, setCheckCafeReg] = useState(false);
+  const [CheckCafeReg, setCheckCafeReg] = useState(true);
 
   return (
     <div className="manager">
-      <ManagerNav/>
+      <ManagerNav />
       {CheckCafeReg ? (
-      <>
-      <ManagerUpdateSideBar />
-      <Outlet/>
-      </>
-      ):(
-        <EmptyRegister/>
+        <>
+          <ManagerUpdateSideBar />
+          <Outlet />
+        </>
+      ) : (
+        <EmptyRegister />
       )}
       <Footer />
     </div>

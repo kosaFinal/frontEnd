@@ -83,7 +83,7 @@ const UserSearchFilter = ({ isOpen, onSubmit, onClose }) => {
             <div className="search_filter_tird">
               <div className="search_filter_third_radio">
                 <Radio
-                  className="user_reservation_radio_btn"
+                  className="search_filter_radio_btn"
                   name="tableType"
                   value="multitable"
                   checked={tableType === "multitable"}
@@ -92,7 +92,7 @@ const UserSearchFilter = ({ isOpen, onSubmit, onClose }) => {
                   <p>단체석</p>
                 </Radio>
                 <Radio
-                  className="user_reservation_radio_btn"
+                  className="search_filter_radio_btn"
                   name="tableType"
                   value="fourtable"
                   checked={tableType === "fourtable"}
@@ -101,7 +101,7 @@ const UserSearchFilter = ({ isOpen, onSubmit, onClose }) => {
                   <p>4인석</p>
                 </Radio>
                 <Radio
-                  className="user_reservation_radio_btn"
+                  className="search_filter_radio_btn"
                   name="tableType"
                   value="twotable"
                   checked={tableType === "twotable"}
@@ -110,7 +110,7 @@ const UserSearchFilter = ({ isOpen, onSubmit, onClose }) => {
                   <p>2인석</p>
                 </Radio>
                 <Radio
-                  className="user_reservation_radio_btn"
+                  className="search_filter_radio_btn"
                   name="tableType"
                   value="onetable"
                   checked={tableType === "onetable"}
@@ -118,6 +118,9 @@ const UserSearchFilter = ({ isOpen, onSubmit, onClose }) => {
                 >
                   <p>1인석</p>
                 </Radio>
+              </div>
+              <div className="search_filter_submit">
+                <button onClick={onSubmit}>적용하기</button>
               </div>
             </div>
           </div>

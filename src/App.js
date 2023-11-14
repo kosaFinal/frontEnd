@@ -14,8 +14,7 @@ import UserSearch from "./User/UserSearch";
 import UserFind from "./User/UserFind";
 import UserReservationStatus from "./User/UserReservationStatus";
 import UserMyReservation from "./User/UserMyReservation";
-import UserMypage from "./User/UserMypage";
-import UserMyInfo from "./User/UserMyReservation";
+import UserMyInfo from "./User/UserMyInfo";
 import EmptyRegister from "./Manager/EmptyRegister";
 import ManagerUpdateStudySetting from "./Manager/ManagerUpdateStudySetting";
 import ManagerUpdateDetail from "./Manager/ManagerUpdateDetail";
@@ -67,7 +66,7 @@ function App() {
           <Route path="updatesetting" element={<ManagerUpdateStudySetting />} />
         </Route>
 
-        <Route path="/manager/cafe/initial" element={<CafeRegister/>}>
+        <Route path="/manager/cafe/initial" element={<CafeRegister />}>
           {/* <Route index element={<CafeRegister/>}/>
           <Route path="cafetype" element={<CafeType/>}/>
           <Route path="cafetype" element={<CafeType/>}/>
@@ -87,7 +86,6 @@ function App() {
           path="/user/reservationstatus"
           element={<UserReservationStatus />}
         />
-        <Route path="/user/mypage" element={<UserMypage />} />
         <Route path="/user/myinfo" element={<UserMyInfo />} />
         <Route path="/user/myreservation" element={<UserMyReservation />} />
         <Route path="/user/reservation" element={<UserReservation />} />

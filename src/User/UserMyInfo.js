@@ -1,6 +1,7 @@
 import Footer from "../Footer";
 import UserNav from "./UserNav";
 import "./UserMyInfo.css";
+import { Link } from "react-router-dom";
 
 const UserMyInfo = () => {
   return (
@@ -23,7 +24,9 @@ const UserMyInfo = () => {
           <input type="password" />
         </div>
         <div className="myUserInfo-button">
-          <button>확인하기</button>
+          <Link to="/user/myinfo/update">
+            <button>확인하기</button>
+          </Link>
         </div>
       </div>
       <Footer />
