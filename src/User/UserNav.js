@@ -26,7 +26,7 @@ const UserNav = () => {
           </div>
         </div>
         <div className="user_nav_item">
-          <Link to="/user/mypage">
+          <Link to="/user/myinfo">
             <h3>마이 페이지</h3>
           </Link>
           <div className="user_dropdown_content">

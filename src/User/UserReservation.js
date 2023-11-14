@@ -1,15 +1,37 @@
 import { useState } from "react";
 import Radio from "../Radio";
 import DatePicker from "react-datepicker";
+import { ko } from "date-fns/esm/locale";
+import { format } from "date-fns";
+import addDays from "date-fns/addDays";
+import { startOfWeek, endOfWeek, addWeeks, isWithinInterval } from "date-fns";
+
 import "./UserReservation.css";
 import UserNav from "./UserNav";
 import Footer from "../Footer";
+import UserReservationModal from "./UserReservationModal";
 
 const UserReservation = () => {
   const [counter, setCounter] = useState(0);
   const [selectdate, setSelectDate] = useState(new Date());
   const [tableType, setTableType] = useState("onetable");
+  const [selecteTime, setSelecteTime] = useState(null);
+  const [isUserReservationModal, setIsUserReservationModal] = useState(false);
+  const handleSelectTimeModal = () => {
+    setIsUserReservationModal(true);
+  };
 
+  const handleCloseSelectTimeModal = () => {
+    setIsUserReservationModal(false);
+  };
+
+  const handleSelectTimeSubmit = (selecteTimes) => {
+    setSelecteTime(selecteTimes);
+    handleCloseSelectTimeModal();
+  };
+
+  const today = new Date();
+  const nextWeek = addDays(today, 7);
   const handleTableTypeChange = (event) => {
     setTableType(event.target.value);
   };
@@ -33,9 +55,55 @@ const UserReservation = () => {
           <div className="user_reservation_date">
             <h5>날짜</h5>
             <DatePicker
+              renderCustomHeader={({
+                date,
+                changeYear,
+                changeMonth,
+                decreaseMonth,
+                increaseMonth,
+                prevMonthButtonDisabled,
+                nextMonthButtonDisabled,
+              }) => (
+                <div className="ManagerDatePicker-header-section">
+                  {/* 월을 선택하는 드롭다운이나 버튼을 여기에 배치 */}
+                  <button
+                    className="ManagerDatePickerButton"
+                    onClick={decreaseMonth}
+                    disabled={prevMonthButtonDisabled}
+                  >
+                    {"<"}
+                  </button>
+                  <span className="ManagerDatePickerText">
+                    {format(date, "MMMM", { locale: ko })}
+                  </span>
+                  <button
+                    className="ManagerDatePickerButton"
+                    onClick={increaseMonth}
+                    disabled={nextMonthButtonDisabled}
+                  >
+                    {">"}
+                  </button>
+                  {/* 년도를 선택하는 드롭다운이나 추가적인 UI 요소는 여기에 포함시키지 않습니다. */}
+                </div>
+              )}
+              minDate={today}
+              maxDate={nextWeek}
+              locale={ko}
               selected={selectdate}
               onChange={(date) => setSelectDate(date)}
               dateFormat="yyyy-MM-dd"
+              filterDate={(date) => {
+                const startOfThisWeek = startOfWeek(new Date(), {
+                  weekStartsOn: 1,
+                });
+                const endOfNextWeek = endOfWeek(addWeeks(new Date(), 1), {
+                  weekStartsOn: 1,
+                });
+                return isWithinInterval(date, {
+                  start: startOfThisWeek,
+                  end: endOfNextWeek,
+                });
+              }}
             />
           </div>
 
@@ -100,11 +168,17 @@ const UserReservation = () => {
                 <p>4번</p>{" "}
               </option>
             </select>
-            <button> 시간 선택 </button>
+            <button onClick={handleSelectTimeModal}> 시간 선택 </button>
           </div>
           <div className="user_reservation_time">
             <h5>예약 시간대</h5>
-            <p>14 : 00 ~ 17 : 00</p>
+            <div className="user_reservation_time_p">
+              <p>
+                {selecteTime
+                  ? selecteTime.map((time) => time.reserveStart).join(" , ")
+                  : ""}
+              </p>
+            </div>
           </div>
           <div className="user_reservation_submit">
             <button>예약하기</button>
@@ -115,6 +189,11 @@ const UserReservation = () => {
         </div>
       </div>
       <Footer />
+      <UserReservationModal
+        isOpen={isUserReservationModal}
+        onClose={handleCloseSelectTimeModal}
+        onSubmit={handleSelectTimeSubmit}
+      />
     </userreservation>
   );
 };

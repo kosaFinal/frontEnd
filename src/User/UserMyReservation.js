@@ -1,13 +1,12 @@
 import UserNav from "./UserNav";
-import './UserMyReservation.css';
+import "./UserMyReservation.css";
 import Footer from "../Footer";
 
 const UserMyReservation = () => {
-
   const myReservations = [
-    { name: '커피커피', date: '2023-11-06', time: '12:00 ~ 15:00', seat: 'A1' },
-    { name: '커피커피', date: '2023-11-06', time: '12:00 ~ 15:00', seat: 'A1' },
-    { name: '커피커피', date: '2023-11-06', time: '12:00 ~ 15:00', seat: 'A1' },
+    { name: "커피커피", date: "2023-11-06", time: "12:00 ~ 15:00", seat: "A1" },
+    { name: "커피커피", date: "2023-11-06", time: "12:00 ~ 15:00", seat: "A1" },
+    { name: "커피커피", date: "2023-11-06", time: "12:00 ~ 15:00", seat: "A1" },
   ];
 
   return (
@@ -28,9 +27,9 @@ const UserMyReservation = () => {
                 <div>좌석: {reservation.seat}</div>
               </div>
             </div>
-          ))} 
+          ))}
         </div>
-      </div>       
+      </div>
       <Footer />
     </usermyreservation>
   );
