@@ -13,11 +13,17 @@
   font-size: 1.5rem;
 }
 
-.image-input button {
+.study-img-file {
+  width: 6.8rem;
+  text-align: center;
   font-size: 1rem;
   padding: 0.8rem 1.5rem;
   background-color: #FFCD4A;
   margin-right: 2rem;
   border: none;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.study-img-file:hover{
+  cursor: pointer;
 }

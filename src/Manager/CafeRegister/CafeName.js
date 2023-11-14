@@ -9,7 +9,7 @@ const CafeName = () => {
       </div>
       {/* <div className="cafe-name-title-container"> */}
       <div className="cafe-name-title">
-        <input type="text" value="카페명" className="cafe-name-inputbox"/>
+        <input type="text" placeholder="카페명" className="cafe-name-inputbox"/>
       </div>
       {/* </div> */}
     </div>

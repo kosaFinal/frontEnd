@@ -1,14 +1,23 @@
 import { useState } from "react";
 import "./CafeStudySetting.css";
+import { Link } from "react-router-dom";
 
 const CafeStudySetting = () => {
 
   const [studySetting, setStudySetting] = useState("");
   const [isDivVisible, setDivVisible] = useState(false);
+  const [selectedFile, setSelectedFile] = useState(null);
 
   const handleStudySettingRadioChange = (event) => {
     setStudySetting(event.target.value);
     setDivVisible(event.target.value === "yes");
+  };
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setSelectedFile(file);
+    }
   };
 
   return (
@@ -45,9 +54,20 @@ const CafeStudySetting = () => {
         {isDivVisible && (
           <div className="study-setting-div">
             <p>평면도 등록</p>
-            <button>이미지 불러오기</button>
+            <input className="study-setting-floorplan"
+              type="file"
+              onChange={handleFileChange}
+              style={{ display: 'none' }}
+              id="file-input"
+            />
+            <label htmlFor="file-input" className="study-setting-floorplan">
+              {selectedFile ? selectedFile.name : "이미지 불러오기"}
+            </label>
         </div>
         )}
+        <Link to={"/manager"}>
+        <button className="cafe-final-register"> 카페 등록하기 </button>
+        </Link>
       </div>
     </div>
   );

@@ -13,7 +13,7 @@ const Footer = () => {
             1001호 (cafe-in)
           </p>
         </div>
-        <img src="/assets/logo_reimg.png" />
+        <img src="/assets/text_logo_black.png" />
       </div>
     </footer>
   );

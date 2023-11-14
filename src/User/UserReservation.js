@@ -8,6 +8,12 @@ import Footer from "../Footer";
 const UserReservation = () => {
   const [counter, setCounter] = useState(0);
   const [selectdate, setSelectDate] = useState(new Date());
+  const [tableType, setTableType] = useState("onetable");
+
+  const handleTableTypeChange = (event) => {
+    setTableType(event.target.value);
+  };
+
   return (
     <userreservation>
       <UserNav />
@@ -40,7 +46,8 @@ const UserReservation = () => {
                 className="user_reservation_radio_btn"
                 name="tableType"
                 value="multitable"
-                defaultchecked
+                checked={tableType === "multitable"}
+                onChange={handleTableTypeChange}
               >
                 <p>단체석</p>
               </Radio>
@@ -48,7 +55,8 @@ const UserReservation = () => {
                 className="user_reservation_radio_btn"
                 name="tableType"
                 value="fourtable"
-                defaultchecked
+                checked={tableType === "fourtable"}
+                onChange={handleTableTypeChange}
               >
                 <p>4인석</p>
               </Radio>
@@ -56,7 +64,8 @@ const UserReservation = () => {
                 className="user_reservation_radio_btn"
                 name="tableType"
                 value="twotable"
-                defaultchecked
+                checked={tableType === "twotable"}
+                onChange={handleTableTypeChange}
               >
                 <p>2인석</p>
               </Radio>
@@ -64,7 +73,8 @@ const UserReservation = () => {
                 className="user_reservation_radio_btn"
                 name="tableType"
                 value="onetable"
-                defaultchecked
+                checked={tableType === "onetable"}
+                onChange={handleTableTypeChange}
               >
                 <p>1인석</p>
               </Radio>
