@@ -50,7 +50,7 @@ const CafeRegister = () => {
               {number === 2 && <CafeType />}
               {number === 3 && <CafeBasic />}
               {number === 4 && <CafeImage />}
-              {number === 5 && <CafeFeature />}
+              {number === 5 && <CafeName />}
               {number === 6 && <CafeStudySetting />}
             </div>
             <div className="button-next">

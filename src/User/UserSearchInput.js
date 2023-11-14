@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./UserSearchInput.css";
 import UserSearchCafeInfo from "./UserSearchCafeInfo";
+import UserSearchFilter from "./UserSearchFilterModal";
 
 const UserSearchInput = ({ onClose }) => {
   const [showInfo, setShowInfo] = useState(false);
@@ -17,7 +18,26 @@ const UserSearchInput = ({ onClose }) => {
     button8: false,
     button9: false,
   });
+  const [cafeInfo, setCafeInfo] = useState({
+    title: "스타벅스 가산디지털점",
+    startTime: "10 : 00",
+    endTime: "22: 00",
+    address: "서울 금천구 가산디지털1로 168 우림라이온스벨리 B동 1층",
+  });
+  const [isUserSearchFilterModal, setIsUserSearchFilterModal] = useState(false);
+  const handleOpenSearchModal = () => {
+    setIsUserSearchFilterModal(true);
+  };
 
+  const handleCloseSearchModal = () => {
+    setIsUserSearchFilterModal(false);
+  };
+
+  const handleSearchFilterSubmit = () => {
+    // 취소 처리 로직
+
+    handleCloseSearchModal();
+  };
   const handleButtonClick = (buttonName) => {
     setButtonStates((prevButtonStates) => ({
       ...prevButtonStates,
@@ -62,7 +82,7 @@ const UserSearchInput = ({ onClose }) => {
             카공 가능
           </button>
           <div className="search_button_filter">
-            <button>
+            <button onClick={handleOpenSearchModal}>
               <img src="/assets/search_filter.png" />
               <p>필터</p>
             </button>
@@ -143,9 +163,12 @@ const UserSearchInput = ({ onClose }) => {
               className="search_cafe_info_text"
               onClick={() => setShowInfo(!showInfo)}
             >
-              <h5>카페명 들어갈 자리</h5>
-              <p>이용 가능 시간 : 영업시간 들어갈 자리</p>
-              <p>카페 주소 : 카페주소 들어갈 자리</p>
+              <h5>{cafeInfo.title}</h5>
+              <p>
+                <span>이용시간 : </span> {cafeInfo.startTime} ~{" "}
+                {cafeInfo.endTime}
+              </p>
+              <p>주소 : {cafeInfo.address}</p>
             </div>
           </div>
           {showInfo && (
@@ -154,6 +177,14 @@ const UserSearchInput = ({ onClose }) => {
             </div>
           )}
         </div>
+        {isUserSearchFilterModal && <div className="search_modal"></div>}
+        {isUserSearchFilterModal && (
+          <UserSearchFilter
+            isOpen={handleOpenSearchModal}
+            onClose={handleCloseSearchModal}
+            onSubmit={handleSearchFilterSubmit}
+          />
+        )}
       </div>
     </usersearchinput>
   );

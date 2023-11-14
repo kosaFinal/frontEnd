@@ -16,7 +16,7 @@ const UserNav = () => {
           </Link>
           <div className="user_dropdown_content">
             <div className="user_dropdown_content_left">
-              <Link to="/user/find">
+              <Link to="/user/search">
                 <p>내 주변 카페 찾기</p>
               </Link>
               <Link to="/user/reservationstatus">
