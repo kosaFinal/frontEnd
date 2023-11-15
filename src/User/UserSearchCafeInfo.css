@@ -25,7 +25,8 @@
 .usersearchcafeinfo_section {
   display: flex;
   flex-direction: column;
-  margin-left: 10px;
+
+  margin: 30px 0 100px 10px;
 }
 .usersearchcafeinfo_sections {
   display: flex;
