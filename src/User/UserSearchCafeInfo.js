@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import "./UserSearchCafeInfo.css";
 import { useState } from "react";
+import UserCafeInfoSlide from "./UserCafeInfoSlide";
 
 const UserSearchCafeInfo = ({ onClose }) => {
   const [showInfo, setShowInfo] = useState(false);
@@ -29,7 +30,7 @@ const UserSearchCafeInfo = ({ onClose }) => {
         <h1>{showCafeInfo.title}</h1>
       </div>
       <div className="usersearchcafeinfo_img">
-        <img src="/assets/background_img.jpg" />
+        <UserCafeInfoSlide />
       </div>
       <div className="usersearchcafeinfo_section">
         <div className="usersearchcafeinfo_sections">
