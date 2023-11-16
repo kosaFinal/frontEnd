@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import Radio from "../Radio";
 import DatePicker from "react-datepicker";
 import { ko } from "date-fns/esm/locale";
 import { format } from "date-fns";
 import addDays from "date-fns/addDays";
+import { readTableList } from "../apis/Reservation";
 import { startOfWeek, endOfWeek, addWeeks, isWithinInterval } from "date-fns";
 
 import "./UserReservation.css";
@@ -12,10 +14,14 @@ import Footer from "../Footer";
 import UserReservationModal from "./UserReservationModal";
 
 const UserReservation = () => {
+  const [showTableOptions, setShowTableOptions] = useState(false);
+  const [showSeatAndTimeOptions, setShowSeatAndTimeOptions] = useState(false);
   const [counter, setCounter] = useState(0);
   const [selectdate, setSelectDate] = useState(new Date());
   const [tableType, setTableType] = useState("onetable");
   const [selecteTime, setSelecteTime] = useState(null);
+  const [tableNo, setTableNo] = useState("");
+  const [tableInfo, setTableInfo] = useState(null);
   const [isUserReservationModal, setIsUserReservationModal] = useState(false);
   const handleSelectTimeModal = () => {
     setIsUserReservationModal(true);
@@ -30,12 +36,32 @@ const UserReservation = () => {
     handleCloseSelectTimeModal();
   };
 
+  const onDateChange = (date) => {
+    setSelectDate(date);
+    setShowTableOptions(true);
+  };
+
   const today = new Date();
   const nextWeek = addDays(today, 7);
   const handleTableTypeChange = (event) => {
     setTableType(event.target.value);
+    setShowSeatAndTimeOptions(true);
   };
-
+  useEffect(() => {
+    const fetchTableInfo = async () => {
+      try {
+        //네트워크 통신
+        const response = await readTableList();
+        //응답으로 받은 board 객체를 상태로 저장
+        setTableInfo(response.data);
+        console.log("데이터 :", response.data);
+        console.log("테이블타입", tableInfo.data.tableInfo);
+      } catch (error) {
+        console.error("There was an error!", error);
+      }
+    };
+    fetchTableInfo();
+  }, []);
   return (
     <userreservation>
       <UserNav />
@@ -57,15 +83,12 @@ const UserReservation = () => {
             <DatePicker
               renderCustomHeader={({
                 date,
-                changeYear,
-                changeMonth,
                 decreaseMonth,
                 increaseMonth,
                 prevMonthButtonDisabled,
                 nextMonthButtonDisabled,
               }) => (
                 <div className="ManagerDatePicker-header-section">
-                  {/* 월을 선택하는 드롭다운이나 버튼을 여기에 배치 */}
                   <button
                     className="ManagerDatePickerButton"
                     onClick={decreaseMonth}
@@ -83,14 +106,13 @@ const UserReservation = () => {
                   >
                     {">"}
                   </button>
-                  {/* 년도를 선택하는 드롭다운이나 추가적인 UI 요소는 여기에 포함시키지 않습니다. */}
                 </div>
               )}
               minDate={today}
               maxDate={nextWeek}
               locale={ko}
               selected={selectdate}
-              onChange={(date) => setSelectDate(date)}
+              onChange={onDateChange}
               dateFormat="yyyy-MM-dd"
               filterDate={(date) => {
                 const startOfThisWeek = startOfWeek(new Date(), {
@@ -106,76 +128,88 @@ const UserReservation = () => {
               }}
             />
           </div>
-
-          <div className="user_reservation_radio">
-            <h5>테이블 예약</h5>
-            <div className="user_reservation_radio_button">
-              <Radio
-                className="user_reservation_radio_btn"
-                name="tableType"
-                value="multitable"
-                checked={tableType === "multitable"}
+          {showTableOptions && (
+            <div className="user_reservation_radio">
+              <h5>테이블 예약</h5>
+              <div
+                className="user_reservation_radio_button"
                 onChange={handleTableTypeChange}
               >
-                <p>단체석</p>
-              </Radio>
-              <Radio
-                className="user_reservation_radio_btn"
-                name="tableType"
-                value="fourtable"
-                checked={tableType === "fourtable"}
-                onChange={handleTableTypeChange}
-              >
-                <p>4인석</p>
-              </Radio>
-              <Radio
-                className="user_reservation_radio_btn"
-                name="tableType"
-                value="twotable"
-                checked={tableType === "twotable"}
-                onChange={handleTableTypeChange}
-              >
-                <p>2인석</p>
-              </Radio>
-              <Radio
-                className="user_reservation_radio_btn"
-                name="tableType"
-                value="onetable"
-                checked={tableType === "onetable"}
-                onChange={handleTableTypeChange}
-              >
-                <p>1인석</p>
-              </Radio>
+                <Radio
+                  className="user_reservation_radio_btn"
+                  name="tableType"
+                  value="M"
+                  checked={tableType === "multitable"}
+                  onChange={handleTableTypeChange}
+                >
+                  <p>단체석</p>
+                </Radio>
+                <Radio
+                  className="user_reservation_radio_btn"
+                  name="tableType"
+                  value="F"
+                  checked={tableType === "fourtable"}
+                  onChange={handleTableTypeChange}
+                >
+                  <p>4인석</p>
+                </Radio>
+                <Radio
+                  className="user_reservation_radio_btn"
+                  name="tableType"
+                  value="T"
+                  checked={tableType === "twotable"}
+                  onChange={handleTableTypeChange}
+                >
+                  <p>2인석</p>
+                </Radio>
+                <Radio
+                  className="user_reservation_radio_btn"
+                  name="tableType"
+                  value="O"
+                  checked={tableType === "onetable"}
+                  onChange={handleTableTypeChange}
+                >
+                  <p>1인석</p>
+                </Radio>
+              </div>
             </div>
-          </div>
-          <div className="user_reservation_seatno">
-            <h5>좌석 번호</h5>
-            <select>
-              <option>
-                {" "}
-                <p>1번</p>{" "}
-              </option>
-              <option>
-                {" "}
-                <p>2번</p>{" "}
-              </option>
-              <option>
-                {" "}
-                <p>3번</p>{" "}
-              </option>
-              <option>
-                {" "}
-                <p>4번</p>{" "}
-              </option>
-            </select>
-            <button onClick={handleSelectTimeModal}> 시간 선택 </button>
-          </div>
+          )}
+          {showSeatAndTimeOptions && (
+            <div className="user_reservation_seatno">
+              <h5>좌석 번호</h5>
+              <select
+                value={tableNo}
+                onChange={(e) => setTableNo(e.target.value)}
+              >
+                {tableInfo &&
+                  tableInfo.data.tableInfo[tableType] &&
+                  tableInfo.data.tableInfo[tableType].map((table, index) => (
+                    <option key={index} value={table.tableId}>
+                      {table.tableNumber}
+                    </option>
+                  ))}
+              </select>
+              <button onClick={handleSelectTimeModal}> 시간 선택 </button>
+            </div>
+          )}
           <div className="user_reservation_time">
             <h5>예약 시간대</h5>
             <div className="user_reservation_time_p">
               <p>
                 {selecteTime
-                  ? selecteTime.map((time) => time.reserveStart).join(" , ")
+                  ? selecteTime
+                      .map((time, index) => (
+                        <span key={index} className="time-choice">
+                          {time.reserveStart}
+                        </span>
+                      ))
+                      .reduce(
+                        (acc, curr, index, array) =>
+                          index < array.length - 1
+                            ? [...acc, curr]
+                            : [...acc, curr],
+                        []
+                      )
                   : ""}
               </p>
             </div>
