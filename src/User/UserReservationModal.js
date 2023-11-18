@@ -1,55 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./UserReservationModal.css";
+import { readReservationTime } from "../apis/Reservation";
 
 const UserReservationModal = ({ isOpen, onSubmit, onClose }) => {
   const [selecteTime, setSelecteTime] = useState([]);
-  const [modalSelectTime, setModalSelectTime] = useState([
-    {
-      reserveStart: "07:00",
-      reserveEnd: "08 : 00",
-      available: "Y",
-    },
-    {
-      reserveStart: "08:00",
-      reserveEnd: "09 : 00",
-      available: "N",
-    },
-    {
-      reserveStart: "09:00",
-      reserveEnd: "10 : 00",
-      available: "N",
-    },
-    {
-      reserveStart: "10:00",
-      reserveEnd: "11 : 00",
-      available: "Y",
-    },
-    {
-      reserveStart: "11:00",
-      reserveEnd: "12 : 00",
-      available: "Y",
-    },
-    {
-      reserveStart: "12:00",
-      reserveEnd: "13 : 00",
-      available: "Y",
-    },
-    {
-      reserveStart: "13:00",
-      reserveEnd: "14 : 00",
-      available: "Y",
-    },
-    {
-      reserveStart: "14:00",
-      reserveEnd: "15 : 00",
-      available: "Y",
-    },
-    {
-      reserveStart: "15:00",
-      reserveEnd: "16 : 00",
-      available: "Y",
-    },
-  ]);
+  const [modalSelectTime, setModalSelectTime] = useState([]);
 
   const handleSelectTime = (timeSelect) => {
     if (timeSelect.available === "Y") {
@@ -69,6 +24,26 @@ const UserReservationModal = ({ isOpen, onSubmit, onClose }) => {
       });
     }
   };
+  useEffect(() => {
+    if (isOpen) {
+      const fetchReservationTime = async () => {
+        try {
+          const response = await readReservationTime();
+          setModalSelectTime(response.data); // 데이터를 상태에 저장
+        } catch (error) {
+          console.error("예약 시간을 불러오는데 실패했습니다", error);
+        }
+      };
+      fetchReservationTime();
+    } else {
+      setModalSelectTime([]); // 모달이 닫힐 때 상태를 초기화
+    }
+  }, [isOpen]); // isOpen이 변경될 때마다 이펙트를 다시 실행
+
+  useEffect(() => {
+    // 상태가 업데이트된 후에 로그를 기록하려면 이렇게 별도의 useEffect를 사용
+    console.log("예약 가능한 시간", modalSelectTime);
+  }, [modalSelectTime]);
 
   if (!isOpen) return null;
   const handleSubmit = () => {
@@ -85,17 +60,18 @@ const UserReservationModal = ({ isOpen, onSubmit, onClose }) => {
             </div>
           </div>
           <div className="user_reservation_modal_select_time">
-            {modalSelectTime.map((timeSelect, index) => (
-              <button
-                key={index}
-                disabled={timeSelect.available === "N"}
-                onClick={() => handleSelectTime(timeSelect)}
-                className={selecteTime.includes(timeSelect) ? "selected" : ""}
-              >
-                {timeSelect.reserveStart}
-                {/* <br /> ~ {timeSelect.reserveEnd} */}
-              </button>
-            ))}
+            {Array.isArray(modalSelectTime) &&
+              modalSelectTime.map((timeSelect, index) => (
+                <button
+                  key={index}
+                  disabled={timeSelect.available === "N"}
+                  onClick={() => handleSelectTime(timeSelect)}
+                  className={selecteTime.includes(timeSelect) ? "selected" : ""}
+                >
+                  {timeSelect.reserveStart}
+                  {/* <br /> ~ {timeSelect.reserveEnd} */}
+                </button>
+              ))}
           </div>
           <div className="user_reservation_select_time_submit">
             <button onClick={handleSubmit}>시간 선택하기</button>
