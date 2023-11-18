@@ -6,5 +6,5 @@ export function readTableList() {
   return axios.get("/user/reservation/cafe/187");
 }
 export function readReservationTime() {
-  return axios.get("/user/reservation/time/20221114/42");
+  return axios.get("/user/reservation/time/20231114/42");
 }

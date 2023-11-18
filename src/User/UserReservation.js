@@ -220,7 +220,8 @@ const UserReservation = () => {
           </div>
         </div>
         <div className="user_reservation_right">
-          <img src="/assets/cafe_seat.png" />
+          <img src={`data:image/;base64,${tableInfo.data.studyImg}`} />
+          {/* <img src={tableInfo.data.studyImg} /> */}
         </div>
       </div>
       <Footer />
