@@ -5,7 +5,7 @@ axios.defaults.baseURL = "http://localhost:8080";
 //   "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MDAyNjMwNDUsInVzZXJOYW1lIjoidXNlcjIifQ.6qB7rNpSyK9nPfdvjc4iQZOjyus7ygSzyQcLkid3F3M";
 export function addAuthHeader() {
   axios.defaults.headers.common["Authorization"] =
-    "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MDAyNjMwNDUsInVzZXJOYW1lIjoidXNlcjIifQ.6qB7rNpSyK9nPfdvjc4iQZOjyus7ygSzyQcLkid3F3M";
+    "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MDAzMTAxODEsInVzZXJOYW1lIjoidXNlcjIifQ.mBauMQZ8vyOpb98DOy3TkhYJuzvOE19WHHLVzESAP6g";
   // console.log("토큰 :", accessToken);
 }
 
