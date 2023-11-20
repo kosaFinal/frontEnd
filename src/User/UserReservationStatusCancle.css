@@ -26,3 +26,7 @@
 .status_cancle_text span {
   color: red;
 }
+.status_cancle_text h2 {
+  color: #ccc;
+  margin: 50px auto;
+}
