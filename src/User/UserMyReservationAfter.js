@@ -11,7 +11,6 @@ const UserMyReservationAfter = () => {
   useEffect(() => {
     const reservationAfterInfo = async () => {
       try {
-        addAuthHeader();
         const response = await reservationFinish();
         setReservationAfter(response.data.data);
         console.log("끝이 보인다 : ", response.data);

@@ -36,7 +36,7 @@ const InProgressTabContent = () => {
   const handleCancleConfirm = async (reservationIds, reasonId) => {
     // 취소 처리 로직
     try{
-      addAuthHeader();
+
       console.log('Reservation IDs:', reservationIds);
       console.log('resaonId: ', reasonId)
       await managerChangeCancle({reservationIds: cancleReservationIds, cancleReasonId : reasonId});
@@ -65,7 +65,7 @@ const InProgressTabContent = () => {
   const handleReservationFinish =  async (reservationIds) => {
     // 이용 종료 로직
     try {
-      addAuthHeader();
+
       console.log('Reservation IDs:', reservationIds);
       await managerChangeFinish({reservationIds: finishReservationIds});
       console.log("이용종료");
@@ -79,9 +79,8 @@ const InProgressTabContent = () => {
 
   useEffect(() => {
     const fetchProgressRevInfo = async () => {
-      console.log("토큰 헤더:", addAuthHeader());
       try {
-        addAuthHeader();
+
         //네트워크 통신
         const response = await managerReadProgress();
         //응답으로 받은 board 객체를 상태로 저장

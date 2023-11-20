@@ -13,7 +13,6 @@ const UserReservationStatus = () => {
   useEffect(() => {
     const readReservationStatus = async () => {
       try {
-        addAuthHeader();
         const response = await reservationNow();
         setReservationStatus(response.data.data);
         console.log("잘했네", response.data);

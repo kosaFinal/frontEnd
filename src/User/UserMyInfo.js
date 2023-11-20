@@ -16,7 +16,6 @@ const UserMyInfo = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      addAuthHeader();
       const response = await checkPassword(password);
       if (response.data.isSuccess && response.data.data) {
         navigate("/user/myinfo/update");

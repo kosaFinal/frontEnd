@@ -6,7 +6,6 @@ import { format } from "date-fns";
 import addDays from "date-fns/addDays";
 import { createReservation, readTableList } from "../apis/UserReservation";
 import { startOfWeek, endOfWeek, addWeeks, isWithinInterval } from "date-fns";
-import { addAuthHeader } from "../apis/axiosConfig";
 import "./UserReservation.css";
 import UserNav from "./UserNav";
 import Footer from "../Footer";
@@ -50,9 +49,8 @@ const UserReservation = () => {
   };
   useEffect(() => {
     const fetchTableInfo = async () => {
-      console.log("토큰 헤더:", addAuthHeader());
       try {
-        addAuthHeader();
+
         const response = await readTableList();
         setTableInfo(response.data);
         console.log("데이터 :", response.data);
