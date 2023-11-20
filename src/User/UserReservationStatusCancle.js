@@ -1,8 +1,20 @@
+import { useEffect } from "react";
 import Footer from "../Footer";
+import { reservationCancle } from "../apis/Reservation";
 import UserNav from "./UserNav";
 import "./UserReservationStatusCancle.css";
 
 const UserReservationStatusCancle = () => {
+  useEffect(() => {
+    const cancleReservationCancle = async () => {
+      try {
+        const response = await reservationCancle();
+        console.log("성공 : ", response.data);
+      } catch (error) {
+        console.error("실패", error);
+      }
+    };
+  }, []);
   return (
     <userreservationstatuscancle>
       <UserNav />

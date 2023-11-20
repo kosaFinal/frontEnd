@@ -4,7 +4,7 @@ import DatePicker from "react-datepicker";
 import { ko } from "date-fns/esm/locale";
 import { format } from "date-fns";
 import addDays from "date-fns/addDays";
-import { readTableList } from "../apis/Reservation";
+import { createReservation, readTableList } from "../apis/Reservation";
 import { startOfWeek, endOfWeek, addWeeks, isWithinInterval } from "date-fns";
 import { addAuthHeader } from "../apis/axiosConfig";
 import "./UserReservation.css";
@@ -51,9 +51,7 @@ const UserReservation = () => {
       console.log("토큰 헤더:", addAuthHeader());
       try {
         addAuthHeader();
-        //네트워크 통신
         const response = await readTableList();
-        //응답으로 받은 board 객체를 상태로 저장
         setTableInfo(response.data);
         console.log("데이터 :", response.data);
         console.log("테이블타입", tableInfo.data.tableInfo);
@@ -63,6 +61,22 @@ const UserReservation = () => {
     };
     fetchTableInfo();
   }, []);
+  const submitReservation = async () => {
+    const reservationData = {
+      counter: counter,
+      selectdate: selectdate,
+      tableType: tableType,
+      selectdate: selectdate,
+      selecteTime: selecteTime,
+      tableNo: tableNo,
+    };
+    try {
+      const response = await createReservation(reservationData);
+      console.log("reservation 등록", response.data);
+    } catch (error) {
+      console.error("Error: ", error);
+    }
+  };
   return (
     <userreservation>
       <UserNav />
@@ -216,11 +230,12 @@ const UserReservation = () => {
             </div>
           </div>
           <div className="user_reservation_submit">
-            <button>예약하기</button>
+            <button onClick={submitReservation}>예약하기</button>
           </div>
         </div>
         <div className="user_reservation_right">
-          <img src="/assets/cafe_seat.png" />
+          <img src={`data:image/;base64,${tableInfo.data.studyImg}`} />
+          {/* <img src={tableInfo.data.studyImg} /> */}
         </div>
       </div>
       <Footer />
