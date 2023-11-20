@@ -2,7 +2,7 @@ import Footer from "../Footer";
 import UserNav from "./UserNav";
 import "./UserInfoUpdate.css";
 import { addAuthHeader } from "../apis/axiosConfig";
-import { updatePassword } from "../apis/login";
+import { updatePassword } from "../apis/UserInfo";
 import { useState } from "react";
 
 const UserInfoUpdate = () => {
