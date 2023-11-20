@@ -4,7 +4,7 @@ import "./UserMyInfo.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { addAuthHeader } from "../apis/axiosConfig";
-import { checkPassword } from "../apis/login";
+import { checkPassword } from "../apis/UserInfo";
 
 const UserMyInfo = () => {
   const [password, setPassword] = useState("");

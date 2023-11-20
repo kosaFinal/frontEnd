@@ -11,8 +11,6 @@ const UserReservationStatus = () => {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    let interval;
-
     const readReservationStatus = async () => {
       try {
         addAuthHeader();
@@ -24,6 +22,7 @@ const UserReservationStatus = () => {
       }
     };
     readReservationStatus();
+    let interval = setInterval(readReservationStatus, 6000);
 
     if (reservationStatus.status === "A" && progress < 90) {
       interval = setInterval(() => {
@@ -34,7 +33,6 @@ const UserReservationStatus = () => {
       setProgress(100);
       clearInterval(interval);
     }
-
     return () => clearInterval(interval);
   }, [reservationStatus.status]);
 
@@ -80,12 +78,11 @@ const UserReservationStatus = () => {
           )}
         </div>
         <Link to="/user/myreservation">
-          {reservationStatus.status === "P" &&
-            "진행"(
-              <div className="link_reservationList">
-                <button>예약 내역 조회하기</button>
-              </div>
-            )}
+          {reservationStatus.status === "P" && (
+            <div className="link_reservationList">
+              <button>예약 내역 조회하기</button>
+            </div>
+          )}
         </Link>
       </div>
       <Footer />
