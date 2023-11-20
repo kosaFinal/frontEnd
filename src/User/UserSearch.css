@@ -10,13 +10,15 @@
 .map_button {
   position: fixed;
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
+  bottom: 40px;
+  left: 70%;
+  transform: translateX(-50%);
   height: 20px;
-  margin-top: 45vh;
   width: 50%;
   text-align: center;
   z-index: 1;
-  margin-left: 47%;
 }
 .map_button .map_button1 {
   height: 40px;
