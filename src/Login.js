@@ -40,6 +40,7 @@ function Login() {
         console.log(response.data.data);
         appContext.setUser(response.data.data.userName);
         appContext.setAccessToken(response.data.data.accessToken);
+       appContext.setRole(response.data.data.role);
 
         //상태 재초기화
         setUser({
