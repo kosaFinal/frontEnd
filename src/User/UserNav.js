@@ -2,13 +2,20 @@ import { Link } from "react-router-dom";
 import "./UserNav.css";
 import { useContext } from "react";
 import AppContext from "../AppContext";
+import { removeAuthHeader } from "../apis/axiosConfig";
 
 const UserNav = () => {
   const appContext = useContext(AppContext);
+
   const handleLogout = (event) => {
+    removeAuthHeader();
     //context 전역상태 초기화
     appContext.setUser("");
+    appContext.setAccessToken("");
+
   };
+
+  
 
   return (
     <usernav>
@@ -61,14 +68,12 @@ const UserNav = () => {
             </>
          
         ) : (
-          // <div className="loginUser">
           <div className="loginafterbox">
             <span className="userNameDiv">{appContext.user}님 환영합니다!</span>
             <button className="logoutButton" onClick={handleLogout}>
               로그아웃
             </button>
             </div>
-            // </div>
         )}
         </div>
       </div>
