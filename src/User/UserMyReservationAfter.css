@@ -9,6 +9,7 @@
   justify-content: space-around;
   padding: 30px;
   margin: auto;
+  width: 80%;
   font-family: "HakgyoansimSantteutdotumL";
   height: 80px;
   border: 1px solid black;
@@ -49,8 +50,7 @@
   margin-top: 10px;
 }
 .user_reservation_cancle {
-  margin-right: 3.8%;
-
+  margin-right: 29px;
   text-align: center;
   display: flex;
   flex-direction: column;

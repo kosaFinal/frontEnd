@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./UserReservationModal.css";
-import { readReservationTime } from "../apis/Reservation";
+import { readReservationTime } from "../apis/UserReservation";
 
 const UserReservationModal = ({ isOpen, onSubmit, onClose }) => {
   const [selecteTime, setSelecteTime] = useState([]);

@@ -4,13 +4,14 @@ import DatePicker from "react-datepicker";
 import { ko } from "date-fns/esm/locale";
 import { format } from "date-fns";
 import addDays from "date-fns/addDays";
-import { createReservation, readTableList } from "../apis/Reservation";
+import { createReservation, readTableList } from "../apis/UserReservation";
 import { startOfWeek, endOfWeek, addWeeks, isWithinInterval } from "date-fns";
 import { addAuthHeader } from "../apis/axiosConfig";
 import "./UserReservation.css";
 import UserNav from "./UserNav";
 import Footer from "../Footer";
 import UserReservationModal from "./UserReservationModal";
+import { Link } from "react-router-dom";
 
 const UserReservation = () => {
   const [showTableOptions, setShowTableOptions] = useState(false);
@@ -20,6 +21,7 @@ const UserReservation = () => {
   const [tableType, setTableType] = useState("onetable");
   const [selecteTime, setSelecteTime] = useState(null);
   const [tableNo, setTableNo] = useState("");
+  const [tableId, setTableId] = useState(0);
   const [tableInfo, setTableInfo] = useState(null);
   const [isUserReservationModal, setIsUserReservationModal] = useState(false);
   const handleSelectTimeModal = () => {
@@ -63,12 +65,13 @@ const UserReservation = () => {
   }, []);
   const submitReservation = async () => {
     const reservationData = {
-      counter: counter,
-      selectdate: selectdate,
-      tableType: tableType,
-      selectdate: selectdate,
-      selecteTime: selecteTime,
-      tableNo: tableNo,
+      tableId: parseInt(tableId),
+      personCnt: counter,
+      reserveDate: format(selectdate, "yyyy-MM-dd"),
+      reserveTime: selecteTime.map((time) => ({
+        reserveStart: time.reserveStart,
+        reserveEnd: time.reserveEnd,
+      })),
     };
     try {
       const response = await createReservation(reservationData);
@@ -77,6 +80,15 @@ const UserReservation = () => {
       console.error("Error: ", error);
     }
   };
+  useEffect(() => {
+    if (
+      tableInfo &&
+      tableInfo.data.tableInfo[tableType] &&
+      tableInfo.data.tableInfo[tableType].length > 0
+    ) {
+      setTableId(tableInfo.data.tableInfo[tableType][0].tableId);
+    }
+  }, [tableInfo, tableType]);
   return (
     <userreservation>
       <UserNav />
@@ -193,8 +205,8 @@ const UserReservation = () => {
             <div className="user_reservation_seatno">
               <h5>좌석 번호</h5>
               <select
-                value={tableNo}
-                onChange={(e) => setTableNo(e.target.value)}
+                value={tableId}
+                onChange={(e) => setTableId(parseInt(e.target.value))}
               >
                 {tableInfo &&
                   tableInfo.data.tableInfo[tableType] &&
@@ -229,13 +241,21 @@ const UserReservation = () => {
               </p>
             </div>
           </div>
-          <div className="user_reservation_submit">
-            <button onClick={submitReservation}>예약하기</button>
-          </div>
+          <Link to="/user/reservationstatus">
+            <div className="user_reservation_submit">
+              <button onClick={submitReservation}>예약하기</button>
+            </div>
+          </Link>
         </div>
         <div className="user_reservation_right">
-          <img src={`data:image/;base64,${tableInfo.data.studyImg}`} />
-          {/* <img src={tableInfo.data.studyImg} /> */}
+          {tableInfo && tableInfo.data && tableInfo.data.studyImg ? (
+            <img
+              src={`data:image/;base64,${tableInfo.data.studyImg}`}
+              alt="Study Table"
+            />
+          ) : (
+            <div>Loading image...</div>
+          )}
         </div>
       </div>
       <Footer />

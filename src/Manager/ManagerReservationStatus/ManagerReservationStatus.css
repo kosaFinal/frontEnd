@@ -8,7 +8,7 @@
   margin: auto;
 }
 
-.reservation-status-top{
+.reservation-status-top {
   margin: auto;
   margin-top: 50px;
   margin-bottom: 10px;
@@ -23,13 +23,13 @@
   margin-bottom: 15px;
 }
 
-.status-tab-hr{
+.status-tab-hr {
   width: 20%;
   color: #ccc;
-  margin-bottom: 50px;  
+  margin-bottom: 50px;
 }
 
-.tab-buttons{
+.tab-buttons {
   display: flex;
   align-items: center;
   margin-left: 3%;
@@ -63,7 +63,7 @@
 
 .inProgressButton.active,
 .upcomingButton.active {
-  background-color: #7CD0FF;
+  background-color: #7cd0ff;
   color: #fff;
 }
 
