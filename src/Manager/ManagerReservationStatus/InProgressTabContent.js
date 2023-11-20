@@ -3,7 +3,7 @@ import CancleModal from "./CancleModal";
 import FinishModal from './FinishModal';
 import "./StatusTabContent.css";
 import { addAuthHeader } from "../../apis/axiosConfig";
-import { managerReadProgress } from "../../apis/Reservation";
+import { managerChangeCancle, managerReadProgress } from "../../apis/ManagerReservation";
 
 const InProgressTabContent = () => {
   const [progressRevInfo, setProgressRevInfo] = useState(null);
@@ -18,17 +18,30 @@ const InProgressTabContent = () => {
   };
 
   const [isCancleModalOpen, setIsCancleModalOpen] = useState(false);
+  const [cancleReservationIds, setCancleReservationIds] = useState([]);
 
-  const handleOpenCancleModal = () => {
+  const handleOpenCancleModal = (reservation) => {
     setIsCancleModalOpen(true);
+    setCancleReservationIds(reservation.reservationIds);
   };
 
   const handleCloseCancleModal = () => {
     setIsCancleModalOpen(false);
   };
 
-  const handleCancleConfirm = () => {
+  const handleCancleConfirm = async (reservationIds, reasonId) => {
     // 취소 처리 로직
+    try{
+      addAuthHeader();
+      console.log('Reservation IDs:', reservationIds);
+      console.log('resaonId: ', reasonId)
+      await managerChangeCancle({reservationIds: cancleReservationIds, cancleReasonId : reasonId});
+      console.log("취소 처리");
+      alert("예약 취소가 완료되었습니다.");
+      window.location.reload();
+    } catch(error){
+      console.error(error);
+    }
 
     handleCloseCancleModal();
   };
@@ -80,8 +93,8 @@ const InProgressTabContent = () => {
               <div>인원수: {reservation.personCnt}</div>
             </div>
             <div className="reservation-button">
-              <button onClick={() => handleOpenFinishModal()}>예약 종료</button>
-              <button onClick={() => handleOpenCancleModal()}>예약 취소</button>
+              <button onClick={() => handleOpenFinishModal()}>이용 종료</button>
+              <button onClick={() => handleOpenCancleModal(reservation)}>예약 취소</button>
             </div>
           </div>
       ))}
@@ -104,6 +117,7 @@ const InProgressTabContent = () => {
           isOpen={isCancleModalOpen}
           onClose={handleCloseCancleModal}
           onConfirm={handleCancleConfirm}
+          reservationIds={cancleReservationIds}
         />
       )}
     </div>

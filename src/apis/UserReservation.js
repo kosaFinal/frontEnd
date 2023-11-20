@@ -17,15 +17,3 @@ export function reservationNow() {
 export function reservationCancle() {
   return axios.get("/user/reservation/cancle");
 }
-
-export function managerReadProgress() {
-  return axios.get("/manager/reservation/read/ing");
-}
-
-export function managerReadUpcoming() {
-  return axios.get("/manager/reservation/read/before");
-}
-
-export function managerChangeConfirm(data) {
-  return axios.patch("/manager/reservation/confirm", data);
-}
