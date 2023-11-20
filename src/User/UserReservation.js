@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import Radio from "../Radio";
 import DatePicker from "react-datepicker";
 import { ko } from "date-fns/esm/locale";
@@ -7,7 +6,7 @@ import { format } from "date-fns";
 import addDays from "date-fns/addDays";
 import { readTableList } from "../apis/Reservation";
 import { startOfWeek, endOfWeek, addWeeks, isWithinInterval } from "date-fns";
-
+import { addAuthHeader } from "../apis/axiosConfig";
 import "./UserReservation.css";
 import UserNav from "./UserNav";
 import Footer from "../Footer";
@@ -49,7 +48,9 @@ const UserReservation = () => {
   };
   useEffect(() => {
     const fetchTableInfo = async () => {
+      console.log("토큰 헤더:", addAuthHeader());
       try {
+        addAuthHeader();
         //네트워크 통신
         const response = await readTableList();
         //응답으로 받은 board 객체를 상태로 저장
@@ -219,7 +220,8 @@ const UserReservation = () => {
           </div>
         </div>
         <div className="user_reservation_right">
-          <img src="/assets/cafe_seat.png" />
+          <img src={`data:image/;base64,${tableInfo.data.studyImg}`} />
+          {/* <img src={tableInfo.data.studyImg} /> */}
         </div>
       </div>
       <Footer />
