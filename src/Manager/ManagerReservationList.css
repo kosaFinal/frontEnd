@@ -1,97 +1,91 @@
-.ManagerReservationList {
+
+.ManagerReservationList{
     margin: 2rem 0;
     width: auto;
     height: auto;
 }
 
-.ManagerReservationList-Container {
+.ManagerReservationList-Container{
     width: 100%;
     height: 100%;
     display: flex;
     justify-content: center;
 }
 
-.ManagerReservationList-Container-Items {
+.ManagerReservationList-Container-Items{
     display: flex;
     justify-content: center;
     flex-flow: column;
+    
+    
+}
+.ManagerReservationList-Container-Date{
+    margin: 0 auto;
+    margin-top: 2rem;
 }
 
-.ManagerReservationList-Container-Date-Section {
-    display: flex;
-}
-
-.ManagerReservationList-Container-Date {
-    margin: 1rem 2rem;
-}
-
-.ManagerReservationList-Container-Date-Text {
+.ManagerReservationList-Container-Date-Text{
     width: 30rem;
 }
 
-
 /* 예약 출력 섹션 */
 
-.ReservationList-Section:hover {
-    cursor: pointer;
-    background-color: whitesmoke;
-}
-
-.ReservationList-Section {
+.ReservationList-Section:hover{cursor: pointer; background-color: whitesmoke;}
+.ReservationList-Section{
     display: flex;
-    margin: 0;
+    margin: 2rem 0;
     justify-content: space-between;
     padding: 0.5rem;
-    height: 35%;
+    height: 25%;
     border: 1px solid #ccc;
     border-radius: 5px;
     box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
 }
 
-.ManagerReservationList-Container-List-Section {
-    margin: 1rem 2rem;
-}
-
 .ReservationList-UserName {
-    margin: auto 1rem;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 2rem;
+    
 }
-
-.ReservationList-UserName h3 {
+.ReservationList-UserName h3{
     font-size: 1.5rem;
-    margin-left: auto;
-    margin-right: auto;
+   margin-left: auto;
+   margin-right: auto;
 }
 
-.ReservationList-Status {
-    margin: auto 1.5rem;
+.ReservationList-Status{
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 1.5rem;
+    
 }
 
-.ReservationList-Status p {
+.ReservationList-Status p{
     margin: 0.8rem, 0.5rem;
     font-weight: bold;
 }
 
-
 /* DatePicker Custom */
-
-.DatePicker-Section .react-datepicker {
+.DatePicker-Section .react-datepicker{
     width: 30rem;
+    
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.25);
 }
 
-.ManagerDatePickerButton {
+.ManagerDatePickerButton{
     width: 1.5rem;
     font-size: 1.2rem;
     color: black;
     border: none;
 }
-
-.ManagerDatePickerText {
+.ManagerDatePickerText{
+    
     font-size: 1.3rem;
     font-weight: bold;
 }
 
-.ManagerDatePicker-header-section {
+.ManagerDatePicker-header-section{
     margin: 0.5rem 0;
     margin-bottom: 1rem;
 }
@@ -99,68 +93,67 @@
 .react-datepicker__header .react-datepicker__month-container {
     width: 50%;
 }
-
-.react-datepicker__day:nth-child(1) {
-    color: red;
-    /* 일요일 날짜*/
+.react-datepicker__day:nth-child(1){ 
+    color:red; /* 일요일 날짜*/
 }
-
-.react-datepicker__day:nth-child(7) {
-    color: #8685FF;
-    /* 토요일 날짜 */
+.react-datepicker__day:nth-child(7){
+    color:#8685FF; /* 토요일 날짜 */
 }
-
-
 /* day-name: 요일 */
-
-.react-datepicker__day-name:nth-child(1) {
-    color: #FF5555;
-    /* 일요일 */
+.react-datepicker__day-name:nth-child(1){
+    color: #FF5555; /* 일요일 */
 }
-
-.react-datepicker__day-name:nth-child(7) {
-    color: #8685FF;
-    /* 토요일 */
+.react-datepicker__day-name:nth-child(7){
+    color:#8685FF; /* 토요일 */
 }
 
 .react-datepicker__day--disabled {
-    color: #ccc !important;
-    /* 선택할 수 없는 날짜의 텍스트 색 */
-}
-
+    color: #ccc !important; /* 선택할 수 없는 날짜의 텍스트 색 */
+  }
+  
 .react-datepicker__header {
     background-color: #FFCD4A;
 }
-
-.react-datepicker__current-month {
+.react-datepicker__current-month{
     width: 30rem;
 }
 
 .react-datepicker__navigation--next {
     margin-right: 10rem;
 }
-
-.react-datepicker__navigation--previous {
+.react-datepicker__navigation--previous{
     margin-left: 10rem;
 }
 
-.react-datepicker__navigation:hover *::before {
+
+.react-datepicker__navigation:hover *::before{
     background-color: #FFCD4A;
 }
 
 .react-datepicker__day-names {
     font-weight: bold;
+    
     margin-top: 0.5rem;
     display: flex;
     justify-content: space-around;
 }
 
-.react-datepicker__day {
+.react-datepicker__day{
     margin-top: 1.3rem;
 }
 
-.react-datepicker__week {
+.react-datepicker__week{
     display: flex;
     font-size: 1.3rem;
     justify-content: space-around;
 }
+
+
+
+  
+  
+  
+  
+
+
+
