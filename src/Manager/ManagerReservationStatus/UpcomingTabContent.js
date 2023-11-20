@@ -1,18 +1,25 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./StatusTabContent.css";
 import CancleModal from "./CancleModal";
 import ConfirmModal from "./ConfirmModal";
+import { addAuthHeader } from "../../apis/axiosConfig";
+import { managerChangeConfirm, managerReadUpcoming } from "../../apis/Reservation";
 
 const UpcomingTabContent = () => {
-  const upComingReservations = [
-    { name: '윤형우', type: '4인석', time: '12:00 ~ 15:00', cnt: '3명', seat: 'A1', date: '2023-11-18' },
-    { name: '윤형우', type: '4인석', time: '12:00 ~ 15:00', cnt: '3명', seat: 'B2', date: '2023-11-18' },
-    { name: '윤형우', type: '4인석', time: '12:00 ~ 15:00', cnt: '3명', seat: 'C3', date: '2023-11-18' }
-  ];
+  const [upcomingRevInfo, setUpcomingRevInfo] = useState(null);
+
+  const getTableType = (tableType) => {
+    switch(tableType){
+      case "O" : return "1인석";
+      case "T" : return "2인석";
+      case "F" : return "4인석";
+      case "M" : return "다인석";
+    }
+  };
 
   const [isCancleModalOpen, setIsCancleModalOpen] = useState(false);
 
-  const handleOpenCancleModal = () => {
+  const handleOpenCancleModal = (reservation) => {
     setIsCancleModalOpen(true);
   };
 
@@ -27,41 +34,65 @@ const UpcomingTabContent = () => {
   };
 
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
+  const [confirmationReservationIds, setConfirmationReservationIds] = useState([]);
 
-  const handleOpenConfirmModal = () => {
+  const handleOpenConfirmModal = (reservation) => {
     setIsConfirmModalOpen(true);
+    setConfirmationReservationIds(reservation.reservationIds);
   };
 
   const handleCloseConfirmModal = () => {
     setIsConfirmModalOpen(false);
   };
 
-  const handleReservationConfirm = () => {
+  const handleReservationConfirm = async (reservationIds) => {
     // 예약 완료 로직
-
+    try{
+      addAuthHeader();
+      console.log('Reservation IDs:', reservationIds);
+      await managerChangeConfirm({reservationIds: confirmationReservationIds});
+      console.log("실행중");
+    } catch(error){
+      console.error(error);
+    }
     handleCloseConfirmModal();
   };
 
+  useEffect(() => {
+    const fetchUpcomingRevInfo = async () => {
+      try {
+        addAuthHeader();
+        //네트워크 통신
+        const response = await managerReadUpcoming();
+        //응답으로 받은 board 객체를 상태로 저장
+        setUpcomingRevInfo(response.data);
+        console.log("데이터 :", response.data);
+      } catch (error) {                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+        console.error("There was an error!", error);
+      }
+    };
+    fetchUpcomingRevInfo();
+  }, []);
 
   return (
     <div>
-      {upComingReservations.map((reservation, index) => (
+      {upcomingRevInfo && upcomingRevInfo.data.map((reservation, index) => (
           <div className="reservation-item">
-            <div className="reservation-name">{reservation.name}</div>
+            <div className="reservation-name">{reservation.userRealName}</div>
             <div className="reservation-info">
-              <div>예약 테이블: {reservation.type}</div>
-              <div>예약 좌석: {reservation.seat}</div>
-              <div>인원수: {reservation.cnt}</div>
-              <div>예약 날짜: {reservation.date}</div>
-              <div>예약 시간: {reservation.time}</div>
+              <div>예약 날짜: {reservation.reserveDate}</div>
+              <div>예약 시간: {reservation.reserveStart} ~ {reservation.reserveEnd}</div>
+              <div>예약 테이블: {getTableType(reservation.tableType)}</div>
+              <div>예약 좌석: {reservation.tableNumber}</div>
+              <div>인원수: {reservation.personCnt}</div>
             </div>
             <div className="reservation-button">
-              <button onClick={() => handleOpenConfirmModal()}>예약 확정</button>
+              <button onClick={() => handleOpenConfirmModal(reservation)}>예약 확정</button>
               <button onClick={() => handleOpenCancleModal()}>예약 취소</button>
             </div>
         </div>
       ))}
-      <hr className="divider" />
+
       {isConfirmModalOpen && (
         <div className="backdrop"></div>
       )}
@@ -69,7 +100,7 @@ const UpcomingTabContent = () => {
         <ConfirmModal
           isOpen={isConfirmModalOpen}
           onClose={handleCloseConfirmModal}
-          onConfirm={handleReservationConfirm}
+          onConfirm={(reservationIds) => handleReservationConfirm(reservationIds)}
         />
       )}
 

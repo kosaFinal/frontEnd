@@ -1,14 +1,21 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CancleModal from "./CancleModal";
-import FinishMoel from './FinishModal';
+import FinishModal from './FinishModal';
 import "./StatusTabContent.css";
+import { addAuthHeader } from "../../apis/axiosConfig";
+import { managerReadProgress } from "../../apis/Reservation";
 
 const InProgressTabContent = () => {
-  const inProgressReservations = [
-    { name: '윤형우', type: '4인석', time: '12:00 ~ 15:00', cnt: '3명', seat: 'A1', date: '2023-11-18' },
-    { name: '윤형우', type: '4인석', time: '12:00 ~ 15:00', cnt: '3명', seat: 'B2', date: '2023-11-18' },
-    { name: '윤형우', type: '4인석', time: '12:00 ~ 15:00', cnt: '3명', seat: 'C3', date: '2023-11-18' }
-  ];
+  const [progressRevInfo, setProgressRevInfo] = useState(null);
+
+  const getTableType = (tableType) => {
+    switch(tableType){
+      case "O" : return "1인석";
+      case "T" : return "2인석";
+      case "F" : return "4인석";
+      case "M" : return "다인석";
+    }
+  };
 
   const [isCancleModalOpen, setIsCancleModalOpen] = useState(false);
 
@@ -38,20 +45,39 @@ const InProgressTabContent = () => {
 
   const handleReservationFinish = () => {
     // 예약 종료 로직
+
     handleCloseFinishModal();
   };
 
+
+  useEffect(() => {
+    const fetchProgressRevInfo = async () => {
+      console.log("토큰 헤더:", addAuthHeader());
+      try {
+        addAuthHeader();
+        //네트워크 통신
+        const response = await managerReadProgress();
+        //응답으로 받은 board 객체를 상태로 저장
+        setProgressRevInfo(response.data);
+        console.log("데이터 :", response.data);
+      } catch (error) {
+        console.error("There was an error!", error);
+      }
+    };
+    fetchProgressRevInfo();
+  }, []);
+
   return (
     <div>
-      {inProgressReservations.map((reservation, index) => (
+      {progressRevInfo && progressRevInfo.data.map((reservation, index) => (
           <div className="reservation-item">
-            <div className="reservation-name">{reservation.name}</div>
+            <div className="reservation-name">{reservation.userRealName}</div>
             <div className="reservation-info">
-              <div>예약 테이블: {reservation.type}</div>
-              <div>예약 좌석: {reservation.seat}</div>
-              <div>인원수: {reservation.cnt}</div>
-              <div>예약 날짜: {reservation.date}</div>
-              <div>예약 시간: {reservation.time}</div>
+              <div>예약 날짜: {reservation.reserveDate}</div>
+              <div>예약 시간: {reservation.reserveStart} ~ {reservation.reserveEnd}</div>
+              <div>예약 테이블: {getTableType(reservation.tableType)}</div>
+              <div>예약 좌석: {reservation.tableNumber}</div>
+              <div>인원수: {reservation.personCnt}</div>
             </div>
             <div className="reservation-button">
               <button onClick={() => handleOpenFinishModal()}>예약 종료</button>
@@ -63,7 +89,7 @@ const InProgressTabContent = () => {
         <div className="backdrop"></div>
       )}
       {isFinishModalOpen && (
-        <FinishMoel
+        <FinishModal
           isOpen={isFinishModalOpen}
           onClose={handleCloseFinishModal}
           onConfirm={handleReservationFinish}

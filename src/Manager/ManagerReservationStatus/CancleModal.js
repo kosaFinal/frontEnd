@@ -11,11 +11,11 @@ const CancleModal = ({ isOpen, onClose, onConfirm }) => {
         <p className="cancle-inform">취소가 확정된 이후에는 되돌릴 수 없습니다.<br />취소 사유를 선택해주세요.</p>
         <select className="cancle-reason" defaultValue="">
           <option value="" disabled>취소사유를 선택해주세요</option>
-          <option value="option1">영업종료</option>
-          <option value="option2">손님 미도착</option>
-          <option value="option3">카페 내부 사정</option>
-          <option value="option4">카페 내부 분위기 저해</option>
-          <option value="option5">기타</option>
+          <option value="F">영업종료</option>
+          <option value="N">손님 미도착</option>
+          <option value="I">카페 내부 사정</option>
+          <option value="B">카페 내부 분위기 저해</option>
+          <option value="E">기타</option>
         </select>
         <div className="cancle-modal-buttons">
           <button className="cancle-modal-close-button" onClick={onClose}>닫기</button>
