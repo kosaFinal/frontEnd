@@ -1,7 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import "./CancleModal.css";
 
-const CancleModal = ({ isOpen, onClose, onConfirm }) => {
+const CancleModal = ({ isOpen, onClose, onConfirm, reservaitonIds }) => {
+
+  const [cancleReasonId, setCancleReason] = useState("");
+
+  const handleReasonChange = (event) => {
+    setCancleReason(event.target.value);
+  };
+
+  const handleConfirm = () => {
+    if(cancleReasonId){
+      onConfirm(reservaitonIds, cancleReasonId);
+    } else {
+      alert("취소 사유를 선택해주세요");
+    }
+  };
+
   if (!isOpen) return null;
 
   return (
@@ -9,7 +24,7 @@ const CancleModal = ({ isOpen, onClose, onConfirm }) => {
       <div className="cancle-modal-content">
         <p className="cancle-title">예약을 취소하시겠습니까?</p>
         <p className="cancle-inform">취소가 확정된 이후에는 되돌릴 수 없습니다.<br />취소 사유를 선택해주세요.</p>
-        <select className="cancle-reason" defaultValue="">
+        <select className="cancle-reason" defaultValue="" onChange={handleReasonChange}>
           <option value="" disabled>취소사유를 선택해주세요</option>
           <option value="F">영업종료</option>
           <option value="N">손님 미도착</option>
@@ -19,7 +34,7 @@ const CancleModal = ({ isOpen, onClose, onConfirm }) => {
         </select>
         <div className="cancle-modal-buttons">
           <button className="cancle-modal-close-button" onClick={onClose}>닫기</button>
-          <button className="cancle-modal-confirm-button"onClick={onConfirm}>취소 확정</button>
+          <button className="cancle-modal-confirm-button"onClick={handleConfirm}>취소 확정</button>
         </div>
       </div>
     </div>

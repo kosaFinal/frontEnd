@@ -3,10 +3,7 @@ import "./StatusTabContent.css";
 import CancleModal from "./CancleModal";
 import ConfirmModal from "./ConfirmModal";
 import { addAuthHeader } from "../../apis/axiosConfig";
-import {
-  managerChangeConfirm,
-  managerReadUpcoming,
-} from "../../apis/ManagerReservation";
+import { managerChangeCancle, managerChangeConfirm, managerReadUpcoming } from "../../apis/ManagerReservation";
 
 const UpcomingTabContent = () => {
   const [upcomingRevInfo, setUpcomingRevInfo] = useState(null);
@@ -25,29 +22,40 @@ const UpcomingTabContent = () => {
   };
 
   const [isCancleModalOpen, setIsCancleModalOpen] = useState(false);
+  const [cancleReservationIds, setCancleReservationIds] = useState([]);
 
   const handleOpenCancleModal = (reservation) => {
     setIsCancleModalOpen(true);
+    setCancleReservationIds(reservation.reservationIds);
   };
 
   const handleCloseCancleModal = () => {
     setIsCancleModalOpen(false);
   };
 
-  const handleCancleConfirm = () => {
+  const handleCancleConfirm = async (reservationIds, reasonId) => {
     // 취소 처리 로직
+    try{
+      addAuthHeader();
+      console.log('Reservation IDs:', reservationIds);
+      console.log('resaonId: ', reasonId)
+      await managerChangeCancle({reservationIds: cancleReservationIds, cancleReasonId : reasonId});
+      console.log("취소 처리");
+      alert("예약 취소가 완료되었습니다.");
+      window.location.reload();
+    } catch(error){
+      console.error(error);
+    }
 
     handleCloseCancleModal();
   };
 
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
-  const [confirmationReservationIds, setConfirmationReservationIds] = useState(
-    []
-  );
+  const [confirmReservationIds, setConfirmReservationIds] = useState([]);
 
   const handleOpenConfirmModal = (reservation) => {
     setIsConfirmModalOpen(true);
-    setConfirmationReservationIds(reservation.reservationIds);
+    setConfirmReservationIds(reservation.reservationIds);
   };
 
   const handleCloseConfirmModal = () => {
@@ -58,12 +66,12 @@ const UpcomingTabContent = () => {
     // 예약 완료 로직
     try {
       addAuthHeader();
-      console.log("Reservation IDs:", reservationIds);
-      await managerChangeConfirm({
-        reservationIds: confirmationReservationIds,
-      });
+      console.log('Reservation IDs:', reservationIds);
+      await managerChangeConfirm({reservationIds: confirmReservationIds});
       console.log("실행중");
-    } catch (error) {
+      alert("예약 확정이 완료되었습니다.");
+      window.location.reload();
+    } catch(error){
       console.error(error);
     }
     handleCloseConfirmModal();
@@ -101,10 +109,8 @@ const UpcomingTabContent = () => {
               <div>인원수: {reservation.personCnt}</div>
             </div>
             <div className="reservation-button">
-              <button onClick={() => handleOpenConfirmModal(reservation)}>
-                예약 확정
-              </button>
-              <button onClick={() => handleOpenCancleModal()}>예약 취소</button>
+              <button onClick={() => handleOpenConfirmModal(reservation)}>예약 확정</button>
+              <button onClick={() => handleOpenCancleModal(reservation)}>예약 취소</button>
             </div>
           </div>
         ))}
@@ -114,9 +120,8 @@ const UpcomingTabContent = () => {
         <ConfirmModal
           isOpen={isConfirmModalOpen}
           onClose={handleCloseConfirmModal}
-          onConfirm={(reservationIds) =>
-            handleReservationConfirm(reservationIds)
-          }
+          onConfirm={handleReservationConfirm}
+          reservationIds={confirmReservationIds}
         />
       )}
 
@@ -126,6 +131,7 @@ const UpcomingTabContent = () => {
           isOpen={isCancleModalOpen}
           onClose={handleCloseCancleModal}
           onConfirm={handleCancleConfirm}
+          reservationIds={cancleReservationIds}
         />
       )}
     </div>

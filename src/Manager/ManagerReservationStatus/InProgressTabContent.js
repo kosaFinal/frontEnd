@@ -3,7 +3,7 @@ import CancleModal from "./CancleModal";
 import FinishModal from "./FinishModal";
 import "./StatusTabContent.css";
 import { addAuthHeader } from "../../apis/axiosConfig";
-import { managerReadProgress } from "../../apis/ManagerReservation";
+import { managerChangeCancle, managerChangeFinish, managerReadProgress } from "../../apis/ManagerReservation";
 
 const InProgressTabContent = () => {
   const [progressRevInfo, setProgressRevInfo] = useState(null);
@@ -22,34 +22,58 @@ const InProgressTabContent = () => {
   };
 
   const [isCancleModalOpen, setIsCancleModalOpen] = useState(false);
+  const [cancleReservationIds, setCancleReservationIds] = useState([]);
 
-  const handleOpenCancleModal = () => {
+  const handleOpenCancleModal = (reservation) => {
     setIsCancleModalOpen(true);
+    setCancleReservationIds(reservation.reservationIds);
   };
 
   const handleCloseCancleModal = () => {
     setIsCancleModalOpen(false);
   };
 
-  const handleCancleConfirm = () => {
+  const handleCancleConfirm = async (reservationIds, reasonId) => {
     // 취소 처리 로직
+    try{
+      addAuthHeader();
+      console.log('Reservation IDs:', reservationIds);
+      console.log('resaonId: ', reasonId)
+      await managerChangeCancle({reservationIds: cancleReservationIds, cancleReasonId : reasonId});
+      console.log("취소 처리");
+      alert("예약 취소가 완료되었습니다.");
+      window.location.reload();
+    } catch(error){
+      console.error(error);
+    }
 
     handleCloseCancleModal();
   };
 
   const [isFinishModalOpen, setIsFinishModalOpen] = useState(false);
+  const [finishReservationIds, setFinishReservationIds] = useState([]);
 
-  const handleOpenFinishModal = () => {
+  const handleOpenFinishModal = (reservation) => {
     setIsFinishModalOpen(true);
+    setFinishReservationIds(reservation.reservationIds);
   };
 
   const handleCloseFinishModal = () => {
     setIsFinishModalOpen(false);
   };
 
-  const handleReservationFinish = () => {
-    // 예약 종료 로직
-
+  const handleReservationFinish =  async (reservationIds) => {
+    // 이용 종료 로직
+    try {
+      addAuthHeader();
+      console.log('Reservation IDs:', reservationIds);
+      await managerChangeFinish({reservationIds: finishReservationIds});
+      console.log("이용종료");
+      alert("고객의 이용이 종료되었습니다.");
+      window.location.reload();
+    } catch(error){
+      console.error(error);
+    }
     handleCloseFinishModal();
   };
 
@@ -86,8 +110,8 @@ const InProgressTabContent = () => {
               <div>인원수: {reservation.personCnt}</div>
             </div>
             <div className="reservation-button">
-              <button onClick={() => handleOpenFinishModal()}>예약 종료</button>
-              <button onClick={() => handleOpenCancleModal()}>예약 취소</button>
+              <button onClick={() => handleOpenFinishModal(reservation)}>이용 종료</button>
+              <button onClick={() => handleOpenCancleModal(reservation)}>예약 취소</button>
             </div>
           </div>
         ))}
@@ -97,6 +121,7 @@ const InProgressTabContent = () => {
           isOpen={isFinishModalOpen}
           onClose={handleCloseFinishModal}
           onConfirm={handleReservationFinish}
+          reservationIds={finishReservationIds}
         />
       )}
 
@@ -106,6 +131,7 @@ const InProgressTabContent = () => {
           isOpen={isCancleModalOpen}
           onClose={handleCloseCancleModal}
           onConfirm={handleCancleConfirm}
+          reservationIds={cancleReservationIds}
         />
       )}
     </div>
