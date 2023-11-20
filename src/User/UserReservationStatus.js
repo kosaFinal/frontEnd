@@ -2,19 +2,20 @@ import React, { useState, useEffect } from "react";
 import UserNav from "./UserNav";
 import "./UserReservationStatus.css";
 import Footer from "../Footer";
-import { useNavigate } from "react-router-dom";
-import { reservationNow } from "../apis/Reservation";
+import { reservationNow } from "../apis/UserReservation";
+import { addAuthHeader } from "../apis/axiosConfig";
 
 const UserReservationStatus = () => {
-  const [reservationStatus, setReservationStatus] = useState("A");
-  const navigate = useNavigate();
+  const [reservationStatus, setReservationStatus] = useState({});
 
   useEffect(() => {
     const readReservationStatus = async () => {
       try {
+        addAuthHeader();
         const response = await reservationNow();
-        setReservationStatus(response.data);
-        console.log("잘했네", response);
+
+        setReservationStatus(response.data.data);
+        console.log("잘했네", response.data);
       } catch (error) {
         console.error("내가 만든 기능이니깐 안되나?", error);
       }
@@ -26,12 +27,14 @@ const UserReservationStatus = () => {
     <userreservationstatus>
       <UserNav />
       <div className="reservation-status">
-        <div className="reservation_username">
-          <h1>
-            <span>윤형우</span> 고객님
-            <hr />
-          </h1>
-        </div>
+        {reservationStatus && reservationStatus.userRealName && (
+          <div className="reservation_username">
+            <h1>
+              <span>{reservationStatus.userRealName}</span> 고객님
+              <hr />
+            </h1>
+          </div>
+        )}
         <div className="reservation_status_text">
           <h5>신청</h5>
           <h5>진행</h5>
@@ -39,24 +42,26 @@ const UserReservationStatus = () => {
         <div className="progress-bar">
           <div
             className={`step ${
-              reservationStatus === "A" ? "progressbar_1" : ""
+              reservationStatus.status === "A" ? "progressbar_1" : ""
             }`}
           ></div>
           <div
             className={`step ${
-              reservationStatus === "P" ? "progressbar_2" : ""
+              reservationStatus.status === "P" ? "progressbar_2" : ""
             }`}
           ></div>
         </div>
         <div className="reservation_bottom">
-          <h4>
-            고객님의 예약이{" "}
-            <span>
-              {reservationStatus === "A" && "신청"}
-              {reservationStatus === "P" && "진행"}
-            </span>{" "}
-            상태 입니다.
-          </h4>
+          {reservationStatus && reservationStatus.status && (
+            <h4>
+              고객님의 예약이{" "}
+              <span>
+                {reservationStatus.status === "A" && "신청"}
+                {reservationStatus.status === "P" && "진행"}
+              </span>{" "}
+              상태 입니다.
+            </h4>
+          )}
         </div>
       </div>
       <Footer />
