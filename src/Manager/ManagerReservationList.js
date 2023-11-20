@@ -40,13 +40,17 @@ const ManagerReservationList = () => {
       <div className="ManagerReservationList">
     <div className="ManagerReservationList-Container">
         <div className='ManagerReservationList-Container-Items'>
-
-        <div className='ManagerReservationList-Container-Date-Text'>
-              <h2>날짜별 예약 확인</h2>
-            </div>
+          
+        <div className='ManagerReservationList-Container-Date-Section'>
+          
           {/* 달력 섹션 */}
           <div className='ManagerReservationList-Container-Date'>
+          <div className='ManagerReservationList-Container-Date-Text'>
+              <h2>날짜별 예약 확인이 좀 더 제목같은 느낌!</h2>
+            </div>
+
         <div className='DatePicker-Section'>
+
         <DatePicker
          renderCustomHeader={({
           date,
@@ -80,9 +84,12 @@ const ManagerReservationList = () => {
             onMonthChange={handleMonthChange}
             showDisabledMonthNavigation
           />
+
         </div>
-        
-        <h3>예약자 현황</h3>
+        </div>
+
+        <div className='ManagerReservationList-Container-List-Section'>
+        <h2>예약자 현황</h2>
         <div className='ReservationList-Section'>
           
             <div className='ReservationList-UserName'>
@@ -97,7 +104,7 @@ const ManagerReservationList = () => {
             </div>
         </div>
         <div ManagerReservationListc-Container-Date>
-        
+        </div>
       </div>
     </div>
        
