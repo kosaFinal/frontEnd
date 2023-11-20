@@ -4,16 +4,19 @@ import "./UserReservationStatus.css";
 import Footer from "../Footer";
 import { reservationNow } from "../apis/UserReservation";
 import { addAuthHeader } from "../apis/axiosConfig";
+import { Link } from "react-router-dom";
 
 const UserReservationStatus = () => {
   const [reservationStatus, setReservationStatus] = useState({});
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
+    let interval;
+
     const readReservationStatus = async () => {
       try {
         addAuthHeader();
         const response = await reservationNow();
-
         setReservationStatus(response.data.data);
         console.log("잘했네", response.data);
       } catch (error) {
@@ -21,7 +24,19 @@ const UserReservationStatus = () => {
       }
     };
     readReservationStatus();
-  }, []);
+
+    if (reservationStatus.status === "A" && progress < 90) {
+      interval = setInterval(() => {
+        setProgress((oldProgress) => Math.min(oldProgress + 1, 90));
+      }, 3333);
+    }
+    if (reservationStatus.status === "P") {
+      setProgress(100);
+      clearInterval(interval);
+    }
+
+    return () => clearInterval(interval);
+  }, [reservationStatus.status]);
 
   return (
     <userreservationstatus>
@@ -44,6 +59,7 @@ const UserReservationStatus = () => {
             className={`step ${
               reservationStatus.status === "A" ? "progressbar_1" : ""
             }`}
+            style={{ width: `${progress}%` }}
           ></div>
           <div
             className={`step ${
@@ -63,9 +79,18 @@ const UserReservationStatus = () => {
             </h4>
           )}
         </div>
+        <Link to="/user/myreservation">
+          {reservationStatus.status === "P" &&
+            "진행"(
+              <div className="link_reservationList">
+                <button>예약 내역 조회하기</button>
+              </div>
+            )}
+        </Link>
       </div>
       <Footer />
     </userreservationstatus>
   );
 };
+
 export default UserReservationStatus;
