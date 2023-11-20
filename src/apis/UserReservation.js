@@ -15,17 +15,11 @@ export function reservationNow() {
   return axios.get("/user/reservation/now");
 }
 export function reservationCancle() {
-  return axios.get("/user/reservation/cancle");
+  return axios.get("/user/reservation/now/cancle/81");
 }
-
-export function managerReadProgress() {
-  return axios.get("/manager/reservation/read/ing");
+export function reservationProgress() {
+  return axios.get("/user/reservation/list/state");
 }
-
-export function managerReadUpcoming() {
-  return axios.get("/manager/reservation/read/before");
-}
-
-export function managerChangeConfirm(data) {
-  return axios.patch("/manager/reservation/confirm", data);
+export function reservationFinish() {
+  return axios.get("/user/reservation/list/finish");
 }
