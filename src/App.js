@@ -33,8 +33,14 @@ import CafeFeature from "./Manager/CafeRegister/CafeFeature";
 import CafeStudySetting from "./Manager/CafeRegister/CafeStudySetting";
 import CafeName from "./Manager/CafeRegister/CafeName";
 import CafeBasic from "./Manager/CafeRegister/CafeBasic";
+import { addAuthHeader } from "./apis/axiosConfig";
 
 function App() {
+  const accessToken = localStorage.getItem("accessToken") || "";
+  if(accessToken !== ""){
+    addAuthHeader(accessToken);
+  }
+
   return (
     <BrowserRouter>
       <Routes>

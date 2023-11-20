@@ -8,3 +8,7 @@ export function checkPassword(password) {
 export function updatePassword(data) {
   return axios.patch("/user/update/password", { data });
 }
+
+export function login(user) {
+  return axios.post("/login", user);
+}

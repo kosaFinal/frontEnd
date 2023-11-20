@@ -1,7 +1,15 @@
 import { Link } from "react-router-dom";
 import "./UserNav.css";
+import { useContext } from "react";
+import AppContext from "../AppContext";
 
 const UserNav = () => {
+  const appContext = useContext(AppContext);
+  const handleLogout = (event) => {
+    //context 전역상태 초기화
+    appContext.setUser("");
+  };
+
   return (
     <usernav>
       <div className="user_nav">
@@ -41,13 +49,27 @@ const UserNav = () => {
           </div>
         </div>
         <div className="header_right">
-          <Link to="/login">
-            <p>로그인</p>
-          </Link>
-          <p> | </p>
-          <Link to="/register">
-            <p>회원가입</p>
-          </Link>
+        {appContext.user === "" ? (
+          <>
+            <Link to="/login">
+              <p>로그인</p>
+            </Link>
+            <p>|</p>
+            <Link to="/register">
+              <p>회원가입</p>
+            </Link>
+            </>
+         
+        ) : (
+          // <div className="loginUser">
+          <div className="loginafterbox">
+            <span className="userNameDiv">{appContext.user}님 환영합니다!</span>
+            <button className="logoutButton" onClick={handleLogout}>
+              로그아웃
+            </button>
+            </div>
+            // </div>
+        )}
         </div>
       </div>
     </usernav>
