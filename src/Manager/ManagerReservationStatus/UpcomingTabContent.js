@@ -36,7 +36,7 @@ const UpcomingTabContent = () => {
   const handleCancleConfirm = async (reservationIds, reasonId) => {
     // 취소 처리 로직
     try{
-      addAuthHeader();
+      
       console.log('Reservation IDs:', reservationIds);
       console.log('resaonId: ', reasonId)
       await managerChangeCancle({reservationIds: cancleReservationIds, cancleReasonId : reasonId});
@@ -65,7 +65,7 @@ const UpcomingTabContent = () => {
   const handleReservationConfirm = async (reservationIds) => {
     // 예약 완료 로직
     try {
-      addAuthHeader();
+
       console.log('Reservation IDs:', reservationIds);
       await managerChangeConfirm({reservationIds: confirmReservationIds});
       console.log("실행중");
@@ -80,7 +80,7 @@ const UpcomingTabContent = () => {
   useEffect(() => {
     const fetchUpcomingRevInfo = async () => {
       try {
-        addAuthHeader();
+   
         //네트워크 통신
         const response = await managerReadUpcoming();
         //응답으로 받은 board 객체를 상태로 저장

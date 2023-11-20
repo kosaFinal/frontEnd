@@ -10,7 +10,6 @@ const UserMyReservationBefore = () => {
   useEffect(() => {
     const reservationBeforeInfo = async () => {
       try {
-        addAuthHeader();
         const response = await reservationProgress();
         setReservationBefore(response.data.data);
         console.log("잘 읽는중 : ", response.data);

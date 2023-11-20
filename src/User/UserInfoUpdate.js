@@ -17,7 +17,6 @@ const UserInfoUpdate = () => {
     console.log("newpassword :", newPassword);
     console.log("confirmpassword : ", confirmPassword);
     try {
-      addAuthHeader();
       console.log("비밀번호 변경 요청 전송:", { password: newPassword });
       const response = await updatePassword({ password: newPassword });
       console.log("비밀번호 변경 : ", response.data);

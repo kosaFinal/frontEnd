@@ -34,6 +34,7 @@ import CafeStudySetting from "./Manager/CafeRegister/CafeStudySetting";
 import CafeName from "./Manager/CafeRegister/CafeName";
 import CafeBasic from "./Manager/CafeRegister/CafeBasic";
 import { addAuthHeader } from "./apis/axiosConfig";
+import { AppContextProvider } from "./AppContext";
 
 function App() {
   const accessToken = localStorage.getItem("accessToken") || "";
@@ -42,7 +43,7 @@ function App() {
   }
 
   return (
-    <BrowserRouter>
+    
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/manager" element={<Manager />} />
@@ -105,7 +106,7 @@ function App() {
         />
         <Route path="/user/myinfo/update" element={<UserInfoUpdate />} />
       </Routes>
-    </BrowserRouter>
+      
   );
 }
 

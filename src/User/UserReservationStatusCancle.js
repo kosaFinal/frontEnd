@@ -10,7 +10,6 @@ const UserReservationStatusCancle = () => {
   useEffect(() => {
     const cancleReservationCancle = async () => {
       try {
-        addAuthHeader();
         const response = await reservationCancle();
         setCancleReason(response.data.data);
         console.log("성공 : ", response.data);
