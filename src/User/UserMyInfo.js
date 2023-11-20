@@ -1,9 +1,32 @@
 import Footer from "../Footer";
 import UserNav from "./UserNav";
 import "./UserMyInfo.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { addAuthHeader } from "../apis/axiosConfig";
+import { checkPassword } from "../apis/login";
 
 const UserMyInfo = () => {
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      addAuthHeader();
+      const response = await checkPassword(password);
+      if (response.data.isSuccess && response.data.data) {
+        navigate("/user/myinfo/update");
+      } else {
+        alert("비밀번호가 일치하지 않습니다.");
+      }
+    } catch (error) {
+      console.error("일단 불러오셈 :", error);
+    }
+  };
   return (
     <usermyinfo>
       <UserNav />
@@ -21,11 +44,11 @@ const UserMyInfo = () => {
         </div>
         <div className="myUserInfo-input">
           <label>비밀번호</label>
-          <input type="password" />
+          <input type="password" onChange={handlePasswordChange} />
         </div>
         <div className="myUserInfo-button">
           <Link to="/user/myinfo/update">
-            <button>확인하기</button>
+            <button onClick={handleSubmit}>확인하기</button>
           </Link>
         </div>
       </div>
