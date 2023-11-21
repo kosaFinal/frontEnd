@@ -2,16 +2,29 @@ import React, { useState } from "react";
 import "./UserSearchFilterModal.css";
 import Radio from "../Radio";
 
-const UserSearchFilter = ({ isOpen, onSubmit, onClose }) => {
-  const [cafeStudy, setCafeStudy] = useState("");
-  const [tableType, setTableType] = useState("onetable");
+const UserSearchFilter = ({ isOpen, onFilterSubmit, onClose }) => {
+  const [startTime, setStartTime] = useState("");
+  const [endTime, setEndTime] = useState("");
+  const [userStudy, setUserStudy] = useState("");
+  const [preferSeat, setPreferSeat] = useState("");
 
   const handleTableTypeChange = (event) => {
-    setTableType(event.target.value);
+    setPreferSeat(event.target.value);
   };
 
   const handleCafeStudyChange = (event) => {
-    setCafeStudy(event.target.value);
+    setUserStudy(event.target.value);
+  };
+
+  const handleSubmit = () => {
+    const filterData = {
+      startTime,
+      endTime,
+      userStudy,
+      preferSeat,
+    };
+    onFilterSubmit(filterData);
+    onClose(); // 모달을 닫습니다
   };
 
   if (!isOpen) return null;
@@ -62,7 +75,7 @@ const UserSearchFilter = ({ isOpen, onSubmit, onClose }) => {
                 className="user_filter_radio_btn"
                 name="cafestudy"
                 value="no"
-                checked={cafeStudy === "no"}
+                checked={userStudy === "no"}
                 onChange={handleCafeStudyChange}
               >
                 <p>불가능</p>
@@ -71,7 +84,7 @@ const UserSearchFilter = ({ isOpen, onSubmit, onClose }) => {
                 className="user_filter_radio_btn"
                 name="cafestudy"
                 value="yes"
-                checked={cafeStudy === "yes"}
+                checked={userStudy === "yes"}
                 onChange={handleCafeStudyChange}
               >
                 <p>가능</p>
@@ -86,7 +99,7 @@ const UserSearchFilter = ({ isOpen, onSubmit, onClose }) => {
                   className="search_filter_radio_btn"
                   name="tableType"
                   value="multitable"
-                  checked={tableType === "multitable"}
+                  checked={preferSeat === "multitable"}
                   onChange={handleTableTypeChange}
                 >
                   <p>단체석</p>
@@ -95,7 +108,7 @@ const UserSearchFilter = ({ isOpen, onSubmit, onClose }) => {
                   className="search_filter_radio_btn"
                   name="tableType"
                   value="fourtable"
-                  checked={tableType === "fourtable"}
+                  checked={preferSeat === "fourtable"}
                   onChange={handleTableTypeChange}
                 >
                   <p>4인석</p>
@@ -104,7 +117,7 @@ const UserSearchFilter = ({ isOpen, onSubmit, onClose }) => {
                   className="search_filter_radio_btn"
                   name="tableType"
                   value="twotable"
-                  checked={tableType === "twotable"}
+                  checked={preferSeat === "twotable"}
                   onChange={handleTableTypeChange}
                 >
                   <p>2인석</p>
@@ -113,14 +126,14 @@ const UserSearchFilter = ({ isOpen, onSubmit, onClose }) => {
                   className="search_filter_radio_btn"
                   name="tableType"
                   value="onetable"
-                  checked={tableType === "onetable"}
+                  checked={preferSeat === "onetable"}
                   onChange={handleTableTypeChange}
                 >
                   <p>1인석</p>
                 </Radio>
               </div>
               <div className="search_filter_submit">
-                <button onClick={onSubmit}>적용하기</button>
+                <button onClick={handleSubmit}>적용하기</button>
               </div>
             </div>
           </div>
