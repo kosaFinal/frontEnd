@@ -10,10 +10,11 @@
     height: 100%;
     display: flex;
     justify-content: center;
+    margin-left: 8rem;
 }
 
 .ManagerUpdateStudySetting-Container-Items {
-    width: 80%;
+    width: 70%;
     display: flex;
     flex-flow: column;
     align-items: center;
@@ -29,7 +30,7 @@
 /* 카페 카공 여부 섹션 */
 
 .ManagerUpdateStudySetting-CafeIf {
-    width: 100%;
+    width: 60%;
     margin-top: 2rem;
     display: flex;
     flex-flow: column;
@@ -37,19 +38,20 @@
 }
 
 .ManagerUpdateStudySetting-CafeIf h2 {
-    width: 50%;
+    width: 20%;
     justify-content: center;
-    text-align: center;
+    text-align: start;
 }
 
 .ManagerUpdateStudySetting-CafeIf-Container {
-    width: 60%;
+    width: 100%;
     margin-top: 2rem;
     display: flex;
     justify-content: center;
     margin-left: auto;
     margin-right: auto;
     gap: 1rem;
+    
 }
 
 .ManagerUpdateStudySetting-CafeIf-Container button {
@@ -79,14 +81,15 @@
 /* 카페 카공 평면도 섹션 */
 
 .ManagerUpdateStudySetting-FloorPlan {
-    width: 80%;
+    width: 60%;
+    
     display: flex;
     flex-flow: column;
     margin-top: 3rem;
 }
 
 .ManagerUpdateStudySetting-FloorPlan-Container {
-    width: 60%;
+    width: 80%;
     display: flex;
     justify-content: center;
     margin-left: auto;
@@ -95,8 +98,8 @@
 }
 
 .ManagerUpdateStudySetting-FloorPlan h2 {
-    width: 40%;
-    text-align: center;
+    width: 20%;
+    text-align: start;
 }
 
 .ManagerUpdateStudySetting-FloorPlan-Container button {
@@ -178,10 +181,10 @@
 }
 
 .ManagerUpdateStudySetting-SeatContainer h2{
-width: 60%;
-margin-bottom: 3rem;
-margin-right: 2rem;
-text-align: start;
+    width: 20%;
+    margin-bottom: 3rem;
+    margin-right: 2rem;
+    text-align: start;
 
 }
 

@@ -1,8 +1,9 @@
 .ManagerSide-container{
-width: 8rem;
-margin-left:5rem;
+width: 18rem;
+margin-left:8rem;
 margin-top: 3rem;
 position: fixed;
+
 
 }
 
@@ -17,19 +18,26 @@ border: 0.1rem solid;
 
 }
 
+.updatecafebasic{
+    box-shadow: inset 2px 3px 10px rgba(0, 0, 0, 0.2);
+}
+
 .ManagerSide-container-items p{
-font-size: 0.8em;
+font-size: 1.5em;
+margin: 2rem 0;
+
 }
 
 .updateText {
-    padding: 0.5rem;
+    padding: 1rem;
 }
 
 .updateText span{
-    font-size: 1rem;
+    font-size: 1.8rem;
     font-weight: bold;
     margin-top: auto;
     margin-bottom: auto;
+    
 }
 
 .hidden{
@@ -38,4 +46,8 @@ font-size: 0.8em;
 
 .yellow{
     background-color: #FFCD4A;
+}
+
+.no-select{
+    color: rgb(196, 196, 196);
 }

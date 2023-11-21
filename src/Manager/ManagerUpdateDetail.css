@@ -10,9 +10,11 @@
   height: 100%;
   display: flex;
   justify-content: center;
+  margin-left: 8rem;
 }
 
 .ManagerUpdateDetail-Container-Items {
+  width: 50%;
   display: flex;
   flex-flow: column;
   margin-bottom: 3rem;
@@ -31,6 +33,7 @@
   margin-top: 20px; /* 상단 여백 추가 */
   border-radius: 10px; /* 모서리 둥글게 */
   transition: all 0.3s ease-in-out; /* 부드러운 전환 효과 */
+  height: 100%;
 }
 
 /* 카페 운영시간 */
@@ -74,32 +77,36 @@
 }
 
 .ManagerUpdateBasic-Container-DatePicker {
-  width: 19rem;
-  height: 2rem;
-  font-size: 1.2rem;
+  width: 40rem;
+  height: 2.5rem;
   text-align: center;
 }
 .react-datepicker__input-container input {
   border-radius: 10px;
   padding: 10px; /* 입력 필드 내부의 패딩 */
-  font-size: 16px; /* 입력 필드의 폰트 크기 */
+  font-size: 32px; /* 입력 필드의 폰트 크기 */
+}
+.react-datepicker-time__header{
+  margin-right: 1.3rem;
 }
 
 /* DatePicker 드롭다운의 스타일 조정 */
 .ManagerUpdateBasic-Container-Time-Input .react-datepicker {
+  
   width: 100%; /* 드롭다운의 전체 너비 */
-  font-size: 16px; /* 드롭다운 내부 아이템의 폰트 크기 */
+  font-size: 1.5rem; /* 드롭다운 내부 아이템의 폰트 크기 */
 }
 
 /* DatePicker 드롭다운 내부의 아이템 스타일 조정 */
 .react-datepicker__time-list-item {
   padding: 10px; /* 드롭다운 아이템의 패딩 */
-  font-size: 16px; /* 드롭다운 아이템의 폰트 크기 */
+  font-size: 1.5rem; /* 드롭다운 아이템의 폰트 크기 */
 }
 
 /* 드롭다운 컨테이너의 크기를 조정 */
 .react-datepicker-popper {
-  width: 23.5rem !important;
+  width: 41.5rem !important;
+  
 }
 
 /* 드롭다운 리스트 아이템의 크기 조정 */
@@ -109,10 +116,10 @@
   /* 추가적으로 width를 조정하고 싶으면 아래의 속성을 추가 */
 }
 .react-datepicker__time-container {
-  width: 20.4rem !important;
+  width: 41.5rem  !important;
 }
 .react-datepicker__time .react-datepicker__time-box {
-  width: 20.4rem !important;
+  width: 41.5rem  !important;
 }
 
 /* 카페 특성 */
@@ -142,11 +149,15 @@
   gap: 1.3rem;
   text-align: center;
   justify-content: center;
+  
 }
 
 .ManagerUpdateBasic-Container-Chips-Input button {
-  width: 6rem;
-  height: 3rem;
+  width: 10rem;
+  height: 4rem;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 1.3rem;
 }
 
 .ManagerUpdateDetail-Container-Chips-Button {
