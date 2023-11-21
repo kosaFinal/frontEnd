@@ -81,12 +81,12 @@
 .ManagerUpdateBasic-Container-Number-text{
     
     text-align: center;
-    display: flex;
-    justify-content: space-between;
+    
+        
 }
 
 .ManagerUpdateBasic-Container-Number-text input {
-    width: 50rem; 
+    width: 88%; 
 }
 
 /* 주소 섹션 */

@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './ManagerUpdateStudySetting.css';
+import {managerSettingRead} from "./../apis/ManagerUpdateAxios";
 
 function ManagerUpdateStudySetting() {
     const [selectedFileName, setSelectedFileName] = useState('');
@@ -7,8 +8,8 @@ function ManagerUpdateStudySetting() {
     const [cafeStatus, setCafeStatus] = useState(false);
     const [tempCafeStatus, setTempCafeStatus] = useState(null);
     const [isEditingFloorPlan, setIsEditingFloorPlan] = useState(false);
-    const [floorPlanImage, setFloorPlanImage] = useState('/assets/floor_plan.png');
-    const [originalFloorPlanImage, setOriginalFloorPlanImage] = useState('/assets/floor_plan.png');
+    const [floorPlanImage, setFloorPlanImage] = useState('');
+    const [originalFloorPlanImage, setOriginalFloorPlanImage] = useState('');
     const [tempFloorPlanImage, setTempFloorPlanImage] = useState('');
 
 
@@ -56,13 +57,13 @@ function ManagerUpdateStudySetting() {
 
      // State hooks for seats
   const [isEditingSeats, setIsEditingSeats] = useState(false);
-  const [seatInput, setSeatInput] = useState({ A: '', B: '', C: '', D: ''});
-  const [seats, setSeats] = useState({ A: [], B: [], C: [], D: [] });
+  const [seatInput, setSeatInput] = useState({ 1: '', 2: '', 4: '', 다: ''});
+  const [seats, setSeats] = useState({ 1: [], 2: [], 4: [], 다: [] });
   const [isEditingSection, setIsEditingSection] = useState({
-    A: false,
-    B: false,
-    C: false,
-    D: false
+    1: false,
+    2: false,
+    4: false,
+    다: false
   });
 
   // ... (other handler functions)
@@ -103,6 +104,34 @@ function ManagerUpdateStudySetting() {
     }));
   };
 
+  useEffect(() => {
+    async function fetchData() {
+        try {
+            const response = await managerSettingRead();
+            if (response.data.isSuccess) {
+                const { settingResponse, cafeTableResponse } = response.data.data;
+
+                // 카페 상태 및 이미지 설정
+                const isCafeStudy = settingResponse.study === 'Y';
+                setCafeStatus(isCafeStudy);
+                setFloorPlanImage(settingResponse.studyImg);
+                setOriginalFloorPlanImage(settingResponse.studyImg);
+
+                // 좌석 정보 설정
+                const newSeats = { A: [], B: [], C: [], D: [] };
+                const sectionMapping = { 'O': '1', 'T': '2', 'F': '4', 'M': '다' };
+                Object.entries(cafeTableResponse.tableInfo).forEach(([tableType, tables]) => {
+                    const section = sectionMapping[tableType];
+                    newSeats[section] = tables.map(table => table.tableNumber);
+                });
+                setSeats(newSeats);
+            }
+        } catch (error) {
+            console.error('매니저 설정 로드 실패:', error);
+        }
+    }
+    fetchData();
+}, []);
 
 
     return (
@@ -154,7 +183,8 @@ function ManagerUpdateStudySetting() {
     <div className="ManagerUpdateStudySetting-FloorPlan-Container">
         <button onClick={handleEditFloorPlanClick}>수정</button>
         <div className="ManagerUpdateStudySetting-FloorPlan-img">
-            <img src={floorPlanImage} alt="Floor Plan" />
+        <img src={`data:image/png;base64,${floorPlanImage}`} alt="Floor Plan" />
+
         </div>
     </div>
 )}
@@ -162,8 +192,8 @@ function ManagerUpdateStudySetting() {
 {isEditingFloorPlan && (
     <div className="ManagerUpdateStudySetting-FloorPlan-Container-Update">
         <div className="ManagerUpdateStudySetting-FloorPlan-img FloorPlan-Update">
-            
-            <img src={tempFloorPlanImage} alt="New Floor Plan" />
+        
+            <img src={`data:image/;base64,${tempFloorPlanImage}`} alt="New Floor Plan" />
         </div>
         <input
             id="file-upload"
@@ -187,11 +217,11 @@ function ManagerUpdateStudySetting() {
              <div className='ManagerUpdateStudySetting-SeatContainer'>
              <h2 >카공 좌석 </h2>
              
-             {['A', 'B', 'C', 'D'].map(section => (
+             {['1', '2', '4', '다'].map(section => (
               <div key={section} className="ManagerUpdateStudySetting-SeatSection">
 
                 <div className='ManagerUpdateStudySetting-SeatItems'>
-                <h3 className='ManagerUpdateStudySetting-SeatText'>{`좌석 ${section}`}</h3>
+                <h3 className='ManagerUpdateStudySetting-SeatText'>{`${section} 인석 `}</h3>
                 <div className='ManagerUpdateStudySetting-SeatButtons'> 
                  
                   <button 
