@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
+import ReactPaginate from 'react-js-pagination';
 import "./StatusTabContent.css";
 import CancleModal from "./CancleModal";
 import ConfirmModal from "./ConfirmModal";
-import { addAuthHeader } from "../../apis/axiosConfig";
 import { managerChangeCancle, managerChangeConfirm, managerReadUpcoming } from "../../apis/ManagerReservation";
 
 const UpcomingTabContent = () => {
@@ -77,6 +77,19 @@ const UpcomingTabContent = () => {
     handleCloseConfirmModal();
   };
 
+  const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 번호
+  const itemsPerPage = 1; // 페이지당 항목 수
+
+  const paginate = (data) => {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    return data.slice(startIndex, startIndex + itemsPerPage);
+  };
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+
   useEffect(() => {
     const fetchUpcomingRevInfo = async () => {
       try {
@@ -96,7 +109,7 @@ const UpcomingTabContent = () => {
   return (
     <div>
       {upcomingRevInfo &&
-        upcomingRevInfo.data.map((reservation, index) => (
+        upcomingRevInfo.data.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage).map((reservation, index) => (
           <div className="reservation-item">
             <div className="reservation-name">{reservation.userRealName}</div>
             <div className="reservation-info">
@@ -114,6 +127,18 @@ const UpcomingTabContent = () => {
             </div>
           </div>
         ))}
+      
+      {upcomingRevInfo && (
+        <ReactPaginate 
+          activePage={currentPage}
+          itemsCountPerPage={itemsPerPage}
+          totalItemsCount={upcomingRevInfo.data.length}
+          pageRangeDisplayed={5}
+          onChange={handlePageChange}
+          prevPageText={"‹"}
+          nextPageText={"›"}
+        />
+      )}
 
       {isConfirmModalOpen && <div className="backdrop"></div>}
       {isConfirmModalOpen && (
