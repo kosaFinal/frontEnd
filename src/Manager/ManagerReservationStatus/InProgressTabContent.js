@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
+import ReactPaginate from 'react-js-pagination';
 import CancleModal from "./CancleModal";
 import FinishModal from "./FinishModal";
 import "./StatusTabContent.css";
-import { addAuthHeader } from "../../apis/axiosConfig";
+import "./Paging.css";
 import { managerChangeCancle, managerChangeFinish, managerReadProgress } from "../../apis/ManagerReservation";
 
 const InProgressTabContent = () => {
@@ -77,6 +78,19 @@ const InProgressTabContent = () => {
     handleCloseFinishModal();
   };
 
+  const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 번호
+  const itemsPerPage = 1; // 페이지당 항목 수
+
+  const paginate = (data) => {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    return data.slice(startIndex, startIndex + itemsPerPage);
+  };
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+
   useEffect(() => {
     const fetchProgressRevInfo = async () => {
       try {
@@ -96,7 +110,7 @@ const InProgressTabContent = () => {
   return (
     <div>
       {progressRevInfo &&
-        progressRevInfo.data.map((reservation, index) => (
+        progressRevInfo.data.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage).map((reservation, index) => (
           <div className="reservation-item">
             <div className="reservation-name">{reservation.userRealName}</div>
             <div className="reservation-info">
@@ -114,6 +128,19 @@ const InProgressTabContent = () => {
             </div>
           </div>
         ))}
+
+      {progressRevInfo && (
+        <ReactPaginate 
+          activePage={currentPage}
+          itemsCountPerPage={itemsPerPage}
+          totalItemsCount={progressRevInfo.data.length}
+          pageRangeDisplayed={5}
+          onChange={handlePageChange}
+          prevPageText={"‹"}
+          nextPageText={"›"}
+        />
+      )}
+
       {isFinishModalOpen && <div className="backdrop"></div>}
       {isFinishModalOpen && (
         <FinishModal
