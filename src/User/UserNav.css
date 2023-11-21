@@ -84,3 +84,24 @@ a {
   justify-content: end;
   margin-right: 100px;
 }
+
+.userNameDiv {
+  font-family: "HakgyoansimSantteutdotumL";
+  font-size: 1.3rem;
+}
+
+.logoutButton {
+  margin-left: 0.5rem;
+  font-family: "HakgyoansimSantteutdotumL";
+  background-color: white;
+  height: 2rem;
+}
+
+.logoutButton hover {
+  background-color: #ffcd4a;
+}
+
+.loginafterbox {
+  display: flex;
+  align-items: center;
+}

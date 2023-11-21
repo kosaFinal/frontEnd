@@ -1,9 +1,19 @@
 import { Link } from "react-router-dom";
 import "./UserSearchCafeInfo.css";
 import { useState } from "react";
+import UserCafeInfoSlide from "./UserCafeInfoSlide";
 
 const UserSearchCafeInfo = ({ onClose }) => {
   const [showInfo, setShowInfo] = useState(false);
+  const [showCafeInfo, setCafeInfo] = useState({
+    title: "스타벅스 가산디지털점",
+    address: "서울 금천구 가산디지털1로 168 우림라이온스벨리 B동 1층",
+    phoneno: "1522-3232",
+    startTime: "10: 00",
+    endTime: "22:00",
+    keywords: ["콘센트", "디저트", "조용함"],
+    study: "Y",
+  });
 
   const handleCloseComponent = () => {
     setShowInfo(false);
@@ -17,31 +27,33 @@ const UserSearchCafeInfo = ({ onClose }) => {
           onClick={handleCloseComponent}
           src="/assets/left-arrow.png"
         />
-        <h1>카페명 자리</h1>
+        <h1>{showCafeInfo.title}</h1>
       </div>
       <div className="usersearchcafeinfo_img">
-        <img src="/assets/background_img.jpg" />
+        <UserCafeInfoSlide />
       </div>
       <div className="usersearchcafeinfo_section">
         <div className="usersearchcafeinfo_sections">
           <img src="/assets/search-address.png" />
-          <p>카페 주소 들어갈 자리</p>
+          <p>{showCafeInfo.address}</p>
         </div>
         <div className="usersearchcafeinfo_sections">
           <img src="/assets/search-clock.png" />
-          <p>영업 시간 들어갈 자리</p>
+          <p>
+            {showCafeInfo.startTime} ~ {showCafeInfo.endTime}
+          </p>
         </div>
         <div className="usersearchcafeinfo_sections">
           <img src="/assets/search-phone.png" />
-          <p>전번 들어갈꺼임</p>
+          <p>{showCafeInfo.phoneno}</p>
         </div>
         <div className="usersearchcafeinfo_sections">
           <img src="/assets/search-keywords.png" />
-          <p>키워드 자리임</p>
+          <p>{showCafeInfo.keywords + " "} </p>
         </div>
         <div className="usersearchcafeinfo_sections">
           <img src="/assets/search-check.png" />
-          <p>카공 여부 체크자리</p>
+          <p>{showCafeInfo.study === "Y" ? "카공 가능" : "카공 불가능"}</p>
         </div>
       </div>
 

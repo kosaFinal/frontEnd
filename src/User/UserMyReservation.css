@@ -3,13 +3,12 @@
   src: url("/src/fonts/HakgyoansimSantteutdotumL.ttf") format("truetype");
 }
 
-.myReservation-container{
-  width: 60%;
-  height: 65vh;
-  margin: auto;
+.user_myReservation-container {
+  width: 100%;
+  margin: 50px auto 0;
 }
 
-.myReservation-title p{
+.myReservation-title p {
   font-weight: bold;
   font-size: 30px;
   font-family: "HakgyoansimSantteutdotumL";
@@ -17,7 +16,11 @@
   text-align: center;
 }
 
-.myReservation-title hr{
+.myReservation-title hr {
   margin-bottom: 50px;
   width: 20%;
+}
+.user_tab-buttons {
+  margin-top: 50px;
+  margin-left: 70px;
 }

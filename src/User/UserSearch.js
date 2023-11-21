@@ -6,29 +6,15 @@ const { kakao } = window;
 
 const UserSearch = () => {
   const [showInput, setShowInput] = useState(false);
+  const [map, setMap] = useState(null);
   const [showMarker, setShowMarker] = useState([
     {
-      title: "투썸플레이스 가산디지털점",
-      latlng: new kakao.maps.LatLng(37.481932, 126.881509),
-    },
-    {
-      title: "할리스커피 가산디지털점",
-      latlng: new kakao.maps.LatLng(37.4814524, 126.8815343),
-    },
-    {
-      title: "인크커피",
-      latlng: new kakao.maps.LatLng(37.4792935, 126.8779751),
-    },
-    {
-      title: "카페네스 카페",
-      latlng: new kakao.maps.LatLng(37.480238, 126.881065),
-    },
-    {
-      title: "커피린",
-      latlng: new kakao.maps.LatLng(37.4829154, 126.8812688),
+      title: "스타벅스 가산디지털단지점",
+      address: "서울 금천구 가산디지털1로 168 우림라이온스벨리 B동 1층",
+      phoneno: "1522-3232",
+      latlng: new kakao.maps.LatLng(37.4798434, 126.8824217),
     },
   ]);
-
   const toggleUserSearchInput = () => {
     setShowInput(!showInput);
   };
@@ -49,13 +35,14 @@ const UserSearch = () => {
         level: 3, // 지도의 확대 레벨
       };
 
-    var map = new kakao.maps.Map(mapContainer, mapOption);
+    var initMap = new kakao.maps.Map(mapContainer, mapOption);
+    setMap(initMap);
 
     var overlays = [];
 
     showMarker.forEach((markerData) => {
       var marker = new kakao.maps.Marker({
-        map: map,
+        map: initMap,
         position: markerData.latlng,
         image: markerImage,
       });
@@ -67,7 +54,7 @@ const UserSearch = () => {
         '<div class="wrap">' +
         '    <div class="info">' +
         '        <div class="title">' +
-        "            카카오 스페이스닷원" +
+        showMarker.map((marker) => marker.title).join(", ") +
         '            <div class="close" onclick="closeOverlay()" title="닫기"></div>' +
         "        </div>" +
         '        <div class="body">' +
@@ -75,9 +62,12 @@ const UserSearch = () => {
         '                <img src="https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/thumnail.png" width="73" height="70">' +
         "           </div>" +
         '            <div class="desc">' +
-        '                <div class="ellipsis">제주특별자치도 제주시 첨단로 242</div>' +
-        '                <div class="jibun ellipsis">(우) 63309 (지번) 영평동 2181</div>' +
-        '                <div><a href="https://www.kakaocorp.com/main" target="_blank" class="link">홈페이지</a></div>' +
+        '                <div class="ellipsis">' +
+        showMarker.map((marker) => marker.address).join(", ") +
+        "</div>" +
+        '                <div class="jibun ellipsis">' +
+        showMarker.map((marker) => marker.phoneno).join(", ") +
+        "</div>" +
         "            </div>" +
         "        </div>" +
         "    </div>" +
@@ -92,7 +82,7 @@ const UserSearch = () => {
 
       function openOverlay(content, position) {
         var overlay = new kakao.maps.CustomOverlay({
-          map: map,
+          map: initMap,
           position: position,
         });
 
@@ -125,6 +115,15 @@ const UserSearch = () => {
       });
     }
   }, [showMarker]);
+  const handleClick = () => {
+    if (map) {
+      // map이 null이 아닌 경우에만 작동
+      var moveLatLon = new kakao.maps.LatLng(37.479943, 126.88268);
+      map.panTo(moveLatLon);
+    } else {
+      console.error("Error: map is null");
+    }
+  };
   return (
     <div className="usersearch">
       <div className="map_nav">
@@ -172,7 +171,7 @@ const UserSearch = () => {
           </div>
           <div className="map_button">
             <button className="map_button1">현 지도에서 검색</button>
-            <button className="map_button2">
+            <button onClick={handleClick} className="map_button2">
               <img src="/assets/search-target.png" alt="search target" />
             </button>
           </div>

@@ -2,67 +2,91 @@ import React, { useState, useEffect } from "react";
 import UserNav from "./UserNav";
 import "./UserReservationStatus.css";
 import Footer from "../Footer";
-import { useNavigate } from "react-router-dom";
+import { reservationNow } from "../apis/UserReservation";
+import { addAuthHeader } from "../apis/axiosConfig";
+import { Link } from "react-router-dom";
 
 const UserReservationStatus = () => {
-  const [reservationStatus, setReservationStatus] = useState("A");
-  const navigate = useNavigate();
+  const [reservationStatus, setReservationStatus] = useState({});
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    // todo:백엔드에서 받아온 값 훅 넣기
-    if (reservationStatus === "C") {
-      navigate("/user/reservationstatus/cancle");
-    } else if (reservationStatus === "N") {
-      navigate("/user/reservationstatus/empty");
+    const readReservationStatus = async () => {
+      try {
+        const response = await reservationNow();
+        setReservationStatus(response.data.data);
+        console.log("잘했네", response.data);
+      } catch (error) {
+        console.error("내가 만든 기능이니깐 안되나?", error);
+      }
+    };
+    readReservationStatus();
+    let interval = setInterval(readReservationStatus, 6000);
+
+    if (reservationStatus.status === "A" && progress < 90) {
+      interval = setInterval(() => {
+        setProgress((oldProgress) => Math.min(oldProgress + 1, 90));
+      }, 3333);
     }
-  }, []);
+    if (reservationStatus.status === "P") {
+      setProgress(100);
+      clearInterval(interval);
+    }
+    return () => clearInterval(interval);
+  }, [reservationStatus.status]);
 
   return (
     <userreservationstatus>
       <UserNav />
       <div className="reservation-status">
-        <div className="reservation_username">
-          <h1>
-            <span>윤형우</span> 고객님
-            <hr />
-          </h1>
-        </div>
+        {reservationStatus && reservationStatus.userRealName && (
+          <div className="reservation_username">
+            <h1>
+              <span>{reservationStatus.userRealName}</span> 고객님
+              <hr />
+            </h1>
+          </div>
+        )}
         <div className="reservation_status_text">
-          <h5>예약 중</h5>
-          <h5>예약 확정</h5>
-          <h5>이용 중</h5>
+          <h5>신청</h5>
+          <h5>진행</h5>
         </div>
         <div className="progress-bar">
           <div
             className={`step ${
-              reservationStatus === "A" ? "progressbar_1" : ""
+              reservationStatus.status === "A" ? "progressbar_1" : ""
             }`}
+            style={{ width: `${progress}%` }}
           ></div>
           <div
             className={`step ${
-              reservationStatus === "P" ? "progressbar_2" : ""
-            }`}
-          ></div>
-          <div
-            className={`step ${
-              reservationStatus === "F" ? "progressbar_3" : ""
+              reservationStatus.status === "P" ? "progressbar_2" : ""
             }`}
           ></div>
         </div>
         <div className="reservation_bottom">
-          <h4>
-            고객님의 예약이{" "}
-            <span>
-              {reservationStatus === "A" && "예약 중"}
-              {reservationStatus === "P" && "예약 확정"}
-              {reservationStatus === "F" && "이용 중"}
-            </span>{" "}
-            상태 입니다.
-          </h4>
+          {reservationStatus && reservationStatus.status && (
+            <h4>
+              고객님의 예약이{" "}
+              <span>
+                {reservationStatus.status === "A" && "신청"}
+                {reservationStatus.status === "P" && "진행"}
+              </span>{" "}
+              상태 입니다.
+            </h4>
+          )}
         </div>
+        <Link to="/user/myreservation">
+          {reservationStatus.status === "P" && (
+            <div className="link_reservationList">
+              <button>예약 내역 조회하기</button>
+            </div>
+          )}
+        </Link>
       </div>
       <Footer />
     </userreservationstatus>
   );
 };
+
 export default UserReservationStatus;

@@ -1,36 +1,48 @@
+import { useState } from "react";
 import UserNav from "./UserNav";
-import './UserMyReservation.css';
+import "./UserMyReservation.css";
 import Footer from "../Footer";
+import UserMyReservationBefore from "./UserMyReservationBefore";
+import UserMyReservationAfter from "./UserMyReservationAfter";
 
 const UserMyReservation = () => {
-
-  const myReservations = [
-    { name: '커피커피', date: '2023-11-06', time: '12:00 ~ 15:00', seat: 'A1' },
-    { name: '커피커피', date: '2023-11-06', time: '12:00 ~ 15:00', seat: 'A1' },
-    { name: '커피커피', date: '2023-11-06', time: '12:00 ~ 15:00', seat: 'A1' },
-  ];
-
+  const [activeTab, setActiveTab] = useState("진행");
+  const handleTabChange = (tab) => {
+    setActiveTab(tab);
+  };
   return (
     <usermyreservation>
       <UserNav />
-      <div className="myReservation-container">
-        <div className="myReservation-title">
-          <p>내 예약 조회</p>
-          <hr />
+      <div className="status-tab-container">
+        <div className="reservation-status-top">
+          <p className="reservation-status-title">예약현황</p>
+          <hr className="status-tab-hr" />
         </div>
-        <div>
-          {myReservations.map((reservation, index) => (
-            <div className="reservation-item">
-              <div className="inprogress-name">{reservation.name}</div>
-              <div className="inprogress-info">
-                <div>이용 날짜: {reservation.date}</div>
-                <div>이용 시간: {reservation.time}</div>
-                <div>좌석: {reservation.seat}</div>
-              </div>
-            </div>
-          ))} 
+        <div className="user_tab-buttons">
+          <button
+            className={`inProgressButton ${
+              activeTab === "진행" ? "active" : ""
+            }`}
+            onClick={() => handleTabChange("진행")}
+          >
+            진행
+          </button>
+          <button
+            className={`upcomingButton ${activeTab === "확정" ? "active" : ""}`}
+            onClick={() => handleTabChange("확정")}
+          >
+            확정
+          </button>
         </div>
-      </div>       
+        <div className="user_tab-content">
+          {activeTab === "진행" ? (
+            <UserMyReservationBefore />
+          ) : (
+            <UserMyReservationAfter />
+          )}
+        </div>
+      </div>
+      s
       <Footer />
     </usermyreservation>
   );

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Footer from "../../Footer";
 import ManagerNav from "../ManagerNav";
 import InProgressTabContent from "./InProgressTabContent";
@@ -6,11 +6,23 @@ import UpcomingTabContent from "./UpcomingTabContent";
 import './ManagerReservationStatus.css'
 
 const ManagerReservationStatus = () => {
-  const [activeTab, setActiveTab] = useState('진행');
+  const [activeTab, setActiveTab] = useState('진행');  
 
-    const handleTabChange = (tab) => {
-        setActiveTab(tab);
-      };
+  const handleTabChange = (tab) => {
+      setActiveTab(tab);
+      localStorage.setItem('activeTab', tab);
+    };
+
+  useEffect(() => {
+    const saveTab = localStorage.getItem('activeTab');
+    if(saveTab){
+      setActiveTab(saveTab);
+    }
+
+    return () => {
+      localStorage.removeItem('activeTab');
+    };
+  }, []);
 
   return (
     <managerreservationstatus>

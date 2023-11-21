@@ -1,0 +1,62 @@
+@font-face {
+  font-family: "HakgyoansimSantteutdotumL";
+  src: url("/src/fonts/HakgyoansimSantteutdotumL.ttf") format("truetype");
+}
+
+.user_reservation-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px;
+  font-family: "HakgyoansimSantteutdotumL";
+  height: 100px;
+}
+
+.divider {
+  margin: 0 auto;
+  border: 1px solid #ccc;
+}
+.user_reservation_row {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-top: -20px;
+}
+.user_inprogress-time {
+  font-weight: bold;
+  font-size: 25px;
+  padding: 20px;
+  margin-left: 20px;
+  margin-top: -20px;
+}
+
+.user_inprogress-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  margin-left: 100px;
+  font-size: 20px;
+}
+
+.user_inprogress-info div {
+  margin-top: 5px;
+}
+
+.user_reservation_application {
+  margin-right: 5%;
+  margin-top: -15px;
+}
+.user_reservation_application h4 {
+  font-size: 150%;
+  width: 100%;
+}
+.user_reservation_progress {
+  margin-right: 5%;
+  margin-top: -15px;
+}
+.user_reservation_progress h4 {
+  font-size: 150%;
+  width: 100%;
+}
