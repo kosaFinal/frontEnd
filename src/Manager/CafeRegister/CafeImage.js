@@ -3,12 +3,15 @@ import "./CafeImage.css";
 
 const CafeImage = () => {
   const [selectedTitleFile, setSelectedTitleFile] = useState(null);
+  const [titleFileType, setTitleFileType] = useState('');
   const [selectedDetailFile, setSelectedDetailFile] = useState(null);
+  const [detailFileType, setDetailFileType] = useState('');
 
   const handleTitleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
       setSelectedTitleFile(file);
+      setTitleFileType(file.type); // 파일의 MIME 타입을 저장합니다.
     }
   };
 
@@ -16,6 +19,7 @@ const CafeImage = () => {
     const file = event.target.files[0];
     if (file) {
       setSelectedDetailFile(file);
+      setDetailFileType(file.type); // 파일의 MIME 타입을 저장합니다.
     }
   };
 
