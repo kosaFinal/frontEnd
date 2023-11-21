@@ -130,9 +130,13 @@ function ManagerUpdateBasic() {
             <div className="ManagerUpdateBasic-Container-Address-Update-labeling">
               <div className="ManagerUpdateBasic-Container-Address-Update-findAddress">
                 <label>카페 주소 수정</label>
-                <DaumPost setAddressObj={setEditAddressObj} />
               </div>
+              <div className="BasicAddress-Save">
+                <div className="BasicAddress-find">
+                  <DaumPost setAddressObj={setEditAddressObj} />
+                </div>
               <button onClick={handleAddressSave}>저장</button>
+              </div>
             </div>
             <div className="ManagerUpdateBasic-Container-Address-Update-text">
               <input
