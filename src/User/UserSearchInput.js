@@ -2,9 +2,9 @@ import { useState } from "react";
 import "./UserSearchInput.css";
 import UserSearchCafeInfo from "./UserSearchCafeInfo";
 import UserSearchFilter from "./UserSearchFilterModal";
-import { filterSearch, searchRelative } from "../apis/Search";
+import { filterSearch } from "../apis/Search";
 
-const UserSearchInput = () => {
+const UserSearchInput = ({ searchResults }) => {
   const [showInfo, setShowInfo] = useState(false);
   const [showInput, setShowInput] = useState(false);
   const [showtoggle, setShowtoggle] = useState(false);
@@ -19,21 +19,20 @@ const UserSearchInput = () => {
     button8: false,
     button9: false,
   });
-  const [cafeInfo, setCafeInfo] = useState({
-    title: "스타벅스 가산디지털점",
-    startTime: "10:00",
-    endTime: "22:00",
-    address: "서울 금천구 가산디지털1로 168 우림라이온스벨리 B동 1층",
-  });
   const [searchFilterData, setSearchFilterData] = useState({
     cafeType: "",
     studyEnable: "Y",
     people: "",
     proceed: "",
-    features: [],
+    features: "",
     startTime: "",
     endTime: "",
     userStudy: "Y",
+    preferSeat: "",
+  });
+  const [modalData, setModalData] = useState({
+    startTime: "",
+    endTime: "",
     preferSeat: "",
   });
   const [isUserSearchFilterModal, setIsUserSearchFilterModal] = useState(false);
@@ -52,7 +51,9 @@ const UserSearchInput = () => {
       [buttonName]: !prevButtonStates[buttonName],
     }));
   };
-
+  const handleModalDataChange = (newModalData) => {
+    setModalData(newModalData);
+  };
   const handleCloseComponent = () => {
     setShowInput(false);
   };
@@ -63,35 +64,21 @@ const UserSearchInput = () => {
 
   const searchFilter = async () => {
     try {
-      const response = await filterSearch(searchFilterData);
-      console.log(response.data);
-      if (response.data && Array.isArray(response.data.data.searchCafes)) {
-        setApiResponseData(response.data.data.searchCafes);
-        if (response.data.data.searchCafes.length > 0) {
-          const firstCafe = response.data.data.searchCafes[0];
-          setCafeInfo({
-            title: firstCafe.cafeName,
-            startTime: firstCafe.startTime,
-            endTime: firstCafe.endTime,
-            address: firstCafe.address,
-          });
-        }
-      } else {
-        console.error("응답에서 searchCafes를 찾을 수 없습니다.");
-      }
+      // searchFilterData와 modalData를 결합
+      const filterQueryData = {
+        ...searchFilterData,
+        ...modalData, // modalData 추가
+        word,
+        pageNo: 1,
+      };
+
+      const response = await filterSearch(filterQueryData);
+      setApiResponseData(response.data.data.searchCafes);
     } catch (error) {
       console.error("Search filter error:", error);
     }
   };
 
-  const searchInput = async () => {
-    try {
-      const response = await searchRelative(word);
-      console.log(response.data);
-    } catch (error) {
-      console.error("검색 오류 : ", error);
-    }
-  };
   const handleSearchWordChange = (event) => {
     setWord(event.target.value);
   };
@@ -115,7 +102,7 @@ const UserSearchInput = () => {
               onChange={handleSearchWordChange}
               placeholder="카페명으로 검색하기"
             ></input>
-            <img onClick={searchInput} src="/assets/search-img.png" />
+            <img onClick={searchFilter} src="/assets/search-img.png" />
           </div>
         </div>
         <div className="searchinput_section1">
@@ -206,25 +193,44 @@ const UserSearchInput = () => {
         <hr />
 
         <div className="search_cafe_info_list">
-          {apiResponseData &&
-            apiResponseData.map((cafe, index) => (
-              <div
-                key={index}
-                className="search_cafe_info"
-                onClick={() => setShowInfo(!showInfo)}
-              >
-                <div className="search_cafe_info_img">
-                  <img src="/assets/background_img.jpg" alt={cafe.cafeName} />
+          {searchResults
+            ? searchResults.map((cafe, index) => (
+                <div
+                  key={index}
+                  className="search_cafe_info"
+                  onClick={() => setShowInfo(!showInfo)}
+                >
+                  <div className="search_cafe_info_img">
+                    <img src="/assets/background_img.jpg" alt={cafe.cafeName} />
+                  </div>
+                  <div className="search_cafe_info_text">
+                    <h5>{cafe.cafeName}</h5>
+                    <p>
+                      <span>이용시간 :</span> {cafe.startTime} ~ {cafe.endTime}
+                    </p>
+                    <p>주소 : {cafe.address}</p>
+                  </div>
                 </div>
-                <div className="search_cafe_info_text">
-                  <h5>{cafe.cafeName}</h5>
-                  <p>
-                    <span>이용시간 :</span> {cafe.startTime} ~ {cafe.endTime}
-                  </p>
-                  <p>주소 : {cafe.address}</p>
+              ))
+            : apiResponseData &&
+              apiResponseData.map((cafe, index) => (
+                <div
+                  key={index}
+                  className="search_cafe_info"
+                  onClick={() => setShowInfo(!showInfo)}
+                >
+                  <div className="search_cafe_info_img">
+                    <img src="/assets/background_img.jpg" alt={cafe.cafeName} />
+                  </div>
+                  <div className="search_cafe_info_text">
+                    <h5>{cafe.cafeName}</h5>
+                    <p>
+                      <span>이용시간 :</span> {cafe.startTime} ~ {cafe.endTime}
+                    </p>
+                    <p>주소 : {cafe.address}</p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
         </div>
         {showInfo && (
           <div className="searchcafeinfo">
@@ -238,6 +244,7 @@ const UserSearchInput = () => {
           isOpen={handleOpenSearchModal}
           onClose={handleCloseSearchModal}
           onFilterSubmit={handleFilterSubmit}
+          onModalDataChange={handleModalDataChange}
         />
       )}
     </usersearchinput>

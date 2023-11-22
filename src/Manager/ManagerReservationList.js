@@ -40,13 +40,17 @@ const ManagerReservationList = () => {
       <div className="ManagerReservationList">
     <div className="ManagerReservationList-Container">
         <div className='ManagerReservationList-Container-Items'>
-
-        <div className='ManagerReservationList-Container-Date-Text'>
-              <h2>날짜별 예약 확인</h2>
-            </div>
+          
+        <div className='ManagerReservationList-Container-Date-Section'>
+          
           {/* 달력 섹션 */}
           <div className='ManagerReservationList-Container-Date'>
+          <div className='ManagerReservationList-Container-Date-Text'>
+              <h2>날짜별 예약 확인이 좀 더 제목같은 느낌!</h2>
+            </div>
+
         <div className='DatePicker-Section'>
+
         <DatePicker
          renderCustomHeader={({
           date,
@@ -80,15 +84,17 @@ const ManagerReservationList = () => {
             onMonthChange={handleMonthChange}
             showDisabledMonthNavigation
           />
+
         </div>
-        
-        <h3>예약자 현황</h3>
+        </div>
+
+        <div className='ManagerReservationList-Container-List-Section'>
+        <h2>예약자 현황</h2>
+        <div className='ManagerReservationList-Container-List-OverFlow'>
         <div className='ReservationList-Section'>
-          
             <div className='ReservationList-UserName'>
               <h2>윤형우</h2>
             </div>
-
             <div className='ReservationList-Status'>
               <p>예약 좌석 : 7번</p>
               <p>예약 테이블 : 4인석</p>
@@ -96,8 +102,36 @@ const ManagerReservationList = () => {
               <p>예약 시간 : 12:00 ~ 15:00</p>
             </div>
         </div>
+
+        <div className='ReservationList-Section'>
+          
+          <div className='ReservationList-UserName'>
+            <h2>윤형우</h2>
+          </div>
+          <div className='ReservationList-Status'>
+            <p>예약 좌석 : 7번</p>
+            <p>예약 테이블 : 4인석</p>
+            <p>인원 수 : 3명</p>
+            <p>예약 시간 : 12:00 ~ 15:00</p>
+          </div>
+      </div>
+
+      <div className='ReservationList-Section'>
+          
+          <div className='ReservationList-UserName'>
+            <h2>윤형우</h2>
+          </div>
+          <div className='ReservationList-Status'>
+            <p>예약 좌석 : 7번</p>
+            <p>예약 테이블 : 4인석</p>
+            <p>인원 수 : 3명</p>
+            <p>예약 시간 : 12:00 ~ 15:00</p>
+          </div>
+      </div>
+
         <div ManagerReservationListc-Container-Date>
-        
+        </div>
+        </div>
       </div>
     </div>
        

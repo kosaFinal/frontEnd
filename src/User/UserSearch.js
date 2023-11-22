@@ -2,20 +2,16 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./UserSearch.css";
 import UserSearchInput from "./UserSearchInput";
+import { locationSearch } from "../apis/Search";
 
 const { kakao } = window;
 
 const UserSearch = () => {
   const [showInput, setShowInput] = useState(false);
   const [map, setMap] = useState(null);
-  const [showMarker, setShowMarker] = useState([
-    {
-      title: "스타벅스 가산디지털단지점",
-      address: "서울 금천구 가산디지털1로 168 우림라이온스벨리 B동 1층",
-      phoneno: "1522-3232",
-      latlng: new kakao.maps.LatLng(37.4798434, 126.8824217),
-    },
-  ]);
+  const [showMarker, setShowMarker] = useState([]);
+  const [searchResults, setSearchResults] = useState([]);
+  const [mapCenter, setMapCenter] = useState(null);
 
   const toggleUserSearchInput = () => {
     setShowInput(!showInput);
@@ -43,6 +39,11 @@ const UserSearch = () => {
       const newMap = new kakao.maps.Map(mapContainer, mapOption);
       setMap(newMap);
 
+      kakao.maps.event.addListener(newMap, "center_changed", () => {
+        const center = newMap.getCenter();
+        setMapCenter({ lat: center.getLat(), lng: center.getLng() });
+      });
+
       // 마커 및 오버레이 로직
       showMarker.forEach((markerData) => {
         var marker = new kakao.maps.Marker({
@@ -50,24 +51,21 @@ const UserSearch = () => {
           position: markerData.latlng,
           image: markerImage,
         });
-        var content =
+        var content = // 마커 클릭시 표시될 오버레이 내용
           '<div class="wrap">' +
           '    <div class="info">' +
           '        <div class="title">' +
-          showMarker.map((marker) => marker.title).join(", ") +
+          markerData.title +
           '            <div class="close" onclick="closeOverlay()" title="닫기"></div>' +
           "        </div>" +
           '        <div class="body">' +
           '            <div class="img">' +
-          '                <img src="https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/thumnail.png" width="73" height="70">' +
+          `                <img src="${markerData.image}" width="73" height="70">` +
           "           </div>" +
           '            <div class="desc">' +
-          '                <div class="ellipsis">' +
-          showMarker.map((marker) => marker.address).join(", ") +
-          "</div>" +
-          '                <div class="jibun ellipsis">' +
-          showMarker.map((marker) => marker.phoneno).join(", ") +
-          "</div>" +
+          `                <div class="ellipsis">${markerData.address}</div>` +
+          `                <div class="jibun ellipsis">운영 시간: ${markerData.startTime} ~ ${markerData.endTime}</div>` +
+          `                <div class="ellipsis">전화번호: ${markerData.phoneno}</div>` +
           "            </div>" +
           "        </div>" +
           "    </div>" +
@@ -128,16 +126,129 @@ const UserSearch = () => {
     };
 
     initMapAtUserLocation();
-  }, [showMarker]);
+  }, []);
   const handleClick = () => {
-    if (map) {
-      // map이 null이 아닌 경우에만 작동
-      var moveLatLon = new kakao.maps.LatLng(37.479943, 126.88268);
-      map.panTo(moveLatLon);
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const lat = position.coords.latitude;
+          const lon = position.coords.longitude;
+          if (map) {
+            map.setCenter(new kakao.maps.LatLng(lat, lon));
+          } else {
+            console.error("Error: map is not initialized");
+          }
+        },
+        (error) => {
+          console.error("Error getting current location:", error);
+        }
+      );
     } else {
-      console.error("Error: map is null");
+      console.error("Geolocation is not supported by this browser.");
     }
   };
+  const handleSearchInCurrentMap = () => {
+    if (map) {
+      // 현재 중심좌표 get
+      const currentCenter = map.getCenter();
+      const lng = currentCenter.getLng();
+      const lat = currentCenter.getLat();
+
+      locationSearch(lng, lat)
+        .then((response) => {
+          const { locations, searchCafes } = response.data.data;
+
+          // 마커 오버레이 제거
+          clearMarkersAndOverlays();
+
+          // 오버레이 생성
+          locations.forEach((location) => {
+            const cafeInfo = searchCafes.find(
+              (cafe) => cafe.cafeName === location.cafeName
+            );
+            const position = new kakao.maps.LatLng(
+              location.latitude,
+              location.longtitude
+            );
+
+            const title = cafeInfo?.cafeName || "제목 없음";
+            const image = location?.cafeReqImg || "이미지 경로 없음"; // 올바른 이미지 필드가 있다면 이를 사용
+            const address = cafeInfo?.address || "주소 정보 없음";
+            const startTime = cafeInfo?.startTime || "시작 시간 정보 없음";
+            const endTime = cafeInfo?.endTime || "종료 시간 정보 없음";
+            const phoneno = location?.cafeTel || "전화번호 정보 없음"; // 전화번호 필드가 있다면 이를 사용
+
+            // 오버레이 정보
+            const contentDiv = document.createElement("div");
+            contentDiv.innerHTML = `
+              <div class="wrap">
+                <div class="info">
+                  <div class="title">
+                    ${title}
+                    <div class="close" title="닫기"></div>
+                  </div>
+                  <div class="body">
+                    <div class="img">
+                    <img src="data:image/;base64,${image}" width="73" height="70">
+                    </div>
+                    <div class="desc">
+                      <div class="ellipsis">${address}</div>
+                      <div class="jibun ellipsis">운영 시간: ${startTime} ~ ${endTime}</div>
+                      <div class="ellipsis">전화번호: ${phoneno}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>`;
+
+            const closeBtn = contentDiv.querySelector(".close");
+            closeBtn.onclick = () => overlay.setMap(null);
+
+            const overlay = new kakao.maps.CustomOverlay({
+              content: contentDiv,
+              map: map,
+              position: position,
+              zIndex: 2,
+            });
+            // 마커 생성
+            const marker = new kakao.maps.Marker({
+              map: map,
+              position: position,
+              title: location.cafeName,
+              image: markerImage,
+              zIndex: 1,
+            });
+
+            // 클릭함수등록
+            kakao.maps.event.addListener(marker, "click", function () {
+              if (overlay.getMap()) {
+                overlay.setMap(null);
+              } else {
+                overlay.setMap(map);
+              }
+            });
+
+            // 마커에 내용추가
+            setShowMarker((prevMarkers) => [...prevMarkers, marker]);
+          });
+
+          console.log(`Searching cafes near the coordinates: ${lat}, ${lng}`);
+        })
+        .catch((error) => {
+          console.error("Location search error:", error);
+        });
+    } else {
+      console.error("No map reference available");
+    }
+  };
+
+  function clearMarkersAndOverlays() {
+    showMarker.forEach((marker) => {
+      marker.setMap(null);
+    });
+
+    setShowMarker([]);
+  }
+
   return (
     <div className="usersearch">
       <div className="map_nav">
@@ -184,7 +295,9 @@ const UserSearch = () => {
             </Link>
           </div>
           <div className="map_button">
-            <button className="map_button1">현 지도에서 검색</button>
+            <button onClick={handleSearchInCurrentMap} className="map_button1">
+              현 지도에서 검색
+            </button>
             <button onClick={handleClick} className="map_button2">
               <img src="/assets/search-target.png" alt="search target" />
             </button>
@@ -199,5 +312,5 @@ const UserSearch = () => {
     </div>
   );
 };
-
 export default UserSearch;
+// git push용 주석

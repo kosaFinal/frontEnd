@@ -18,7 +18,7 @@ const ManagerUpdateSideBar = () => {
         
         <div className='updatecafebasic'>
           <Link to="updatebasic" className={getLinkClassName('updatebasic')}>
-            <div className={`updateText ${getTextClassName('updatebasic')}`}><span>카페 기본 정보</span></div>
+            <div className={`updateText ${getTextClassName('updatebasic')? 'yellow' : 'no-select'}`}><span>카페 기본 정보</span></div>
             <div className={`updatecafeitems ${getLinkClassName('updatebasic') ? '' : 'hidden'}`}>
               <p>카페명</p>
               <p>카페 유형</p>
@@ -30,7 +30,7 @@ const ManagerUpdateSideBar = () => {
         
         <div className='updatecafebasic'>
           <Link to="updatedetail" className={getLinkClassName('updatedetail')}>
-            <div className={`updateText ${getTextClassName('updatedetail')}`}><span>카페 세부 정보</span></div>
+            <div className={`updateText ${getTextClassName('updatedetail')? 'yellow' : 'no-select'}`}><span>카페 세부 정보</span></div>
             <div className={`updatecafeitems ${getLinkClassName('updatedetail') ? '' : 'hidden'}`}>
               <p>운영시간</p>
               <p>카페특성</p>
@@ -40,7 +40,7 @@ const ManagerUpdateSideBar = () => {
         
         <div className='updatecafebasic'>
           <Link to="updatesetting" className={getLinkClassName('updatesetting')}>
-            <div className={`updateText ${getTextClassName('updatesetting')}`}><span>카공 설정</span></div>
+            <div className={`updateText ${getTextClassName('updatesetting')? 'yellow' : 'no-select'}`}><span>카공 설정</span></div>
             <div className={`updatecafeitems ${getLinkClassName('updatesetting') ? '' : 'hidden'}`}>
               <p>카공 여부</p>
               <p>카공 평면도</p>

@@ -1,50 +1,43 @@
-import { useDaumPostcodePopup } from 'react-daum-postcode';
+  import { useDaumPostcodePopup } from 'react-daum-postcode';
 
 
-function DaumPost({ setAddressObj }) {
-  const open = useDaumPostcodePopup("//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js");
-  
-  const handleComplete = (data) => {
-    let fullAddress = data.address;
-    let extraAddress = ''; 
-    let KakaoX = '';
-    let KakaoY = '';
-    let localAddress = data.sido + ' ' + data.sigungu;
-    if (data.addressType === 'R') {
-      // if (data.bname !== '') {
-      //   extraAddress += data.bname;
-      // }
-      // if (data.buildingName !== '') {
-      //   extraAddress += (extraAddress !== '' ? `, ${data.buildingName}` : data.buildingName);
-      // }
-      // fullAddress = fullAddress.replace(localAddress, '');
-      // fullAddress += (extraAddress !== '' ? ` (${extraAddress})` : '');
+  function DaumPost({ setAddressObj }) {
+    const open = useDaumPostcodePopup("//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js");
 
-      const geocoder = new window.kakao.maps.services.Geocoder();
-        geocoder.addressSearch(data.roadAddress, (result, status) => {
-          if (status === window.kakao.maps.services.Status.OK) {
-            KakaoX = result[0].x;
-            KakaoY = result[0].y;
-            console.log('위도 : ' + result[0].y);
-            console.log('경도 : ' + result[0].x);
-            
-            setAddressObj({ // props 제거
-              townAddress: fullAddress,
-              X: KakaoX,
-              Y: KakaoY
+    const handleComplete = (data) => {
+      let fullAddress = data.address;
+
+      if (data.addressType === 'R') {
+        const geocoder = new window.kakao.maps.services.Geocoder();
+        const getAddressCoordinates = (address) => {
+          return new Promise((resolve, reject) => {
+            geocoder.addressSearch(address, (result, status) => {
+              if (status === window.kakao.maps.services.Status.OK) {
+                resolve({ x: result[0].x, y: result[0].y });
+              } else {
+                reject(new Error('주소를 찾는 데 실패했습니다.'));
+              }
             });
-          }
-        });
+          });
+        };
 
-      
-    }
+        getAddressCoordinates(data.roadAddress)
+          .then(coordinates => {
+            setAddressObj({
+              townAddress: fullAddress,
+              X: coordinates.x,
+              Y: coordinates.y
+            });
+          })
+          .catch(error => console.error(error));
+      }
+    };
+
+    const handleClick = () => {
+      open({ onComplete: handleComplete });
+    };
+
+    return <button type="button" onClick={handleClick}>주소찾기</button>
   }
 
-  const handleClick = () => {
-    open({ onComplete: handleComplete });
-  }
-
-  return <button type="button" onClick={handleClick}>주소찾기</button>
-}
-
-export default DaumPost;
+  export default DaumPost;
