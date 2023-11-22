@@ -43,8 +43,8 @@ const UserMyReservationAfter = () => {
               </div>
               <div className="user_reservation_row">
                 <div className="user_inprogress-info">
-                  <div>성함: {reservation.name}</div>
-                  <div>이용 날짜: {reservation.reserveDate}</div>
+                  <div>이용 날짜 : {reservation.reserveDate}</div>
+                  <div>카페 이름 : {reservation.cafeName}</div>
                   <div>좌석: {reservation.tableNumber}</div>
                 </div>
                 {reservation.state === "F" && (
