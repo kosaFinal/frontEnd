@@ -13,6 +13,9 @@ function Register() {
     userRealName: "",
     password: "",
   });
+
+  const [duplicate, setDuplicate] = useState(true);
+
   const navigate = useNavigate();
 
   const login = () => {
@@ -28,11 +31,9 @@ function Register() {
   const signup = useCallback(
     async (event) => {
       try {
+        event.preventDefault();
         //로그인 요청
         const response = await signup(register);
-
-        //요청 공통 헤더인 Authorization 추가
-        addAuthHeader(response.data.data.accessToken);
 
         //Context에 인증 내용 저장
         console.log(response.data.data);
@@ -56,27 +57,23 @@ function Register() {
   const idCheck = useCallback(
     async (event) => {
       try {
+        event.preventDefault();
         //로그인 요청
+        console.log(register.userName);
         const response = await idCheck(register.userName);
-
-        //요청 공통 헤더인 Authorization 추가
-        addAuthHeader(response.data.data.accessToken);
 
         //Context에 인증 내용 저장
         console.log(response.data.data);
 
         if(response.data.data === false){
-
-        }
-        else{
-          
+          setDuplicate(false);
         }
 
         
       } catch (error) {
         console.log(error);
       }
-    },[]
+    },[register.userName]
   );
 
   
@@ -113,11 +110,11 @@ function Register() {
               </Radio>
             </div>
             <div className="id-section">
-              <input className="id-signin" type="text" placeholder="아이디" id="userName"
+              <input className={duplicate?'id-signin':'duplicate'} type="text" placeholder="아이디" id="userName"
                     name="userName"
                     value={register.userName}
                     onChange={handleChange}/>
-              <button>확인</button>
+              <button onClick={(e) => idCheck(e)}>확인</button>
             </div>
 
             <input type="text" placeholder="성 명" id="userRealName"

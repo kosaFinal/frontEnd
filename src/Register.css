@@ -189,3 +189,9 @@ input[type="radio"] {
 .already-signin {
     margin-left: 0.5rem;
 }
+
+.duplicate {
+    width: 100%;
+    margin-bottom: 0.3rem;
+    border-color: red;
+}
