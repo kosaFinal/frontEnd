@@ -11,5 +11,6 @@ export function signup(user) {
 }
 
 export function idCheck(id) {
+  console.log("id: "+ id);
   return axios.get(`/check/userName/dup/${id}`);
 }
