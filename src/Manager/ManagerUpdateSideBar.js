@@ -24,6 +24,7 @@ const ManagerUpdateSideBar = () => {
               <p>카페 유형</p>
               <p>카페 전화번호</p>
               <p>카페 주소</p>
+              <p>카페 대표사진</p>
             </div>
           </Link>
         </div>

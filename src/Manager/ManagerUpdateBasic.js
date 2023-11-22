@@ -1,44 +1,49 @@
 import React, { useEffect, useState } from "react";
 import "./ManagerUpdateBasic.css";
 import DaumPost from "./Component/DaumPost";
-import {managerBasicRead, managerBasicCafeTelUpdate,managerBasicCafeAddressUpdate} from "./../apis/ManagerUpdateAxios";
+import {managerBasicRead, managerBasicCafeTelUpdate,managerBasicCafeAddressUpdate,managerBasicCafeRepImgUpdate} from "./../apis/ManagerUpdateAxios";
 
 
 function ManagerUpdateBasic() {
-  const [showFindAddress, setShowFindAddress] = useState(false);
-  const [showFindNumber, setShowFindNumber] = useState(false);
-  const [phone, setPhone] = useState("");
-  const [editPhone, setEditPhone] = useState("");
+    // 전화번호 및 주소 관련 상태
+    const [showFindAddress, setShowFindAddress] = useState(false);
+    const [showFindNumber, setShowFindNumber] = useState(false);
+    const [phone, setPhone] = useState("");
+    const [editPhone, setEditPhone] = useState("");
+    const [addressObj, setAddressObj] = useState({
+      areaAddress: "", 
+      townAddress: "", 
+      X: "",
+      Y: "",
+    });
+    const [editAddressObj, setEditAddressObj] = useState({
+      areaAddress: "",
+      townAddress: "",
+      X: "",
+      Y: "",
+    });
 
-  // 주소 관련 상태
-  const [addressObj, setAddressObj] = useState({
-    areaAddress: "", // 기본값을 설정
-    townAddress: "", // 기본값을 설정
-    X: "",
-    Y: "",
-  });
-
-  // 주소 수정 상태
-  const [editAddressObj, setEditAddressObj] = useState({
-    areaAddress: "",
-    townAddress: "",
-    X: "",
-    Y: "",
-  });
+    const [floorPlanImage, setFloorPlanImage] = useState('');
+    const [isEditingFloorPlan, setIsEditingFloorPlan] = useState(false);
+    const [tempFloorPlanImage, setTempFloorPlanImage] = useState('');
+    const [file, setFile] = useState(null);
+    const [selectedFileName, setSelectedFileName] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await managerBasicRead();
         if (response.data.isSuccess) {
-          const { cafeTel, address, detailAddress,longtitude,latitude } = response.data.data;
+          const { cafeTel, address, detailAddress,longtitude, latitude, cafeRepImg, cafeRepImgMine  } = response.data.data;
           setPhone(cafeTel); // 전화번호 상태 설정
           setAddressObj({
             areaAddress: detailAddress, // 상세 주소
             townAddress: address, // 도시 주소
             X: longtitude,
             Y: latitude,
+            
           });
+          setFloorPlanImage(`data:image/${cafeRepImgMine};base64,${cafeRepImg}`);
         } else {
           console.log("API 호출 실패: ", response.data.message);
         }
@@ -125,6 +130,50 @@ function ManagerUpdateBasic() {
     setEditAddressObj((prev) => ({ ...prev, [field]: e.target.value }));
   };
 
+  const handleEditFloorPlanClick = () => {
+    setIsEditingFloorPlan(true);
+    setTempFloorPlanImage(floorPlanImage);
+  };
+
+  const handleFloorPlanFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setFile(file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setTempFloorPlanImage(reader.result);
+        setSelectedFileName(file.name);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleFloorPlanSaveClick = async () => {
+    if (!file) {
+      alert('이미지를 선택해주세요.');
+      return;
+    }
+    const formData = new FormData();
+    formData.append('cafeRepImg', file);
+    try {
+      const response = await managerBasicCafeRepImgUpdate(formData);
+      if (response.data.isSuccess) {
+        setFloorPlanImage(tempFloorPlanImage);
+        setIsEditingFloorPlan(false);
+      } else {
+        console.log("이미지 업데이트 실패: ", response.data.message);
+      }
+    } catch (error) {
+      console.error("API 호출 중 에러 발생: ", error);
+    }
+  };
+
+  const handleFloorPlanCancelClick = () => {
+    setTempFloorPlanImage(floorPlanImage);
+    setSelectedFileName('');
+    setIsEditingFloorPlan(false);
+  };
+
   return (
     <div className="ManagerUpdateBasic">
       <div className="ManagerUpdateBasic-Container">
@@ -188,6 +237,7 @@ function ManagerUpdateBasic() {
           </div>
 
           {/* 주소 수정 섹션 */}
+          
           <div
             className={`ManagerUpdateBasic-Container-Address-Update ${
               !showFindAddress ? "hidden" : ""
@@ -218,8 +268,47 @@ function ManagerUpdateBasic() {
               ></input>
             </div>
           </div>
+
+{/* 평면도 수정 관련 UI */}
+<div className="ManagerUpdateBasic-Container-RepImg">
+          <div className="ManagerUpdateBasic-Container-RepImg-Update-labeling">
+            <div className="ManagerUpdateBasic-Container-RepImg-Update-labeling-divs">
+              <label>대표 사진</label>
+          <button onClick={handleEditFloorPlanClick}>수정</button>
+            </div>
+          {!isEditingFloorPlan && (
+            <div className="ManagerUpdateRepImgBasic-RepImg-Container">
+              
+              <div className="ManagerUpdateRepImgBasic-RepImg-img">
+                <img src={floorPlanImage} alt="Rep Img" />
+              </div>
+            </div>
+          )}
+          {isEditingFloorPlan && (
+            <div className="ManagerUpdateRepImgBasic-RepImg-Container-Update">
+              <div className="ManagerUpdateRepImgBasic-RepImg-img RepImg-Update">
+                <img src={tempFloorPlanImage} alt="New Rep Img" />
+              </div>
+              <input
+                id="file-upload"
+                className="hidden"
+                type='file'
+                onChange={handleFloorPlanFileChange}
+              /><div className="custom-Repfile-upload-div">
+              <label htmlFor="file-upload" className="custom-Repfile-upload">
+                {selectedFileName || "이미지 등록"}
+              </label>
+              </div>
+              <div className="ManagerUpdateRepImgBasic-RepImg-Buttons">
+                <button onClick={handleFloorPlanCancelClick}>취소</button>
+                <button onClick={handleFloorPlanSaveClick}>저장</button>
+              </div>
+            </div>
+          )}
         </div>
       </div>
+      </div>
+    </div>
     </div>
   );
 }
