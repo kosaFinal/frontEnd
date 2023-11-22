@@ -1,22 +1,30 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./ManagerUpdateDetail.css";
 import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
+import {managerDetailRead,managerDetailCafeTieUpdate} from "./../apis/ManagerUpdateAxios";
 
 function ManagerUpdateDetail() {
-  const [showFindTime, setShowFindTime] = useState(false);
-  const [showFindChips, setShowFindChips] = useState(false);
-  const [selectedChips, setSelectedChips] = useState(new Set());
-  const [savedChips, setSavedChips] = useState(new Set());
-
   const roundToHour = (date) => {
     date.setMinutes(0);
     return date;
   };
 
+  const [showFindTime, setShowFindTime] = useState(false);
+  const [showFindChips, setShowFindChips] = useState(false);
+  const [selectedChips, setSelectedChips] = useState(new Set());
+  const [savedChips, setSavedChips] = useState(new Set());
+  
   const [startTime, setStartTime] = useState(roundToHour(new Date()));
   const [endTime, setEndTime] = useState(roundToHour(new Date()));
 
+  const [tempStartTime, setTempStartTime] = useState(startTime);
+  const [tempEndTime, setTempEndTime] = useState(endTime);
+ 
+
+  
+
+  
   const handleChangeStartTime = (time) => {
     setStartTime(time);
   };
@@ -27,6 +35,14 @@ function ManagerUpdateDetail() {
 
   const toggleFindTime = () => {
     setShowFindTime(!showFindTime);
+  };
+
+  const handleChangeTempStartTime = (time) => {
+    setTempStartTime(time);
+  };
+
+  const handleChangeTempEndTime = (time) => {
+    setTempEndTime(time);
   };
 
   const toggleFindChips = () => {
@@ -43,6 +59,41 @@ function ManagerUpdateDetail() {
       }
       return newSelectedChips;
     });
+  };
+
+  const formatTime = (date) => {
+    // 시간을 HH:MM 형식으로 포맷팅
+    let hours = date.getHours().toString().padStart(2, '0');
+    let minutes = date.getMinutes().toString().padStart(2, '0');
+    return `${hours}:${minutes}`;
+  };
+  
+  const handleSaveTime = async () => {
+    if (tempStartTime >= tempEndTime) {
+      alert("시작 시간은 종료 시간보다 빨라야 합니다.");
+      return;
+    }
+  
+    try {
+      const updatedStartTime = formatTime(tempStartTime);
+      const updatedEndTime = formatTime(tempEndTime);
+  
+      const updatedTime = {
+        startTime: updatedStartTime,
+        endTime: updatedEndTime,
+      };
+  
+      const response = await managerDetailCafeTieUpdate(updatedTime);
+      if (response.data.isSuccess) {
+        setStartTime(tempStartTime);
+        setEndTime(tempEndTime);
+        setShowFindTime(false);
+      } else {
+        console.log("시간 업데이트 실패: ", response.data.message);
+      }
+    } catch (error) {
+      console.error("API 호출 중 에러 발생: ", error);
+    }
   };
 
   const handleSaveChips = () => {
@@ -62,6 +113,45 @@ function ManagerUpdateDetail() {
     );
   };
 
+  useEffect(() => {
+    // API 호출을 통해 카페 정보를 가져옵니다.
+    const fetchData = async () => {
+      try {
+        const response = await managerDetailRead(); // API 호출
+        if (response.data.isSuccess) {
+          const { detailResponse, featureResponse } = response.data.data;
+
+          // 카페 운영 시간 설정
+          const startTime = new Date();
+          const endTime = new Date();
+          const tempStartTime = new Date();
+          const tempEndTime = new Date();
+
+          startTime.setHours(...detailResponse.startTime.split(':'));
+          endTime.setHours(...detailResponse.endTime.split(':'));
+          tempStartTime.setHours(...detailResponse.startTime.split(':'));
+          tempEndTime.setHours(...detailResponse.endTime.split(':'));
+          setStartTime(startTime);
+          setEndTime(endTime);
+          setTempStartTime(startTime);
+          setTempEndTime(endTime);
+
+          // 카페 특성 설정
+          const featureSet = new Set(featureResponse.featureIds);
+          const initialChips = ["조용함", "음악 없음", "편한 좌석", "디저트", "감성적", "콘센트"].map(
+            (chip, index) => ({ name: chip, selected: featureSet.has(index + 22) })
+          );
+          setSelectedChips(new Set(initialChips.filter(chip => chip.selected).map(chip => chip.name)));
+          setSavedChips(new Set(initialChips.filter(chip => chip.selected).map(chip => chip.name)));
+        }
+      } catch (error) {
+        console.error("API 호출 중 오류 발생: ", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <div className="ManagerUpdateDetail">
       <div className="ManagerUpdateDetail-Container">
@@ -79,13 +169,14 @@ function ManagerUpdateDetail() {
               <DatePicker
                 className="ManagerUpdateBasic-Container-DatePicker"
                 selected={startTime}
-                onChange={handleChangeStartTime}
+                  onChange={handleChangeStartTime}
                 timeFormat="HH:mm"
                 showTimeSelect
                 showTimeSelectOnly
                 timeIntervals={60}
                 timeCaption="Time"
                 dateFormat="HH:mm"
+                disabled
               />
             </div>
 
@@ -95,14 +186,15 @@ function ManagerUpdateDetail() {
             <div className="ManagerUpdateBasic-Container-Time-Input">
               <DatePicker
                 className="ManagerUpdateBasic-Container-DatePicker"
-                selected={startTime}
-                onChange={handleChangeStartTime}
+                selected={endTime}
+                onChange={handleChangeEndTime}
                 timeFormat="HH:mm"
                 showTimeSelect
                 showTimeSelectOnly
                 timeIntervals={60}
                 timeCaption="Time"
                 dateFormat="HH:mm"
+                disabled
               />
             </div>
           </div>
@@ -121,8 +213,8 @@ function ManagerUpdateDetail() {
             <div className="ManagerUpdateBasic-Container-Time-Input">
               <DatePicker
                 className="ManagerUpdateBasic-Container-DatePicker"
-                selected={startTime}
-                onChange={handleChangeStartTime}
+                selected={tempStartTime}
+                onChange={handleChangeTempStartTime}
                 timeFormat="HH:mm"
                 showTimeSelect
                 showTimeSelectOnly
@@ -138,8 +230,8 @@ function ManagerUpdateDetail() {
             <div className="ManagerUpdateBasic-Container-Time-Input">
               <DatePicker
                 className="ManagerUpdateBasic-Container-DatePicker"
-                selected={startTime}
-                onChange={handleChangeStartTime}
+                selected={tempEndTime}
+                  onChange={handleChangeTempEndTime}
                 timeFormat="HH:mm"
                 showTimeSelect
                 showTimeSelectOnly
@@ -149,8 +241,8 @@ function ManagerUpdateDetail() {
               />
             </div>
             <div className="ManagerUpdateDetail-Container-Time-Button">
-              <button onClick={toggleFindTime}>취소</button>
-              <button>저장</button>
+            <button onClick={toggleFindTime}>취소</button>
+            <button onClick={handleSaveTime}>저장</button>
             </div>
           </div>
 

@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./ManagerUpdateBasic.css";
 import DaumPost from "./Component/DaumPost";
+import {managerBasicRead, managerBasicCafeTelUpdate,managerBasicCafeAddressUpdate} from "./../apis/ManagerUpdateAxios";
 
 
 function ManagerUpdateBasic() {
   const [showFindAddress, setShowFindAddress] = useState(false);
   const [showFindNumber, setShowFindNumber] = useState(false);
-  const [phone, setPhone] = useState("010-0000-0000");
+  const [phone, setPhone] = useState("");
   const [editPhone, setEditPhone] = useState("");
 
   // 주소 관련 상태
@@ -24,6 +25,30 @@ function ManagerUpdateBasic() {
     X: "",
     Y: "",
   });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await managerBasicRead();
+        if (response.data.isSuccess) {
+          const { cafeTel, address, detailAddress,longtitude,latitude } = response.data.data;
+          setPhone(cafeTel); // 전화번호 상태 설정
+          setAddressObj({
+            areaAddress: detailAddress, // 상세 주소
+            townAddress: address, // 도시 주소
+            X: longtitude,
+            Y: latitude,
+          });
+        } else {
+          console.log("API 호출 실패: ", response.data.message);
+        }
+      } catch (error) {
+        console.error("API 호출 중 에러 발생: ", error);
+      }
+    };
+  
+    fetchData();
+  }, []);
 
   // 주소 수정을 위한 토글 함수
   const toggleFindAddress = () => {
@@ -44,16 +69,57 @@ function ManagerUpdateBasic() {
   };
 
   // 전화번호 저장 핸들러
-  const handlePhoneSave = () => {
-    setPhone(editPhone);
-    setShowFindNumber(false);
-  };
+  const handlePhoneSave = async () => {
+    try {
+        const response = await managerBasicCafeTelUpdate(editPhone);
+        if (response.data.isSuccess) {
+            setPhone(editPhone); // UI 업데이트
+            setShowFindNumber(false); // 수정 필드 숨기기
+        } else {
+            // 서버 응답에 문제가 있을 경우
+            console.log("전화번호 업데이트 실패: ", response.data.message);
+        }
+    } catch (error) {
+        console.error("API 호출 중 에러 발생: ", error);
+    }
+};
 
   // 주소 저장 핸들러
-  const handleAddressSave = () => {
-    setAddressObj(editAddressObj);
-    setShowFindAddress(false); // 주소 수정 필드를 숨깁니다.
+  const handleAddressSave = async () => {
+    // 수정된 주소가 있다면 사용하고, 그렇지 않으면 기존 주소 사용
+    const updatedTownAddress = editAddressObj.townAddress || addressObj.townAddress;
+    const updatedAreaAddress = editAddressObj.areaAddress || addressObj.areaAddress;
+    const updatedLongitude = editAddressObj.X || addressObj.X;
+    const updatedLatitude = editAddressObj.Y || addressObj.Y;
+  
+    const fullAddress = `${updatedTownAddress}, ${updatedAreaAddress}`;
+  
+    const updatedAddress = {
+      address: fullAddress,
+      longtitude: updatedLongitude, 
+      latitude: updatedLatitude
+    };
+  
+    try {
+      const response = await managerBasicCafeAddressUpdate(updatedAddress);
+      if (response.data.isSuccess) {
+        // 서버에서 성공적으로 업데이트한 후에, 로컬 상태도 업데이트합니다.
+        setAddressObj({
+          townAddress: updatedTownAddress,
+          areaAddress: updatedAreaAddress,
+          X: updatedLongitude,
+          Y: updatedLatitude
+        });
+        setShowFindAddress(false); // 주소 수정 필드 숨김
+      } else {
+        console.log("주소 업데이트 실패: ", response.data.message);
+      }
+    } catch (error) {
+      console.error("API 호출 중 에러 발생: ", error);
+    }
   };
+
+
   // 상세 주소 입력 변경 핸들러
   const handleAddressChange = (e, field) => {
     setEditAddressObj((prev) => ({ ...prev, [field]: e.target.value }));
