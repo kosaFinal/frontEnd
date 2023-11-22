@@ -12,9 +12,92 @@ const UserSearch = () => {
   const [showMarker, setShowMarker] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
   const [mapCenter, setMapCenter] = useState(null);
+  const [locations, setLocations] = useState([]);
+  const [activeOverlays, setActiveOverlays] = useState([]);
 
   const toggleUserSearchInput = () => {
     setShowInput(!showInput);
+  };
+  function clearMarkersAndOverlays() {
+    showMarker.forEach((marker) => marker.setMap(null));
+    setShowMarker([]);
+
+    activeOverlays.forEach((overlay) => overlay.setMap(null));
+    setActiveOverlays([]);
+  }
+  const closeOverlay = (overlay) => {
+    overlay.setMap(null);
+    setActiveOverlays(activeOverlays.filter((o) => o !== overlay));
+  };
+
+  const handleLocationData = (data) => {
+    const { locations, searchCafes } = data;
+
+    // 기존 마커와 오버레이를 제거
+    clearMarkersAndOverlays();
+
+    // 새로운 마커와 오버레이를 추가
+    locations.forEach((location) => {
+      const cafeInfo = searchCafes.find(
+        (cafe) => cafe.cafeName === location.cafeName
+      );
+
+      const position = new kakao.maps.LatLng(
+        location.latitude,
+        location.longtitude
+      );
+
+      // 마커 생성
+      const marker = new kakao.maps.Marker({
+        map: map,
+        position: position,
+        title: location.cafeName,
+        image: markerImage,
+      });
+
+      // 오버레이 생성
+      const overlayElement = document.createElement("div");
+      overlayElement.innerHTML = `
+        <div class="wrap">
+          <div class="info">
+            <div class="title">
+              ${cafeInfo.cafeName}
+              <div class="close" onclick="closeOverlay()" title="닫기"></div>
+            </div>
+            <div class="body">
+              <div class="img">
+                <img src="data:image/;base64,${cafeInfo.cafeReqImg}" width="73" height="70">
+              </div>
+              <div class="desc">
+                <div class="ellipsis">${cafeInfo.address}</div>
+                <div class="jibun ellipsis">운영 시간: ${cafeInfo.startTime} ~ ${cafeInfo.endTime}</div>
+                <div class="ellipsis">전화번호: ${location.cafeTel}</div>
+              </div>
+            </div>
+          </div>
+        </div>`;
+
+      const overlay = new kakao.maps.CustomOverlay({
+        content: overlayElement,
+        map: map,
+        position: position,
+      });
+      setActiveOverlays([...activeOverlays, overlay]);
+
+      const closeBtn = overlayElement.querySelector(".close");
+      closeBtn.addEventListener("click", () => closeOverlay(overlay));
+      // 마커 클릭 이벤트 핸들러
+      kakao.maps.event.addListener(marker, "click", () => {
+        if (overlay.getMap()) {
+          overlay.setMap(null);
+        } else {
+          overlay.setMap(map);
+        }
+      });
+
+      // 마커와 오버레이 목록에 추가
+      setShowMarker((prevMarkers) => [...prevMarkers, marker]);
+    });
   };
 
   var imageSrc = "/assets/marker_red_2.png", // 마커이미지의 주소입니다
@@ -27,8 +110,6 @@ const UserSearch = () => {
   );
 
   useEffect(() => {
-    let overlays = [];
-
     const initMap = (lat, lon) => {
       const mapContainer = document.getElementById("map"); // 지도를 표시할 div
       const mapOption = {
@@ -43,70 +124,6 @@ const UserSearch = () => {
         const center = newMap.getCenter();
         setMapCenter({ lat: center.getLat(), lng: center.getLng() });
       });
-
-      // 마커 및 오버레이 로직
-      showMarker.forEach((markerData) => {
-        var marker = new kakao.maps.Marker({
-          map: newMap, // 여기서 newMap 사용
-          position: markerData.latlng,
-          image: markerImage,
-        });
-        var content = // 마커 클릭시 표시될 오버레이 내용
-          '<div class="wrap">' +
-          '    <div class="info">' +
-          '        <div class="title">' +
-          markerData.title +
-          '            <div class="close" onclick="closeOverlay()" title="닫기"></div>' +
-          "        </div>" +
-          '        <div class="body">' +
-          '            <div class="img">' +
-          `                <img src="${markerData.image}" width="73" height="70">` +
-          "           </div>" +
-          '            <div class="desc">' +
-          `                <div class="ellipsis">${markerData.address}</div>` +
-          `                <div class="jibun ellipsis">운영 시간: ${markerData.startTime} ~ ${markerData.endTime}</div>` +
-          `                <div class="ellipsis">전화번호: ${markerData.phoneno}</div>` +
-          "            </div>" +
-          "        </div>" +
-          "    </div>" +
-          "</div>";
-        kakao.maps.event.addListener(marker, "click", function () {
-          closeAllOverlays();
-          openOverlay(content, marker.getPosition());
-        });
-
-        function openOverlay(content, position) {
-          var overlay = new kakao.maps.CustomOverlay({
-            map: newMap, // 여기서 newMap 사용
-            position: position,
-          });
-
-          var overlayContent = document.createElement("div");
-          overlayContent.innerHTML = content;
-          var closeBtn = document.createElement("div");
-          closeBtn.className = "close";
-          closeBtn.title = "닫기";
-          closeBtn.onclick = function () {
-            closeOverlay();
-          };
-          overlayContent.querySelector(".title").appendChild(closeBtn);
-
-          overlay.setContent(overlayContent);
-          overlays.push(overlay);
-        }
-
-        function closeOverlay() {
-          overlays.forEach((overlay) => {
-            overlay.setMap(null);
-          });
-        }
-      });
-
-      function closeAllOverlays() {
-        overlays.forEach((overlay) => {
-          overlay.setMap(null);
-        });
-      }
     };
 
     const initMapAtUserLocation = () => {
@@ -305,7 +322,10 @@ const UserSearch = () => {
         </div>
         {showInput && (
           <div className="searchnav-right">
-            <UserSearchInput onClose={toggleUserSearchInput} />
+            <UserSearchInput
+              onClose={toggleUserSearchInput}
+              onLocationDataReceived={handleLocationData}
+            />
           </div>
         )}
       </div>

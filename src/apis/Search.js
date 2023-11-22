@@ -14,3 +14,6 @@ export function filterSearch(filterData) {
 export function locationSearch(x, y) {
   return axios.get(`/user/search/near/mylocation?x=${x}&y=${y}`);
 }
+export function cafeInfo(cafeId) {
+  return axios.get(`/user/cafe/${cafeId}`);
+}
