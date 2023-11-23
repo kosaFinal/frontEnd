@@ -200,11 +200,12 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  margin-bottom: 4vh;
 }
 .search_cafe_info {
   cursor: pointer;
   width: 100%;
-  height: 100px;
+  height: 120px;
   margin: 5px auto;
   display: flex;
   flex-direction: row;
@@ -219,17 +220,22 @@
 }
 .search_cafe_info_text {
   width: 70%;
-  height: 80px;
+  height: 70px;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: center;
 }
 .search_cafe_info_text h5 {
   font-size: 100%;
   margin: auto;
+  color: rgb(114, 114, 255);
+  height: 30px;
 }
 .search_cafe_info_text p {
-  font-size: 50%;
+  text-align: start;
+  margin-left: 10px;
+  font-size: 70%;
+  height: 20px;
 }
 .searchcafeinfo {
   position: absolute;
@@ -242,4 +248,7 @@
   text-align: start;
   z-index: 1;
   border-left: 1px solid black;
+}
+.user_search_pagination {
+  text-align: center;
 }
