@@ -2,17 +2,17 @@ import axios from "axios";
 
 axios.defaults.baseURL = "http://localhost:8080";
 
-export function readTableList() {
-  return axios.get("/user/reservation/cafe/187");
+export function readTableList(cafeId) {
+  return axios.get(`/user/reservation/cafe/${cafeId}`);
 }
-export function readReservationTime() {
-  return axios.get("/user/reservation/time/20231114/42");
+export function readReservationTime(selectedDate, tableId) {
+  return axios.get(`/user/reservation/time/${selectedDate}/${tableId}`);
 }
 export function createReservation(reservationData) {
   return axios.post("user/reservation/register", reservationData);
 }
-export function reservationNow() {
-  return axios.get("/user/reservation/now");
+export function reservationNow(reservationId) {
+  return axios.get(`/user/reservation/now/${reservationId}`);
 }
 export function reservationCancle() {
   return axios.get("/user/reservation/now/cancle/81");

@@ -18,14 +18,18 @@ const UserCafeInfoSlide = ({ cafeImages }) => {
     <usercafeinfoslide>
       <div className="user_cafe_info_slide">
         <Slider {...settings}>
-          {cafeImages.map((image, index) => (
-            <div key={index} className="cafe-info-slide">
-              <img
-                src={`data:image/;base64,${image}`}
-                alt={`Slide ${index + 1}`}
-              />
-            </div>
-          ))}
+          {Array.isArray(cafeImages) ? (
+            cafeImages.map((image, index) => (
+              <div key={index} className="cafe-info-slide">
+                <img
+                  src={`data:image/;base64,${image}`}
+                  alt={`Slide ${index + 1}`}
+                />
+              </div>
+            ))
+          ) : (
+            <p>No images available</p> // 또는 다른 대체 컨텐츠
+          )}
         </Slider>
       </div>
     </usercafeinfoslide>

@@ -2,7 +2,13 @@ import React, { useEffect, useState } from "react";
 import "./UserReservationModal.css";
 import { readReservationTime } from "../apis/UserReservation";
 
-const UserReservationModal = ({ isOpen, onSubmit, onClose }) => {
+const UserReservationModal = ({
+  isOpen,
+  onSubmit,
+  onClose,
+  selectedDate,
+  tableId,
+}) => {
   const [selecteTime, setSelecteTime] = useState([]);
   const [modalSelectTime, setModalSelectTime] = useState([]);
 
@@ -28,7 +34,7 @@ const UserReservationModal = ({ isOpen, onSubmit, onClose }) => {
   useEffect(() => {
     const fetchReservationTime = async () => {
       try {
-        const response = await readReservationTime();
+        const response = await readReservationTime(selectedDate, tableId);
         console.log("Response received:", response);
 
         if (response && response.data && Array.isArray(response.data.data)) {
