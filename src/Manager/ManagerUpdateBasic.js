@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import "./ManagerUpdateBasic.css";
 import DaumPost from "./Component/DaumPost";
+import { useOutletContext } from "react-router-dom"; 
 import {managerBasicRead, managerBasicCafeTelUpdate,managerBasicCafeAddressUpdate,managerBasicCafeRepImgUpdate} from "./../apis/ManagerUpdateAxios";
 
 
 function ManagerUpdateBasic() {
     // 전화번호 및 주소 관련 상태
+    const [cafeAvCheck, setCafeAvCheck] = useState('');
+    const { onCafeCheck } = useOutletContext();
     const [showFindAddress, setShowFindAddress] = useState(false);
     const [showFindNumber, setShowFindNumber] = useState(false);
     const [phone, setPhone] = useState("");
@@ -16,6 +19,7 @@ function ManagerUpdateBasic() {
       X: "",
       Y: "",
     });
+    
     const [editAddressObj, setEditAddressObj] = useState({
       areaAddress: "",
       townAddress: "",
@@ -34,7 +38,7 @@ function ManagerUpdateBasic() {
       try {
         const response = await managerBasicRead();
         if (response.data.isSuccess) {
-          const { cafeTel, address, detailAddress,longtitude, latitude, cafeRepImg, cafeRepImgMine  } = response.data.data;
+          const { cafeTel, address, detailAddress,longtitude, latitude, cafeRepImg, cafeRepImgMine, cafeCheck } = response.data.data;
           setPhone(cafeTel); // 전화번호 상태 설정
           setAddressObj({
             areaAddress: detailAddress, // 상세 주소
@@ -43,6 +47,7 @@ function ManagerUpdateBasic() {
             Y: latitude,
             
           });
+          onCafeCheck(cafeCheck); 
           setFloorPlanImage(`data:image/${cafeRepImgMine};base64,${cafeRepImg}`);
         } else {
           console.log("API 호출 실패: ", response.data.message);

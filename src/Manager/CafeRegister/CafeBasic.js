@@ -1,13 +1,16 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import './CafeBasic.css';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import DaumPost from '../Component/DaumPost';
 
-const CafeBasic = () => {
+const CafeBasic = ({ cafeBasicInfo, onBasicInfoChange  }) => {
   // 시간
   const [showFindTime, setShowFindTime] = useState(false);
   const [showFindChips, setShowFindChips] = useState(false);
+  const [phoneNumber, setPhoneNumber] = useState('');
+
+  
 
   const roundToHour = (date) => {
     date.setMinutes(0);
@@ -44,16 +47,63 @@ const CafeBasic = () => {
     Y: ''
   });
 
+  useEffect(() => {
+    console.log("선택된 카페 유형: ", editAddressObj);
+  }, [editAddressObj]);
+
+  useEffect(() => {
+    // Props로 받은 cafeBasicInfo와 현재 상태 비교
+    if (cafeBasicInfo) {
+      if (
+        cafeBasicInfo.address.townAddress !== addressObj.townAddress ||
+        cafeBasicInfo.address.areaAddress !== addressObj.areaAddress ||
+        cafeBasicInfo.phoneNumber !== phoneNumber ||
+        cafeBasicInfo.startTime !== startTime ||
+        cafeBasicInfo.endTime !== endTime
+      ) {
+        setAddressObj(cafeBasicInfo.address);
+        setEditAddressObj(cafeBasicInfo.address); // 수정된 주소 상태도 업데이트
+        setPhoneNumber(cafeBasicInfo.phoneNumber);
+        setStartTime(cafeBasicInfo.startTime);
+        setEndTime(cafeBasicInfo.endTime);
+      }
+    }
+  }, []); 
+
+  useEffect(() => {
+    // 현재 시간을 기준으로 분을 버림하여 초기 시간 설정
+    const currentRoundedTime = roundToHour(new Date());
+    setStartTime(currentRoundedTime);
+    setEndTime(currentRoundedTime);
+  }, []);
+  
+
+  useEffect(() => {
+    // 종속성 배열에서 onBasicInfoChange 제거
+    onBasicInfoChange({
+      address: editAddressObj,
+      phoneNumber,
+      startTime,
+      endTime
+    });
+  }, [editAddressObj, phoneNumber, startTime, endTime]);
+
+
+
 // 주소 저장 핸들러
 const handleAddressSave = () => {
   setAddressObj(editAddressObj);
   setShowFindAddress(false); // 주소 수정 필드를 숨깁니다.
 };
+
 // 상세 주소 입력 변경 핸들러
 const handleAddressChange = (e, field) => {
   setEditAddressObj(prev => ({ ...prev, [field]: e.target.value }));
 };
 
+const handlePhoneNumberChange = (e) => {
+  setPhoneNumber(e.target.value);
+};
   return(
     <div className="cafe-register-box">
       <div className="cafe-register-title">
@@ -81,8 +131,8 @@ const handleAddressChange = (e, field) => {
               <label>카페 종료 시간</label>
               <DatePicker
                 className='register-time-picker'
-                selected={startTime}
-                onChange={handleChangeStartTime}
+                selected={endTime}
+                onChange={handleChangeEndTime}
                 timeFormat="HH:mm"
                 showTimeSelect
                 showTimeSelectOnly
@@ -107,13 +157,16 @@ const handleAddressChange = (e, field) => {
           <input 
             type="text" 
             placeholder="상세주소"
+            value={editAddressObj.areaAddress}
             onChange={(e) => handleAddressChange(e, "areaAddress")} />
           </div>
         </div>
         <div className='cafe-register-basic'>
           <p>전화번호</p>
           <div className='register-tel'>
-            <input type="text" placeholder="전화번호" />
+            <input type="text" placeholder="전화번호" 
+              value={phoneNumber}
+              onChange={handlePhoneNumberChange} />
           </div>
         </div>
       </div>

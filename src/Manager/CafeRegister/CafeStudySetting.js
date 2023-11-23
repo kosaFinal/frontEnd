@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./CafeStudySetting.css";
 import { Link } from "react-router-dom";
 
-const CafeStudySetting = () => {
+
+const CafeStudySetting = ({ onStudySettingChange, onFinalSubmit }) => {
 
   const [studySetting, setStudySetting] = useState("");
   const [isDivVisible, setDivVisible] = useState(false);
@@ -10,7 +11,7 @@ const CafeStudySetting = () => {
 
   const handleStudySettingRadioChange = (event) => {
     setStudySetting(event.target.value);
-    setDivVisible(event.target.value === "yes");
+    setDivVisible(event.target.value === "Y");
   };
 
   const handleFileChange = (event) => {
@@ -19,6 +20,13 @@ const CafeStudySetting = () => {
       setSelectedFile(file);
     }
   };
+
+  useEffect(() => {
+    onStudySettingChange({
+      studySetting,
+      floorPlanFile: selectedFile
+    });
+  }, [studySetting, selectedFile, onStudySettingChange]);
 
   return (
     <div className="cafe-register-box">
@@ -34,8 +42,8 @@ const CafeStudySetting = () => {
               <input
                   type="radio"
                   name="studySetting"
-                  value="yes"
-                  checked={studySetting === "yes"}
+                  value="Y"
+                  checked={studySetting === "N"}
                   onChange={handleStudySettingRadioChange} /> 
               <label>YES</label>
             </div>
@@ -43,8 +51,8 @@ const CafeStudySetting = () => {
               <input
                 type="radio"
                 name="studySetting"
-                value="no"
-                checked={studySetting === "no"}
+                value="N"
+                checked={studySetting === "N"}
                 onChange={handleStudySettingRadioChange} /> 
               <label>NO</label>
             </div>
@@ -66,7 +74,7 @@ const CafeStudySetting = () => {
         </div>
         )}
         <Link to={"/manager"}>
-        <button className="cafe-final-register"> 카페 등록하기 </button>
+        <button className="cafe-final-register" onClick={onFinalSubmit}> 카페 등록하기 </button>
         </Link>
       </div>
     </div>

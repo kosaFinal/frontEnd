@@ -56,4 +56,6 @@
 .register-tel input:last-child {
   margin-bottom: 2rem;
 }
-
+.error{
+  border: solid red;
+}

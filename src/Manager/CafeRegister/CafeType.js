@@ -1,14 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./CafeType.css";
 
-const CafeType = () => {
-
-  const [cafeType, setCafeType] = useState("");
+const CafeType = ({ cafeType, setCafeType }) => {
 
   const handleTypeRadioChange = (event) => {
     setCafeType(event.target.value);
   };
-
+ 
   return (
     <div className="cafe-register-box">
       <div className="cafe-register-title">
@@ -21,8 +19,8 @@ const CafeType = () => {
             <input
                 type="radio"
                 name="cafeType"
-                value="indivisual"
-                checked={cafeType === "indivisual"}
+                value="G"
+                checked={cafeType === "G"}
                 onChange={handleTypeRadioChange} /> 
             <label>개인</label>
           </div>
@@ -30,8 +28,8 @@ const CafeType = () => {
             <input
               type="radio"
               name="cafeType"
-              value="franchise"
-              checked={cafeType === "franchise"}
+              value="P"
+              checked={cafeType === "P"}
               onChange={handleTypeRadioChange} /> 
             <label>프랜차이즈</label>
           </div>

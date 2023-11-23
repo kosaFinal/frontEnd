@@ -8,6 +8,9 @@ import EmptyRegister from "./EmptyRegister";
 
 const ManagerUpdate = () => {
   const [CheckCafeReg, setCheckCafeReg] = useState(true);
+  const handleCafeCheck = (isCafeRegistered) => {
+    setCheckCafeReg(isCafeRegistered);
+  };
 
   return (
     <div className="manager">
@@ -15,7 +18,7 @@ const ManagerUpdate = () => {
       {CheckCafeReg ? (
         <>
           <ManagerUpdateSideBar />
-          <Outlet />
+          <Outlet context={{ onCafeCheck: handleCafeCheck }} />
         </>
       ) : (
         <EmptyRegister />

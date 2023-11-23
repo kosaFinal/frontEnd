@@ -1,15 +1,21 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./CafeFeature.css";
 
-const CafeFeature = () => {
-  const [showFindChips, setShowFindChips] = useState(false);
+const CafeFeature = ({ onFeaturesChange }) => {
   const [selectedChips, setSelectedChips] = useState(new Set());
+
+  const featureMapping = {
+    "조용함": "quiet",
+    "음악 없음": "noMusic",
+    "편한 좌석": "comfortableSeats",
+    "디저트": "hasDesserts",
+    "감성적": "sentimental",
+    "콘센트": "hasPowerOutlets"
+  };
 
   const ChipButton = ({ chip }) => {
     const isSelected = selectedChips.has(chip);
-    const chipClass = `cafeFeature-Chips ${
-      isSelected ? "select-Features" : ""
-    }`;
+    const chipClass = `cafeFeature-Chips ${isSelected ? "select-Features" : ""}`;
     return (
       <button className={chipClass} onClick={() => handleSelectChip(chip)}>
         {chip}
@@ -29,6 +35,14 @@ const CafeFeature = () => {
     });
   };
 
+  useEffect(() => {
+    const features = Object.keys(featureMapping).reduce((acc, feature) => {
+      acc[featureMapping[feature]] = selectedChips.has(feature);
+      return acc;
+    }, {});
+    onFeaturesChange(features);
+  }, [selectedChips, onFeaturesChange]);
+
   return (
     <div className="cafe-register-box">
       <div className="cafe-register-title">
@@ -40,11 +54,9 @@ const CafeFeature = () => {
       </div>
 
       <div className="cafeFeature-Chips">
-        {["조용함", "음악 없음", "편한 좌석", "디저트", "감성적", "콘센트"].map(
-          (chip) => (
-            <ChipButton key={chip} chip={chip} />
-          )
-        )}
+      {Object.keys(featureMapping).map((chip) => (
+          <ChipButton key={chip} chip={chip} />
+        ))}
       </div>
     </div>
   );

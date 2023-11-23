@@ -1,26 +1,27 @@
 import { useState } from "react";
 import "./CafeImage.css";
 
-const CafeImage = () => {
+const CafeImage = ({onImageChange}) => {
   const [selectedTitleFile, setSelectedTitleFile] = useState(null);
-  const [titleFileType, setTitleFileType] = useState('');
-  const [selectedDetailFile, setSelectedDetailFile] = useState(null);
-  const [detailFileType, setDetailFileType] = useState('');
+  const [selectedDetailFiles, setSelectedDetailFiles] = useState([]);
 
   const handleTitleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
       setSelectedTitleFile(file);
-      setTitleFileType(file.type); // 파일의 MIME 타입을 저장합니다.
+      onImageChange({ titleFile: file, detailFiles: selectedDetailFiles });
     }
   };
 
   const handleDetailFileChange = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      setSelectedDetailFile(file);
-      setDetailFileType(file.type); // 파일의 MIME 타입을 저장합니다.
+    const files = Array.from(event.target.files);
+    if (files.length > 5) {
+      alert("상세 사진은 최대 5장까지만 선택할 수 있습니다.");
+      event.target.value = ""; // input 필드 초기화
+      return;
     }
+    setSelectedDetailFiles(files);
+    onImageChange({ titleFile: selectedTitleFile, detailFiles: files });
   };
 
   return (
@@ -49,12 +50,16 @@ const CafeImage = () => {
             <input 
             className="study-img-file"
               type="file"
+              multiple
               onChange={handleDetailFileChange}
               style={{ display: 'none' }}
               id="detail-file-input"
+              accept="image/*"
             />
             <label htmlFor="detail-file-input" className="study-img-file">
-              {selectedDetailFile ? selectedDetailFile.name : "이미지 불러오기"}
+            {selectedDetailFiles.length > 0
+            ? `${selectedDetailFiles.length}개의 이미지 선택됨`
+            : "이미지 불러오기"}
             </label>
           </div>
         </div>
