@@ -50,7 +50,7 @@ const UserSearchInput = ({ searchResults, onLocationDataReceived }) => {
   const [isUserSearchFilterModal, setIsUserSearchFilterModal] = useState(false);
   const [apiResponseData, setApiResponseData] = useState(null);
   const [word, setWord] = useState("");
-
+  const [selectedCafeId, setSelectedCafeId] = useState(null);
   const handleOpenSearchModal = () => {
     setIsUserSearchFilterModal(true);
   };
@@ -83,6 +83,12 @@ const UserSearchInput = ({ searchResults, onLocationDataReceived }) => {
 
   const toggleUserSearchCafeInfo = () => {
     setShowInfo(!showInfo);
+  };
+
+  const handleCafeClick = (cafeId) => {
+    setSelectedCafeId(cafeId);
+    setShowInfo(true);
+    console.log(cafeId);
   };
 
   useEffect(() => {
@@ -262,7 +268,10 @@ const UserSearchInput = ({ searchResults, onLocationDataReceived }) => {
                   onClick={() => setShowInfo(!showInfo)}
                 >
                   <div className="search_cafe_info_img">
-                    <img src="/assets/background_img.jpg" alt={cafe.cafeName} />
+                    <img
+                      src={`data:image/;base64,${cafe.cafeReqImg}`}
+                      alt={cafe.cafeName}
+                    />
                   </div>
                   <div className="search_cafe_info_text">
                     <h5>{cafe.cafeName}</h5>
@@ -278,10 +287,13 @@ const UserSearchInput = ({ searchResults, onLocationDataReceived }) => {
                 <div
                   key={index}
                   className="search_cafe_info"
-                  onClick={() => setShowInfo(!showInfo)}
+                  onClick={() => handleCafeClick(cafe.cafeId)}
                 >
                   <div className="search_cafe_info_img">
-                    <img src="/assets/background_img.jpg" alt={cafe.cafeName} />
+                    <img
+                      src={`data:image/;base64,${cafe.cafeReqImg}`}
+                      alt={cafe.cafeName}
+                    />
                   </div>
                   <div className="search_cafe_info_text">
                     <h5>{cafe.cafeName}</h5>
@@ -295,7 +307,10 @@ const UserSearchInput = ({ searchResults, onLocationDataReceived }) => {
         </div>
         {showInfo && (
           <div className="searchcafeinfo">
-            <UserSearchCafeInfo onClose={toggleUserSearchCafeInfo} />
+            <UserSearchCafeInfo
+              cafeId={selectedCafeId}
+              onClose={toggleUserSearchCafeInfo}
+            />
           </div>
         )}
       </div>
