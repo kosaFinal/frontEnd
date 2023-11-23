@@ -10,7 +10,7 @@ import "./UserReservation.css";
 import UserNav from "./UserNav";
 import Footer from "../Footer";
 import UserReservationModal from "./UserReservationModal";
-import { Link } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 
 const UserReservation = () => {
   const [showTableOptions, setShowTableOptions] = useState(false);
@@ -22,6 +22,9 @@ const UserReservation = () => {
   const [tableNo, setTableNo] = useState("");
   const [tableId, setTableId] = useState(0);
   const [tableInfo, setTableInfo] = useState(null);
+  const [minReservationId, setMinReservationId] = useState(null);
+  const { cafeId } = useParams();
+  console.log("cafeId:", cafeId);
   const [isUserReservationModal, setIsUserReservationModal] = useState(false);
   const handleSelectTimeModal = () => {
     setIsUserReservationModal(true);
@@ -50,8 +53,8 @@ const UserReservation = () => {
   useEffect(() => {
     const fetchTableInfo = async () => {
       try {
-
-        const response = await readTableList();
+        console.log("fetchTableInfo - cafeId:", cafeId);
+        const response = await readTableList(cafeId);
         setTableInfo(response.data);
         console.log("데이터 :", response.data);
         console.log("테이블타입", tableInfo.data.tableInfo);
@@ -61,6 +64,7 @@ const UserReservation = () => {
     };
     fetchTableInfo();
   }, []);
+  const navigate = useNavigate();
   const submitReservation = async () => {
     const reservationData = {
       tableId: parseInt(tableId),
@@ -74,8 +78,13 @@ const UserReservation = () => {
     try {
       const response = await createReservation(reservationData);
       console.log("reservation 등록", response.data);
+      const newMinReservationId = Math.min(
+        ...response.data.data.reservationIds
+      );
+      setMinReservationId(newMinReservationId);
+      navigate(`/user/reservationstatus/${newMinReservationId}`);
     } catch (error) {
-      console.error("Error: ", error);
+      console.error("아니시바라: ", error);
     }
   };
   useEffect(() => {
@@ -239,7 +248,13 @@ const UserReservation = () => {
               </p>
             </div>
           </div>
-          <Link to="/user/reservationstatus">
+          <Link
+            to={
+              minReservationId
+                ? `/user/reservationstatus/${minReservationId}`
+                : "#"
+            }
+          >
             <div className="user_reservation_submit">
               <button onClick={submitReservation}>예약하기</button>
             </div>
@@ -261,6 +276,8 @@ const UserReservation = () => {
         isOpen={isUserReservationModal}
         onClose={handleCloseSelectTimeModal}
         onSubmit={handleSelectTimeSubmit}
+        selectedDate={selectdate}
+        tableId={tableId}
       />
     </userreservation>
   );

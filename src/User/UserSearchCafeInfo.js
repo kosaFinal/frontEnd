@@ -30,6 +30,7 @@ const UserSearchCafeInfo = ({ cafeId, onClose }) => {
     };
     searchCafeIdInfo();
   }, [cafeId]);
+  console.log("넘어가", cafeId);
   return (
     <usersearchcafeinfo>
       <div className="UserSearchCafeInfo_header">
@@ -61,11 +62,11 @@ const UserSearchCafeInfo = ({ cafeId, onClose }) => {
         <div className="usersearchcafeinfo_sections">
           <img src="/assets/search-keywords.png" />
           <p>
-            {showCafeInfo.features
+            {Array.isArray(showCafeInfo.features)
               ? showCafeInfo.features
                   .map((feature) => feature.featureName)
                   .join(", ")
-              : "특징 정보 없음"}{" "}
+              : "특징 정보 없음"}
           </p>
         </div>
         <div className="usersearchcafeinfo_sections">
@@ -74,7 +75,12 @@ const UserSearchCafeInfo = ({ cafeId, onClose }) => {
         </div>
       </div>
 
-      <Link to="/user/reservation">
+      <Link
+        to={{
+          pathname: `/user/reservation/${cafeId}`,
+          state: { cafeId: cafeId },
+        }}
+      >
         <div className="go_to_reservation">
           <button>예약하기</button>
         </div>
