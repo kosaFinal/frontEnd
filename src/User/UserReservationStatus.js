@@ -3,17 +3,17 @@ import UserNav from "./UserNav";
 import "./UserReservationStatus.css";
 import Footer from "../Footer";
 import { reservationNow } from "../apis/UserReservation";
-import { addAuthHeader } from "../apis/axiosConfig";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const UserReservationStatus = () => {
   const [reservationStatus, setReservationStatus] = useState({});
   const [progress, setProgress] = useState(0);
+  const { reservationId } = useParams();
 
   useEffect(() => {
     const readReservationStatus = async () => {
       try {
-        const response = await reservationNow();
+        const response = await reservationNow(reservationId);
         setReservationStatus(response.data.data);
         console.log("잘했네", response.data);
       } catch (error) {
@@ -33,7 +33,7 @@ const UserReservationStatus = () => {
       clearInterval(interval);
     }
     return () => clearInterval(interval);
-  }, [reservationStatus.status]);
+  }, [reservationStatus.status, reservationId]);
 
   return (
     <userreservationstatus>

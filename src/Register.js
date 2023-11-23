@@ -3,8 +3,7 @@ import "./Register.css";
 import Radio from "./Radio";
 import Header from "./Header";
 import { Link, useNavigate } from "react-router-dom";
-import { addAuthHeader } from "./apis/axiosConfig";
-import { signup } from "./apis/login";
+import { idCheck, signup } from "./apis/login";
 
 function Register() {
   const [register, setRegister] = useState({
@@ -16,6 +15,11 @@ function Register() {
 
   const [duplicate, setDuplicate] = useState(true);
 
+  const [disable, setDisable] = useState(false);
+  const [pwcheck, setPwcheck] = useState(false);
+
+  const [validatePw, setValidatePw] = useState("");
+
   const navigate = useNavigate();
 
   const login = () => {
@@ -23,58 +27,85 @@ function Register() {
   };
 
   const handleChange = useCallback((event) => {
-    setRegister((prevUser) => {
-      return { ...prevUser, [event.target.name]: event.target.value };
+    setRegister((prevRegister) => {
+      
+      return { ...prevRegister, [event.target.name]: event.target.value };
     });
   }, []);
 
-  const signup = useCallback(
-    async (event) => {
-      try {
-        event.preventDefault();
-        //로그인 요청
-        const response = await signup(register);
+  const handleChangePw = useCallback((event) => {
+    const input = event.target.value;
+    setValidatePw(input);
+    if(register.password === input){
+      setPwcheck(true);
+    }
+    else{
+      setPwcheck(false);
+    }
+    
+  }, [register.password,validatePw]);
 
-        //Context에 인증 내용 저장
-        console.log(response.data.data);
+  const signupFun = useCallback(async () => {
+    try {
+      if (disable === true) {
+        if(register.userRealName !== ""){
+          if(pwcheck === true){
+            
+              //로그인 요청
+              console.log(register.role);
+              const response = await signup(register);
 
-        //상태 재초기화
-        setRegister({
-          role: "",
-          userName: "",
-          userRealName: "",
-          password: "",
-        });
+              //Context에 인증 내용 저장
+              console.log(response.data.data);
 
-        
-      } catch (error) {
-        console.log(error);
+              //상태 재초기화
+              setRegister({
+                role: "",
+                userName: "",
+                userRealName: "",
+                password: "",
+              });
+          }
+          else{
+            alert("비밀번호를 제대로 입력하여 주세요");
+          }
+        }
+        else{
+          alert("성함을 입력하여 주세요");
+        }
+      } else {
+        alert("아이디 중복 체크를 해주세요.");
       }
-    },
-    []
-  );
+    } catch (error) {
+      console.log(error);
+    }
+  }, [register,duplicate, pwcheck]);
 
-  const idCheck = useCallback(
-    async (event) => {
-      try {
-        event.preventDefault();
-        //로그인 요청
-        console.log(register.userName);
+  const idCheckFun = useCallback(async () => {
+    try {
+      //로그인 요청
+      console.log(register.userName);
+      if (register.userName !== '') {
         const response = await idCheck(register.userName);
 
         //Context에 인증 내용 저장
         console.log(response.data.data);
 
-        if(response.data.data === false){
+        if (response.data.data === false) {
           setDuplicate(false);
+          console.log("duplicate: " + duplicate);
+        } else {
+          setDuplicate(true);
+          setDisable(true);
         }
-
-        
-      } catch (error) {
-        console.log(error);
       }
-    },[register.userName]
-  );
+      else{
+        alert("아이디를 입력해 주세요.");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }, [duplicate, register.userName]);
 
   
 
@@ -109,26 +140,49 @@ function Register() {
                 MANAGER
               </Radio>
             </div>
-            <div className="id-section">
-              <input className={duplicate?'id-signin':'duplicate'} type="text" placeholder="아이디" id="userName"
-                    name="userName"
-                    value={register.userName}
-                    onChange={handleChange}/>
-              <button onClick={(e) => idCheck(e)}>확인</button>
+            <div className={duplicate ? "id-section" : "id-signin-error"}>
+              <input
+                type="text"
+                placeholder="아이디"
+                id="userName"
+                name="userName"
+                value={register.userName}
+                onChange={handleChange}
+              />
+              <button onClick={idCheckFun}>확인</button>
             </div>
 
-            <input type="text" placeholder="성 명" id="userRealName"
-                    name="userRealName"
-                    value={register.userRealName}
-                    onChange={handleChange}/>
+            <input
+              type="text"
+              placeholder="성 명"
+              id="userRealName"
+              name="userRealName"
+              value={register.userRealName}
+              onChange={handleChange}
+            />
 
-            <input type="password" placeholder="비밀번호" id="password"
-                    name="password"
-                    value={register.password}
-                    onChange={handleChange}/>
-            <input type="password" placeholder="비밀번호 확인" />
+            <input
+              type="password"
+              placeholder="비밀번호"
+              id="password"
+              name="password"
+              value={register.password}
+              onChange={handleChange}
+            />
+            
+            <input value={validatePw} type="password" placeholder="비밀번호 확인" onChange={handleChangePw}/>
+            {pwcheck ? 
+            <span className="pwCheck-access">
+            비밀번호가 일치합니다.
+          </span>
+            :
+            <span className="pwCheck-deny">
+            비밀번호가 일치하지않습니다.
+          </span>}
+            
+              
             <div className="register-button">
-              <button onClick={signup}>회원가입</button>
+              <button onClick={signupFun}>회원가입</button>
             </div>
             <div className="go-login-section">
               <label className="already-signin">이미 회원가입하셨다면</label>

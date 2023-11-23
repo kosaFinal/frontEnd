@@ -1,33 +1,49 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./UserSearchInput.css";
 import UserSearchCafeInfo from "./UserSearchCafeInfo";
 import UserSearchFilter from "./UserSearchFilterModal";
 import { filterSearch } from "../apis/Search";
 
-const UserSearchInput = ({ searchResults }) => {
+const UserSearchInput = ({
+  searchResults,
+  onPageChange,
+  onLocationDataReceived,
+}) => {
   const [showInfo, setShowInfo] = useState(false);
   const [showInput, setShowInput] = useState(false);
   const [showtoggle, setShowtoggle] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
   const [buttonStates, setButtonStates] = useState({
-    button1: false,
-    button2: false,
-    button3: false,
-    button4: false,
-    button5: false,
-    button6: false,
-    button7: false,
-    button8: false,
-    button9: false,
+    button1: "N",
+    button2: "N",
+    button3: "N",
   });
+  const [featureButtonStates, setFeatureButtonStates] = useState({
+    button4: "N",
+    button5: "N",
+    button6: "N",
+    button7: "N",
+    button8: "N",
+    button9: "N",
+  });
+  const featureMapping = {
+    button4: "편한 좌석",
+    button5: "디저트",
+    button6: "콘센트",
+    button7: "조용함",
+    button8: "음악없음",
+    button9: "감성적",
+  };
   const [searchFilterData, setSearchFilterData] = useState({
     cafeType: "",
-    studyEnable: "Y",
+    studyEnable: "",
     people: "",
     proceed: "",
     features: "",
     startTime: "",
     endTime: "",
-    userStudy: "Y",
+    userStudy: "",
     preferSeat: "",
   });
   const [modalData, setModalData] = useState({
@@ -38,6 +54,7 @@ const UserSearchInput = ({ searchResults }) => {
   const [isUserSearchFilterModal, setIsUserSearchFilterModal] = useState(false);
   const [apiResponseData, setApiResponseData] = useState(null);
   const [word, setWord] = useState("");
+  const [selectedCafeId, setSelectedCafeId] = useState(null);
   const handleOpenSearchModal = () => {
     setIsUserSearchFilterModal(true);
   };
@@ -45,15 +62,25 @@ const UserSearchInput = ({ searchResults }) => {
   const handleCloseSearchModal = () => {
     setIsUserSearchFilterModal(false);
   };
+
   const handleButtonClick = (buttonName) => {
-    setButtonStates((prevButtonStates) => ({
-      ...prevButtonStates,
-      [buttonName]: !prevButtonStates[buttonName],
-    }));
+    setButtonStates((prevButtonStates) => {
+      const newValue = prevButtonStates[buttonName] === "Y" ? "N" : "Y";
+      return { ...prevButtonStates, [buttonName]: newValue };
+    });
   };
+
+  const handleFeatureButtonClick = (buttonName) => {
+    setFeatureButtonStates((prevStates) => {
+      const newValue = prevStates[buttonName] === "Y" ? "N" : "Y";
+      return { ...prevStates, [buttonName]: newValue };
+    });
+  };
+
   const handleModalDataChange = (newModalData) => {
     setModalData(newModalData);
   };
+
   const handleCloseComponent = () => {
     setShowInput(false);
   };
@@ -62,18 +89,48 @@ const UserSearchInput = ({ searchResults }) => {
     setShowInfo(!showInfo);
   };
 
-  const searchFilter = async () => {
-    try {
-      // searchFilterData와 modalData를 결합
-      const filterQueryData = {
-        ...searchFilterData,
-        ...modalData, // modalData 추가
-        word,
-        pageNo: 1,
-      };
+  const handleCafeClick = (cafeId) => {
+    setSelectedCafeId(cafeId);
+    setShowInfo(true);
+    console.log(cafeId);
+  };
 
+  const handleSearchClick = () => {
+    searchFilter(1); // 현재 페이지 번호로 데이터 요청
+  };
+
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
+    searchFilter(newPage); // 새 페이지 번호로 데이터 요청
+  };
+
+  const searchFilter = async (page = currentPage) => {
+    const selectedFeatures = Object.entries(featureButtonStates)
+      .filter(([key, value]) => value === "Y" && featureMapping[key])
+      .map(([key]) => featureMapping[key])
+      .join(",");
+
+    const filterQueryData = {
+      cafeType: searchFilterData.cafeType,
+      studyEnable: buttonStates.button1,
+      people: buttonStates.button2,
+      proceed: buttonStates.button3,
+      features: selectedFeatures,
+      startTime: modalData.startTime,
+      endTime: modalData.endTime,
+      preferSeat: modalData.preferSeat,
+      word: word,
+      pageNo: page,
+    };
+    console.log(JSON.stringify(filterQueryData, null, 2));
+
+    try {
       const response = await filterSearch(filterQueryData);
       setApiResponseData(response.data.data.searchCafes);
+      onLocationDataReceived(response.data.data);
+      if (response.data.data.pager) {
+        setTotalPages(response.data.data.pager.totalPageNo);
+      }
     } catch (error) {
       console.error("Search filter error:", error);
     }
@@ -82,9 +139,17 @@ const UserSearchInput = ({ searchResults }) => {
   const handleSearchWordChange = (event) => {
     setWord(event.target.value);
   };
+
   const handleFilterSubmit = (filterData) => {
     setSearchFilterData(filterData);
   };
+
+  useEffect(() => {
+    if (apiResponseData && apiResponseData.pager) {
+      setTotalPages(apiResponseData.pager.totalPageNo);
+    }
+  }, [apiResponseData]);
+
   return (
     <usersearchinput>
       <div className="searchinput_form">
@@ -102,7 +167,7 @@ const UserSearchInput = ({ searchResults }) => {
               onChange={handleSearchWordChange}
               placeholder="카페명으로 검색하기"
             ></input>
-            <img onClick={searchFilter} src="/assets/search-img.png" />
+            <img onClick={handleSearchClick} src="/assets/search-img.png" />
           </div>
         </div>
         <div className="searchinput_section1">
@@ -112,9 +177,9 @@ const UserSearchInput = ({ searchResults }) => {
             <option value="P">프랜차이즈</option>
           </select>
           <button
-            value="Y"
+            value={searchFilterData.studyEnable}
             onClick={() => handleButtonClick("button1")}
-            className={buttonStates.button1 ? "active" : ""}
+            className={buttonStates.button1 === "Y" ? "active" : ""}
           >
             카공 가능
           </button>
@@ -127,35 +192,39 @@ const UserSearchInput = ({ searchResults }) => {
         </div>
         <div className="searchinput_section2">
           <button
-            value="people"
+            value={searchFilterData.people}
             onClick={() => handleButtonClick("button2")}
-            className={buttonStates.button2 ? "active" : ""}
+            className={buttonStates.button2 === "Y" ? "active" : ""}
           >
             단체석
           </button>
           <button
+            value={searchFilterData.proceed}
             onClick={() => handleButtonClick("button3")}
-            className={buttonStates.button3 ? "active" : ""}
+            className={buttonStates.button3 === "Y" ? "active" : ""}
           >
             영업중
           </button>
         </div>
         <div className="searchinput_section3">
           <button
-            onClick={() => handleButtonClick("button4")}
-            className={buttonStates.button4 ? "active" : ""}
+            value="편한 좌석"
+            onClick={() => handleFeatureButtonClick("button4")}
+            className={featureButtonStates.button4 === "Y" ? "active" : ""}
           >
             편한 좌석
           </button>
           <button
-            onClick={() => handleButtonClick("button5")}
-            className={buttonStates.button5 ? "active" : ""}
+            value="디저트"
+            onClick={() => handleFeatureButtonClick("button5")}
+            className={featureButtonStates.button5 === "Y" ? "active" : ""}
           >
             디저트
           </button>
           <button
-            onClick={() => handleButtonClick("button6")}
-            className={buttonStates.button6 ? "active" : ""}
+            value="콘센트"
+            onClick={() => handleFeatureButtonClick("button6")}
+            className={featureButtonStates.button6 === "Y" ? "active" : ""}
           >
             콘센트
           </button>
@@ -171,20 +240,23 @@ const UserSearchInput = ({ searchResults }) => {
         {showtoggle && (
           <div className="searchinput_toggle">
             <button
-              onClick={() => handleButtonClick("button7")}
-              className={buttonStates.button7 ? "active" : ""}
+              value="조용함"
+              onClick={() => handleFeatureButtonClick("button7")}
+              className={featureButtonStates.button7 === "Y" ? "active" : ""}
             >
               조용함
             </button>
             <button
-              onClick={() => handleButtonClick("button8")}
-              className={buttonStates.button8 ? "active" : ""}
+              value="음악없음"
+              onClick={() => handleFeatureButtonClick("button8")}
+              className={featureButtonStates.button8 === "Y" ? "active" : ""}
             >
               음악없음
             </button>
             <button
-              onClick={() => handleButtonClick("button9")}
-              className={buttonStates.button9 ? "active" : ""}
+              value="감성적"
+              onClick={() => handleFeatureButtonClick("button9")}
+              className={featureButtonStates.button9 === "Y" ? "active" : ""}
             >
               감성적
             </button>
@@ -201,7 +273,10 @@ const UserSearchInput = ({ searchResults }) => {
                   onClick={() => setShowInfo(!showInfo)}
                 >
                   <div className="search_cafe_info_img">
-                    <img src="/assets/background_img.jpg" alt={cafe.cafeName} />
+                    <img
+                      src={`data:image/;base64,${cafe.cafeReqImg}`}
+                      alt={cafe.cafeName}
+                    />
                   </div>
                   <div className="search_cafe_info_text">
                     <h5>{cafe.cafeName}</h5>
@@ -217,10 +292,13 @@ const UserSearchInput = ({ searchResults }) => {
                 <div
                   key={index}
                   className="search_cafe_info"
-                  onClick={() => setShowInfo(!showInfo)}
+                  onClick={() => handleCafeClick(cafe.cafeId)}
                 >
                   <div className="search_cafe_info_img">
-                    <img src="/assets/background_img.jpg" alt={cafe.cafeName} />
+                    <img
+                      src={`data:image/;base64,${cafe.cafeReqImg}`}
+                      alt={cafe.cafeName}
+                    />
                   </div>
                   <div className="search_cafe_info_text">
                     <h5>{cafe.cafeName}</h5>
@@ -234,9 +312,23 @@ const UserSearchInput = ({ searchResults }) => {
         </div>
         {showInfo && (
           <div className="searchcafeinfo">
-            <UserSearchCafeInfo onClose={toggleUserSearchCafeInfo} />
+            <UserSearchCafeInfo
+              cafeId={selectedCafeId}
+              onClose={toggleUserSearchCafeInfo}
+            />
           </div>
         )}
+        <div className="user_search_pagination">
+          {Array.from({ length: totalPages }, (_, index) => (
+            <button
+              key={index + 1}
+              onClick={() => handlePageChange(index + 1)}
+              className={currentPage === index + 1 ? "active" : ""}
+            >
+              {index + 1}
+            </button>
+          ))}
+        </div>
       </div>
       {isUserSearchFilterModal && <div className="search_modal"></div>}
       {isUserSearchFilterModal && (

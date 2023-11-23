@@ -12,9 +12,84 @@ const UserSearch = () => {
   const [showMarker, setShowMarker] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
   const [mapCenter, setMapCenter] = useState(null);
+  const [activeOverlays, setActiveOverlays] = useState([]);
 
   const toggleUserSearchInput = () => {
     setShowInput(!showInput);
+  };
+
+  function clearMarkersAndOverlays() {
+    showMarker.forEach((marker) => marker.setMap(null));
+    setShowMarker([]);
+
+    activeOverlays.forEach((overlay) => overlay.setMap(null));
+    setActiveOverlays([]);
+  }
+
+  const handleLocationData = (data) => {
+    console.log("Received data:", data);
+    clearMarkersAndOverlays();
+
+    data.locations.forEach((location) => {
+      const cafeInfo = data.searchCafes.find(
+        (cafe) => cafe.cafeName === location.cafeName
+      );
+
+      if (!cafeInfo) {
+        console.error("No cafeInfo found for:", location.cafeName);
+        return;
+      }
+
+      console.log("Creating marker for:", location.cafeName);
+      const position = new kakao.maps.LatLng(
+        location.latitude,
+        location.longtitude
+      );
+
+      const marker = new kakao.maps.Marker({
+        map: map,
+        position: position,
+        title: location.cafeName,
+        image: markerImage,
+      });
+
+      kakao.maps.event.addListener(marker, "click", () => {
+        const overlayElement = document.createElement("div");
+        overlayElement.innerHTML = `
+          <div class="wrap">
+            <div class="info">
+              <div class="title">
+                ${cafeInfo.cafeName}
+                <div class="close" title="닫기"></div>
+              </div>
+              <div class="body">
+                <div class="img">
+                  <img src="data:image/;base64,${cafeInfo.cafeReqImg}" width="73" height="70">
+                </div>
+                <div class="desc">
+                  <div class="ellipsis">${cafeInfo.address}</div>
+                  <div class="jibun ellipsis">운영 시간: ${cafeInfo.startTime} ~ ${cafeInfo.endTime}</div>
+                  <div class="ellipsis">전화번호: ${location.cafeTel}</div>
+                </div>
+              </div>
+            </div>
+          </div>`;
+
+        const closeBtn = overlayElement.querySelector(".close");
+        closeBtn.onclick = () => overlay.setMap(null);
+
+        const overlay = new kakao.maps.CustomOverlay({
+          content: overlayElement,
+          map: map,
+          position: marker.getPosition(),
+        });
+
+        activeOverlays.forEach((overlay) => overlay.setMap(null));
+        setActiveOverlays([overlay]);
+      });
+
+      setShowMarker((prevMarkers) => [...prevMarkers, marker]);
+    });
   };
 
   var imageSrc = "/assets/marker_red_2.png", // 마커이미지의 주소입니다
@@ -27,8 +102,6 @@ const UserSearch = () => {
   );
 
   useEffect(() => {
-    let overlays = [];
-
     const initMap = (lat, lon) => {
       const mapContainer = document.getElementById("map"); // 지도를 표시할 div
       const mapOption = {
@@ -43,70 +116,6 @@ const UserSearch = () => {
         const center = newMap.getCenter();
         setMapCenter({ lat: center.getLat(), lng: center.getLng() });
       });
-
-      // 마커 및 오버레이 로직
-      showMarker.forEach((markerData) => {
-        var marker = new kakao.maps.Marker({
-          map: newMap, // 여기서 newMap 사용
-          position: markerData.latlng,
-          image: markerImage,
-        });
-        var content = // 마커 클릭시 표시될 오버레이 내용
-          '<div class="wrap">' +
-          '    <div class="info">' +
-          '        <div class="title">' +
-          markerData.title +
-          '            <div class="close" onclick="closeOverlay()" title="닫기"></div>' +
-          "        </div>" +
-          '        <div class="body">' +
-          '            <div class="img">' +
-          `                <img src="${markerData.image}" width="73" height="70">` +
-          "           </div>" +
-          '            <div class="desc">' +
-          `                <div class="ellipsis">${markerData.address}</div>` +
-          `                <div class="jibun ellipsis">운영 시간: ${markerData.startTime} ~ ${markerData.endTime}</div>` +
-          `                <div class="ellipsis">전화번호: ${markerData.phoneno}</div>` +
-          "            </div>" +
-          "        </div>" +
-          "    </div>" +
-          "</div>";
-        kakao.maps.event.addListener(marker, "click", function () {
-          closeAllOverlays();
-          openOverlay(content, marker.getPosition());
-        });
-
-        function openOverlay(content, position) {
-          var overlay = new kakao.maps.CustomOverlay({
-            map: newMap, // 여기서 newMap 사용
-            position: position,
-          });
-
-          var overlayContent = document.createElement("div");
-          overlayContent.innerHTML = content;
-          var closeBtn = document.createElement("div");
-          closeBtn.className = "close";
-          closeBtn.title = "닫기";
-          closeBtn.onclick = function () {
-            closeOverlay();
-          };
-          overlayContent.querySelector(".title").appendChild(closeBtn);
-
-          overlay.setContent(overlayContent);
-          overlays.push(overlay);
-        }
-
-        function closeOverlay() {
-          overlays.forEach((overlay) => {
-            overlay.setMap(null);
-          });
-        }
-      });
-
-      function closeAllOverlays() {
-        overlays.forEach((overlay) => {
-          overlay.setMap(null);
-        });
-      }
     };
 
     const initMapAtUserLocation = () => {
@@ -154,84 +163,70 @@ const UserSearch = () => {
       const lng = currentCenter.getLng();
       const lat = currentCenter.getLat();
 
+      clearMarkersAndOverlays();
       locationSearch(lng, lat)
         .then((response) => {
           const { locations, searchCafes } = response.data.data;
 
-          // 마커 오버레이 제거
-          clearMarkersAndOverlays();
-
-          // 오버레이 생성
           locations.forEach((location) => {
             const cafeInfo = searchCafes.find(
               (cafe) => cafe.cafeName === location.cafeName
             );
+
+            if (!cafeInfo) {
+              console.error("No cafeInfo found for:", location.cafeName);
+              return;
+            }
+
             const position = new kakao.maps.LatLng(
               location.latitude,
               location.longtitude
             );
 
-            const title = cafeInfo?.cafeName || "제목 없음";
-            const image = location?.cafeReqImg || "이미지 경로 없음"; // 올바른 이미지 필드가 있다면 이를 사용
-            const address = cafeInfo?.address || "주소 정보 없음";
-            const startTime = cafeInfo?.startTime || "시작 시간 정보 없음";
-            const endTime = cafeInfo?.endTime || "종료 시간 정보 없음";
-            const phoneno = location?.cafeTel || "전화번호 정보 없음"; // 전화번호 필드가 있다면 이를 사용
-
-            // 오버레이 정보
-            const contentDiv = document.createElement("div");
-            contentDiv.innerHTML = `
-              <div class="wrap">
-                <div class="info">
-                  <div class="title">
-                    ${title}
-                    <div class="close" title="닫기"></div>
-                  </div>
-                  <div class="body">
-                    <div class="img">
-                    <img src="data:image/;base64,${image}" width="73" height="70">
-                    </div>
-                    <div class="desc">
-                      <div class="ellipsis">${address}</div>
-                      <div class="jibun ellipsis">운영 시간: ${startTime} ~ ${endTime}</div>
-                      <div class="ellipsis">전화번호: ${phoneno}</div>
-                    </div>
-                  </div>
-                </div>
-              </div>`;
-
-            const closeBtn = contentDiv.querySelector(".close");
-            closeBtn.onclick = () => overlay.setMap(null);
-
-            const overlay = new kakao.maps.CustomOverlay({
-              content: contentDiv,
-              map: map,
-              position: position,
-              zIndex: 2,
-            });
-            // 마커 생성
             const marker = new kakao.maps.Marker({
               map: map,
               position: position,
               title: location.cafeName,
               image: markerImage,
-              zIndex: 1,
             });
 
-            // 클릭함수등록
-            kakao.maps.event.addListener(marker, "click", function () {
-              if (overlay.getMap()) {
-                overlay.setMap(null);
-              } else {
-                overlay.setMap(map);
-              }
+            kakao.maps.event.addListener(marker, "click", () => {
+              const overlayElement = document.createElement("div");
+              overlayElement.innerHTML = `
+                <div class="wrap">
+                  <div class="info">
+                    <div class="title">
+                      ${cafeInfo.cafeName}
+                      <div class="close" title="닫기"></div>
+                    </div>
+                    <div class="body">
+                      <div class="img">
+                        <img src="data:image/;base64,${cafeInfo.cafeReqImg}" width="73" height="70">
+                      </div>
+                      <div class="desc">
+                        <div class="ellipsis">${cafeInfo.address}</div>
+                        <div class="jibun ellipsis">운영 시간: ${cafeInfo.startTime} ~ ${cafeInfo.endTime}</div>
+                        <div class="ellipsis">전화번호: ${location.cafeTel}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>`;
+
+              const closeBtn = overlayElement.querySelector(".close");
+              closeBtn.onclick = () => overlay.setMap(null);
+
+              const overlay = new kakao.maps.CustomOverlay({
+                content: overlayElement,
+                map: map,
+                position: position,
+              });
+
+              activeOverlays.forEach((overlay) => overlay.setMap(null));
+              setActiveOverlays([overlay]);
             });
 
-            // 마커에 내용추가
             setShowMarker((prevMarkers) => [...prevMarkers, marker]);
           });
-
-          console.log(`Searching cafes near the coordinates: ${lat}, ${lng}`);
         })
         .catch((error) => {
           console.error("Location search error:", error);
@@ -305,7 +300,10 @@ const UserSearch = () => {
         </div>
         {showInput && (
           <div className="searchnav-right">
-            <UserSearchInput onClose={toggleUserSearchInput} />
+            <UserSearchInput
+              onClose={toggleUserSearchInput}
+              onLocationDataReceived={handleLocationData}
+            />
           </div>
         )}
       </div>

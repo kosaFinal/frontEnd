@@ -1,9 +1,8 @@
 import React from "react";
 import Slider from "react-slick";
-import { useState } from "react";
 import "./UserCafeInfoSlide.css";
 
-const UserCafeInfoSlide = () => {
+const UserCafeInfoSlide = ({ cafeImages }) => {
   const settings = {
     dots: true,
     infinite: true,
@@ -15,22 +14,22 @@ const UserCafeInfoSlide = () => {
     prevArrow: <PrevArrow />,
   };
 
-  const [cafeInfoImages] = useState([
-    "/assets/background_img.jpg",
-    "/assets/manager_index_main3.png",
-    "/assets/manager_index_main1.png",
-    "/assets/manager_index_main2.png",
-    "/assets/index_user_img1.png",
-  ]);
   return (
     <usercafeinfoslide>
       <div className="user_cafe_info_slide">
         <Slider {...settings}>
-          {cafeInfoImages.map((image, index) => (
-            <div key={index} className="cafe-info-slide">
-              <img src={image} alt={`Slide ${index + 1}`} />
-            </div>
-          ))}
+          {Array.isArray(cafeImages) ? (
+            cafeImages.map((image, index) => (
+              <div key={index} className="cafe-info-slide">
+                <img
+                  src={`data:image/;base64,${image}`}
+                  alt={`Slide ${index + 1}`}
+                />
+              </div>
+            ))
+          ) : (
+            <p>No images available</p> // 또는 다른 대체 컨텐츠
+          )}
         </Slider>
       </div>
     </usercafeinfoslide>

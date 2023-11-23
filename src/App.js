@@ -27,23 +27,18 @@ import UserReservationStatusStatusEmpty from "./User/UserReservationStatusEmpty"
 import UserReservationStatusCancle from "./User/UserReservationStatusCancle";
 import UserInfoUpdate from "./User/UserInfoUpdate";
 import CafeRegister from "./Manager/CafeRegister";
-import CafeType from "./Manager/CafeRegister/CafeType";
-import CafeImage from "./Manager/CafeRegister/CafeImage";
-import CafeFeature from "./Manager/CafeRegister/CafeFeature";
-import CafeStudySetting from "./Manager/CafeRegister/CafeStudySetting";
-import CafeName from "./Manager/CafeRegister/CafeName";
-import CafeBasic from "./Manager/CafeRegister/CafeBasic";
+
 import { addAuthHeader } from "./apis/axiosConfig";
-import { AppContextProvider } from "./AppContext";
+import ProtectedRoute from "./ProtectedRoute";
 
 function App() {
   const accessToken = localStorage.getItem("accessToken") || "";
-  if(accessToken !== ""){
+  if (accessToken !== "") {
     addAuthHeader(accessToken);
   }
 
   return (
-    
+    <BrowserRouter>
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/manager" element={<Manager />} />
@@ -51,62 +46,68 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
 
-        <Route path="/manager/cafeinfo" element={<ManagerCafeInfo />} />
-        <Route path="/manager/reservation" element={<ManagerReservation />} />
-        <Route
-          path="/manager/reservationstatus"
-          element={<ManagerReservationStatus />}
-        />
-        <Route
-          path="/manager/reservationlist"
-          element={<ManagerReservationList />}
-        />
+        <Route element={<ProtectedRoute />}>
+          <Route path="/manager/cafeinfo" element={<ManagerCafeInfo />} />
+          <Route path="/manager/reservation" element={<ManagerReservation />} />
+          <Route
+            path="/manager/reservationstatus"
+            element={<ManagerReservationStatus />}
+          />
+          <Route
+            path="/manager/reservationlist"
+            element={<ManagerReservationList />}
+          />
 
-        <Route path="/manager/emptyregister" element={<EmptyRegister />} />
-        <Route path="/manager/register" element={<ManagerRegister />} />
-        <Route path="/manager/updatebasic" element={<ManagerUpdateBasic />} />
-        <Route path="/manager/updatedetail" element={<ManagerUpdateDetail />} />
-        <Route
-          path="/manager/updatesetting"
-          element={<ManagerUpdateStudySetting />}
-        />
-        <Route path="/manager/update" element={<ManagerUpdate />}>
-          <Route index element={<ManagerUpdateBasic />} />
-          <Route path="updatebasic" element={<ManagerUpdateBasic />} />
-          <Route path="updatedetail" element={<ManagerUpdateDetail />} />
-          <Route path="updatesetting" element={<ManagerUpdateStudySetting />} />
+          <Route path="/manager/emptyregister" element={<EmptyRegister />} />
+          <Route path="/manager/register" element={<ManagerRegister />} />
+          <Route path="/manager/updatebasic" element={<ManagerUpdateBasic />} />
+          <Route
+            path="/manager/updatedetail"
+            element={<ManagerUpdateDetail />}
+          />
+          <Route
+            path="/manager/updatesetting"
+            element={<ManagerUpdateStudySetting />}
+          />
+          <Route path="/manager/update" element={<ManagerUpdate />}>
+            <Route index element={<ManagerUpdateBasic />} />
+            <Route path="updatebasic" element={<ManagerUpdateBasic />} />
+            <Route path="updatedetail" element={<ManagerUpdateDetail />} />
+            <Route
+              path="updatesetting"
+              element={<ManagerUpdateStudySetting />}
+            />
+          </Route>
+
+          <Route
+            path="/manager/cafe/initial"
+            element={<CafeRegister />}
+          ></Route>
+
+          <Route path="/user/search" element={<UserSearch />} />
+          <Route path="/user/find" element={<UserFind />} />
+          <Route
+            path="/user/reservationstatus/:reservationId"
+            element={<UserReservationStatus />}
+          />
+          <Route path="/user/myinfo" element={<UserMyInfo />} />
+          <Route path="/user/myreservation" element={<UserMyReservation />} />
+          <Route
+            path="/user/reservation/:cafeId"
+            element={<UserReservation />}
+          />
+          <Route
+            path="/user/reservationstatus/empty"
+            element={<UserReservationStatusStatusEmpty />}
+          />
+          <Route
+            path="/user/reservationstatus/cancle"
+            element={<UserReservationStatusCancle />}
+          />
+          <Route path="/user/myinfo/update" element={<UserInfoUpdate />} />
         </Route>
-
-        <Route path="/manager/cafe/initial" element={<CafeRegister />}>
-          {/* <Route index element={<CafeRegister/>}/>
-          <Route path="cafename" element={<CafeName/>}/>
-          <Route path="cafetype" element={<CafeType/>}/>
-          <Route path="cafebasic" element={<CafeBasic />} />
-          <Route path="cafeimage" element={<CafeImage/>}/>
-          <Route path="cafefeature" element={<CafeFeature/>}/>
-          <Route path="cafestudysetting" element={<CafeStudySetting/>}/> */}
-        </Route>
-
-        <Route path="/user/search" element={<UserSearch />} />
-        <Route path="/user/find" element={<UserFind />} />
-        <Route
-          path="/user/reservationstatus"
-          element={<UserReservationStatus />}
-        />
-        <Route path="/user/myinfo" element={<UserMyInfo />} />
-        <Route path="/user/myreservation" element={<UserMyReservation />} />
-        <Route path="/user/reservation" element={<UserReservation />} />
-        <Route
-          path="/user/reservationstatus/empty"
-          element={<UserReservationStatusStatusEmpty />}
-        />
-        <Route
-          path="/user/reservationstatus/cancle"
-          element={<UserReservationStatusCancle />}
-        />
-        <Route path="/user/myinfo/update" element={<UserInfoUpdate />} />
       </Routes>
-      
+    </BrowserRouter>
   );
 }
 
