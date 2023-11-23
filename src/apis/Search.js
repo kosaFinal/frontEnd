@@ -17,5 +17,7 @@ export function locationSearch(x, y) {
   return axios.get(`/user/search/near/mylocation?x=${x}&y=${y}`);
 }
 export function cafeInfo(cafeId) {
+  console.log("cafeId:", cafeId);
+
   return axios.get(`/user/cafe/${cafeId}`);
 }

@@ -1,24 +1,35 @@
 import { Link } from "react-router-dom";
 import "./UserSearchCafeInfo.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import UserCafeInfoSlide from "./UserCafeInfoSlide";
+import { async } from "q";
+import { cafeInfo } from "../apis/Search";
 
-const UserSearchCafeInfo = ({ onClose }) => {
+const UserSearchCafeInfo = ({ cafeId, onClose }) => {
   const [showInfo, setShowInfo] = useState(false);
-  const [showCafeInfo, setCafeInfo] = useState({
-    title: "스타벅스 가산디지털점",
-    address: "서울 금천구 가산디지털1로 168 우림라이온스벨리 B동 1층",
-    phoneno: "1522-3232",
-    startTime: "10: 00",
-    endTime: "22:00",
-    keywords: ["콘센트", "디저트", "조용함"],
-    study: "Y",
-  });
+  const [showCafeInfo, setCafeInfo] = useState({});
 
   const handleCloseComponent = () => {
     setShowInfo(false);
     onClose();
   };
+  useEffect(() => {
+    console.log("Effect 실행: cafeId = ", cafeId);
+    const searchCafeIdInfo = async () => {
+      try {
+        if (cafeId) {
+          const response = await cafeInfo(cafeId);
+          setCafeInfo(response.data.data);
+          console.log("카페 정보 : ", response.data);
+        } else {
+          console.log("cafeId가 제공되지 않았습니다.");
+        }
+      } catch (error) {
+        console.error("좀만 힘내 : ", error);
+      }
+    };
+    searchCafeIdInfo();
+  }, [cafeId]);
   return (
     <usersearchcafeinfo>
       <div className="UserSearchCafeInfo_header">
@@ -27,10 +38,10 @@ const UserSearchCafeInfo = ({ onClose }) => {
           onClick={handleCloseComponent}
           src="/assets/left-arrow.png"
         />
-        <h1>{showCafeInfo.title}</h1>
+        <h1>{showCafeInfo.cafeName}</h1>
       </div>
       <div className="usersearchcafeinfo_img">
-        <UserCafeInfoSlide />
+        <UserCafeInfoSlide cafeImages={showCafeInfo.detailImgs} />
       </div>
       <div className="usersearchcafeinfo_section">
         <div className="usersearchcafeinfo_sections">
@@ -45,11 +56,17 @@ const UserSearchCafeInfo = ({ onClose }) => {
         </div>
         <div className="usersearchcafeinfo_sections">
           <img src="/assets/search-phone.png" />
-          <p>{showCafeInfo.phoneno}</p>
+          <p>{showCafeInfo.cafeTel}</p>
         </div>
         <div className="usersearchcafeinfo_sections">
           <img src="/assets/search-keywords.png" />
-          <p>{showCafeInfo.keywords + " "} </p>
+          <p>
+            {showCafeInfo.features
+              ? showCafeInfo.features
+                  .map((feature) => feature.featureName)
+                  .join(", ")
+              : "특징 정보 없음"}{" "}
+          </p>
         </div>
         <div className="usersearchcafeinfo_sections">
           <img src="/assets/search-check.png" />
