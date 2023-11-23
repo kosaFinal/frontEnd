@@ -16,6 +16,9 @@ function Register() {
   const [duplicate, setDuplicate] = useState(true);
 
   const [disable, setDisable] = useState(false);
+  const [pwcheck, setPwcheck] = useState(false);
+
+  const [validatePw, setValidatePw] = useState("");
 
   const navigate = useNavigate();
 
@@ -24,34 +27,59 @@ function Register() {
   };
 
   const handleChange = useCallback((event) => {
-    setRegister((prevUser) => {
-      return { ...prevUser, [event.target.name]: event.target.value };
+    setRegister((prevRegister) => {
+      
+      return { ...prevRegister, [event.target.name]: event.target.value };
     });
   }, []);
+
+  const handleChangePw = useCallback((event) => {
+    const input = event.target.value;
+    setValidatePw(input);
+    if(register.password === input){
+      setPwcheck(true);
+    }
+    else{
+      setPwcheck(false);
+    }
+    
+  }, [register.password,validatePw]);
 
   const signupFun = useCallback(async () => {
     try {
       if (disable === true) {
-        //로그인 요청
-        const response = await signup(register);
+        if(register.userRealName !== ""){
+          if(pwcheck === true){
+            
+              //로그인 요청
+              console.log(register.role);
+              const response = await signup(register);
 
-        //Context에 인증 내용 저장
-        console.log(response.data.data);
+              //Context에 인증 내용 저장
+              console.log(response.data.data);
 
-        //상태 재초기화
-        setRegister({
-          role: "",
-          userName: "",
-          userRealName: "",
-          password: "",
-        });
+              //상태 재초기화
+              setRegister({
+                role: "",
+                userName: "",
+                userRealName: "",
+                password: "",
+              });
+          }
+          else{
+            alert("비밀번호를 제대로 입력하여 주세요");
+          }
+        }
+        else{
+          alert("성함을 입력하여 주세요");
+        }
       } else {
         alert("아이디 중복 체크를 해주세요.");
       }
     } catch (error) {
       console.log(error);
     }
-  }, [register]);
+  }, [register,duplicate, pwcheck]);
 
   const idCheckFun = useCallback(async () => {
     try {
@@ -78,6 +106,8 @@ function Register() {
       console.log(error);
     }
   }, [duplicate, register.userName]);
+
+  
 
   return (
     <register>
@@ -139,7 +169,18 @@ function Register() {
               value={register.password}
               onChange={handleChange}
             />
-            <input type="password" placeholder="비밀번호 확인" />
+            
+            <input value={validatePw} type="password" placeholder="비밀번호 확인" onChange={handleChangePw}/>
+            {pwcheck ? 
+            <span className="pwCheck-access">
+            비밀번호가 일치합니다.
+          </span>
+            :
+            <span className="pwCheck-deny">
+            비밀번호가 일치하지않습니다.
+          </span>}
+            
+              
             <div className="register-button">
               <button onClick={signupFun}>회원가입</button>
             </div>
