@@ -101,7 +101,7 @@ function App() {
             element={<UserReservationStatusStatusEmpty />}
           />
           <Route
-            path="/user/reservationstatus/cancle"
+            path="/user/reservationstatus/cancle/:reservationId"
             element={<UserReservationStatusCancle />}
           />
           <Route path="/user/myinfo/update" element={<UserInfoUpdate />} />

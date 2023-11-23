@@ -3,14 +3,16 @@ import Footer from "../Footer";
 import { reservationCancle } from "../apis/UserReservation";
 import UserNav from "./UserNav";
 import "./UserReservationStatusCancle.css";
-import { addAuthHeader } from "../apis/axiosConfig";
+import { useParams } from "react-router-dom";
 
 const UserReservationStatusCancle = () => {
   const [cancleReason, setCancleReason] = useState({});
+  const { reservationId } = useParams();
+
   useEffect(() => {
     const cancleReservationCancle = async () => {
       try {
-        const response = await reservationCancle();
+        const response = await reservationCancle(reservationId);
         setCancleReason(response.data.data);
         console.log("성공 : ", response.data);
       } catch (error) {

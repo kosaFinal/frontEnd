@@ -3,12 +3,13 @@ import UserNav from "./UserNav";
 import "./UserReservationStatus.css";
 import Footer from "../Footer";
 import { reservationNow } from "../apis/UserReservation";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 const UserReservationStatus = () => {
   const [reservationStatus, setReservationStatus] = useState({});
   const [progress, setProgress] = useState(0);
   const { reservationId } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const readReservationStatus = async () => {
@@ -32,8 +33,11 @@ const UserReservationStatus = () => {
       setProgress(100);
       clearInterval(interval);
     }
+    if (reservationStatus.status === "N") {
+      navigate(`/user/reservationstatus/cancle/${reservationId}`);
+    }
     return () => clearInterval(interval);
-  }, [reservationStatus.status, reservationId]);
+  }, [reservationStatus.status]);
 
   return (
     <userreservationstatus>
