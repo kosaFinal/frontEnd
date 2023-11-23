@@ -10,7 +10,6 @@ const UserSearch = () => {
   const [showInput, setShowInput] = useState(false);
   const [map, setMap] = useState(null);
   const [showMarker, setShowMarker] = useState([]);
-  const [searchResults, setSearchResults] = useState([]);
   const [mapCenter, setMapCenter] = useState(null);
   const [activeOverlays, setActiveOverlays] = useState([]);
 
@@ -156,13 +155,29 @@ const UserSearch = () => {
       console.error("Geolocation is not supported by this browser.");
     }
   };
+  useEffect(() => {
+    if (map) {
+      const centerChangedListener = kakao.maps.event.addListener(
+        map,
+        "center_changed",
+        () => {
+          const center = map.getCenter();
+          console.log("지도 중심 변경됨:", center.getLat(), center.getLng());
+          setMapCenter({ lat: center.getLat(), lng: center.getLng() });
+        }
+      );
+      return () => {
+        kakao.maps.event.removeListener(centerChangedListener);
+      };
+    }
+  }, [map]);
   const handleSearchInCurrentMap = () => {
     if (map) {
       // 현재 중심좌표 get
       const currentCenter = map.getCenter();
       const lng = currentCenter.getLng();
       const lat = currentCenter.getLat();
-
+      console.log("현재 위치 근처 검색:", lat, lng);
       clearMarkersAndOverlays();
       locationSearch(lng, lat)
         .then((response) => {
@@ -275,7 +290,7 @@ const UserSearch = () => {
             </Link>
           </div>
           <div className="searchnav_mypage">
-            <Link to="/user/mypage">
+            <Link to="/user/myinfo">
               <img src="/assets/searchnav_mypage.png" alt="search mypage" />
               <h5>마이 페이지</h5>
             </Link>
