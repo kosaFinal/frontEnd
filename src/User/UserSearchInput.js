@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./UserSearchInput.css";
 import UserSearchCafeInfo from "./UserSearchCafeInfo";
 import UserSearchFilter from "./UserSearchFilterModal";
@@ -8,6 +8,8 @@ const UserSearchInput = ({ searchResults, onLocationDataReceived }) => {
   const [showInfo, setShowInfo] = useState(false);
   const [showInput, setShowInput] = useState(false);
   const [showtoggle, setShowtoggle] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
   const [buttonStates, setButtonStates] = useState({
     button1: "N",
     button2: "N",
@@ -83,7 +85,11 @@ const UserSearchInput = ({ searchResults, onLocationDataReceived }) => {
     setShowInfo(!showInfo);
   };
 
-  const searchFilter = async () => {
+  useEffect(() => {
+    searchFilter(); // 초기 데이터 로드
+  }, []);
+
+  const searchFilter = async (page = currentPage) => {
     const selectedFeatures = Object.entries(featureButtonStates)
       .filter(([key, value]) => value === "Y" && featureMapping[key])
       .map(([key]) => featureMapping[key])
@@ -101,11 +107,15 @@ const UserSearchInput = ({ searchResults, onLocationDataReceived }) => {
       word: word,
       pageNo: 1,
     };
+    console.log(JSON.stringify(filterQueryData, null, 2));
 
     try {
       const response = await filterSearch(filterQueryData);
       setApiResponseData(response.data.data.searchCafes);
       onLocationDataReceived(response.data.data);
+      if (response.data.data.pager) {
+        setTotalPages(response.data.data.pager.totalPageNo);
+      }
     } catch (error) {
       console.error("Search filter error:", error);
     }
@@ -119,6 +129,16 @@ const UserSearchInput = ({ searchResults, onLocationDataReceived }) => {
     setSearchFilterData(filterData);
   };
 
+  useEffect(() => {
+    if (apiResponseData && apiResponseData.pager) {
+      setTotalPages(apiResponseData.pager.totalPageNo);
+    }
+  }, [apiResponseData]);
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
+    // 데이터 요청 로직을 업데이트하여 새 페이지 데이터 요청
+    searchFilter(newPage);
+  };
   return (
     <usersearchinput>
       <div className="searchinput_form">
@@ -288,6 +308,17 @@ const UserSearchInput = ({ searchResults, onLocationDataReceived }) => {
           onModalDataChange={handleModalDataChange}
         />
       )}
+      <div className="pagination">
+        {Array.from({ length: totalPages }, (_, index) => (
+          <button
+            key={index + 1}
+            onClick={() => handlePageChange(index + 1)}
+            className={currentPage === index + 1 ? "active" : ""}
+          >
+            {index + 1}
+          </button>
+        ))}
+      </div>
     </usersearchinput>
   );
 };
