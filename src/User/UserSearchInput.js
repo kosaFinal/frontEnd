@@ -4,7 +4,11 @@ import UserSearchCafeInfo from "./UserSearchCafeInfo";
 import UserSearchFilter from "./UserSearchFilterModal";
 import { filterSearch } from "../apis/Search";
 
-const UserSearchInput = ({ searchResults, onLocationDataReceived }) => {
+const UserSearchInput = ({
+  searchResults,
+  onPageChange,
+  onLocationDataReceived,
+}) => {
   const [showInfo, setShowInfo] = useState(false);
   const [showInput, setShowInput] = useState(false);
   const [showtoggle, setShowtoggle] = useState(false);
@@ -91,9 +95,14 @@ const UserSearchInput = ({ searchResults, onLocationDataReceived }) => {
     console.log(cafeId);
   };
 
-  useEffect(() => {
-    searchFilter(); // 초기 데이터 로드
-  }, []);
+  const handleSearchClick = () => {
+    searchFilter(1); // 현재 페이지 번호로 데이터 요청
+  };
+
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
+    searchFilter(newPage); // 새 페이지 번호로 데이터 요청
+  };
 
   const searchFilter = async (page = currentPage) => {
     const selectedFeatures = Object.entries(featureButtonStates)
@@ -111,7 +120,7 @@ const UserSearchInput = ({ searchResults, onLocationDataReceived }) => {
       endTime: modalData.endTime,
       preferSeat: modalData.preferSeat,
       word: word,
-      pageNo: 1,
+      pageNo: page,
     };
     console.log(JSON.stringify(filterQueryData, null, 2));
 
@@ -140,11 +149,7 @@ const UserSearchInput = ({ searchResults, onLocationDataReceived }) => {
       setTotalPages(apiResponseData.pager.totalPageNo);
     }
   }, [apiResponseData]);
-  const handlePageChange = (newPage) => {
-    setCurrentPage(newPage);
-    // 데이터 요청 로직을 업데이트하여 새 페이지 데이터 요청
-    searchFilter(newPage);
-  };
+
   return (
     <usersearchinput>
       <div className="searchinput_form">
@@ -162,7 +167,7 @@ const UserSearchInput = ({ searchResults, onLocationDataReceived }) => {
               onChange={handleSearchWordChange}
               placeholder="카페명으로 검색하기"
             ></input>
-            <img onClick={searchFilter} src="/assets/search-img.png" />
+            <img onClick={handleSearchClick} src="/assets/search-img.png" />
           </div>
         </div>
         <div className="searchinput_section1">
@@ -313,6 +318,17 @@ const UserSearchInput = ({ searchResults, onLocationDataReceived }) => {
             />
           </div>
         )}
+        <div className="user_search_pagination">
+          {Array.from({ length: totalPages }, (_, index) => (
+            <button
+              key={index + 1}
+              onClick={() => handlePageChange(index + 1)}
+              className={currentPage === index + 1 ? "active" : ""}
+            >
+              {index + 1}
+            </button>
+          ))}
+        </div>
       </div>
       {isUserSearchFilterModal && <div className="search_modal"></div>}
       {isUserSearchFilterModal && (
@@ -323,17 +339,6 @@ const UserSearchInput = ({ searchResults, onLocationDataReceived }) => {
           onModalDataChange={handleModalDataChange}
         />
       )}
-      <div className="pagination">
-        {Array.from({ length: totalPages }, (_, index) => (
-          <button
-            key={index + 1}
-            onClick={() => handlePageChange(index + 1)}
-            className={currentPage === index + 1 ? "active" : ""}
-          >
-            {index + 1}
-          </button>
-        ))}
-      </div>
     </usersearchinput>
   );
 };
