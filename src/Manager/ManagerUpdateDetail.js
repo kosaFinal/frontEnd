@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import "./ManagerUpdateDetail.css";
 import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
-import {managerDetailRead,managerDetailCafeTieUpdate} from "./../apis/ManagerUpdateAxios";
+import {managerDetailRead,managerDetailCafeTimeUpdate, managerDetailCafeFeatureUpdate} from "./../apis/ManagerUpdateAxios";
+import { async } from "q";
 
 function ManagerUpdateDetail() {
   const roundToHour = (date) => {
@@ -62,7 +63,6 @@ function ManagerUpdateDetail() {
   };
 
   const formatTime = (date) => {
-    // 시간을 HH:MM 형식으로 포맷팅
     let hours = date.getHours().toString().padStart(2, '0');
     let minutes = date.getMinutes().toString().padStart(2, '0');
     return `${hours}:${minutes}`;
@@ -83,7 +83,7 @@ function ManagerUpdateDetail() {
         endTime: updatedEndTime,
       };
   
-      const response = await managerDetailCafeTieUpdate(updatedTime);
+      const response = await managerDetailCafeTimeUpdate(updatedTime);
       if (response.data.isSuccess) {
         setStartTime(tempStartTime);
         setEndTime(tempEndTime);
@@ -96,10 +96,34 @@ function ManagerUpdateDetail() {
     }
   };
 
-  const handleSaveChips = () => {
+ 
+ const handleSaveChips = async () => {
+
+  try {
+    const features = {
+      "comfortableSeats": selectedChips.has("편한 좌석"),
+      "hasDesserts": selectedChips.has("디저트"),
+      "quiet": selectedChips.has("조용함"),
+      "noMusic": selectedChips.has("음악 없음"),
+      "sentimental": selectedChips.has("감성적"),
+      "hasPowerOutlets": selectedChips.has("콘센트")
+    };
+
+    const response = await managerDetailCafeFeatureUpdate(features);
+    if (response.data.isSuccess) {
     setSavedChips(new Set(selectedChips));
     setShowFindChips(false);
+
+    } else {
+      console.log("특성 업데이트 실패: ", response.data.message);
+    }
+  } catch (error) {
+    console.error("API 호출 중 에러 발생: ", error);
+  }
+
   };
+
+ 
 
   const ChipButton = ({ chip }) => {
     const isSelected = selectedChips.has(chip);

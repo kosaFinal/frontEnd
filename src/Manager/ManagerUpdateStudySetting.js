@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import './ManagerUpdateStudySetting.css';
-import {managerSettingRead} from "./../apis/ManagerUpdateAxios";
+import {managerSettingRead,managerSettingCafeStudyUpdate, managerSettingCafeImgUpdate,managerSettingCafeTableUpdate, managerSettingCafeTableDelete} from "./../apis/ManagerUpdateAxios";
+import { async } from 'q';
 
 function ManagerUpdateStudySetting() {
     const [selectedFileName, setSelectedFileName] = useState('');
     const [isEditingCafeStatus, setIsEditingCafeStatus] = useState(false);
-    const [cafeStatus, setCafeStatus] = useState(false);
+    const [cafeStatus, setCafeStatus] = useState();
     const [tempCafeStatus, setTempCafeStatus] = useState(null);
     const [isEditingFloorPlan, setIsEditingFloorPlan] = useState(false);
     const [floorPlanImage, setFloorPlanImage] = useState('');
@@ -14,8 +15,8 @@ function ManagerUpdateStudySetting() {
 
 
     const handleEditClick = () => {
-        setIsEditingCafeStatus(true); // 수정: 여기를 변경했습니다.
-        setTempCafeStatus(cafeStatus); // Set temporary status to current status
+        setIsEditingCafeStatus(true); 
+        setTempCafeStatus(cafeStatus);
     };
 
   const handleCafeStatusChange = (event) => {
@@ -23,30 +24,67 @@ function ManagerUpdateStudySetting() {
     const value = event.target.value === 'true';
     setTempCafeStatus(value);
 };
-    const handleSaveClick = () => {
-        setCafeStatus(tempCafeStatus);
-        setIsEditingCafeStatus(false); // 수정: 여기를 변경했습니다.
+    const handleSaveClick = async () => {
+      const studyValue = tempCafeStatus ? 'Y' : 'N';
+
+      try {
+        const study = {
+          study : studyValue
+        };
+    
+        const response = await managerSettingCafeStudyUpdate(study);
+        if (response.data.isSuccess) {
+          setCafeStatus(tempCafeStatus);
+          setIsEditingCafeStatus(false); 
+        } else {
+          console.log("카공 여부 업데이트 실패: ", response.data.message);
+        }
+      } catch (error) {
+        console.error("API 호출 중 에러 발생: ", error);
+      }
+        
     };
+
+
     const handleEditFloorPlanClick = () => {
-        setIsEditingFloorPlan(true);
-        setTempFloorPlanImage(floorPlanImage); // 현재 평면도 이미지 저장
-    };
+      setIsEditingFloorPlan(true);
+      setTempFloorPlanImage(`data:image/png;base64,${floorPlanImage}`); // 현재 설정된 이미지를 임시 이미지로 설정
+  };
+
+    const [file, setFile] = useState(null); // 원본 파일 객체를 저장할 상태 추가
 
     const handleFloorPlanFileChange = (event) => {
-        const file = event.target.files[0];
-        if (file) {
-            const fileReader = new FileReader();
-            fileReader.onload = function(e) {
-                setTempFloorPlanImage(e.target.result); // 임시 평면도 이미지 업데이트
-                setSelectedFileName(file.name);
-            };
-            fileReader.readAsDataURL(file);
-        }
+      const file = event.target.files[0];
+      if (file) {
+          setFile(file); // 파일 객체를 file 상태에 저장
+          const reader = new FileReader();
+          reader.onloadend = () => {
+              setTempFloorPlanImage(reader.result);
+              setSelectedFileName(file.name);
+          };
+          reader.readAsDataURL(file);
+      }
     };
-
-    const handleFloorPlanSaveClick = () => {
-        setFloorPlanImage(tempFloorPlanImage); // 새로운 평면도 이미지 저장
-        setIsEditingFloorPlan(false);
+    
+    const handleFloorPlanSaveClick = async () => {
+      if (!file) {
+        alert('이미지를 선택해주세요.');
+        return;
+    }
+  
+    const formData = new FormData();
+    formData.append('studyImg', file);
+        try {
+            const response = await managerSettingCafeImgUpdate(formData);
+            if (response.data.isSuccess) {
+                setFloorPlanImage(tempFloorPlanImage); // 새로운 평면도 이미지 저장
+                setIsEditingFloorPlan(false);
+            } else {
+                console.log("이미지 업데이트 실패: ", response.data.message);
+            }
+        } catch (error) {
+            console.error("API 호출 중 에러 발생: ", error);
+        }
     };
 
     const handleFloorPlanCancelClick = () => {
@@ -55,7 +93,6 @@ function ManagerUpdateStudySetting() {
         setIsEditingFloorPlan(false);
     };
 
-     // State hooks for seats
   const [isEditingSeats, setIsEditingSeats] = useState(false);
   const [seatInput, setSeatInput] = useState({ 1: '', 2: '', 4: '', 다: ''});
   const [seats, setSeats] = useState({ 1: [], 2: [], 4: [], 다: [] });
@@ -66,29 +103,77 @@ function ManagerUpdateStudySetting() {
     다: false
   });
 
-  // ... (other handler functions)
-
-  // Handler functions for seats
   const handleSeatInputChange = (section, value) => {
     setSeatInput(prevInput => ({ ...prevInput, [section]: value }));
   };
 
-  const handleAddSeat = (section, seatNumber) => {
-    if (seatNumber) {
-      setSeats(prevSeats => ({
+  const sectionMapping = { '1': 'O', '2': 'T', '4': 'F', '다': 'M' };
+
+  const updateSeatsWithSorting = (section, newSeat) => {
+    setSeats(prevSeats => {
+      const updatedSeats = [...prevSeats[section], newSeat];
+      // 좌석 번호 순으로 정렬
+      updatedSeats.sort((a, b) => a.number - b.number);
+      return {
         ...prevSeats,
-        [section]: [...prevSeats[section], seatNumber],
-      }));
-      setSeatInput(prevInput => ({ ...prevInput, [section]: '' })); // Clear input field
+        [section]: updatedSeats
+      };
+    });
+  };
+
+  const handleAddSeat = async (section, seatNumber) => {
+    if (seatNumber) {
+      // 서버로 데이터 전송
+      try {
+        const tableNo = {
+          tableType: sectionMapping[section],
+          tableNumber: seatNumber
+        };
+  
+        const response = await managerSettingCafeTableUpdate(tableNo);
+        if (response.data.isSuccess) {
+          // 응답으로 받은 좌석 정보로 로컬 상태 업데이트
+          const newSeat = {
+            id: response.data.newSeatId, // 예시: 응답으로 받은 새 좌석의 ID
+            number: seatNumber
+          };
+          updateSeatsWithSorting(section, newSeat); // 상태 업데이트와 정렬을 한 번에 처리
+          // setSeats 호출 부분 제거
+          setSeatInput(prevInput => ({ ...prevInput, [section]: '' })); // 입력 필드 초기화
+          await fetchData();
+        } else {
+          console.log("좌석 추가 실패: ", response.data.message);
+        }
+      } catch (error) {
+        console.error("API 호출 중 에러 발생: ", error);
+      }
     }
   };
 
-  const handleRemoveSeat = (section) => {
-    setSeats(prevSeats => ({
-      ...prevSeats,
-      [section]: prevSeats[section].slice(0, -1), // Remove the last seat
-    }));
+
+  const handleRemoveSeat = async (section) => {
+    const firstSeat = seats[section][0]; // 첫 번째 좌석을 가져옵니다.
+    if (firstSeat) {
+      try {
+        const response = await managerSettingCafeTableDelete(firstSeat.id);
+        if (response.data.isSuccess) {
+          // 성공적으로 삭제된 경우, 로컬 상태 업데이트
+          setSeats(prevSeats => ({
+            ...prevSeats,
+            [section]: prevSeats[section].slice(1), // 첫 번째 요소를 제외한 나머지로 업데이트
+          }));
+          await fetchData();
+        } else {
+          console.log("좌석 삭제 실패: ", response.data.message);
+        }
+      } catch (error) {
+        console.error("API 호출 중 에러 발생: ", error);
+        alert("예약중인 좌석입니다!");
+      }
+    }
   };
+
+
 
   const handleEditSectionToggle = (section) => {
     setIsEditingSection(prevState => ({
@@ -104,7 +189,6 @@ function ManagerUpdateStudySetting() {
     }));
   };
 
-  useEffect(() => {
     async function fetchData() {
         try {
             const response = await managerSettingRead();
@@ -113,7 +197,7 @@ function ManagerUpdateStudySetting() {
 
                 // 카페 상태 및 이미지 설정
                 const isCafeStudy = settingResponse.study === 'Y';
-                setCafeStatus(isCafeStudy);
+                setCafeStatus(isCafeStudy); 
                 setFloorPlanImage(settingResponse.studyImg);
                 setOriginalFloorPlanImage(settingResponse.studyImg);
 
@@ -121,23 +205,26 @@ function ManagerUpdateStudySetting() {
                 const newSeats = { A: [], B: [], C: [], D: [] };
                 const sectionMapping = { 'O': '1', 'T': '2', 'F': '4', 'M': '다' };
                 Object.entries(cafeTableResponse.tableInfo).forEach(([tableType, tables]) => {
-                    const section = sectionMapping[tableType];
-                    newSeats[section] = tables.map(table => table.tableNumber);
-                });
-                setSeats(newSeats);
+                  const section = sectionMapping[tableType];
+                  newSeats[section] = tables.map(table => ({
+                    id: table.tableId, // tableId 추가
+                    number: table.tableNumber
+                  }));
+              });
+              setSeats(newSeats);
             }
         } catch (error) {
             console.error('매니저 설정 로드 실패:', error);
         }
     }
-    fetchData();
-}, []);
 
-
+useEffect(() => {
+  fetchData();
+}, [cafeStatus,floorPlanImage]);
     return (
         <div className="ManagerUpdateStudySetting">
             <div className="ManagerUpdateStudySetting-Container">
-                <div className='ManagerUpdateStudySetting-Container-Items'>
+                <div className={`ManagerUpdateStudySetting-Container-Items ${!cafeStatus ? 'ManagerUpdateStudySetting-Container-Items-hidden' : ''}`}>
                     {/* 카페 카공 여부 */}
                     <div className="ManagerUpdateStudySetting-CafeIf">
                         <h2>카공 여부</h2>
@@ -177,7 +264,7 @@ function ManagerUpdateStudySetting() {
                         )}
                     </div>
              {/* 카페 카공 평면도 */}
-             <div className="ManagerUpdateStudySetting-FloorPlan">
+             <div className={`ManagerUpdateStudySetting-FloorPlan ${!cafeStatus ? 'hidden' : ''}`}>
                 <h2>평면도</h2>
                 {!isEditingFloorPlan && (
     <div className="ManagerUpdateStudySetting-FloorPlan-Container">
@@ -193,7 +280,7 @@ function ManagerUpdateStudySetting() {
     <div className="ManagerUpdateStudySetting-FloorPlan-Container-Update">
         <div className="ManagerUpdateStudySetting-FloorPlan-img FloorPlan-Update">
         
-            <img src={`data:image/;base64,${tempFloorPlanImage}`} alt="New Floor Plan" />
+            <img src={tempFloorPlanImage}  alt="New Floor Plan" />
         </div>
         <input
             id="file-upload"
@@ -211,10 +298,11 @@ function ManagerUpdateStudySetting() {
     </div>
                 )}
             </div >
+            
              {/* 좌석 선택 섹션 */}
 
              
-             <div className='ManagerUpdateStudySetting-SeatContainer'>
+             <div className={`ManagerUpdateStudySetting-SeatContainer ${!cafeStatus ? 'hidden' : ''}`}>
              <h2 >카공 좌석 </h2>
              
              {['1', '2', '4', '다'].map(section => (
@@ -251,7 +339,7 @@ function ManagerUpdateStudySetting() {
                     </div>
                 
                 <div className='ManagerUpdateStudySetting-SeatPrint'>
-                  {seats[section].map((seat, index) => <input type='text' disabled key={index} value={seat}></input>)}
+                  {seats[section].map((seat, index) => <input type='text' disabled key={index} value={seat.number}></input>)}
                 </div>
                 <hr></hr>
               </div>

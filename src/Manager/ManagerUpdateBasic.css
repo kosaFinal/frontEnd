@@ -79,10 +79,7 @@
 }
 
 .ManagerUpdateBasic-Container-Number-text{
-    
     text-align: center;
-    
-        
 }
 
 .ManagerUpdateBasic-Container-Number-text input {
@@ -121,7 +118,6 @@
 }
 
 .ManagerUpdateBasic-Container-Address-Update-labeling label {
-    
     margin-right: 0rem;
 }
 .ManagerUpdateBasic-Container-Address-Update-findAddress{
@@ -153,6 +149,106 @@
 .ManagerUpdateBasic-Container-Address-Update-text {
     display: flex;
     flex-flow: column;
+}
+
+/* 대표사진 */
+.ManagerUpdateBasic-Container-RepImg{
+    display: flex;
+    flex-flow: column;
+}
+.ManagerUpdateBasic-Container-RepImg-Update-labeling {
+    display: flex;
+    justify-content: center;
+    flex-flow: column;
+}
+
+.ManagerUpdateRepImgBasic-RepImg-Container{
+    width: 60%;
+    display: flex;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    gap: 2rem;
+}
+
+.ManagerUpdateBasic-Container-RepImg-Update-labeling-divs{
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+}
+
+.ManagerUpdateRepImgBasic-RepImg-Container button {
+    width: 5rem;
+    margin-top: 20rem;
+}
+
+.ManagerUpdateRepImgBasic-RepImg-Buttons{
+    display: flex;
+    justify-content: space-between;
+    height: 5rem;
+}
+.ManagerUpdateRepImgBasic-RepImg-Buttons button{
+    margin-top: auto;
+}
+
+.ManagerUpdateRepImgBasic-RepImg-Container-Update{
+    display: flex;
+    flex-flow: column;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+    height: auto;
+    border: 0.1rem solid #ccc;
+    /* 테두리 색상을 은은한 회색으로 설정 */
+    background-color: #f9f9f9;
+    /* 배경색을 기본 하얀색에서 조금 더 은은한 색으로 변경 */
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+    /* 상자 그림자 효과 추가 */
+    padding: 1.5rem;
+    /* 안쪽 여백 추가 */
+    border-radius: 10px;
+    /* 모서리 둥글게 */
+    transition: all 0.3s ease-in-out;
+    /* 부드러운 전환 효과 */
+}
+
+.RepImg-Update {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.ManagerUpdateRepImgBasic-RepImg-img{
+    width: 24rem;
+    height: 20rem;
+    margin-top: 2rem;
+}
+
+.ManagerUpdateRepImgBasic-RepImg-img img {
+    width: 24rem;
+    height: 20rem;
+    object-fit: contain;
+}
+.custom-Repfile-upload-Container{
+    width: auto;
+    height: 5rem;
+    text-align: center;
+    margin: 0;
+}
+
+.custom-Repfile-upload{
+    display: inline-block;
+    margin: 0 auto !important;
+    padding: 10px 10px;
+    cursor: pointer;
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: auto !important;
+    font-size: 1.2rem;
+    margin-top: 1rem !important;
+    text-align: center !important;
 }
 
 .hidden {
