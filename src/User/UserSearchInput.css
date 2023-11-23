@@ -236,6 +236,7 @@
   margin-left: 10px;
   font-size: 70%;
   height: 20px;
+  margin: -3px auto;
 }
 .searchcafeinfo {
   position: absolute;
@@ -251,4 +252,14 @@
 }
 .user_search_pagination {
   text-align: center;
+}
+.user_search_pagination button {
+  border: none;
+  font-size: 100%;
+  width: 25px;
+  background-color: #e5e5e5;
+  margin: auto 2px;
+}
+.user_search_pagination button.active {
+  font-weight: bold;
 }

@@ -5,6 +5,7 @@ import UserSearchFilter from "./UserSearchFilterModal";
 import { filterSearch } from "../apis/Search";
 
 const UserSearchInput = ({
+  onClose,
   searchResults,
   onPageChange,
   onLocationDataReceived,
@@ -82,7 +83,7 @@ const UserSearchInput = ({
   };
 
   const handleCloseComponent = () => {
-    setShowInput(false);
+    onClose();
   };
 
   const toggleUserSearchCafeInfo = () => {
