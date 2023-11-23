@@ -30,33 +30,49 @@ function Login() {
   const handleLogin = useCallback(
     async (event) => {
       try {
-        //로그인 요청
-        const response = await login(user);
-
-        //요청 공통 헤더인 Authorization 추가
-        addAuthHeader(response.data.data.accessToken);
-
-        //Context에 인증 내용 저장
-        console.log(response.data.data);
-        appContext.setUser(response.data.data.userName);
-        appContext.setAccessToken(response.data.data.accessToken);
-       appContext.setRole(response.data.data.role);
-
-        //상태 재초기화
-        setUser({
-          userName: "",
-          password: "",
-        });
-
-        if(response.data.data.role === "ROLE_MANAGER"){
-          navigate("/manager");
+        if(user.userName === "" && user.password === ""){
+          alert("아이디와 패스워드를 입력하여 주시기 바랍니다.");
+        }
+        else if(user.userName === "" ){
+          alert("아이디를 입력하여 주시기 바랍니다.");
+        }
+        else if(user.password === ""){
+          alert("비밀번호를 입력하여 주시기 바랍니다.");
         }
         else{
-          navigate("/user");
+          //로그인 요청
+          const response = await login(user);
+
+          //요청 공통 헤더인 Authorization 추가
+          addAuthHeader(response.data.data.accessToken);
+
+          //Context에 인증 내용 저장
+          console.log(response.data.data);
+          appContext.setUser(response.data.data.userName);
+          appContext.setAccessToken(response.data.data.accessToken);
+          appContext.setRole(response.data.data.role);
+
+          //상태 재초기화
+          setUser({
+            userName: "",
+            password: "",
+          });
+
+          if(response.data.data.role === "ROLE_MANAGER"){
+            navigate("/manager");
+          }
+          else{
+            navigate("/user");
+          }
         }
+        
+        
 
       } catch (error) {
-        console.log(error);
+        console.log(error.response.data);
+        if(error.response.data.code === 3002){
+          alert(error.response.data.message);
+        }
       }
     },
     [appContext, user]

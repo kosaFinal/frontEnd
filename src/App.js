@@ -27,30 +27,26 @@ import UserReservationStatusStatusEmpty from "./User/UserReservationStatusEmpty"
 import UserReservationStatusCancle from "./User/UserReservationStatusCancle";
 import UserInfoUpdate from "./User/UserInfoUpdate";
 import CafeRegister from "./Manager/CafeRegister";
-import CafeType from "./Manager/CafeRegister/CafeType";
-import CafeImage from "./Manager/CafeRegister/CafeImage";
-import CafeFeature from "./Manager/CafeRegister/CafeFeature";
-import CafeStudySetting from "./Manager/CafeRegister/CafeStudySetting";
-import CafeName from "./Manager/CafeRegister/CafeName";
-import CafeBasic from "./Manager/CafeRegister/CafeBasic";
+
 import { addAuthHeader } from "./apis/axiosConfig";
-import { AppContextProvider } from "./AppContext";
+import ProtectedRoute from "./ProtectedRoute";
 
 function App() {
   const accessToken = localStorage.getItem("accessToken") || "";
-  if(accessToken !== ""){
+  if (accessToken !== "") {
     addAuthHeader(accessToken);
   }
 
   return (
-    
-      <Routes>
-        <Route path="/" element={<Main />} />
-        <Route path="/manager" element={<Manager />} />
-        <Route path="/user" element={<User />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+    <BrowserRouter>
+    <Routes>
+      <Route path="/" element={<Main />} />
+      <Route path="/manager" element={<Manager />} />
+      <Route path="/user" element={<User />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
 
+      <Route element={<ProtectedRoute />}>
         <Route path="/manager/cafeinfo" element={<ManagerCafeInfo />} />
         <Route path="/manager/reservation" element={<ManagerReservation />} />
         <Route
@@ -78,13 +74,6 @@ function App() {
         </Route>
 
         <Route path="/manager/cafe/initial" element={<CafeRegister />}>
-          {/* <Route index element={<CafeRegister/>}/>
-          <Route path="cafename" element={<CafeName/>}/>
-          <Route path="cafetype" element={<CafeType/>}/>
-          <Route path="cafebasic" element={<CafeBasic />} />
-          <Route path="cafeimage" element={<CafeImage/>}/>
-          <Route path="cafefeature" element={<CafeFeature/>}/>
-          <Route path="cafestudysetting" element={<CafeStudySetting/>}/> */}
         </Route>
 
         <Route path="/user/search" element={<UserSearch />} />
@@ -105,8 +94,9 @@ function App() {
           element={<UserReservationStatusCancle />}
         />
         <Route path="/user/myinfo/update" element={<UserInfoUpdate />} />
-      </Routes>
-      
+      </Route>
+    </Routes>
+    </BrowserRouter>
   );
 }
 
