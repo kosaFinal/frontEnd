@@ -136,9 +136,39 @@ input[type="radio"] {
 .id-section input {
     width: 100%;
     margin-bottom: 0.3rem;
+    border: 2px solid green;
 } 
 
+.id-signin-error {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-top: 1rem;
+    margin-bottom: 1.0rem;
+}
+
+.id-signin-error input{
+    width: 100%;
+    margin-bottom: 0.3rem;
+    border: 2px solid red;
+}
+
 .id-section button {
+    margin-top: 0.2rem;
+    margin-left: 1rem;
+    width: 4rem;
+    height: 1.4rem;
+    border: none;
+    border-width: 0.19rem;
+    font-size: 0.8rem;
+    cursor: pointer;
+    color: black;
+    background-color: #FFCD4A;
+    font-family: "HakgyoansimSantteutdotumL";
+    margin-left: 23rem;
+}
+
+.id-signin-error button {
     margin-top: 0.2rem;
     margin-left: 1rem;
     width: 4rem;
@@ -190,8 +220,3 @@ input[type="radio"] {
     margin-left: 0.5rem;
 }
 
-.duplicate {
-    width: 100%;
-    margin-bottom: 0.3rem;
-    border-color: red;
-}
