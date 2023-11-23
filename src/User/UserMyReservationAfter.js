@@ -2,13 +2,14 @@ import "./UserMyReservation.css";
 import { Link } from "react-router-dom";
 import "./UserMyReservationAfter.css";
 import { useEffect, useState } from "react";
-import ReactPaginate from 'react-js-pagination';
+import ReactPaginate from "react-js-pagination";
 import { reservationFinish } from "../apis/UserReservation";
 
 const UserMyReservationAfter = () => {
   const [reservationAfter, setReservationAfter] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 3;
+  const [cancleReservationId, setCancleReservationId] = useState("");
 
   const paginate = (data) => {
     const startIndex = (currentPage - 1) * itemsPerPage;
@@ -24,6 +25,7 @@ const UserMyReservationAfter = () => {
       try {
         const response = await reservationFinish();
         setReservationAfter(response.data.data);
+        setCancleReservationId(response.data.data.reservationIds);
         console.log("끝이 보인다 : ", response.data);
       } catch (error) {
         console.error("아직 끝이 아닌뎅 : ", error);
@@ -55,7 +57,9 @@ const UserMyReservationAfter = () => {
                 {reservation.state === "N" && (
                   <div className="user_reservation_cancle">
                     <h4>취소</h4>
-                    <Link to="/user/reservationstatus/cancle">
+                    <Link
+                      to={`/user/reservationstatus/cancle/${reservation.reservationIds[0]}`}
+                    >
                       <button>사유 확인</button>
                     </Link>
                   </div>
@@ -63,7 +67,7 @@ const UserMyReservationAfter = () => {
               </div>
             </div>
           ))}
-          <ReactPaginate 
+          <ReactPaginate
             activePage={currentPage}
             itemsCountPerPage={itemsPerPage}
             totalItemsCount={reservationAfter.length}
