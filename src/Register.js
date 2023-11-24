@@ -4,6 +4,7 @@ import Radio from "./Radio";
 import Header from "./Header";
 import { Link, useNavigate } from "react-router-dom";
 import { idCheck, signup } from "./apis/login";
+import Swal from "sweetalert2";
 
 function Register() {
   const [register, setRegister] = useState({
@@ -67,14 +68,49 @@ function Register() {
               });
           }
           else{
-            alert("비밀번호를 제대로 입력하여 주세요");
+            Swal.fire({
+              icon: "warning",
+              title: "",
+              text: `비밀번호가 일치하지 않습니다.`,
+              
+              confirmButton: true,
+              confirmButtonText: "확인",
+              confirmButtonColor: "#FFCD4A",
+              customClass: {
+                confirmButton: 'no-outline',
+              }
+          })
           }
         }
         else{
-          alert("성함을 입력하여 주세요");
+          Swal.fire({
+            icon: "warning",
+            title: "",
+            text: `성함을 입력하여 주세요.`,
+            
+            confirmButton: true,
+            confirmButtonText: "확인",
+            confirmButtonColor: "#FFCD4A",
+            customClass: {
+              confirmButton: 'no-outline',
+            }
+        })
+          
         }
       } else {
-        alert("아이디 중복 체크를 해주세요.");
+        Swal.fire({
+          icon: "warning",
+          title: "",
+          text: `아이디 중복 체크를 해주세요.`,
+          
+          confirmButton: true,
+          confirmButtonText: "확인",
+          confirmButtonColor: "#FFCD4A",
+          customClass: {
+            confirmButton: 'no-outline',
+          }
+      })
+        
       }
     } catch (error) {
       console.log(error);
@@ -121,6 +157,7 @@ function Register() {
               <label className="usertype-label" value="회원유형">
                 회원 유형
               </label>
+              
 
               <Radio
                 className="register-radio-button"

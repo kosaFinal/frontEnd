@@ -1,18 +1,33 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import "./UserNav.css";
 import { useContext } from "react";
 import AppContext from "../AppContext";
 import { removeAuthHeader } from "../apis/axiosConfig";
+import Swal from "sweetalert2";
 
 const UserNav = ({ reservationId }) => {
   const appContext = useContext(AppContext);
-  console.log(reservationId);
+  
+  const navigate = useNavigate();
+
   const handleLogout = (event) => {
     removeAuthHeader();
     //context 전역상태 초기화
     appContext.setUser("");
     appContext.setAccessToken("");
+    appContext.setRole("");
+    Swal.fire({
+      icon: "success",
+      title: "Logout",
+      text: `로그아웃에 성공하였습니다.`,
+      showCancelButton: false,
+      confirmButtonText: "확인",
+  })
+    navigate("/");
   };
+
+  
+
 
   return (
     <usernav>
