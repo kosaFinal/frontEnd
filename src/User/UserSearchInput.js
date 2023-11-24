@@ -24,12 +24,12 @@ const UserSearchInput = ({
     button3: "N",
   });
   const [featureButtonStates, setFeatureButtonStates] = useState({
-    button4: "N",
-    button5: "N",
-    button6: "N",
-    button7: "N",
-    button8: "N",
-    button9: "N",
+    button4: "",
+    button5: "",
+    button6: "",
+    button7: "",
+    button8: "",
+    button9: "",
   });
   const featureMapping = {
     button4: "편한 좌석",
@@ -151,6 +151,13 @@ const UserSearchInput = ({
     setSearchFilterData(filterData);
   };
 
+  const handleCafeTypeChange = (event) => {
+    setSearchFilterData((prevData) => ({
+      ...prevData,
+      cafeType: event.target.value,
+    }));
+  };
+
   useEffect(() => {
     if (apiResponseData && apiResponseData.pager) {
       setTotalPages(apiResponseData.pager.totalPageNo);
@@ -196,8 +203,11 @@ const UserSearchInput = ({
           </div>
         </div>
         <div className="searchinput_section1">
-          <select value={searchFilterData.cafeType}>
-            <option disabled>카페 유형</option>
+          <select
+            value={searchFilterData.cafeType}
+            onChange={handleCafeTypeChange}
+          >
+            <option value="">카페 유형</option>
             <option value="G">개인</option>
             <option value="P">프랜차이즈</option>
           </select>
