@@ -288,7 +288,7 @@ const UserSearch = () => {
             <h5>MAP</h5>
           </div>
           <div className="searchnav_time">
-            <Link to="/user/reservationstatus">
+            <Link to="/user/reservationstatus/:reservationId">
               <img src="/assets/searchnav_time.png" alt="search time" />
               <h5>
                 실시간 예약
