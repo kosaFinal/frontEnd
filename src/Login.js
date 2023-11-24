@@ -69,7 +69,7 @@ function Login() {
         
 
       } catch (error) {
-        console.log(error.response.data);
+        console.log(error.response.data.isSuccess);
         if(error.response.data.code === 3002){
           alert(error.response.data.message);
         }
