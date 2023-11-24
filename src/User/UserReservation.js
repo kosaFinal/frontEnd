@@ -120,7 +120,7 @@ const UserReservation = () => {
       <UserNav />
       <div className="user_reservation_form">
         <div className="user_reservation_left">
-          <h1>윰형 커피</h1>
+          <h1>{tableInfo.data.cafeName}</h1>
           <div className="user_reservation_counter">
             <h5>인원</h5>
             <div className="user_reservation_counter_no">
