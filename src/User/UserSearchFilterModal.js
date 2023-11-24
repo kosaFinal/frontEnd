@@ -16,6 +16,11 @@ const UserSearchFilter = ({ isOpen, onFilterSubmit, onClose }) => {
     setUserStudy(event.target.value);
   };
 
+  useEffect(() => {
+    console.log(userStudy);
+    console.log(preferSeat);
+  }, [userStudy, preferSeat]);
+
   const handleSubmit = () => {
     const filterData = {
       startTime,
@@ -79,11 +84,14 @@ const UserSearchFilter = ({ isOpen, onFilterSubmit, onClose }) => {
             <div className="search_filter_second_header">
               <h4>카공 여부</h4>
             </div>
-            <div className="search_filter_second_radio">
+            <div
+              className="search_filter_second_radio"
+              onChange={handleCafeStudyChange}
+            >
               <Radio
                 className="user_filter_radio_btn"
+                value={"N"}
                 name="cafestudy"
-                value="N"
                 checked={userStudy === "N"}
                 onChange={handleCafeStudyChange}
               >
@@ -92,7 +100,7 @@ const UserSearchFilter = ({ isOpen, onFilterSubmit, onClose }) => {
               <Radio
                 className="user_filter_radio_btn"
                 name="cafestudy"
-                value="Y"
+                value={"Y"}
                 checked={userStudy === "Y"}
                 onChange={handleCafeStudyChange}
               >
@@ -103,11 +111,14 @@ const UserSearchFilter = ({ isOpen, onFilterSubmit, onClose }) => {
               <h4>선호 좌석</h4>
             </div>
             <div className="search_filter_tird">
-              <div className="search_filter_third_radio">
+              <div
+                className="search_filter_third_radio"
+                onChange={handleTableTypeChange}
+              >
                 <Radio
                   className="search_filter_radio_btn"
-                  name="tableType"
-                  value="M"
+                  name="preferSeat"
+                  value={"M"}
                   checked={preferSeat === "M"}
                   onChange={handleTableTypeChange}
                 >
@@ -115,8 +126,8 @@ const UserSearchFilter = ({ isOpen, onFilterSubmit, onClose }) => {
                 </Radio>
                 <Radio
                   className="search_filter_radio_btn"
-                  name="tableType"
-                  value="F"
+                  name="preferSeat"
+                  value={"F"}
                   checked={preferSeat === "F"}
                   onChange={handleTableTypeChange}
                 >
@@ -124,8 +135,8 @@ const UserSearchFilter = ({ isOpen, onFilterSubmit, onClose }) => {
                 </Radio>
                 <Radio
                   className="search_filter_radio_btn"
-                  name="tableType"
-                  value="T"
+                  name="preferSeat"
+                  value={"T"}
                   checked={preferSeat === "T"}
                   onChange={handleTableTypeChange}
                 >
@@ -133,8 +144,8 @@ const UserSearchFilter = ({ isOpen, onFilterSubmit, onClose }) => {
                 </Radio>
                 <Radio
                   className="search_filter_radio_btn"
-                  name="tableType"
-                  value="O"
+                  name="preferSeat"
+                  value={"O"}
                   checked={preferSeat === "O"}
                   onChange={handleTableTypeChange}
                 >
