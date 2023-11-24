@@ -10,11 +10,14 @@ const UserSearchInput = ({
   onPageChange,
   onLocationDataReceived,
 }) => {
+  console.log("부모한테 받아옴:", searchResults);
   const [showInfo, setShowInfo] = useState(false);
   const [showInput, setShowInput] = useState(false);
   const [showtoggle, setShowtoggle] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
+  const [displayedResults, setDisplayedResults] = useState([]);
+  const [parentResults, setParentResults] = useState(false);
   const [buttonStates, setButtonStates] = useState({
     button1: "N",
     button2: "N",
@@ -101,8 +104,10 @@ const UserSearchInput = ({
   };
 
   const handlePageChange = (newPage) => {
-    setCurrentPage(newPage);
-    searchFilter(newPage); // 새 페이지 번호로 데이터 요청
+    if (!parentResults) {
+      setCurrentPage(newPage);
+      searchFilter(newPage); // 새 페이지에 대한 검색 결과 업데이트
+    }
   };
 
   const searchFilter = async (page = currentPage) => {
@@ -129,6 +134,7 @@ const UserSearchInput = ({
       const response = await filterSearch(filterQueryData);
       setApiResponseData(response.data.data.searchCafes);
       onLocationDataReceived(response.data.data);
+      setParentResults(null);
       if (response.data.data.pager) {
         setTotalPages(response.data.data.pager.totalPageNo);
       }
@@ -151,6 +157,24 @@ const UserSearchInput = ({
     }
   }, [apiResponseData]);
 
+  useEffect(() => {
+    if (
+      searchResults &&
+      searchResults.searchCafes &&
+      searchResults.searchCafes.length > 0
+    ) {
+      setDisplayedResults(searchResults.searchCafes);
+      setParentResults(true);
+      setTotalPages(0);
+    } else {
+      setParentResults(false);
+    }
+  }, [searchResults]);
+  useEffect(() => {
+    if (!parentResults && apiResponseData && apiResponseData.length > 0) {
+      setDisplayedResults(apiResponseData);
+    }
+  }, [apiResponseData, parentResults]);
   return (
     <usersearchinput>
       <div className="searchinput_form">
@@ -264,53 +288,44 @@ const UserSearchInput = ({
           </div>
         )}
         <hr />
-
-        <div className="search_cafe_info_list">
-          {searchResults
-            ? searchResults.map((cafe, index) => (
-                <div
-                  key={index}
-                  className="search_cafe_info"
-                  onClick={() => setShowInfo(!showInfo)}
-                >
-                  <div className="search_cafe_info_img">
-                    <img
-                      src={`data:image/;base64,${cafe.cafeReqImg}`}
-                      alt={cafe.cafeName}
-                    />
-                  </div>
-                  <div className="search_cafe_info_text">
-                    <h5>{cafe.cafeName}</h5>
-                    <p>
-                      <span>이용시간 :</span> {cafe.startTime} ~ {cafe.endTime}
-                    </p>
-                    <p>주소 : {cafe.address}</p>
-                  </div>
+        {displayedResults.length > 0 && (
+          <div className="search_cafe_info_list">
+            {displayedResults.map((cafe, index) => (
+              <div
+                key={index}
+                className="search_cafe_info"
+                onClick={() => handleCafeClick(cafe.cafeId)}
+              >
+                <div className="search_cafe_info_img">
+                  <img
+                    src={`data:image/;base64,${cafe.cafeReqImg}`}
+                    alt={cafe.cafeName}
+                  />
                 </div>
-              ))
-            : apiResponseData &&
-              apiResponseData.map((cafe, index) => (
-                <div
-                  key={index}
-                  className="search_cafe_info"
-                  onClick={() => handleCafeClick(cafe.cafeId)}
-                >
-                  <div className="search_cafe_info_img">
-                    <img
-                      src={`data:image/;base64,${cafe.cafeReqImg}`}
-                      alt={cafe.cafeName}
-                    />
-                  </div>
-                  <div className="search_cafe_info_text">
-                    <h5>{cafe.cafeName}</h5>
-                    <p>
-                      <span>이용시간 :</span> {cafe.startTime} ~ {cafe.endTime}
-                    </p>
-                    <p>주소 : {cafe.address}</p>
-                  </div>
+                <div className="search_cafe_info_text">
+                  <h5>{cafe.cafeName}</h5>
+                  <p>
+                    <span>이용시간 :</span> {cafe.startTime} ~ {cafe.endTime}
+                  </p>
+                  <p>주소 : {cafe.address}</p>
                 </div>
-              ))}
-        </div>
+              </div>
+            ))}
+          </div>
+        )}
+        {!parentResults && (
+          <div className="user_search_pagination">
+            {Array.from({ length: totalPages }, (_, index) => (
+              <button
+                key={index + 1}
+                onClick={() => handlePageChange(index + 1)}
+                className={currentPage === index + 1 ? "active" : ""}
+              >
+                {index + 1}
+              </button>
+            ))}
+          </div>
+        )}
         {showInfo && (
           <div className="searchcafeinfo">
             <UserSearchCafeInfo
@@ -319,17 +334,19 @@ const UserSearchInput = ({
             />
           </div>
         )}
-        <div className="user_search_pagination">
-          {Array.from({ length: totalPages }, (_, index) => (
-            <button
-              key={index + 1}
-              onClick={() => handlePageChange(index + 1)}
-              className={currentPage === index + 1 ? "active" : ""}
-            >
-              {index + 1}
-            </button>
-          ))}
-        </div>
+        {/* {!parentResults && totalPages > 0 && (
+          <div className="user_search_pagination">
+            {Array.from({ length: totalPages }, (_, index) => (
+              <button
+                key={index + 1}
+                onClick={() => handlePageChange(index + 1)}
+                className={currentPage === index + 1 ? "active" : ""}
+              >
+                {index + 1}
+              </button>
+            ))}
+          </div>
+        )} */}
       </div>
       {isUserSearchFilterModal && <div className="search_modal"></div>}
       {isUserSearchFilterModal && (
