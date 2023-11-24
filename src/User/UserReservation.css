@@ -80,6 +80,7 @@
   text-align: center;
   margin: auto;
   height: 10px;
+  font-size: 100%;
 }
 .react-datepicker-wrapper {
   margin: auto;
@@ -89,7 +90,7 @@
   margin: auto;
 }
 .user_reservation_date .react-datepicker {
-  width: 100%;
+  width: 50%;
   margin: auto;
 }
 .user_reservation_date .react-datepicker__month-container {
@@ -108,6 +109,10 @@
 .user_reservation_date .react-datepicker__week {
   width: 80%;
   margin-left: -5px;
+}
+.react-datepicker-popper[data-placement^="bottom"]
+  .react-datepicker__triangle::after {
+  color: white;
 }
 .user_reservation_radio {
   display: flex;

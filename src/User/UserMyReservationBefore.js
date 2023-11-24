@@ -34,7 +34,11 @@ const UserMyReservationBefore = () => {
   return (
     <usermyreservationbefore>
       <div className="user_myReservation-container">
-        {paginate(reservationBefore).map((reservation, index) => (
+        {reservationBefore.length === 0 ? (
+            <div className="user_myReservation_no_exist">예약 현황이 없습니다.</div>
+        ) : (
+        <>
+          {paginate(reservationBefore).map((reservation, index) => (
           <div key={index} className="user_reservation-item">
             <div className="user_inprogress-time">
               {reservation.reserveStart} ~ {reservation.reserveEnd}
@@ -67,6 +71,8 @@ const UserMyReservationBefore = () => {
         prevPageText={"‹"}
         nextPageText={"›"}
       />
+        </>
+        )}
       </div>
     </usermyreservationbefore>
   );

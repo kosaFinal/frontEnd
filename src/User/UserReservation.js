@@ -11,11 +11,12 @@ import UserNav from "./UserNav";
 import Footer from "../Footer";
 import UserReservationModal from "./UserReservationModal";
 import { Link, useParams, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const UserReservation = () => {
   const [showTableOptions, setShowTableOptions] = useState(false);
   const [showSeatAndTimeOptions, setShowSeatAndTimeOptions] = useState(false);
-  const [counter, setCounter] = useState(0);
+  const [counter, setCounter] = useState(1);
   const [selectdate, setSelectDate] = useState(new Date());
   const [tableType, setTableType] = useState("onetable");
   const [selecteTime, setSelecteTime] = useState(null);
@@ -50,6 +51,7 @@ const UserReservation = () => {
     setTableType(event.target.value);
     setShowSeatAndTimeOptions(true);
   };
+
   useEffect(() => {
     const fetchTableInfo = async () => {
       try {
@@ -66,6 +68,22 @@ const UserReservation = () => {
   }, []);
   const navigate = useNavigate();
   const submitReservation = async () => {
+    if (
+      counter === 0 ||
+      !selectdate ||
+      !tableType ||
+      !selecteTime ||
+      !tableId
+    ) {
+      Swal.fire({
+        icon: "warning",
+        title: "",
+        text: "예약하기 위한 필요한 정보들을 입력해주세요.",
+        Button: true,
+        ButtonText: "확인",
+      });
+      return;
+    }
     const reservationData = {
       tableId: parseInt(tableId),
       personCnt: counter,
@@ -96,12 +114,19 @@ const UserReservation = () => {
       setTableId(tableInfo.data.tableInfo[tableType][0].tableId);
     }
   }, [tableInfo, tableType]);
+
   return (
     <userreservation>
       <UserNav />
       <div className="user_reservation_form">
         <div className="user_reservation_left">
-          <h1>윰형 커피</h1>
+          {tableInfo && tableInfo.data.cafeName ? (
+            <h1>{tableInfo.data.cafeName}</h1>
+          ) : (
+            ""
+          )}
+
+          {/* 테스트 중 */}
           <div className="user_reservation_counter">
             <h5>인원</h5>
             <div className="user_reservation_counter_no">
