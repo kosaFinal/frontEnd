@@ -16,7 +16,7 @@ import Swal from "sweetalert2";
 const UserReservation = () => {
   const [showTableOptions, setShowTableOptions] = useState(false);
   const [showSeatAndTimeOptions, setShowSeatAndTimeOptions] = useState(false);
-  const [counter, setCounter] = useState(0);
+  const [counter, setCounter] = useState(1);
   const [selectdate, setSelectDate] = useState(new Date());
   const [tableType, setTableType] = useState("onetable");
   const [selecteTime, setSelecteTime] = useState(null);
@@ -120,7 +120,13 @@ const UserReservation = () => {
       <UserNav />
       <div className="user_reservation_form">
         <div className="user_reservation_left">
-          <h1>{tableInfo.data.cafeName}</h1>
+          {tableInfo && tableInfo.data.cafeName ? (
+            <h1>{tableInfo.data.cafeName}</h1>
+          ) : (
+            ""
+          )}
+
+          {/* 테스트 중 */}
           <div className="user_reservation_counter">
             <h5>인원</h5>
             <div className="user_reservation_counter_no">
