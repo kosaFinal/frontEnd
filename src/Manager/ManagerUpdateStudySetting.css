@@ -92,7 +92,6 @@
 
 .ManagerUpdateStudySetting-FloorPlan {
     width: 60%;
-    
     display: flex;
     flex-flow: column;
     margin-top: 3rem;
@@ -102,6 +101,7 @@
     width: 60%;
     display: flex;
     justify-content: center;
+    gap: 1rem;
     margin-left: auto;
     margin-right: auto;
     gap: 2rem;

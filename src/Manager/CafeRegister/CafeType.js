@@ -18,20 +18,22 @@ const CafeType = ({ cafeType, setCafeType }) => {
           <div>
             <input
                 type="radio"
+                id="typeIndividual"
                 name="cafeType"
                 value="G"
                 checked={cafeType === "G"}
                 onChange={handleTypeRadioChange} /> 
-            <label>개인</label>
+            <label htmlFor="typeIndividual">개인</label>
           </div>
           <div>
             <input
               type="radio"
+              id="typeFranchise"
               name="cafeType"
               value="P"
               checked={cafeType === "P"}
               onChange={handleTypeRadioChange} /> 
-            <label>프랜차이즈</label>
+            <label htmlFor="typeFranchise">프랜차이즈</label>
           </div>
         </div>
       </div>

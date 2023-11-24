@@ -1,13 +1,20 @@
 import { useEffect, useState } from "react";
 import "./CafeStudySetting.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 
-const CafeStudySetting = ({ onStudySettingChange, onFinalSubmit }) => {
+const CafeStudySetting = ({ onStudySettingChange, onFinalSubmit,initialStudySetting, initialFile  }) => {
+  const navigate = useNavigate();
+  const [studySetting, setStudySetting] = useState(initialStudySetting || "");
+  const [isDivVisible, setDivVisible] = useState(initialStudySetting === "Y");
+  const [selectedFile, setSelectedFile] = useState(initialFile);
 
-  const [studySetting, setStudySetting] = useState("");
-  const [isDivVisible, setDivVisible] = useState(false);
-  const [selectedFile, setSelectedFile] = useState(null);
+  useEffect(() => {
+    // 이전 설정값을 기반으로 초기 상태 설정
+    setStudySetting(initialStudySetting || "");
+    setDivVisible(initialStudySetting === "Y");
+    setSelectedFile(initialFile);
+  }, [initialStudySetting, initialFile]);
 
   const handleStudySettingRadioChange = (event) => {
     setStudySetting(event.target.value);
@@ -28,6 +35,17 @@ const CafeStudySetting = ({ onStudySettingChange, onFinalSubmit }) => {
     });
   }, [studySetting, selectedFile, onStudySettingChange]);
 
+  const handleFinalSubmitWrapper = () => {
+    if (studySetting === '') {
+      alert('카공 운영 여부를 선택해주세요.');
+    } else if (studySetting === 'Y' && !selectedFile) {
+      alert('카공 운영을 선택한 경우, 평면도 이미지를 업로드해야 합니다.');
+    } else {
+      onFinalSubmit(); // 실제 제출 함수 호출
+      navigate('/manager'); // 여기서 페이지 이동
+    }
+  };
+
   return (
     <div className="cafe-register-box">
       <div className="cafe-register-title">
@@ -43,18 +61,20 @@ const CafeStudySetting = ({ onStudySettingChange, onFinalSubmit }) => {
                   type="radio"
                   name="studySetting"
                   value="Y"
-                  checked={studySetting === "N"}
+                  id="cafeStatusTrue"
+                  checked={studySetting === "Y"}
                   onChange={handleStudySettingRadioChange} /> 
-              <label>YES</label>
+              <label htmlFor="cafeStatusTrue"> YES</label>
             </div>
             <div>
               <input
                 type="radio"
                 name="studySetting"
                 value="N"
+                id="cafeStatusFalse"
                 checked={studySetting === "N"}
                 onChange={handleStudySettingRadioChange} /> 
-              <label>NO</label>
+              <label htmlFor="cafeStatusFalse">NO</label>
             </div>
           </div>
         </div>
@@ -73,9 +93,9 @@ const CafeStudySetting = ({ onStudySettingChange, onFinalSubmit }) => {
             </label>
         </div>
         )}
-        <Link to={"/manager"}>
-        <button className="cafe-final-register" onClick={onFinalSubmit}> 카페 등록하기 </button>
-        </Link>
+       <button className="cafe-final-register" onClick={handleFinalSubmitWrapper}>
+  카페 등록하기
+</button>
       </div>
     </div>
   );

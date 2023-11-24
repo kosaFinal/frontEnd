@@ -267,11 +267,14 @@ useEffect(() => {
              <div className={`ManagerUpdateStudySetting-FloorPlan ${!cafeStatus ? 'hidden' : ''}`}>
                 <h2>평면도</h2>
                 {!isEditingFloorPlan && (
-    <div className="ManagerUpdateStudySetting-FloorPlan-Container">
-        <button onClick={handleEditFloorPlanClick}>수정</button>
-        <div className="ManagerUpdateStudySetting-FloorPlan-img">
-        <img src={`data:image/png;base64,${floorPlanImage}`} alt="Floor Plan" />
 
+    <div className="ManagerUpdateStudySetting-FloorPlan-Container">
+      <div className='FloorPlan-Button'>
+        <button onClick={handleEditFloorPlanClick}>수정</button>
+  </div>
+        <div className="ManagerUpdateStudySetting-FloorPlan-img">
+
+        <img src={`data:image/png;base64,${floorPlanImage}`} alt="Floor Plan" />
         </div>
     </div>
 )}

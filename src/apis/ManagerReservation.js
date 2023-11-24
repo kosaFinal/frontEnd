@@ -21,3 +21,7 @@ export function managerChangeCancle(data){
 export function managerChangeFinish(data){
   return axios.patch("/manager/reservation/finish", data);
 }
+
+export function managerReadCalendarReservation(selectDate){
+  return axios.get(`/manager/reservation/read/date/${selectDate}`);
+}

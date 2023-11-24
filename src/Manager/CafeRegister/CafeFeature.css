@@ -12,21 +12,20 @@
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 1.3rem;
-  text-align: center;
-  justify-content: center;
+  
+  
 }
 
 .cafeFeature-Chips button{
+  justify-content: center;
   display: flex;
-  width: 12rem;
+  width: 13rem;
   height: 3.5rem;
   font-family: "HakgyoansimSantteutdotumL";
   font-size: 1.5rem;
-  justify-content: center;
-  text-align: center;
+  align-items: center;
+  
 }
-
-
 
 .select-Features{
   background-color: #7CD0FF;

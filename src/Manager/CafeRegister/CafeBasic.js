@@ -9,16 +9,16 @@ const CafeBasic = ({ cafeBasicInfo, onBasicInfoChange  }) => {
   const [showFindTime, setShowFindTime] = useState(false);
   const [showFindChips, setShowFindChips] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState('');
-
-  
+  const [startTime, setStartTime] = useState(new Date());
+  const [endTime, setEndTime] = useState(new Date());
 
   const roundToHour = (date) => {
     date.setMinutes(0);
     return date;
   };
 
-  const [startTime, setStartTime] = useState(roundToHour(new Date()));
-  const [endTime, setEndTime] = useState(roundToHour(new Date()));
+  // const [startTime, setStartTime] = useState(roundToHour(new Date()));
+  // const [endTime, setEndTime] = useState(roundToHour(new Date()));
 
   const handleChangeStartTime = (time) => {
     setStartTime(time);
@@ -88,13 +88,6 @@ const CafeBasic = ({ cafeBasicInfo, onBasicInfoChange  }) => {
     });
   }, [editAddressObj, phoneNumber, startTime, endTime]);
 
-
-
-// 주소 저장 핸들러
-const handleAddressSave = () => {
-  setAddressObj(editAddressObj);
-  setShowFindAddress(false); // 주소 수정 필드를 숨깁니다.
-};
 
 // 상세 주소 입력 변경 핸들러
 const handleAddressChange = (e, field) => {

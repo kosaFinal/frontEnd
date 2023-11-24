@@ -36,12 +36,7 @@ const CafeRegister = () => {
     floorPlanFile: null,
   });
 
-  useEffect(() => {
-    console.log("카페 기본 정보: ", cafeBasicInfo);
-    console.log("카페 이미지: ", cafeImages);
-    console.log("카페 특성: ", cafeFeatures);
-    console.log("카페 특성: ", cafeStudySetting);
-  }, [number, cafeBasicInfo, cafeImages, cafeFeatures, cafeStudySetting]);
+  
 
   const handleStudySettingChange = useCallback((setting) => {
     setCafeStudySetting(setting);
@@ -54,6 +49,12 @@ const CafeRegister = () => {
   const handleImageChange = useCallback((images) => {
     setCafeImages(images);
   }, []);
+
+  const validatePhoneNumber = (number) => {
+    const regex = /^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})-?[0-9]{3,4}-?[0-9]{4}$/;
+    return regex.test(number);
+  };
+
 
   const addNumber = () => {
     if (number === 1) {
@@ -70,15 +71,24 @@ const CafeRegister = () => {
 
     // CafeBasic 유효성 검사
     if (number === 3) {
-      if (
-        !cafeBasicInfo.address ||
-        !cafeBasicInfo.phoneNumber ||
-        cafeBasicInfo.startTime >= cafeBasicInfo.endTime
-      ) {
+      if (!cafeBasicInfo.address || !cafeBasicInfo.phoneNumber) {
         alert("카페 기본 정보를 올바르게 입력해주세요.");
         return;
       }
+
+      // 전화번호 포맷 유효성 검사
+      if (!validatePhoneNumber(cafeBasicInfo.phoneNumber)) {
+        alert("유효한 전화번호를 입력해주세요.");
+        return;
+      }
+
+      // 시간 유효성 검사 (시작 시간이 종료 시간보다 늦으면 안 됨)
+      if (cafeBasicInfo.startTime >= cafeBasicInfo.endTime) {
+        alert("카페 종료 시간은 시작 시간보다 늦어야 합니다.");
+        return;
+      }
     }
+
     if (number === 4) {
       if (!cafeImages.titleFile || cafeImages.detailFiles.length === 0) {
         alert("대표 사진과 상세 사진을 모두 업로드해주세요.");
@@ -115,7 +125,7 @@ const CafeRegister = () => {
   }, [cafeBasicInfo]);
 
   const handleFinalSubmit = async () => {
-    try {
+    
       // FormData 준비
       const formData = new FormData();
 
@@ -130,12 +140,14 @@ const CafeRegister = () => {
               startTime: cafeBasicInfo.startTime.toLocaleTimeString([], {
                 hour: "2-digit",
                 minute: "2-digit",
+                hour12: false
               }),
               endTime: cafeBasicInfo.endTime.toLocaleTimeString([], {
                 hour: "2-digit",
                 minute: "2-digit",
+                hour12: false
               }),
-              address: `${cafeBasicInfo.address.townAddress}, ${cafeBasicInfo.address.areaAddress}`,
+              address: `${cafeBasicInfo.address.townAddress}, ${cafeBasicInfo.address.areaAddress === null ? " " : cafeBasicInfo.address.areaAddress}`,
               longtitude: cafeBasicInfo.address.X,
               latitude: cafeBasicInfo.address.Y,
               cafeTel: cafeBasicInfo.phoneNumber,
@@ -152,7 +164,7 @@ const CafeRegister = () => {
       if (cafeImages.titleFile) {
         formData.append("cafeRepImg", cafeImages.titleFile);
       }
-      cafeImages.detailFiles.forEach((file, index) => {
+      cafeImages.detailFiles.forEach((file) => {
         formData.append("cafeImgs", file);
       });
 
@@ -167,14 +179,9 @@ const CafeRegister = () => {
         new Blob([JSON.stringify(cafeFeatures)], { type: "application/json" })
       );
 
-      console.log(cafeName);
-      console.log(formData.study);
-      console.log(cafeImages.titleFile);
-      console.log(cafeImages.detailFiles);
-      console.log(cafeStudySetting.floorPlanFile);
-
       // API 호출
       const response = await managerCafeReg(formData);
+      try {
       if (response.data.isSuccess) {
         // 등록 성공 처리
         console.log("등록 성공", response.data.data);
@@ -213,16 +220,20 @@ const CafeRegister = () => {
               <CafeBasic
                 cafeBasicInfo={cafeBasicInfo}
                 onBasicInfoChange={handleBasicInfoChange}
+              
               />
             )}
-            {number === 4 && <CafeImage onImageChange={handleImageChange} />}
+            {number === 4 && <CafeImage onImageChange={handleImageChange} cafeImages={cafeImages}/>}
             {number === 5 && (
-              <CafeFeature onFeaturesChange={handleFeaturesChange} />
+              <CafeFeature onFeaturesChange={handleFeaturesChange}
+              selectedFeatures={cafeFeatures} />
             )}
             {number === 6 && (
               <CafeStudySetting
-                onStudySettingChange={handleStudySettingChange}
-                onFinalSubmit={handleFinalSubmit}
+              onStudySettingChange={handleStudySettingChange}
+              onFinalSubmit={handleFinalSubmit}
+              initialStudySetting={cafeStudySetting.studySetting}
+              initialFile={cafeStudySetting.floorPlanFile}
               />
             )}
           </div>

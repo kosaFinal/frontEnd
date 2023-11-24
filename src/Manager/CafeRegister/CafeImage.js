@@ -1,15 +1,11 @@
 import { useState } from "react";
 import "./CafeImage.css";
 
-const CafeImage = ({onImageChange}) => {
-  const [selectedTitleFile, setSelectedTitleFile] = useState(null);
-  const [selectedDetailFiles, setSelectedDetailFiles] = useState([]);
-
+const CafeImage = ({onImageChange, cafeImages }) => {
   const handleTitleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
-      setSelectedTitleFile(file);
-      onImageChange({ titleFile: file, detailFiles: selectedDetailFiles });
+      onImageChange({ ...cafeImages, titleFile: file });
     }
   };
 
@@ -20,8 +16,7 @@ const CafeImage = ({onImageChange}) => {
       event.target.value = ""; // input 필드 초기화
       return;
     }
-    setSelectedDetailFiles(files);
-    onImageChange({ titleFile: selectedTitleFile, detailFiles: files });
+    onImageChange({ ...cafeImages, detailFiles: files });
   };
 
   return (
@@ -41,8 +36,8 @@ const CafeImage = ({onImageChange}) => {
               style={{ display: 'none' }}
               id="title-file-input"
             />
-            <label htmlFor="title-file-input" className="study-img-file">
-              {selectedTitleFile ? selectedTitleFile.name : "이미지 불러오기"}
+               <label htmlFor="title-file-input" className="study-img-file">
+              {cafeImages.titleFile ? cafeImages.titleFile.name : "이미지 불러오기"}
             </label>
           </div>
           <div>
@@ -57,9 +52,9 @@ const CafeImage = ({onImageChange}) => {
               accept="image/*"
             />
             <label htmlFor="detail-file-input" className="study-img-file">
-            {selectedDetailFiles.length > 0
-            ? `${selectedDetailFiles.length}개의 이미지 선택됨`
-            : "이미지 불러오기"}
+              {cafeImages.detailFiles.length > 0
+                ? `${cafeImages.detailFiles.length}개의 이미지 선택됨`
+                : "이미지 불러오기"}
             </label>
           </div>
         </div>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ko } from "date-fns/esm/locale";
 import 'react-datepicker/dist/react-datepicker.css';
 import './ManagerReservationList.css';
@@ -6,12 +6,46 @@ import DatePicker, { registerLocale } from 'react-datepicker';
 import { addWeeks, subMonths, format } from 'date-fns';
 import Footer from "../Footer";
 import ManagerNav from "./ManagerNav";
+import ReactPaginate from "react-js-pagination";
+import {managerReadCalendarReservation} from "./../apis/ManagerReservation";
+
 
 registerLocale('ko', ko);
 
 const ManagerReservationList = () => {
   const [startDate, setStartDate] = useState(new Date());
   const [currentDate, setCurrentDate] = useState(new Date());
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [reservations, setReservations] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 3;
+
+  const paginate = (data) => {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    return data.slice(startIndex, startIndex + itemsPerPage);
+  };
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+
+  useEffect(() => {
+    fetchReservationsForDate(selectedDate);
+  }, [selectedDate]);
+
+  const fetchReservationsForDate = async (date) => {
+    const formattedDate = format(date, "yyyyMMdd");
+    try {
+      const response = await managerReadCalendarReservation(formattedDate);
+      if (response && response.data && response.data.data) {
+        setReservations(response.data.data); // 예약 정보 배열을 상태로 설정
+        
+      }
+    } catch (error) {
+      console.error("예약 정보를 가져오는 중 오류 발생", error);
+    }
+  };
 
   const minDate = subMonths(new Date(), 1); // 한 달 전
   const maxDate = addWeeks(new Date(), 1); // 일주일 후
@@ -31,8 +65,9 @@ const ManagerReservationList = () => {
   };
 
 
-  
-
+  const getListSectionClass = () => {
+    return reservations.length === 0 ? 'ManagerReservationList-Container-List-Section hidden' : 'ManagerReservationList-Container-List-Section';
+  };
   return (
     <managerreservationlist>
       <ManagerNav />
@@ -46,7 +81,7 @@ const ManagerReservationList = () => {
           {/* 달력 섹션 */}
           <div className='ManagerReservationList-Container-Date'>
           <div className='ManagerReservationList-Container-Date-Text'>
-              <h2>날짜별 예약 확인이 좀 더 제목같은 느낌!</h2>
+              <h2>날짜별 예약 확인</h2>
             </div>
 
         <div className='DatePicker-Section'>
@@ -76,9 +111,9 @@ const ManagerReservationList = () => {
         minDate={minDate}
         maxDate={maxDate}
             locale={ko}
-            selected={currentDate}
-            onChange={(date) => setCurrentDate(date)}
-            dateFormat="yyyy-MM-dd"
+            selected={selectedDate}
+            onChange={(date) => setSelectedDate(date)}
+            dateFormat="yyyy/MM/dd"
             inline
             
             onMonthChange={handleMonthChange}
@@ -88,47 +123,32 @@ const ManagerReservationList = () => {
         </div>
         </div>
 
-        <div className='ManagerReservationList-Container-List-Section'>
+        <div className={getListSectionClass()}>
         <h2>예약자 현황</h2>
         <div className='ManagerReservationList-Container-List-OverFlow'>
-        <div className='ReservationList-Section'>
-            <div className='ReservationList-UserName'>
-              <h2>윤형우</h2>
-            </div>
-            <div className='ReservationList-Status'>
-              <p>예약 좌석 : 7번</p>
-              <p>예약 테이블 : 4인석</p>
-              <p>인원 수 : 3명</p>
-              <p>예약 시간 : 12:00 ~ 15:00</p>
-            </div>
-        </div>
 
-        <div className='ReservationList-Section'>
-          
-          <div className='ReservationList-UserName'>
-            <h2>윤형우</h2>
-          </div>
-          <div className='ReservationList-Status'>
-            <p>예약 좌석 : 7번</p>
-            <p>예약 테이블 : 4인석</p>
-            <p>인원 수 : 3명</p>
-            <p>예약 시간 : 12:00 ~ 15:00</p>
-          </div>
-      </div>
-
-      <div className='ReservationList-Section'>
-          
-          <div className='ReservationList-UserName'>
-            <h2>윤형우</h2>
-          </div>
-          <div className='ReservationList-Status'>
-            <p>예약 좌석 : 7번</p>
-            <p>예약 테이블 : 4인석</p>
-            <p>인원 수 : 3명</p>
-            <p>예약 시간 : 12:00 ~ 15:00</p>
-          </div>
-      </div>
-
+        {paginate(reservations).map((reservation, index) => (
+                  <div key={index} className='ReservationList-Section'>
+                    <div className='ReservationList-UserName'>
+                      <h2>{reservation.userRealName}</h2>
+                    </div>
+                    <div className='ReservationList-Status'>
+                      <p>예약 좌석 : {reservation.tableNumber}</p>
+                      <p>예약 테이블 : {reservation.tableType}</p>
+                      <p>인원 수 : {reservation.personCnt}</p>
+                      <p>예약 시간 : {reservation.reserveStart} ~ {reservation.reserveEnd}</p>
+                    </div>
+                  </div>
+                ))}
+            <ReactPaginate
+            activePage={currentPage}
+            itemsCountPerPage={itemsPerPage}
+            totalItemsCount={reservations.length}
+            pageRangeDisplayed={5}
+            onChange={handlePageChange}
+            prevPageText={"‹"}
+            nextPageText={"›"}
+          />
         <div ManagerReservationListc-Container-Date>
         </div>
         </div>
