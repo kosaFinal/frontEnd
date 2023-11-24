@@ -26,7 +26,7 @@ const UserReservationStatusCancle = () => {
       <UserNav />
       <div className="status_cancle_form">
         <div className="status_cancle_img">
-          <img src="/assets/sorry.png" />
+          <img src="/assets/sorry-512.png" />
         </div>
         <div className="status_cancle_text">
           <h1>
