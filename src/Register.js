@@ -68,11 +68,34 @@ function Register() {
               });
           }
           else{
-            alert("비밀번호를 제대로 입력하여 주세요");
+            Swal.fire({
+              icon: "warning",
+              title: "",
+              text: `비밀번호가 일치하지 않습니다.`,
+              
+              confirmButton: true,
+              confirmButtonText: "확인",
+              confirmButtonColor: "#FFCD4A",
+              customClass: {
+                confirmButton: 'no-outline',
+              }
+          })
           }
         }
         else{
-          alert("성함을 입력하여 주세요");
+          Swal.fire({
+            icon: "warning",
+            title: "",
+            text: `성함을 입력하여 주세요.`,
+            
+            confirmButton: true,
+            confirmButtonText: "확인",
+            confirmButtonColor: "#FFCD4A",
+            customClass: {
+              confirmButton: 'no-outline',
+            }
+        })
+          
         }
       } else {
         Swal.fire({

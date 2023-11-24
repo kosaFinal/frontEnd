@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 
 const UserNav = ({ reservationId }) => {
   const appContext = useContext(AppContext);
-  const { reservationId } = useParams();
+  
   const navigate = useNavigate();
 
   const handleLogout = (event) => {

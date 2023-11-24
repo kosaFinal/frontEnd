@@ -6,6 +6,7 @@ import ManagerNav from "./Manager/ManagerNav";
 import AppContext from "./AppContext";
 import { addAuthHeader, removeAuthHeader } from "./apis/axiosConfig";
 import { login } from "./apis/login";
+import Swal from "sweetalert2";
 
 function Login() {
   const navigate = useNavigate();
@@ -31,13 +32,49 @@ function Login() {
     async (event) => {
       try {
         if(user.userName === "" && user.password === ""){
-          alert("아이디와 패스워드를 입력하여 주시기 바랍니다.");
+          Swal.fire({
+            icon: "warning",
+            title: "",
+            text: `아이디와 패스워드를 입력하여 주시기 바랍니다.`,
+            
+            confirmButton: true,
+            confirmButtonText: "확인",
+            confirmButtonColor: "#FFCD4A",
+            customClass: {
+              confirmButton: 'no-outline',
+            }
+        })
+         
         }
         else if(user.userName === "" ){
-          alert("아이디를 입력하여 주시기 바랍니다.");
+          
+          Swal.fire({
+            icon: "warning",
+            title: "",
+            text: `아이디를 입력하여 주시기 바랍니다.`,
+            
+            confirmButton: true,
+            confirmButtonText: "확인",
+            confirmButtonColor: "#FFCD4A",
+            customClass: {
+              confirmButton: 'no-outline',
+            }
+        })
         }
         else if(user.password === ""){
-          alert("비밀번호를 입력하여 주시기 바랍니다.");
+          
+          Swal.fire({
+            icon: "warning",
+            title: "",
+            text: `비밀번호를 입력하여 주시기 바랍니다.`,
+            
+            confirmButton: true,
+            confirmButtonText: "확인",
+            confirmButtonColor: "#FFCD4A",
+            customClass: {
+              confirmButton: 'no-outline',
+            }
+        })
         }
         else{
           //로그인 요청
