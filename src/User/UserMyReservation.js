@@ -56,7 +56,6 @@ const UserMyReservation = () => {
           )}
         </div>
       </div>
-      s
       <Footer />
     </usermyreservation>
   );

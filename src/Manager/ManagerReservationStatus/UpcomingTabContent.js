@@ -78,7 +78,7 @@ const UpcomingTabContent = () => {
   };
 
   const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 번호
-  const itemsPerPage = 1; // 페이지당 항목 수
+  const itemsPerPage = 3; // 페이지당 항목 수
 
   const paginate = (data) => {
     const startIndex = (currentPage - 1) * itemsPerPage;
@@ -108,7 +108,11 @@ const UpcomingTabContent = () => {
 
   return (
     <div>
-      {upcomingRevInfo &&
+      {upcomingRevInfo && upcomingRevInfo.data.length === 0 ? (
+      <div className="reservation-no-exist">예정중인 예약 현황이 없습니다.</div>
+    ) : (
+      <>
+        {upcomingRevInfo &&
         upcomingRevInfo.data.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage).map((reservation, index) => (
           <div className="reservation-item">
             <div className="reservation-name">{reservation.userRealName}</div>
@@ -159,6 +163,8 @@ const UpcomingTabContent = () => {
           reservationIds={cancleReservationIds}
         />
       )}
+      </>
+    )}
     </div>
   );
 };

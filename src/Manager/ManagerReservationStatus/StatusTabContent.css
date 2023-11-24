@@ -62,3 +62,10 @@
 .reservation-button button:hover {
   background-color: #ffd876;
 }
+
+.reservation-no-exist{
+  font-family: "HakgyoansimSantteutdotumL";
+  font-size: 25px;
+  color: #7c7c7c;
+  margin: 11rem;
+}

@@ -38,6 +38,10 @@ const UserMyReservationAfter = () => {
     <usermyreservationafter>
       <div className="user_myReservation-container">
         <div>
+        {reservationAfter.length === 0 ? (
+            <div className="user_reservation_no_exist">예약 현황이 없습니다.</div>
+        ) : (
+        <>
           {paginate(reservationAfter).map((reservation, index) => (
             <div key={index} className="user_reservation-item">
               <div className="user_inprogress-time">
@@ -76,6 +80,8 @@ const UserMyReservationAfter = () => {
             prevPageText={"‹"}
             nextPageText={"›"}
           />
+        </>
+        )}
         </div>
       </div>
     </usermyreservationafter>
