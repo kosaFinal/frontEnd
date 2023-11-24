@@ -318,30 +318,8 @@ useEffect(() => {
              
              <div className={`ManagerUpdateStudySetting-SeatContainer ${!cafeStatus ? 'hidden' : ''}`}>
              <h2 >카공 좌석 </h2>
-             
-             {['1', '2', '4', '다'].map(section => (
-              <div key={section} className="ManagerUpdateStudySetting-SeatSection">
 
-                <div className='ManagerUpdateStudySetting-SeatItems'>
-                <h3 className='ManagerUpdateStudySetting-SeatText'>{`${section} 인석 `}</h3>
-                
-                    <div className='ManagerUpdateStudySetting-SeatInput'>
-                    <input 
-                    disabled={!isEditingSection[section]}
-                    value={seatInput[section]}
-                    onChange={e => handleSeatInputChange(section, e.target.value)}/>
-                    </div>
-                    </div>
-                    <div className='ManagerUpdateStudySetting-SeatButtons'> 
-                 
-                 <button className='SeatButtons-Plus'
-                   onClick={() => handleAddSeat(section, seatInput[section])} 
-                   disabled={!isEditingSection[section]}> 추가 </button>
-                 <button className='SeatButtons-Minus'
-                   onClick={() => handleRemoveSeat(section)} 
-                   disabled={!isEditingSection[section]}> 삭제 </button>
-
-               {isEditingSection[section] ? (
+             {/* {isEditingSection[section] ? (
                  <button onClick={() => handleSaveSeats(section)}>
                    저장
                  </button>
@@ -349,21 +327,63 @@ useEffect(() => {
                  <button onClick={() => handleEditSectionToggle(section)}>
                    수정
                  </button>
-               )}      
-                    
-               </div>
-                <div className='ManagerUpdateStudySetting-SeatPrint'>
-                  {seats[section].map((seat, index) => <input type='text' disabled key={index} value={seat.number}></input>)}
-                </div>
-                <hr></hr>
-              </div>
-              
-            ))}
+               )}    */}
+
             
+
+            
+             {['1', '2', '4', '다'].map(section => (
+              <div key={section} className="ManagerUpdateStudySetting-SeatSection">
+                 <div className='ManagerUpdateStudySetting-SeatSection-Allcontainer'>
+                <div className='ManagerUpdateStudySetting-SeatSection-text'>
+                  
+            <h3 className='ManagerUpdateStudySetting-SeatText'>{`${section} 인석 `}</h3>
+            <hr></hr>
             </div>
+            
+
+            <div className='ManagerUpdateStudySetting-SeatItems-Container'>
+                <div className='ManagerUpdateStudySetting-SeatItems'>
+                    <div className='ManagerUpdateStudySetting-SeatInput'>
+                    <input 
+                    disabled={!isEditingSection[section]}
+                    value={seatInput[section]}
+                    onChange={e => handleSeatInputChange(section, e.target.value)}/>
+                    <button className='SeatButtons-Plus'
+                   onClick={() => handleAddSeat(section, seatInput[section])} 
+                   disabled={!isEditingSection[section]}> 추가 </button>
+                    </div>
+
+<div className='ManagerUpdateStudySetting-SeatPrint-List'> 
+                    {seats[section].map((seat, index) => (
+               <div key={index}  className='ManagerUpdateStudySetting-SeatPrint'>
+      <input type='text' disabled value={seat.number}></input>
+      <button 
+        className='SeatButtons-Minus'
+        onClick={() => handleRemoveSeat(section, seat.id)} 
+        disabled={!isEditingSection[section]}
+      > 
+        삭제 
+      </button>
+    </div>
+  ))}
+  </div>
+                    </div>
+
+               
+
+
+                
+              </div>
+              </div>
+              </div>
+            ))}
+            </div>
+            
           </div> 
         </div>  
       </div> 
+      
     );
 }
 
