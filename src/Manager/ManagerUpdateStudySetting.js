@@ -227,51 +227,62 @@ useEffect(() => {
                 <div className={`ManagerUpdateStudySetting-Container-Items ${!cafeStatus ? 'ManagerUpdateStudySetting-Container-Items-hidden' : ''}`}>
                     {/* 카페 카공 여부 */}
                     <div className="ManagerUpdateStudySetting-CafeIf">
-                        <h2>카공 여부</h2>
-                        <div className="ManagerUpdateStudySetting-CafeIf-Container">
-                            {!isEditingCafeStatus && (
-                                <>
-                                    <button onClick={handleEditClick}>수정</button>
-                                    <div className="ManagerUpdateStudySetting-CafeIf-Text">
-                                        <p>카공 운영여부 : {cafeStatus ? '운영' : '미운영'}</p>
-                                    </div>
-                                </>
-                            )}
-                        </div>
-                        {isEditingCafeStatus && (
-                            <div className="ManagerUpdateStudySetting-CafeIf-Container">
-                                <button onClick={handleSaveClick}>저장</button>
-                                <div className="ManagerUpdateStudySetting-CafeIf-Text">
-                                    <p>카공 운영여부</p>
-                                    <div className="ManagerUpdateStudySetting-CafeIf-Option">
-                                        <input 
-                                            type="radio" 
-                                            name="CafeIf-Change" 
-                                            value="true" 
-                                            checked={tempCafeStatus === true} 
-                                            onChange={handleCafeStatusChange}
-                                        /> O
-                                        <input 
-                                            type="radio" 
-                                            name="CafeIf-Change" 
-                                            value="false" 
-                                            checked={tempCafeStatus === false} 
-                                            onChange={handleCafeStatusChange}
-                                        /> X
-                                    </div>
-                                </div>
-                            </div>
-                        )}
-                    </div>
+  <div className="ManagerUpdateStudySetting-CafeIf-label">
+    <h2>카공 여부</h2>
+    {!isEditingCafeStatus && (
+      <button onClick={handleEditClick}>수정</button>
+    )}
+    {isEditingCafeStatus && (
+      <button onClick={handleSaveClick}>저장</button>
+    )}
+  </div>
+                        
+  <div className={`ManagerUpdateStudySetting-CafeIf-Container ${isEditingCafeStatus ? 'hidden' : ''}`}>
+    <div className="ManagerUpdateStudySetting-CafeIf-Text">
+      <p disabled>카공 운영여부 : {cafeStatus ? '운영' : '미운영'}</p>
+    </div>
+  </div>
+
+  {isEditingCafeStatus && (
+    <div className="ManagerUpdateStudySetting-CafeIf-Container">
+      <div className="ManagerUpdateStudySetting-CafeIf-Text">
+        <p>카공 운영여부</p>
+        <div className="ManagerUpdateStudySetting-CafeIf-Option">
+          <input 
+            type="radio" 
+            name="CafeIf-Change" 
+            value="true" 
+            checked={tempCafeStatus === true} 
+            onChange={handleCafeStatusChange}
+          /> O
+          <input 
+            type="radio" 
+            name="CafeIf-Change" 
+            value="false" 
+            checked={tempCafeStatus === false} 
+            onChange={handleCafeStatusChange}
+          /> X
+        </div>
+      </div>
+    </div>
+  )}
+</div>
              {/* 카페 카공 평면도 */}
              <div className={`ManagerUpdateStudySetting-FloorPlan ${!cafeStatus ? 'hidden' : ''}`}>
-                <h2>평면도</h2>
+             <div className="ManagerUpdateStudySetting-FloorPlan-label">
+  <h2>평면도</h2>
+  {!isEditingFloorPlan && (
+    <button onClick={handleEditFloorPlanClick}>수정</button>
+  )}
+  {isEditingFloorPlan && (
+    <button onClick={handleFloorPlanSaveClick}>저장</button>
+  )} </div>
                 {!isEditingFloorPlan && (
 
     <div className="ManagerUpdateStudySetting-FloorPlan-Container">
-      <div className='FloorPlan-Button'>
+      {/* <div className='FloorPlan-Button'>
         <button onClick={handleEditFloorPlanClick}>수정</button>
-  </div>
+  </div> */}
         <div className="ManagerUpdateStudySetting-FloorPlan-img">
 
         <img src={`data:image/png;base64,${floorPlanImage}`} alt="Floor Plan" />
@@ -313,26 +324,7 @@ useEffect(() => {
 
                 <div className='ManagerUpdateStudySetting-SeatItems'>
                 <h3 className='ManagerUpdateStudySetting-SeatText'>{`${section} 인석 `}</h3>
-                <div className='ManagerUpdateStudySetting-SeatButtons'> 
-                 
-                  <button 
-                    onClick={() => handleAddSeat(section, seatInput[section])} 
-                    disabled={!isEditingSection[section]}> + </button>
-                  <button 
-                    onClick={() => handleRemoveSeat(section)} 
-                    disabled={!isEditingSection[section]}> - </button>
-
-                {isEditingSection[section] ? (
-                  <button onClick={() => handleSaveSeats(section)}>
-                    저장
-                  </button>
-                ) : (
-                  <button onClick={() => handleEditSectionToggle(section)}>
-                    수정
-                  </button>
-                )}      
-                     
-                </div>
+                
                     <div className='ManagerUpdateStudySetting-SeatInput'>
                     <input 
                     disabled={!isEditingSection[section]}
@@ -340,7 +332,26 @@ useEffect(() => {
                     onChange={e => handleSeatInputChange(section, e.target.value)}/>
                     </div>
                     </div>
-                
+                    <div className='ManagerUpdateStudySetting-SeatButtons'> 
+                 
+                 <button className='SeatButtons-Plus'
+                   onClick={() => handleAddSeat(section, seatInput[section])} 
+                   disabled={!isEditingSection[section]}> 추가 </button>
+                 <button className='SeatButtons-Minus'
+                   onClick={() => handleRemoveSeat(section)} 
+                   disabled={!isEditingSection[section]}> 삭제 </button>
+
+               {isEditingSection[section] ? (
+                 <button onClick={() => handleSaveSeats(section)}>
+                   저장
+                 </button>
+               ) : (
+                 <button onClick={() => handleEditSectionToggle(section)}>
+                   수정
+                 </button>
+               )}      
+                    
+               </div>
                 <div className='ManagerUpdateStudySetting-SeatPrint'>
                   {seats[section].map((seat, index) => <input type='text' disabled key={index} value={seat.number}></input>)}
                 </div>

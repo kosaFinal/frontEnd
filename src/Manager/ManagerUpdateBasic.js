@@ -7,6 +7,8 @@ import {managerBasicRead, managerBasicCafeTelUpdate,managerBasicCafeAddressUpdat
 
 function ManagerUpdateBasic() {
     // 전화번호 및 주소 관련 상태
+    const [cafeName, setCafeName] = useState('');
+    const [cafeType, setCafeType] = useState('');
     const [cafeAvCheck, setCafeAvCheck] = useState('');
     const { onCafeCheck } = useOutletContext();
     const [showFindAddress, setShowFindAddress] = useState(false);
@@ -38,7 +40,8 @@ function ManagerUpdateBasic() {
       try {
         const response = await managerBasicRead();
         if (response.data.isSuccess) {
-          const { cafeTel, address, detailAddress,longtitude, latitude, cafeRepImg, cafeRepImgMine, cafeCheck } = response.data.data;
+          const { cafeName, cafeType, cafeTel, address, detailAddress,longtitude, latitude, cafeRepImg, cafeRepImgMine, cafeCheck } = response.data.data;
+          setCafeName(cafeName)
           setPhone(cafeTel); // 전화번호 상태 설정
           setAddressObj({
             areaAddress: detailAddress, // 상세 주소
@@ -47,6 +50,12 @@ function ManagerUpdateBasic() {
             Y: latitude,
             
           });
+          
+          if (response.data.data.cafeType === 'P') {
+            setCafeType('프렌차이즈');
+          } else if (response.data.data.cafeType === 'G') {
+            setCafeType('개인카페');
+          }
           onCafeCheck(cafeCheck); 
           setFloorPlanImage(`data:image/${cafeRepImgMine};base64,${cafeRepImg}`);
         } else {
@@ -185,12 +194,12 @@ function ManagerUpdateBasic() {
         <div className="ManagerUpdateBasic-Container-Items">
           <div className="ManagerUpdateBasic-Container-Names">
             <label>카페명</label>
-            <input type="text" value={"형우카페"} disabled></input>
+            <input type="text" value={cafeName} disabled></input>
           </div>
 
           <div className="ManagerUpdateBasic-Container-Case">
             <label>카페 유형</label>
-            <input type="text" value={"프렌차이즈"} disabled></input>
+            <input type="text" value={cafeType} disabled></input>
           </div>
 
           <div className="ManagerUpdateBasic-Container-Number">
