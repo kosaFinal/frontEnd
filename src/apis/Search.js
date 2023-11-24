@@ -8,9 +8,7 @@ export function filterSearch(filterData, pageNo = 1) {
     arrayFormat: "repeat",
   });
 
-  return axios.get(`http://localhost:8080/user/search?${queryString}`, {
-    params: { pageNo },
-  });
+  return axios.get(`http://localhost:8080/user/search?${queryString}`);
 }
 
 export function locationSearch(x, y) {
