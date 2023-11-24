@@ -27,6 +27,7 @@ const UserReservation = () => {
   const { cafeId } = useParams();
   console.log("cafeId:", cafeId);
   const [isUserReservationModal, setIsUserReservationModal] = useState(false);
+  const [formattedSelecteTime, setFormattedSelecteTime] = useState("");
   const handleSelectTimeModal = () => {
     setIsUserReservationModal(true);
   };
@@ -35,8 +36,19 @@ const UserReservation = () => {
     setIsUserReservationModal(false);
   };
 
-  const handleSelectTimeSubmit = (selecteTimes) => {
-    setSelecteTime(selecteTimes);
+  useEffect(() => {
+    setFormattedSelecteTime(""); // selecteTime이 비어있을 경우 초기화
+    if (selecteTime && selecteTime.length > 0) {
+      const timeString = selecteTime
+        .map((time) => time.reserveStart)
+        .join(", ");
+      setFormattedSelecteTime(timeString);
+    } else {
+    }
+  }, [selecteTime]);
+
+  const handleSelectTimeSubmit = (selectedTimes) => {
+    setSelecteTime(selectedTimes);
     handleCloseSelectTimeModal();
   };
 
@@ -254,7 +266,7 @@ const UserReservation = () => {
           <div className="user_reservation_time">
             <h5>예약 시간대</h5>
             <div className="user_reservation_time_p">
-              <p>
+              {/* <p>
                 {selecteTime
                   ? selecteTime
                       .map((time, index) => (
@@ -262,15 +274,11 @@ const UserReservation = () => {
                           {time.reserveStart}
                         </span>
                       ))
-                      .reduce(
-                        (acc, curr, index, array) =>
-                          index < array.length - 1
-                            ? [...acc, curr]
-                            : [...acc, curr],
-                        []
-                      )
+                      .reduce((acc, curr) => [...acc, curr], [])
+                      .slice(1)
                   : ""}
-              </p>
+              </p> */}
+              <p>{formattedSelecteTime}</p>
             </div>
           </div>
           <Link

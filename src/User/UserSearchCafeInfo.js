@@ -74,17 +74,20 @@ const UserSearchCafeInfo = ({ cafeId, onClose }) => {
           <p>{showCafeInfo.study === "Y" ? "카공 가능" : "카공 불가능"}</p>
         </div>
       </div>
-
-      <Link
-        to={{
-          pathname: `/user/reservation/${cafeId}`,
-          state: { cafeId: cafeId },
-        }}
-      >
-        <div className="go_to_reservation">
-          <button>예약하기</button>
-        </div>
-      </Link>
+      {showCafeInfo.study === "Y" ? (
+        <Link
+          to={{
+            pathname: `/user/reservation/${cafeId}`,
+            state: { cafeId: cafeId },
+          }}
+        >
+          <div className="go_to_reservation">
+            <button>예약하기</button>
+          </div>
+        </Link>
+      ) : (
+        " "
+      )}
     </usersearchcafeinfo>
   );
 };

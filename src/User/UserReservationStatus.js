@@ -49,11 +49,11 @@ const UserReservationStatus = () => {
       navigate(-1);
     }
     return () => clearInterval(interval);
-  }, [reservationStatus.status]);
+  }, [reservationStatus.status, reservationStatus.reservationId]);
 
   return (
     <userreservationstatus>
-      <UserNav />
+      <UserNav reservationId={reservationId} />
       <div className="reservation-status">
         {reservationStatus && reservationStatus.userRealName && (
           <div className="reservation_username">

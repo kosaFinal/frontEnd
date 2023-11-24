@@ -31,10 +31,12 @@ const UserReservationModal = ({
     }
   };
 
+  const formattedDate = selectedDate.toISOString().slice(0, 10).replace(/-/g, '');
+
   useEffect(() => {
     const fetchReservationTime = async () => {
       try {
-        const response = await readReservationTime(selectedDate, tableId);
+        const response = await readReservationTime(formattedDate, tableId);
         console.log("Response received:", response);
 
         if (response && response.data && Array.isArray(response.data.data)) {
