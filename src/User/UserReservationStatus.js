@@ -4,6 +4,7 @@ import "./UserReservationStatus.css";
 import Footer from "../Footer";
 import { reservationNow } from "../apis/UserReservation";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const UserReservationStatus = () => {
   const [reservationStatus, setReservationStatus] = useState({});
@@ -18,7 +19,14 @@ const UserReservationStatus = () => {
         setReservationStatus(response.data.data);
         console.log("잘했네", response.data);
       } catch (error) {
-        console.error("내가 만든 기능이니깐 안되나?", error);
+        Swal.fire({
+          icon: "error",
+          title: "",
+          text: "예약하신 정보가 없습니다.",
+          Button: true,
+          ButtonText: "확인",
+        });
+        navigate(-1);
       }
     };
     readReservationStatus();
@@ -35,6 +43,10 @@ const UserReservationStatus = () => {
     }
     if (reservationStatus.status === "N") {
       navigate(`/user/reservationstatus/cancle/${reservationId}`);
+    }
+    if (reservationStatus.reservationId === "undefined") {
+      alert("예약하신 정보가 없습니다");
+      navigate(-1);
     }
     return () => clearInterval(interval);
   }, [reservationStatus.status]);
@@ -88,7 +100,9 @@ const UserReservationStatus = () => {
           )}
         </Link>
       </div>
-      <Footer />
+      <div className="status_footer">
+        <Footer />
+      </div>
     </userreservationstatus>
   );
 };

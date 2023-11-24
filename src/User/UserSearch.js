@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import "./UserSearch.css";
 import UserSearchInput from "./UserSearchInput";
 import { locationSearch } from "../apis/Search";
@@ -13,6 +13,7 @@ const UserSearch = () => {
   const [mapCenter, setMapCenter] = useState(null);
   const [activeOverlays, setActiveOverlays] = useState([]);
   const [nowData, setNowData] = useState([]);
+  const { reservationId } = useParams();
 
   const toggleUserSearchInput = () => {
     setShowInput(!showInput);
@@ -288,7 +289,7 @@ const UserSearch = () => {
             <h5>MAP</h5>
           </div>
           <div className="searchnav_time">
-            <Link to="/user/reservationstatus/:reservationId">
+            <Link to={`/user/reservationstatus/${reservationId}`}>
               <img src="/assets/searchnav_time.png" alt="search time" />
               <h5>
                 실시간 예약
