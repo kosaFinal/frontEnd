@@ -68,7 +68,13 @@ const UserReservation = () => {
   }, []);
   const navigate = useNavigate();
   const submitReservation = async () => {
-    if (!counter || !selectdate || !tableType || !selecteTime || !tableId) {
+    if (
+      counter === 0 ||
+      !selectdate ||
+      !tableType ||
+      !selecteTime ||
+      !tableId
+    ) {
       Swal.fire({
         icon: "warning",
         title: "",
