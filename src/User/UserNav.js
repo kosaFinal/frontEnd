@@ -5,7 +5,7 @@ import AppContext from "../AppContext";
 import { removeAuthHeader } from "../apis/axiosConfig";
 import Swal from "sweetalert2";
 
-const UserNav = () => {
+const UserNav = ({ reservationId }) => {
   const appContext = useContext(AppContext);
   const { reservationId } = useParams();
   const navigate = useNavigate();

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./UserSearchFilterModal.css";
 import Radio from "../Radio";
 
@@ -24,9 +24,12 @@ const UserSearchFilter = ({ isOpen, onFilterSubmit, onClose }) => {
       preferSeat,
     };
     onFilterSubmit(filterData);
-    onClose(); // 모달을 닫습니다
+    onClose();
+    console.log("모달데이터", filterData); // 모달을 닫습니다
   };
-
+  useEffect(() => {
+    setEndTime(startTime);
+  }, [startTime]);
   if (!isOpen) return null;
   const hours = Array.from({ length: 25 }, (_, i) => {
     const hour = i.toString().padStart(2, "0");
@@ -47,14 +50,20 @@ const UserSearchFilter = ({ isOpen, onFilterSubmit, onClose }) => {
           </div>
           <div className="search_filter_first">
             <div className="search_filter_select">
-              <select>
+              <select
+                value={startTime}
+                onChange={(e) => setStartTime(e.target.value)}
+              >
                 {hours.map((hour) => (
                   <option key={hour} value={hour}>
                     {hour}
                   </option>
                 ))}
               </select>
-              <select>
+              <select
+                value={endTime}
+                onChange={(e) => setEndTime(e.target.value)}
+              >
                 {hours.map((hour) => (
                   <option key={hour} value={hour}>
                     {hour}
@@ -74,8 +83,8 @@ const UserSearchFilter = ({ isOpen, onFilterSubmit, onClose }) => {
               <Radio
                 className="user_filter_radio_btn"
                 name="cafestudy"
-                value="no"
-                checked={userStudy === "no"}
+                value="N"
+                checked={userStudy === "N"}
                 onChange={handleCafeStudyChange}
               >
                 <p>불가능</p>
@@ -83,8 +92,8 @@ const UserSearchFilter = ({ isOpen, onFilterSubmit, onClose }) => {
               <Radio
                 className="user_filter_radio_btn"
                 name="cafestudy"
-                value="yes"
-                checked={userStudy === "yes"}
+                value="Y"
+                checked={userStudy === "Y"}
                 onChange={handleCafeStudyChange}
               >
                 <p>가능</p>
@@ -98,8 +107,8 @@ const UserSearchFilter = ({ isOpen, onFilterSubmit, onClose }) => {
                 <Radio
                   className="search_filter_radio_btn"
                   name="tableType"
-                  value="multitable"
-                  checked={preferSeat === "multitable"}
+                  value="M"
+                  checked={preferSeat === "M"}
                   onChange={handleTableTypeChange}
                 >
                   <p>단체석</p>
@@ -107,8 +116,8 @@ const UserSearchFilter = ({ isOpen, onFilterSubmit, onClose }) => {
                 <Radio
                   className="search_filter_radio_btn"
                   name="tableType"
-                  value="fourtable"
-                  checked={preferSeat === "fourtable"}
+                  value="F"
+                  checked={preferSeat === "F"}
                   onChange={handleTableTypeChange}
                 >
                   <p>4인석</p>
@@ -116,8 +125,8 @@ const UserSearchFilter = ({ isOpen, onFilterSubmit, onClose }) => {
                 <Radio
                   className="search_filter_radio_btn"
                   name="tableType"
-                  value="twotable"
-                  checked={preferSeat === "twotable"}
+                  value="T"
+                  checked={preferSeat === "T"}
                   onChange={handleTableTypeChange}
                 >
                   <p>2인석</p>
@@ -125,8 +134,8 @@ const UserSearchFilter = ({ isOpen, onFilterSubmit, onClose }) => {
                 <Radio
                   className="search_filter_radio_btn"
                   name="tableType"
-                  value="onetable"
-                  checked={preferSeat === "onetable"}
+                  value="O"
+                  checked={preferSeat === "O"}
                   onChange={handleTableTypeChange}
                 >
                   <p>1인석</p>

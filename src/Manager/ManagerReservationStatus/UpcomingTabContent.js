@@ -4,6 +4,7 @@ import "./StatusTabContent.css";
 import CancleModal from "./CancleModal";
 import ConfirmModal from "./ConfirmModal";
 import { managerChangeCancle, managerChangeConfirm, managerReadUpcoming } from "../../apis/ManagerReservation";
+import Swal from "sweetalert2";
 
 const UpcomingTabContent = () => {
   const [upcomingRevInfo, setUpcomingRevInfo] = useState(null);
@@ -41,8 +42,23 @@ const UpcomingTabContent = () => {
       console.log('resaonId: ', reasonId)
       await managerChangeCancle({reservationIds: cancleReservationIds, cancleReasonId : reasonId});
       console.log("취소 처리");
-      alert("예약 취소가 완료되었습니다.");
-      window.location.reload();
+
+      Swal.fire({
+        icon: "success",
+        title: "",
+        text: "예약 취소가 완료되었습니다.",
+        confirmButton: true,
+        confirmButtonText: "확인",
+        confirmButtonColor: "#FFCD4A",
+        customClass: {
+          confirmButton: 'no-outline',
+        }
+      }).then(result => {
+        if(result.isConfirmed){
+          window.location.reload();
+        }
+      });
+      
     } catch(error){
       console.error(error);
     }
@@ -69,8 +85,23 @@ const UpcomingTabContent = () => {
       console.log('Reservation IDs:', reservationIds);
       await managerChangeConfirm({reservationIds: confirmReservationIds});
       console.log("실행중");
-      alert("예약 확정이 완료되었습니다.");
-      window.location.reload();
+      
+      Swal.fire({
+        icon: "success",
+        title: "",
+        text: "예약 확정이 완료되었습니다.",
+        confirmButton: true,
+        confirmButtonText: "확인",
+        confirmButtonColor: "#FFCD4A",
+        customClass: {
+          confirmButton: 'no-outline',
+        }
+      }).then(result => {
+        if(result.isConfirmed){
+          window.location.reload();
+        }
+      });
+
     } catch(error){
       console.error(error);
     }

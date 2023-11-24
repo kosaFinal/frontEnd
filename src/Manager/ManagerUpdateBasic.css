@@ -75,7 +75,7 @@
 }
 
 .ManagerUpdateBasic-Container-Number-labeling label{
-    width: 25%;
+    width: 30%;
 }
 
 .ManagerUpdateBasic-Container-Number-text{
@@ -98,7 +98,6 @@
 }
 
 .ManagerUpdateBasic-Container-Address-text {
-    
     display: flex;
     flex-flow: column;
 }

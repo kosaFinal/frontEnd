@@ -65,9 +65,9 @@ const ManagerReservationList = () => {
   };
 
 
-  const getListSectionClass = () => {
-    return reservations.length === 0 ? 'ManagerReservationList-Container-List-Section hidden' : 'ManagerReservationList-Container-List-Section';
-  };
+  // const getListSectionClass = () => {
+  //   return reservations.length === 0 ? 'ManagerReservationList-Container-List-Section hidden' : 'ManagerReservationList-Container-List-Section';
+  // };
   return (
     <managerreservationlist>
       <ManagerNav />
@@ -123,12 +123,18 @@ const ManagerReservationList = () => {
         </div>
         </div>
 
-        <div className={getListSectionClass()}>
+        <div className='ManagerReservationList-Container-List-Section'>
         <h2>예약자 현황</h2>
         <div className='ManagerReservationList-Container-List-OverFlow'>
-
+        {reservations.length === 0 ? (
+      <div className='ReservationList-Status-No'>
+        <p>해당 날짜에 예약내역이 없습니다</p>
+        <img src='/assets/search-X.png' alt='이미지'/>
+      </div>
+    ) : (
+      <div className='ManagerReservationList-Container-List-items'>
         {paginate(reservations).map((reservation, index) => (
-                  <div key={index} className='ReservationList-Section'>
+          <div key={index} className='ReservationList-Section'>
                     <div className='ReservationList-UserName'>
                       <h2>{reservation.userRealName}</h2>
                     </div>
@@ -140,24 +146,28 @@ const ManagerReservationList = () => {
                     </div>
                   </div>
                 ))}
-            <ReactPaginate
-            activePage={currentPage}
-            itemsCountPerPage={itemsPerPage}
-            totalItemsCount={reservations.length}
-            pageRangeDisplayed={5}
-            onChange={handlePageChange}
-            prevPageText={"‹"}
-            nextPageText={"›"}
-          />
+                <ReactPaginate
+                  activePage={currentPage}
+                  itemsCountPerPage={itemsPerPage}
+                  totalItemsCount={reservations.length}
+                  pageRangeDisplayed={5}
+                  onChange={handlePageChange}
+                  prevPageText={"‹"}
+                  nextPageText={"›"}
+                />
+              </div>
+            )}
+          </div>
+        </div>
         <div ManagerReservationListc-Container-Date>
+          
         </div>
         </div>
       </div>
     </div>
        
       </div>
-      </div>
-      </div>
+     
 
       <Footer />
     </managerreservationlist>
