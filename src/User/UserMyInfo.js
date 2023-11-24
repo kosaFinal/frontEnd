@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { addAuthHeader } from "../apis/axiosConfig";
 import { checkPassword } from "../apis/UserInfo";
+import Swal from "sweetalert2";
 
 const UserMyInfo = () => {
   const [password, setPassword] = useState("");
@@ -20,7 +21,17 @@ const UserMyInfo = () => {
       if (response.data.isSuccess && response.data.data) {
         navigate("/user/myinfo/update");
       } else {
-        alert("비밀번호가 일치하지 않습니다.");
+        Swal.fire({
+          icon: "error",
+          title: "",
+          text: "비밀번호가 일치하지 않습니다.",
+          confirmButton: true,
+          confirmButtonText: "확인",
+          confirmButtonColor: "#FFCD4A",
+          customClass: {
+            confirmButton: 'no-outline',
+          }
+        })
       }
     } catch (error) {
       console.error("일단 불러오셈 :", error);
