@@ -44,7 +44,7 @@ const UserNav = ({ reservationId }) => {
           <div className="user_dropdown_content">
             <div className="user_dropdown_content_right">
               <Link to="/user/myinfo">
-                <p>내 정보 조회</p>
+                <p>내 정보 변경</p>
               </Link>
               <Link to="/user/myreservation">
                 <p>내 예약내역 조회</p>

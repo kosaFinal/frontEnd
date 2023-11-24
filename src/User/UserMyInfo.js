@@ -31,7 +31,7 @@ const UserMyInfo = () => {
       <UserNav />
       <div className="myUserInfo-container">
         <div className="myUserInfo-title">
-          <p>내 정보 조회</p>
+          <p>내 정보 변경</p>
         </div>
         <hr />
         <div className="myUserInfo-inform">
