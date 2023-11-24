@@ -12,6 +12,7 @@ const UserSearch = () => {
   const [showMarker, setShowMarker] = useState([]);
   const [mapCenter, setMapCenter] = useState(null);
   const [activeOverlays, setActiveOverlays] = useState([]);
+  const [nowData, setNowData] = useState([]);
 
   const toggleUserSearchInput = () => {
     setShowInput(!showInput);
@@ -156,8 +157,10 @@ const UserSearch = () => {
     }
   };
   useEffect(() => {
+    let centerChangedListener;
+
     if (map) {
-      const centerChangedListener = kakao.maps.event.addListener(
+      centerChangedListener = kakao.maps.event.addListener(
         map,
         "center_changed",
         () => {
@@ -166,10 +169,13 @@ const UserSearch = () => {
           setMapCenter({ lat: center.getLat(), lng: center.getLng() });
         }
       );
-      return () => {
-        kakao.maps.event.removeListener(centerChangedListener);
-      };
     }
+
+    return () => {
+      if (centerChangedListener) {
+        kakao.maps.event.removeListener(centerChangedListener);
+      }
+    };
   }, [map]);
   const handleSearchInCurrentMap = () => {
     if (map) {
@@ -182,7 +188,8 @@ const UserSearch = () => {
       locationSearch(lng, lat)
         .then((response) => {
           const { locations, searchCafes } = response.data.data;
-
+          setNowData({ locations, searchCafes });
+          handleLocationData(response.data.data);
           locations.forEach((location) => {
             const cafeInfo = searchCafes.find(
               (cafe) => cafe.cafeName === location.cafeName
@@ -318,6 +325,7 @@ const UserSearch = () => {
             <UserSearchInput
               onClose={toggleUserSearchInput}
               onLocationDataReceived={handleLocationData}
+              searchResults={nowData}
             />
           </div>
         )}
