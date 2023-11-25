@@ -31,52 +31,46 @@ function Login() {
   const handleLogin = useCallback(
     async (event) => {
       try {
-        if(user.userName === "" && user.password === ""){
+        if (user.userName === "" && user.password === "") {
           Swal.fire({
             icon: "warning",
             title: "",
-            text: `아이디와 패스워드를 입력하여 주시기 바랍니다.`,
-            
+            text: "아이디와 패스워드를 입력하여 주시기 바랍니다.",
+
             confirmButton: true,
             confirmButtonText: "확인",
             confirmButtonColor: "#FFCD4A",
             customClass: {
-              confirmButton: 'no-outline',
-            }
-        })
-         
-        }
-        else if(user.userName === "" ){
-          
+              confirmButton: "no-outline",
+            },
+          });
+        } else if (user.userName === "") {
           Swal.fire({
             icon: "warning",
             title: "",
-            text: `아이디를 입력하여 주시기 바랍니다.`,
-            
+            text: "아이디를 입력하여 주시기 바랍니다.",
+
             confirmButton: true,
             confirmButtonText: "확인",
             confirmButtonColor: "#FFCD4A",
             customClass: {
-              confirmButton: 'no-outline',
-            }
-        })
-        }
-        else if(user.password === ""){
-          
+              confirmButton: "no-outline",
+            },
+          });
+        } else if (user.password === "") {
           Swal.fire({
             icon: "warning",
             title: "",
-            text: `비밀번호를 입력하여 주시기 바랍니다.`,
-            
+            text: "비밀번호를 입력하여 주시기 바랍니다.",
+
             confirmButton: true,
             confirmButtonText: "확인",
             confirmButtonColor: "#FFCD4A",
             customClass: {
-              confirmButton: 'no-outline',
-            }
-        })
-        }
-        else{
+              confirmButton: "no-outline",
+            },
+          });
+        } else {
           //로그인 요청
           const response = await login(user);
 
@@ -95,19 +89,15 @@ function Login() {
             password: "",
           });
 
-          if(response.data.data.role === "ROLE_MANAGER"){
+          if (response.data.data.role === "ROLE_MANAGER") {
             navigate("/manager");
-          }
-          else{
+          } else {
             navigate("/user");
           }
         }
-        
-        
-
       } catch (error) {
         console.log(error.response.data.isSuccess);
-        if(error.response.data.code === 3002){
+        if (error.response.data.code === 3002) {
           alert(error.response.data.message);
         }
       }
@@ -172,7 +162,6 @@ function Login() {
             </div>
           ) : (
             <div className="loginafterbox-loginpage">
-              
               <button className="logoutButton" onClick={handleLogout}>
                 로그아웃
               </button>
