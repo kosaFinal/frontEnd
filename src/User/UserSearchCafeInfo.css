@@ -34,11 +34,12 @@
 .usersearchcafeinfo_sections img {
   width: 15px;
   height: 15px;
-  margin: auto;
+  margin: 24px auto;
 }
 .usersearchcafeinfo_sections p {
   width: 93%;
   margin-left: 10px;
+  margin-top: 24px;
 }
 .go_to_reservation {
   margin: auto;

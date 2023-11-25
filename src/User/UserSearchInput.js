@@ -319,7 +319,9 @@ const UserSearchInput = ({
                   <p>
                     <span>이용시간 :</span> {cafe.startTime} ~ {cafe.endTime}
                   </p>
-                  <p>주소 : {cafe.address}</p>
+                  <p className="search_cafe_info_text-address">
+                    주소 : {cafe.address}
+                  </p>
                 </div>
               </div>
             ))}

@@ -1,0 +1,7 @@
+.manager_background {
+  background-image: url(../img/manager_background_2.png);
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: cover;
+  background-attachment: fixed;
+}
