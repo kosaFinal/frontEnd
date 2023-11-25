@@ -39,7 +39,7 @@ const UserSearchCafeInfo = ({ cafeId, onClose }) => {
           onClick={handleCloseComponent}
           src="/assets/left-arrow.png"
         />
-        <h1>{showCafeInfo.cafeName}</h1>
+        <h2>{showCafeInfo.cafeName}</h2>
       </div>
       <div className="usersearchcafeinfo_img">
         <UserCafeInfoSlide cafeImages={showCafeInfo.detailImgs} />
