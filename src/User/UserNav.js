@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 
 const UserNav = ({ reservationId }) => {
   const appContext = useContext(AppContext);
-  
+
   const navigate = useNavigate();
 
   const handleLogout = (event) => {
@@ -19,15 +19,16 @@ const UserNav = ({ reservationId }) => {
     Swal.fire({
       icon: "success",
       title: "Logout",
-      text: `로그아웃에 성공하였습니다.`,
+      text: "로그아웃에 성공하였습니다.",
       showCancelButton: false,
-      confirmButtonText: "확인",
-  })
+      confirmButtonText: "확인", 
+      confirmButtonColor: "#FFCD4A",
+      customClass: {
+        confirmButton: "no-outline",
+      }
+    });
     navigate("/");
   };
-
-  
-
 
   return (
     <usernav>

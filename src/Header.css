@@ -10,7 +10,6 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  background-color: white;
   /* box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4); X축 오프셋, Y축 오프셋, 흐림 반경, 색상 */
   /* transition: box-shadow 0.3s ease-in-out;*/
 }
