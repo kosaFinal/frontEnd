@@ -40,13 +40,18 @@ const UserMyReservationBefore = () => {
         <>
           {paginate(reservationBefore).map((reservation, index) => (
           <div key={index} className="user_reservation-item">
-            <div className="user_inprogress-time">
-              {reservation.reserveStart} ~ {reservation.reserveEnd}
+            <div className="user_reservation_cafe_img">
+              <img src={`data:image/;base64,${reservation.cafeRepImg}`} />
             </div>
-            <div className="user_reservation_row">
+            <div>
+            <div>
+              <div className="user_cafe_name">
+                  {reservation.cafeName}
+              </div>
+              <div className="user_reservation_row">
               <div className="user_inprogress-info">
                   <div>이용 날짜 : {reservation.reserveDate}</div>
-                  <div>카페 이름 : {reservation.cafeName}</div>
+                  <div>이용 시간 : {reservation.reserveStart} ~ {reservation.reserveEnd}</div>
                   <div>좌석: {reservation.tableNumber}</div>
               </div>
               {reservation.state === "A" && (
@@ -59,6 +64,8 @@ const UserMyReservationBefore = () => {
                   <h4>이용 중</h4>
                 </div>
               )}
+            </div>
+            </div>
             </div>
           </div>
         ))}
