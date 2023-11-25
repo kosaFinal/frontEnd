@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./CancleModal.css";
+import Swal from "sweetalert2";
 
 const CancleModal = ({ isOpen, onClose, onConfirm, reservaitonIds }) => {
 
@@ -13,7 +14,17 @@ const CancleModal = ({ isOpen, onClose, onConfirm, reservaitonIds }) => {
     if(cancleReasonId){
       onConfirm(reservaitonIds, cancleReasonId);
     } else {
-      alert("취소 사유를 선택해주세요");
+      Swal.fire({
+        icon: "warning",
+        title: "",
+        text: "취소 사유를 선택해주세요.",            
+        confirmButton: true,
+        confirmButtonText: "확인",
+        confirmButtonColor: "#FFCD4A",
+        customClass: {
+          confirmButton: 'no-outline',
+        }
+    })
     }
   };
 
