@@ -12,6 +12,7 @@ function ManagerUpdateStudySetting() {
     const [floorPlanImage, setFloorPlanImage] = useState('');
     const [originalFloorPlanImage, setOriginalFloorPlanImage] = useState('');
     const [tempFloorPlanImage, setTempFloorPlanImage] = useState('');
+    const dummyImg = '/assets/cafe_seatX.png';
 
 
     const handleEditClick = () => {
@@ -48,7 +49,9 @@ function ManagerUpdateStudySetting() {
 
     const handleEditFloorPlanClick = () => {
       setIsEditingFloorPlan(true);
-      setTempFloorPlanImage(`data:image/png;base64,${floorPlanImage}`); // 현재 설정된 이미지를 임시 이미지로 설정
+      // 이거이거이거이거\
+      // 현재 설정된 이미지를 임시 이미지로 설정
+      floorPlanImage && setTempFloorPlanImage(`data:image/png;base64,${floorPlanImage}`) 
   };
 
     const [file, setFile] = useState(null); // 원본 파일 객체를 저장할 상태 추가
@@ -69,6 +72,8 @@ function ManagerUpdateStudySetting() {
     const handleFloorPlanSaveClick = async () => {
       if (!file) {
         alert('이미지를 선택해주세요.');
+        setFloorPlanImage(dummyImg);
+    setIsEditingFloorPlan(false);
         return;
     }
   
@@ -236,7 +241,11 @@ function ManagerUpdateStudySetting() {
         } catch (error) {
             console.error('매니저 설정 로드 실패:', error);
         }
+        finally {
+          console.log(floorPlanImage)
+        }
     }
+  
 
 useEffect(() => {
   fetchData();
@@ -304,8 +313,12 @@ useEffect(() => {
         <button onClick={handleEditFloorPlanClick}>수정</button>
   </div> */}
         <div className="ManagerUpdateStudySetting-FloorPlan-img">
-
-        <img src={`data:image/png;base64,${floorPlanImage}`} alt="Floor Plan" />
+        {floorPlanImage ? (
+          <img src={`data:image/png;base64,${floorPlanImage}`} alt="Floor Plan" />
+        ) : (
+          <img src={dummyImg} alt="Floor Plan" />
+        )}
+        
         </div>
     </div>
 )}
@@ -313,8 +326,12 @@ useEffect(() => {
 {isEditingFloorPlan && (
     <div className="ManagerUpdateStudySetting-FloorPlan-Container-Update">
         <div className="ManagerUpdateStudySetting-FloorPlan-img FloorPlan-Update">
-        
-            <img src={tempFloorPlanImage}  alt="New Floor Plan" />
+          {/* 여기여기여기여기 */}
+          {(tempFloorPlanImage!=='') ? (
+            <img src={tempFloorPlanImage} alt="New Floor Plan" />
+            ) : (
+              <img src={dummyImg} alt="New Floor Plan" />
+          )}
         </div>
         <input
             id="file-upload"

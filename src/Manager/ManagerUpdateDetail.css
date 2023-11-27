@@ -65,10 +65,13 @@
 .ManagerUpdateDetail-Container-Time-Button {
   display: flex;
   justify-content: space-between;
+  
 }
 
 .ManagerUpdateDetail-Container-Time-Button button {
   margin-top: 1.5rem;
+  text-decoration: none;
+    background-color: #FFCD4A;
 }
 
 .ManagerUpdateBasic-Container-Time-Input {
@@ -150,24 +153,36 @@
   text-align: center;
   justify-content: center;
   
+  
 }
 
 .ManagerUpdateBasic-Container-Chips-Input button {
+  background-color: #FFCD4A;
+  opacity: 0.9;
   width: 10rem;
   height: 4rem;
   margin-left: auto;
   margin-right: auto;
   font-size: 1.3rem;
+  border: none;
+  text-decoration: none;
+ 
 }
 
 .ManagerUpdateDetail-Container-Chips-Button {
   margin-top: 2rem;
   display: flex;
   justify-content: space-between;
+  
+}
+
+.ManagerUpdateDetail-Container-Chips-Button button{
+  text-decoration: none;
+  background-color: #FFCD4A;
 }
 
 .select-Chips {
-  background-color: #7cd0ff;
+  background-color: #7cd0ff !important;
   color: black;
 }
 

@@ -1,5 +1,5 @@
 .ManagerSide-container{
-width: 18rem;
+width: 15rem;
 margin-left:8rem;
 margin-top: 3rem;
 position: fixed;
@@ -15,7 +15,7 @@ text-align: center;
 height: auto;
 background-color: white;
 border: 0.05rem solid;
-box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4); /* X축 오프셋, Y축 오프셋, 흐림 반경, 색상 */
+
 transition: box-shadow 0.3s ease-in-out; /* 그림자 효과에 애니메이션을 적용합니다. */
 
 }
@@ -25,7 +25,7 @@ transition: box-shadow 0.3s ease-in-out; /* 그림자 효과에 애니메이션�
   }
 
 .ManagerSide-container-items p{
-    font-size: 1.3rem;
+    font-size: 1rem;
     margin : 1.3rem 1.5rem;
     text-align: left;
 }
@@ -35,7 +35,7 @@ transition: box-shadow 0.3s ease-in-out; /* 그림자 효과에 애니메이션�
 }
 
 .updateText span{
-    font-size: 1.8rem;
+    font-size: 1.3rem;
     font-weight: bold;
     margin-top: auto;
     margin-bottom: auto;

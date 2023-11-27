@@ -12,28 +12,28 @@ const UserReservationStatus = () => {
   const { reservationId } = useParams();
   const navigate = useNavigate();
 
+  const readReservationStatus = async () => {
+    try {
+      const response = await reservationNow(reservationId);
+      setReservationStatus(response.data.data);
+      console.log("잘했네", response.data);
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "",
+        text: "예약하신 정보가 없습니다.",
+        Button: true,
+        ButtonText: "확인",
+        confirmButtonColor: "#FFCD4A",
+        customClass: {
+          confirmButton: 'no-outline',
+        }
+      });
+      navigate(-1);
+    }
+  };
+
   useEffect(() => {
-    const readReservationStatus = async () => {
-      try {
-        const response = await reservationNow(reservationId);
-        setReservationStatus(response.data.data);
-        console.log("잘했네", response.data);
-      } catch (error) {
-        Swal.fire({
-          icon: "error",
-          title: "",
-          text: "예약하신 정보가 없습니다.",
-          Button: true,
-          ButtonText: "확인",
-          confirmButtonColor: "#FFCD4A",
-          customClass: {
-            confirmButton: 'no-outline',
-          }
-        });
-        navigate(-1);
-      }
-    };
-    readReservationStatus();
     let interval = setInterval(readReservationStatus, 6000);
 
     if (reservationStatus.status === "A" && progress < 90) {
