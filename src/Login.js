@@ -54,23 +54,26 @@ function Login() {
             confirmButtonText: "확인",
             confirmButtonColor: "#FFCD4A",
             customClass: {
-              confirmButton: "no-outline",
-            },
-          });
-        } else if (user.password === "") {
-          Swal.fire({
-            icon: "warning",
-            title: "",
-            text: "비밀번호를 입력하여 주시기 바랍니다.",
-
-            confirmButton: true,
-            confirmButtonText: "확인",
-            confirmButtonColor: "#FFCD4A",
-            customClass: {
-              confirmButton: "no-outline",
-            },
-          });
-        } else {
+              confirmButton: 'no-outline',
+            }
+        })
+        }
+        else if(user.password === ""){
+          
+            Swal.fire({
+              icon: "warning",
+              title: "",
+              text: `비밀번호를 입력하여 주시기 바랍니다.`,
+              
+              confirmButton: true,
+              confirmButtonText: "확인",
+              confirmButtonColor: "#FFCD4A",
+              customClass: {
+                confirmButton: 'no-outline',
+              }
+          })
+        }
+        else{
           //로그인 요청
           const response = await login(user);
 
@@ -97,8 +100,20 @@ function Login() {
         }
       } catch (error) {
         console.log(error.response.data.isSuccess);
-        if (error.response.data.code === 3002) {
-          alert(error.response.data.message);
+        if(error.response.data.code === 3002){
+          Swal.fire({
+            icon: "warning",
+            title: "",
+            text: error.response.data.message,
+            
+            confirmButton: true,
+            confirmButtonText: "확인",
+            confirmButtonColor: "#FFCD4A",
+            customClass: {
+              confirmButton: 'no-outline',
+            }
+        })
+          
         }
       }
     },
