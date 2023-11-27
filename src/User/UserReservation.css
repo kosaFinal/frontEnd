@@ -166,6 +166,9 @@
   background-color: #ffcd4a;
   font-family: "HakgyoansimSantteutdotumL";
   border: none;
+  font-size: 16px;
+  border-radius: 5px;
+  font-weight: normal;
 }
 .user_reservation_time {
   display: flex;
@@ -221,9 +224,10 @@
   margin: auto;
   color: black;
   background-color: #ffcd4a;
-  font-size: 100%;
+  font-size: 120%;
   font-family: "HakgyoansimSantteutdotumL";
   border: none;
+  border-radius: 7px;
 }
 .user_reservation_right {
   text-align: center;
