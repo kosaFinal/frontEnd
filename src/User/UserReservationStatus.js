@@ -26,14 +26,14 @@ const UserReservationStatus = () => {
         ButtonText: "확인",
         confirmButtonColor: "#FFCD4A",
         customClass: {
-          confirmButton: 'no-outline',
-        }
+          confirmButton: "no-outline",
+        },
       });
       navigate(-1);
     }
   };
-
   useEffect(() => {
+    readReservationStatus();
     let interval = setInterval(readReservationStatus, 6000);
 
     if (reservationStatus.status === "A" && progress < 90) {
