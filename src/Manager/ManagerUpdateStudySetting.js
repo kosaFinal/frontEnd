@@ -103,6 +103,7 @@ function ManagerUpdateStudySetting() {
     다: false
   });
 
+ 
   const handleSeatInputChange = (section, value) => {
     setSeatInput(prevInput => ({ ...prevInput, [section]: value }));
   };
@@ -151,28 +152,35 @@ function ManagerUpdateStudySetting() {
   };
 
 
-  const handleRemoveSeat = async (section) => {
-    const firstSeat = seats[section][0]; // 첫 번째 좌석을 가져옵니다.
-    if (firstSeat) {
-      try {
-        const response = await managerSettingCafeTableDelete(firstSeat.id);
-        if (response.data.isSuccess) {
-          // 성공적으로 삭제된 경우, 로컬 상태 업데이트
-          setSeats(prevSeats => ({
-            ...prevSeats,
-            [section]: prevSeats[section].slice(1), // 첫 번째 요소를 제외한 나머지로 업데이트
-          }));
-          await fetchData();
-        } else {
-          console.log("좌석 삭제 실패: ", response.data.message);
-        }
-      } catch (error) {
-        console.error("API 호출 중 에러 발생: ", error);
-        alert("예약중인 좌석입니다!");
+  const handleRemoveSeat = async (section, seatId) => {
+    try {
+      const response = await managerSettingCafeTableDelete(seatId);
+      if (response.data.isSuccess) {
+        // 성공적으로 삭제된 경우, 로컬 상태 업데이트
+        setSeats(prevSeats => ({
+          ...prevSeats,
+          [section]: prevSeats[section].filter(seat => seat.id !== seatId),
+        }));
+        await fetchData();
+      } else {
+        console.log("좌석 삭제 실패: ", response.data.message);
       }
+    } catch (error) {
+      console.error("API 호출 중 에러 발생: ", error);
+      alert("예약중인 좌석입니다!");
     }
   };
 
+  const toggleEditSections = () => {
+    setIsEditingSection(prevState => {
+      const isEditing = Object.values(prevState).some(value => value);
+      const newState = {};
+      for (const key in prevState) {
+        newState[key] = !isEditing;
+      }
+      return newState;
+    });
+  };
 
 
   const handleEditSectionToggle = (section) => {
@@ -181,13 +189,25 @@ function ManagerUpdateStudySetting() {
       [section]: !prevState[section]
     }));
   };
-  const handleSaveSeats = (section) => {
-    // 저장 로직을 여기에 구현하세요.
-    setIsEditingSection(prevState => ({
-      ...prevState,
-      [section]: false
-    }));
+
+  const handleEditSections = () => {
+    setIsEditingSection({
+      1: true,
+      2: true,
+      4: true,
+      다: true
+    });
   };
+
+  const handleSaveSections = () => {
+  setIsEditingSection({
+    1: false,
+    2: false,
+    4: false,
+    다: false
+  });
+};
+
 
     async function fetchData() {
         try {
@@ -317,45 +337,69 @@ useEffect(() => {
 
              
              <div className={`ManagerUpdateStudySetting-SeatContainer ${!cafeStatus ? 'hidden' : ''}`}>
-             <h2 >카공 좌석 </h2>
-             
+             <div className="ManagerUpdateStudySetting-SeatHeader">
+          <h2>카공 좌석</h2>
+          <div className="ManagerUpdateStudySetting-SeatHeader-Buttons">
+            {Object.values(isEditingSection).some(value => value) ? (
+              <button onClick={handleSaveSections}>저장</button>
+            ) : (
+              <button onClick={toggleEditSections}>수정</button>
+            )}
+          </div>
+        </div>
+
+            
+
+            
              {['1', '2', '4', '다'].map(section => (
               <div key={section} className="ManagerUpdateStudySetting-SeatSection">
+                 <div className='ManagerUpdateStudySetting-SeatSection-Allcontainer'>
+                <div className='ManagerUpdateStudySetting-SeatSection-text'>
+                  
+            <h3 className='ManagerUpdateStudySetting-SeatText'>{`${section} 인석 `}</h3>
+            
+            
+            </div>
+            <div className="ManagerUpdateStudySetting-hr">
+            <hr/>
+            </div>
 
+            <div className='ManagerUpdateStudySetting-SeatItems-Container'>
                 <div className='ManagerUpdateStudySetting-SeatItems'>
-                <h3 className='ManagerUpdateStudySetting-SeatText'>{`${section} 인석 `}</h3>
-                
-                    <div className='ManagerUpdateStudySetting-SeatInput'>
+                <div className={`ManagerUpdateStudySetting-SeatInput ${!isEditingSection[section] ? 'hidden' : ''}`}>
                     <input 
+                    placeholder='좌석을 입력하세요...'
                     disabled={!isEditingSection[section]}
                     value={seatInput[section]}
                     onChange={e => handleSeatInputChange(section, e.target.value)}/>
-                    </div>
-                    </div>
-                    <div className='ManagerUpdateStudySetting-SeatButtons'> 
-                 
-                 <button className='SeatButtons-Plus'
+                    <button className='SeatButtons-Plus'
                    onClick={() => handleAddSeat(section, seatInput[section])} 
                    disabled={!isEditingSection[section]}> 추가 </button>
-                 <button className='SeatButtons-Minus'
-                   onClick={() => handleRemoveSeat(section)} 
-                   disabled={!isEditingSection[section]}> 삭제 </button>
+                    </div>
 
-               {isEditingSection[section] ? (
-                 <button onClick={() => handleSaveSeats(section)}>
-                   저장
-                 </button>
-               ) : (
-                 <button onClick={() => handleEditSectionToggle(section)}>
-                   수정
-                 </button>
-               )}      
-                    
-               </div>
-                <div className='ManagerUpdateStudySetting-SeatPrint'>
-                  {seats[section].map((seat, index) => <input type='text' disabled key={index} value={seat.number}></input>)}
-                </div>
-                <hr></hr>
+                    <div className='ManagerUpdateStudySetting-SeatPrint-List'>
+  {seats[section].map((seat, index) => (
+    <div key={index} className='ManagerUpdateStudySetting-SeatPrint'>
+      <input type='text' disabled value={seat.number}></input>
+      <button 
+        className={`SeatButtons-Minus ${!isEditingSection[section] ? 'hidden' : ''}`}
+        onClick={() => handleRemoveSeat(section, seat.id)}
+        disabled={!isEditingSection[section]}
+      > 
+        삭제 
+      </button>
+    </div>
+  ))}
+  </div>
+                    </div>
+
+               
+
+
+                
+              </div>
+              </div>
+
               </div>
               
             ))}

@@ -25,6 +25,10 @@ const UserReservationStatus = () => {
           text: "예약하신 정보가 없습니다.",
           Button: true,
           ButtonText: "확인",
+          confirmButtonColor: "#FFCD4A",
+          customClass: {
+            confirmButton: 'no-outline',
+          }
         });
         navigate(-1);
       }

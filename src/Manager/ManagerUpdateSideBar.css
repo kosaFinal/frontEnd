@@ -1,57 +1,50 @@
-.ManagerSide-container{
-width: 18rem;
-margin-left:8rem;
-margin-top: 3rem;
-position: fixed;
-
-
+.ManagerSide-container {
+  width: 14rem;
+  margin-left: 8rem;
+  margin-top: 3rem;
+  position: fixed;
 }
 
-.ManagerSide-container-items{
-display: flex;
-flex-flow: column;
-justify-content: space-around;
-text-align: center;
-height: auto;
-background-color: white;
-border: 0.05rem solid;
-box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4); /* X축 오프셋, Y축 오프셋, 흐림 반경, 색상 */
-transition: box-shadow 0.3s ease-in-out; /* 그림자 효과에 애니메이션을 적용합니다. */
-
+.ManagerSide-container-items {
+  display: flex;
+  flex-flow: column;
+  justify-content: space-around;
+  text-align: center;
+  height: auto;
+  background-color: white;
+  border: 0.05rem solid;
 }
 
 .updatecafebasic.active {
-    box-shadow: inset 0px 0px 10px 0px rgba(0,0,0,0.5);
-  }
+  box-shadow: inset 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+}
 
-.ManagerSide-container-items p{
-    font-size: 1.3rem;
-    margin : 1.3rem 1.5rem;
-    text-align: left;
+.ManagerSide-container-items p {
+  font-size: 1.3rem;
+  margin: 1.3rem 1.5rem;
+  text-align: left;
 }
 
 .updateText {
-    padding: 1rem;
+  padding: 1rem;
 }
 
-.updateText span{
-    font-size: 1.8rem;
-    font-weight: bold;
-    margin-top: auto;
-    margin-bottom: auto;
-    
+.updateText span {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
-.hidden{
-    display: none;
+.hidden {
+  display: none;
 }
 
-.yellow{
-    background-color: #FFCD4A;
-    opacity: 0.8;
+.yellow {
+  background-color: #ffcd4a;
+  opacity: 0.8;
 }
 
-.no-select{
-    color: rgb(196, 196, 196);
+.no-select {
+  color: rgb(196, 196, 196);
 }
-

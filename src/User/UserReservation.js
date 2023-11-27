@@ -266,7 +266,7 @@ const UserReservation = () => {
           <div className="user_reservation_time">
             <h5>예약 시간대</h5>
             <div className="user_reservation_time_p">
-              {/* <p>
+              <p>
                 {selecteTime
                   ? selecteTime
                       .map((time, index) => (
@@ -275,10 +275,8 @@ const UserReservation = () => {
                         </span>
                       ))
                       .reduce((acc, curr) => [...acc, curr], [])
-                      .slice(1)
                   : ""}
-              </p> */}
-              <p>{formattedSelecteTime}</p>
+              </p>
             </div>
           </div>
           <Link

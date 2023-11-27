@@ -29,99 +29,94 @@ function Register() {
 
   const handleChange = useCallback((event) => {
     setRegister((prevRegister) => {
-      
       return { ...prevRegister, [event.target.name]: event.target.value };
     });
   }, []);
 
-  const handleChangePw = useCallback((event) => {
-    const input = event.target.value;
-    setValidatePw(input);
-    if(register.password === input){
-      setPwcheck(true);
-    }
-    else{
-      setPwcheck(false);
-    }
-    
-  }, [register.password,validatePw]);
+  const handleChangePw = useCallback(
+    (event) => {
+      const input = event.target.value;
+      setValidatePw(input);
+      if (register.password === input) {
+        setPwcheck(true);
+      } else {
+        setPwcheck(false);
+      }
+    },
+    [register.password, validatePw]
+  );
 
   const signupFun = useCallback(async () => {
     try {
       if (disable === true) {
-        if(register.userRealName !== ""){
-          if(pwcheck === true){
-            
-              //로그인 요청
-              console.log(register.role);
-              const response = await signup(register);
+        if (register.userRealName !== "") {
+          if (pwcheck === true) {
+            //로그인 요청
+            console.log(register.role);
+            const response = await signup(register);
 
-              //Context에 인증 내용 저장
-              console.log(response.data.data);
+            //Context에 인증 내용 저장
+            console.log(response.data.data);
 
-              //상태 재초기화
-              setRegister({
-                role: "",
-                userName: "",
-                userRealName: "",
-                password: "",
-              });
-          }
-          else{
+            //상태 재초기화
+            setRegister({
+              role: "",
+              userName: "",
+              userRealName: "",
+              password: "",
+            });
+          } else {
             Swal.fire({
               icon: "warning",
               title: "",
-              text: `비밀번호가 일치하지 않습니다.`,
-              
+              text: "비밀번호가 일치하지 않습니다.",
+
               confirmButton: true,
               confirmButtonText: "확인",
               confirmButtonColor: "#FFCD4A",
               customClass: {
-                confirmButton: 'no-outline',
-              }
-          })
+                confirmButton: "no-outline",
+              },
+            });
           }
-        }
-        else{
+        } else {
           Swal.fire({
             icon: "warning",
             title: "",
-            text: `성함을 입력하여 주세요.`,
-            
+            text: "성함을 입력하여 주세요.",
+
             confirmButton: true,
             confirmButtonText: "확인",
             confirmButtonColor: "#FFCD4A",
             customClass: {
-              confirmButton: 'no-outline',
-            }
-        })
-          
+              confirmButton: "no-outline",
+            },
+          });
         }
       } else {
         Swal.fire({
           icon: "warning",
           title: "",
-          text: `아이디 중복 체크를 해주세요.`,
-          
+          text: "아이디 중복 체크를 해주세요.",
+
           confirmButton: true,
           confirmButtonText: "확인",
           confirmButtonColor: "#FFCD4A",
           customClass: {
-            confirmButton: 'no-outline',
-          }
-      })
-        
+            confirmButton: "no-outline",
+          },
+        });
       }
     } catch (error) {
       console.log(error);
     }
-  }, [register,duplicate, pwcheck]);
+  }, [register, duplicate, pwcheck]);
 
   const idCheckFun = useCallback(async () => {
     try {
       //로그인 요청
       console.log(register.userName);
-      if (register.userName !== '') {
+      if (register.userName !== "") {
         const response = await idCheck(register.userName);
 
         //Context에 인증 내용 저장
@@ -134,16 +129,13 @@ function Register() {
           setDuplicate(true);
           setDisable(true);
         }
-      }
-      else{
+      } else {
         alert("아이디를 입력해 주세요.");
       }
     } catch (error) {
       console.log(error);
     }
   }, [duplicate, register.userName]);
-
-  
 
   return (
     <register>
@@ -157,7 +149,6 @@ function Register() {
               <label className="usertype-label" value="회원유형">
                 회원 유형
               </label>
-              
 
               <Radio
                 className="register-radio-button"
@@ -206,18 +197,19 @@ function Register() {
               value={register.password}
               onChange={handleChange}
             />
-            
-            <input value={validatePw} type="password" placeholder="비밀번호 확인" onChange={handleChangePw}/>
-            {pwcheck ? 
-            <span className="pwCheck-access">
-            비밀번호가 일치합니다.
-          </span>
-            :
-            <span className="pwCheck-deny">
-            비밀번호가 일치하지않습니다.
-          </span>}
-            
-              
+
+            <input
+              value={validatePw}
+              type="password"
+              placeholder="비밀번호 확인"
+              onChange={handleChangePw}
+            />
+            {pwcheck ? (
+              <span className="pwCheck-access">비밀번호가 일치합니다.</span>
+            ) : (
+              <span className="pwCheck-deny">비밀번호가 일치하지않습니다.</span>
+            )}
+
             <div className="register-button">
               <button onClick={signupFun}>회원가입</button>
             </div>

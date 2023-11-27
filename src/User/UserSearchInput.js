@@ -12,6 +12,7 @@ const UserSearchInput = ({
 }) => {
   console.log("부모한테 받아옴:", searchResults);
   const [showInfo, setShowInfo] = useState(false);
+  const [cafeType, setCafeType] = useState("");
   const [showInput, setShowInput] = useState(false);
   const [showtoggle, setShowtoggle] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -88,6 +89,12 @@ const UserSearchInput = ({
   const handleCloseComponent = () => {
     onClose();
   };
+  // const handleCafeTypeChange = (event) => {
+  //   setSearchFilterData((prevData) => ({
+  //     ...prevData,
+  //     cafeType: event.target.value,
+  //   }));
+  // };
 
   const toggleUserSearchCafeInfo = () => {
     setShowInfo(!showInfo);
@@ -151,13 +158,6 @@ const UserSearchInput = ({
     setSearchFilterData(filterData);
   };
 
-  const handleCafeTypeChange = (event) => {
-    setSearchFilterData((prevData) => ({
-      ...prevData,
-      cafeType: event.target.value,
-    }));
-  };
-
   useEffect(() => {
     if (apiResponseData && apiResponseData.pager) {
       setTotalPages(apiResponseData.pager.totalPageNo);
@@ -204,10 +204,12 @@ const UserSearchInput = ({
         </div>
         <div className="searchinput_section1">
           <select
-            value={searchFilterData.cafeType}
-            onChange={handleCafeTypeChange}
+            value={cafeType}
+            onChange={(e) => setCafeType(e.target.value)}
           >
-            <option value="">카페 유형</option>
+            <option defaultChecked value="">
+              카페 유형
+            </option>
             <option value="G">개인</option>
             <option value="P">프랜차이즈</option>
           </select>
@@ -317,7 +319,9 @@ const UserSearchInput = ({
                   <p>
                     <span>이용시간 :</span> {cafe.startTime} ~ {cafe.endTime}
                   </p>
-                  <p>주소 : {cafe.address}</p>
+                  <p className="search_cafe_info_text-address">
+                    주소 : {cafe.address}
+                  </p>
                 </div>
               </div>
             ))}

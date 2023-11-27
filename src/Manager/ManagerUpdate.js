@@ -5,7 +5,7 @@ import { Outlet } from "react-router-dom";
 import Footer from "../Footer";
 import { useState } from "react";
 import EmptyRegister from "./EmptyRegister";
-
+import "./ManagerUpdate.css";
 const ManagerUpdate = () => {
   const [CheckCafeReg, setCheckCafeReg] = useState(true);
   const handleCafeCheck = (isCafeRegistered) => {
@@ -15,14 +15,16 @@ const ManagerUpdate = () => {
   return (
     <div className="manager">
       <ManagerNav />
-      {CheckCafeReg ? (
-        <>
-          <ManagerUpdateSideBar />
-          <Outlet context={{ onCafeCheck: handleCafeCheck }} />
-        </>
-      ) : (
-        <EmptyRegister />
-      )}
+      <div className="manager_background">
+        {CheckCafeReg ? (
+          <>
+            <ManagerUpdateSideBar />
+            <Outlet context={{ onCafeCheck: handleCafeCheck }} />
+          </>
+        ) : (
+          <EmptyRegister />
+        )}
+      </div>
       <Footer />
     </div>
   );
