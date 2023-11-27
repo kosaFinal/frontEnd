@@ -39,7 +39,7 @@ const UserReservationStatus = () => {
     if (reservationStatus.status === "A" && progress < 90) {
       interval = setInterval(() => {
         setProgress((oldProgress) => Math.min(oldProgress + 1, 90));
-      }, 3333);
+      }, 900);
     }
     if (reservationStatus.status === "P") {
       setProgress(100);
