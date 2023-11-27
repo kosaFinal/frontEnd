@@ -8,8 +8,7 @@
 .ManagerUpdateBasic-Container {
     width: 100%;
     height: 100%;
-    margin: 0;
-    margin-left: 8rem;
+    margin-left: 3rem;
     display: flex;
     justify-content: center;
 }
@@ -23,7 +22,12 @@
     text-align: center;
 }
 
-
+.ManagerUpdateBasic-Container-Items button{
+    text-decoration: underline;
+    text-underline-offset : 6px;
+    border: none;
+    
+}
 /* 아이템 공통 CSS */
 
 .ManagerUpdateBasic-Container-Items label {
@@ -43,12 +47,14 @@
     border-radius: 8px;
     font-size: 20px;
     margin-left: 10%;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .ManagerUpdateBasic-Container-Items button {
     width: 5rem;
     height: 2rem;
     margin-top: 4rem;
+    
 }
 
 
@@ -203,6 +209,7 @@
 .ManagerUpdateRepImgBasic-RepImg-Container button {
     width: 5rem;
     margin-top: 20rem;
+    
 }
 
 .ManagerUpdateRepImgBasic-RepImg-Buttons{
@@ -212,8 +219,9 @@
 }
 .ManagerUpdateRepImgBasic-RepImg-Buttons button{
     margin-top: auto;
-    text-decoration: none;
-    background-color: #FFCD4A;
+    font-weight: bold;
+    font-size: 1.1rem;
+    background-color: #f9f9f9;
 }
 
 .ManagerUpdateRepImgBasic-RepImg-Container-Update{
@@ -262,6 +270,11 @@
     margin: 0;
 }
 
+.custom-Repfile-upload-Container button{
+    background-color: #ccc !important;
+    
+}
+
 
 .custom-Repfile-upload{
     display: inline-block;
@@ -272,9 +285,11 @@
     border: 1px solid #ddd;
     border-radius: 5px;
     width: auto !important;
-    font-size: 1.2rem;
+    font-size: 1.1rem !important;
     margin-top: 1rem !important;
     text-align: center !important;
+    font-weight: normal !important;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .hidden {

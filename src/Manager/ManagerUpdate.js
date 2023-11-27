@@ -15,11 +15,13 @@ const ManagerUpdate = () => {
   return (
     <div className="manager">
       <ManagerNav />
-      <div className="manager_background">
+      <div className="manager-background">
         {CheckCafeReg ? (
           <>
             <ManagerUpdateSideBar />
+            <div className="content-container"> {/* 추가된 컨테이너 */}
             <Outlet context={{ onCafeCheck: handleCafeCheck }} />
+            </div>
           </>
         ) : (
           <EmptyRegister />
