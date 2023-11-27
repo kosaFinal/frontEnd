@@ -59,6 +59,7 @@
   padding: 5px;
   font-size: 100%;
   font-weight: bold;
+  border-radius: 5px;
 }
 .user_reservation_modal_select_time button[disabled] {
   background-color: #e2e2e2;
@@ -83,4 +84,7 @@
   height: 40px;
   font-weight: bold;
   border: none;
+  background-color: #ffcd4a;
+  border-radius: 5px;
+  font-size: 16px;
 }

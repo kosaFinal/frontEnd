@@ -81,6 +81,8 @@
   background-color: white;
   border-radius: 20px;
   border: 1.5px solid rgb(185, 185, 185);
+  font-weight: normal;
+  font-size: 16px;
 }
 .search_button_filter {
   width: 30%;
@@ -90,6 +92,7 @@
   display: flex;
   justify-content: space-around;
   box-shadow: 1px 2px #929292;
+
   border: none;
 }
 
@@ -146,6 +149,8 @@
   color: black;
   border: 1.5px solid rgb(185, 185, 185);
   border-radius: 20px;
+  font-weight: normal;
+  font-size: 16px;
 }
 .searchinput_section3 {
   margin: 25px auto 10px;
@@ -160,6 +165,8 @@
   border-radius: 20px;
   border: 1.5px solid rgb(185, 185, 185);
   color: black;
+  font-weight: normal;
+  font-size: 16px;
 }
 .section3_toggle button {
   width: 35px;
@@ -196,6 +203,8 @@
   color: black;
   border: 1.5px solid rgb(185, 185, 185);
   margin-left: 2px;
+  font-weight: normal;
+  font-size: 16px;
 }
 
 .search_submit button {
