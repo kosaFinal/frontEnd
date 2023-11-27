@@ -1,6 +1,5 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import "./Register.css";
-import Radio from "./Radio";
 import Header from "./Header";
 import { Link, useNavigate } from "react-router-dom";
 import { idCheck, signup } from "./apis/login";
@@ -17,7 +16,7 @@ function Register() {
   const [duplicate, setDuplicate] = useState(true);
 
   const [disable, setDisable] = useState(false);
-  const [pwcheck, setPwcheck] = useState(false);
+  const [pwcheck, setPwcheck] = useState(true);
 
   const [validatePw, setValidatePw] = useState("");
 
@@ -31,11 +30,20 @@ function Register() {
     setRegister((prevRegister) => {
       return { ...prevRegister, [event.target.name]: event.target.value };
     });
-  }, []);
+    if (event.target.name === "password" ){
+      if(event.target.value === validatePw) {
+      setPwcheck(true);
+    } else {
+      setPwcheck(false);
+    }}
+  }, [validatePw]);
+
+  
 
   const handleChangePw = useCallback(
     (event) => {
       const input = event.target.value;
+      console.log(input);
       setValidatePw(input);
       if (register.password === input) {
         setPwcheck(true);
@@ -43,7 +51,7 @@ function Register() {
         setPwcheck(false);
       }
     },
-    [register.password, validatePw]
+    [register.password]
   );
 
   const signupFun = useCallback(async () => {
@@ -65,6 +73,7 @@ function Register() {
               userRealName: "",
               password: "",
             });
+            setValidatePw("");
           } else {
             Swal.fire({
               icon: "warning",
@@ -137,6 +146,13 @@ function Register() {
     }
   }, [duplicate, register.userName]);
 
+  const handleRoleChange = useCallback((event) => {
+    setRegister((prevRegister) => ({
+      ...prevRegister,
+      role: event.target.value
+    }));
+  }, []);
+
   return (
     <register>
       <div className="register">
@@ -150,23 +166,27 @@ function Register() {
                 회원 유형
               </label>
 
-              <Radio
+              <input
+                type="radio"
                 className="register-radio-button"
-                name="userType"
-                value={register.role}
-                defaultchecked
-              >
-                USER
-              </Radio>
-
-              <Radio
+                name="role"
+                id="role"
+                value="USER"
+                checked={register.role === "USER"}
+                onChange={handleChange}
+              />
+                <label htmlFor="register-radio-button">USER</label>
+              <input 
+              type="radio"
                 className="register-radio-button"
-                name="userType"
-                value={register.role}
-                defaultchecked
-              >
-                MANAGER
-              </Radio>
+                name="role"
+                id="role"
+                value="MANAGER"
+                checked={register.role === "MANAGER"}
+                onChange={handleChange}
+              />
+              <label htmlFor="register-radio-button">MANAGER</label>
+               
             </div>
             <div className={duplicate ? "id-section" : "id-signin-error"}>
               <input
