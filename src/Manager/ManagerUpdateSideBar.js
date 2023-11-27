@@ -1,8 +1,17 @@
-import { Link, useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import "./ManagerUpdateSideBar.css";
 
 const ManagerUpdateSideBar = () => {
-  const location = useLocation();
+  const location = useLocation(); 
+  const navigate = useNavigate(); // useHistory 훅 추가
+
+  useEffect(() => {
+    // 페이지가 로드될 때 '카페 기본 정보' 섹션이 활성화되도록 함
+    if (location.pathname === "/manager/update") {
+      navigate("/manager/update/updatebasic");
+    }
+  }, [location, navigate]); // 의존성 배열에 location과 navigate 추가
 
   const getLinkClassName = (path) => {
     return location.pathname.startsWith(`/manager/update/${path}`) ? 'active' : '';

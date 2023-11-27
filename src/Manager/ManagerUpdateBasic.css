@@ -60,12 +60,22 @@
     flex-flow: column;
 }
 
+.ManagerUpdateBasic-Container-Names label{
+    text-align: start;
+    margin-left: 6rem;
+}
+
 
 /* 유형 섹션 */
 .ManagerUpdateBasic-Container-Case {
     text-align: center;
     display: flex;
     flex-flow: column;
+}
+
+.ManagerUpdateBasic-Container-Case label{
+    text-align: start;
+    margin-left: 6rem;
 }
 
 /* 전화번호 섹션  */
@@ -75,7 +85,9 @@
 }
 
 .ManagerUpdateBasic-Container-Number-labeling label{
-    width: 30%;
+    width: 15rem;
+    text-align: start;
+    margin-left: 6rem;
 }
 
 .ManagerUpdateBasic-Container-Number-text{
@@ -95,6 +107,11 @@
 .ManagerUpdateBasic-Container-Address-labeling {
     display: flex;
     justify-content: space-between;
+    
+}
+.ManagerUpdateBasic-Container-Address-labeling label{
+    text-align: start;
+    margin-left: 6rem;
 }
 
 .ManagerUpdateBasic-Container-Address-text {
@@ -117,7 +134,8 @@
 }
 
 .ManagerUpdateBasic-Container-Address-Update-labeling label {
-    margin-right: 0rem;
+    text-align: start;
+    margin-left: 6rem;
 }
 .ManagerUpdateBasic-Container-Address-Update-findAddress{
     margin-top: 3rem;
@@ -134,15 +152,16 @@
     display: flex;
     justify-content: space-between;
     margin: 0 auto;
+    margin-left: 0.5rem;
 }
 
 .BasicAddress-Save button{
-    margin-left: 2rem;
+    margin-right: 0.3rem;
     margin-top: 0;
 }
 
 .BasicAddress-find{
-    margin-left: 3rem;
+    margin-left: 5rem;
 }
 
 .ManagerUpdateBasic-Container-Address-Update-text {
@@ -159,6 +178,11 @@
     display: flex;
     justify-content: center;
     flex-flow: column;
+}
+
+.ManagerUpdateBasic-Container-RepImg-Update-labeling label{
+    text-align: start;
+    margin-left: 6rem;
 }
 
 .ManagerUpdateRepImgBasic-RepImg-Container{
@@ -188,6 +212,8 @@
 }
 .ManagerUpdateRepImgBasic-RepImg-Buttons button{
     margin-top: auto;
+    text-decoration: none;
+    background-color: #FFCD4A;
 }
 
 .ManagerUpdateRepImgBasic-RepImg-Container-Update{
@@ -235,6 +261,7 @@
     text-align: center;
     margin: 0;
 }
+
 
 .custom-Repfile-upload{
     display: inline-block;
