@@ -35,7 +35,9 @@ const CafeRegister = () => {
     studySetting: "",
     floorPlanFile: null,
   });
-
+  useEffect(() => {
+    console.log("파일: ", cafeStudySetting.floorPlanFile);
+  }, [cafeStudySetting.floorPlanFile]);
   
 
   const handleStudySettingChange = useCallback((setting) => {
@@ -58,8 +60,8 @@ const CafeRegister = () => {
 
   const addNumber = () => {
     if (number === 1) {
-      if (cafeName.trim().length < 4) {
-        alert("카페이름은 4글자 이상 입력해야 합니다.");
+      if (cafeName.trim().length < 1) {
+        alert("카페이름은 1글자 이상 입력해야 합니다.");
         return;
       }
     }

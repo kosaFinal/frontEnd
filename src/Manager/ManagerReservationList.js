@@ -19,6 +19,16 @@ const ManagerReservationList = () => {
   const [reservations, setReservations] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 3;
+  const tableTypeToText = {
+  'O': '1인석',
+  'T': '2인석',
+  'F': '4인석',
+  'M': '다인석'
+};
+
+const getTableTypeText = (tableType) => {
+  return tableTypeToText[tableType] || '알 수 없는 타입';
+};
 
   const paginate = (data) => {
     const startIndex = (currentPage - 1) * itemsPerPage;
@@ -140,7 +150,7 @@ const ManagerReservationList = () => {
                     </div>
                     <div className='ReservationList-Status'>
                       <p>예약 좌석 : {reservation.tableNumber}</p>
-                      <p>예약 테이블 : {reservation.tableType}</p>
+                      <p>예약 테이블 : {getTableTypeText(reservation.tableType)}</p>
                       <p>인원 수 : {reservation.personCnt}</p>
                       <p>예약 시간 : {reservation.reserveStart} ~ {reservation.reserveEnd}</p>
                     </div>

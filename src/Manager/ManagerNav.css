@@ -83,6 +83,10 @@ a {
   display: flex;
   flex-direction: row;
   margin: auto;
+  gap: 1rem;
   justify-content: end;
   margin-right: 100px;
+  font-weight: bold;
+  font-size: 1.1rem;
 }
+

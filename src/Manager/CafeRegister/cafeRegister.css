@@ -3,6 +3,10 @@
   src: url("/src/fonts/HakgyoansimSantteutdotumL.ttf") format("truetype");
 }
 
+button{
+  text-decoration: none;
+}
+
 .register-full-container {
   display: flex;
   flex-direction: column;
@@ -87,6 +91,7 @@
   align-items: center;
   margin-left: 6rem;
   margin-right: 6rem;
+  
 }
 
 .next {

@@ -16,9 +16,12 @@ input {
 
 button {
   font-family: "HakgyoansimSantteutdotumL";
-  background-color: #ffcd4a;
-  color: black;
-  border-radius: 5px;
+  background-color: white;
+  font-weight: bold;
+  font-size: 1.1rem;
+  text-decoration: underline;
+  text-underline-offset : 6px;
+  border: none;
 }
 
 button:hover {

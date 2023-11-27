@@ -157,7 +157,7 @@ const handlePhoneNumberChange = (e) => {
         <div className='cafe-register-basic'>
           <p>전화번호</p>
           <div className='register-tel'>
-            <input type="text" placeholder="전화번호" 
+            <input type="text" placeholder="(02-111-1111, 010-1111-1111)" 
               value={phoneNumber}
               onChange={handlePhoneNumberChange} />
           </div>
