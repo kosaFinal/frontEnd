@@ -319,25 +319,29 @@ const UserSearchInput = ({
                   <p>
                     <span>이용시간 :</span> {cafe.startTime} ~ {cafe.endTime}
                   </p>
-                  <p>주소 : {cafe.address}</p>
+                  <p className="search_cafe_info_text-address">
+                    주소 : {cafe.address}
+                  </p>
                 </div>
               </div>
             ))}
           </div>
         )}
-        {!parentResults && (
-          <div className="user_search_pagination">
-            {Array.from({ length: totalPages }, (_, index) => (
-              <button
-                key={index + 1}
-                onClick={() => handlePageChange(index + 1)}
-                className={currentPage === index + 1 ? "active" : ""}
-              >
-                {index + 1}
-              </button>
-            ))}
-          </div>
-        )}
+        <div className="page_white">
+          {!parentResults && (
+            <div className="user_search_pagination">
+              {Array.from({ length: totalPages }, (_, index) => (
+                <button
+                  key={index + 1}
+                  onClick={() => handlePageChange(index + 1)}
+                  className={currentPage === index + 1 ? "active" : ""}
+                >
+                  {index + 1}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
         {showInfo && (
           <div className="searchcafeinfo">
             <UserSearchCafeInfo
