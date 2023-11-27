@@ -57,10 +57,8 @@ button{
   display: flex;
   flex-direction: row;
   justify-content: center;
-  
   width: auto;
   margin-top: 1rem;
-  margin-bottom: 8rem;
 }
 
 

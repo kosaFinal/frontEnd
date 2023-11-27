@@ -1,13 +1,14 @@
 .ManagerReservationList {
-    margin: 2rem 0;
+    margin: 0;
     width: auto;
-    height: auto;
+    height: 40rem;
+    margin-bottom: 4rem;
 }
 
 .ManagerReservationList-Container {
     width: 100%;
     height: 100%;
-    margin: 4rem auto;
+    margin: 2rem auto;
     display: flex;
     justify-content: center;
 }

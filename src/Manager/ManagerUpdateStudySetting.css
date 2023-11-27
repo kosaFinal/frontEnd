@@ -8,7 +8,7 @@
   height: 200%;
   display: flex;
   justify-content: center;
-  margin-left: 8rem;
+  margin-left: 5rem;
 }
 
 .ManagerUpdateStudySetting-Container-Items {
@@ -17,8 +17,13 @@
   flex-flow: column;
   align-items: center;
   margin-bottom: 3rem;
-}
+  
+} 
 
+.ManagerUpdateStudySetting-Container-Items button{
+    text-decoration: underline;
+    text-underline-offset : 6px;
+}
 .ManagerUpdateStudySetting-Container-Items-hidden {
   width: 70%;
   display: flex;
@@ -41,6 +46,7 @@
   display: flex;
   flex-flow: column;
   justify-content: center;
+  
 }
 
 .ManagerUpdateStudySetting-CafeIf h2 {
@@ -58,6 +64,7 @@
   margin-left: auto;
   margin-right: auto;
   gap: 1rem;
+  
 }
 
 .ManagerUpdateStudySetting-CafeIf-label {
@@ -87,6 +94,7 @@
   background-color: rgba(239, 239, 239, 0.3);
   border-color: rgba(118, 118, 118, 0.3);
   color: rgb(84, 84, 84);
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .ManagerUpdateStudySetting-CafeIf-Text p {
@@ -170,6 +178,7 @@
   border-radius: 10px;
   /* 모서리 둥글게 */
   transition: all 0.3s ease-in-out;
+  
   /* 부드러운 전환 효과 */
 }
 
@@ -179,7 +188,7 @@
 }
 
 .custom-file-upload {
-  width: 60%;
+  width: 30%;
   margin-left: auto;
   margin-right: auto;
   display: inline-block;
@@ -191,6 +200,7 @@
   text-align: center;
   font-size: 1.2rem;
   margin-top: 1.5rem;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .custom-file-upload:hover {
@@ -207,8 +217,8 @@
     
 }
 .ManagerUpdateStudySetting-FloorPlan-Buttons button{
-    text-decoration: none;
-    background-color: #FFCD4A;
+    text-decoration: underline;
+    background-color: #f9f9f9;
 }
 
 .ManagerUpdateStudySetting-SeatSection-Allcontainer {
@@ -224,7 +234,7 @@
     /* 경계선 스타일 */
     border-radius: 8px;
     /* 모서리 둥글게 */
-    background-color: #f9f9f9;
+    background-color: rgba(239, 239, 239, 0.3);
     /* 배경색 */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     /* 그림자 효과 */
@@ -419,7 +429,7 @@
     color: white;
     opacity: 0.7;
     font-weight: bold;
-    text-decoration: none;
+    text-decoration: none !important;
 }
 
 .SeatButtons-Minus {
@@ -429,7 +439,7 @@
     color: white;
     opacity: 0.7;
     font-weight: bold;
-    text-decoration: none;
+    text-decoration: none !important;
 }
 
 .hidden {
