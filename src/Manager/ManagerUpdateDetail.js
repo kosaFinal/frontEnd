@@ -4,6 +4,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import DatePicker from "react-datepicker";
 import {managerDetailRead,managerDetailCafeTimeUpdate, managerDetailCafeFeatureUpdate} from "./../apis/ManagerUpdateAxios";
 import { async } from "q";
+import Swal from "sweetalert2";
 
 function ManagerUpdateDetail() {
   const roundToHour = (date) => {
@@ -70,7 +71,19 @@ function ManagerUpdateDetail() {
   
   const handleSaveTime = async () => {
     if (tempStartTime >= tempEndTime) {
-      alert("시작 시간은 종료 시간보다 빨라야 합니다.");
+      Swal.fire({
+        icon: "warning",
+        title: "",
+        text: `시작 시간은 종료 시간보다 빨라야 합니다..`,
+        
+        confirmButton: true,
+        confirmButtonText: "확인",
+        confirmButtonColor: "#FFCD4A",
+        customClass: {
+          confirmButton: 'no-outline',
+        }
+    })
+      // alert("시작 시간은 종료 시간보다 빨라야 합니다.");
       return;
     }
   
