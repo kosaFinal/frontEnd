@@ -5,6 +5,12 @@
   text-align: center;
   border-left: 1px solid black;
 }
+
+.searchinput_form button{
+  font-size: 1rem;
+  font-weight: normal;
+}
+
 .searchinput_form hr {
   margin: 3vh 0 3vh;
 }
@@ -83,6 +89,7 @@
   border: 1.5px solid rgb(185, 185, 185);
   font-weight: normal;
   font-size: 16px;
+
 }
 .search_button_filter {
   width: 30%;
