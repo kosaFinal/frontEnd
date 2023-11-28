@@ -258,7 +258,7 @@
 }
 
 .ManagerUpdateStudySetting-SeatItems-Container {
-    width: 70%;
+    width: 80%;
     height: auto;
 }
 
@@ -420,10 +420,12 @@
 
 .ManagerUpdateStudySetting-SeatItems button{
     margin: auto;
+    margin-left: 2rem;
 }
 
 
 .SeatButtons-Plus {
+  margin-left: 2rem;
     border: 3px solid ;
     background-color: #007CBE !important;
     color: white;
@@ -433,7 +435,7 @@
 }
 
 .SeatButtons-Minus {
-    margin-left: 1rem;
+    margin-left: 2rem;
     border: 3px solid ;
     background-color: #ED6A5A !important;
     color: white;

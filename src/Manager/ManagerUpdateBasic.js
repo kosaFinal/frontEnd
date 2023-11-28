@@ -3,6 +3,7 @@ import "./ManagerUpdateBasic.css";
 import DaumPost from "./Component/DaumPost";
 import { useOutletContext } from "react-router-dom"; 
 import {managerBasicRead, managerBasicCafeTelUpdate,managerBasicCafeAddressUpdate,managerBasicCafeRepImgUpdate} from "./../apis/ManagerUpdateAxios";
+import Swal from "sweetalert2";
 
 
 function ManagerUpdateBasic() {
@@ -164,7 +165,19 @@ function ManagerUpdateBasic() {
 
   const handleFloorPlanSaveClick = async () => {
     if (!file) {
-      alert('이미지를 선택해주세요.');
+      Swal.fire({
+        icon: "warning",
+        title: "",
+        text: `이미지를 선택해주세요.`,
+        
+        confirmButton: true,
+        confirmButtonText: "확인",
+        confirmButtonColor: "#FFCD4A",
+        customClass: {
+          confirmButton: 'no-outline',
+        }
+    })
+      // alert('이미지를 선택해주세요.');
       return;
     }
     const formData = new FormData();

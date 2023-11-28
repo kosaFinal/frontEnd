@@ -9,6 +9,7 @@ import CafeName from "./CafeName";
 import CafeBasic from "./CafeBasic";
 import CafeFeature from "./CafeFeature";
 import { managerCafeReg } from "./../../apis/CafeReg";
+import Swal from "sweetalert2";
 
 const CafeRegister = () => {
   const [number, setNumer] = useState(1);
@@ -61,39 +62,111 @@ const CafeRegister = () => {
   const addNumber = () => {
     if (number === 1) {
       if (cafeName.trim().length < 1) {
-        alert("카페이름은 1글자 이상 입력해야 합니다.");
+        Swal.fire({
+          icon: "warning",
+          title: "",
+          text: `카페이름은 1글자 이상 입력해야 합니다..`,
+          
+          confirmButton: true,
+          confirmButtonText: "확인",
+          confirmButtonColor: "#FFCD4A",
+          customClass: {
+            confirmButton: 'no-outline',
+          }
+      })
+        // alert("카페이름은 1글자 이상 입력해야 합니다.");
         return;
       }
     }
 
     if (number === 2 && !cafeType) {
-      alert("카페 유형을 선택해주세요.");
+      Swal.fire({
+        icon: "warning",
+        title: "",
+        text: `카페 유형을 선택해주세요..`,
+        
+        confirmButton: true,
+        confirmButtonText: "확인",
+        confirmButtonColor: "#FFCD4A",
+        customClass: {
+          confirmButton: 'no-outline',
+        }
+    })
+      // alert("카페 유형을 선택해주세요.");
       return;
     }
 
     // CafeBasic 유효성 검사
     if (number === 3) {
       if (!cafeBasicInfo.address || !cafeBasicInfo.phoneNumber) {
-        alert("카페 기본 정보를 올바르게 입력해주세요.");
+        Swal.fire({
+          icon: "warning",
+          title: "",
+          text: `카페 기본 정보를 올바르게 입력해주세요.`,
+          
+          confirmButton: true,
+          confirmButtonText: "확인",
+          confirmButtonColor: "#FFCD4A",
+          customClass: {
+            confirmButton: 'no-outline',
+          }
+      })
+        // alert("카페 기본 정보를 올바르게 입력해주세요.");
         return;
       }
 
       // 전화번호 포맷 유효성 검사
       if (!validatePhoneNumber(cafeBasicInfo.phoneNumber)) {
-        alert("유효한 전화번호를 입력해주세요.");
+        Swal.fire({
+          icon: "warning",
+          title: "",
+          text: `유효한 전화번호를 입력해주세요..`,
+          
+          confirmButton: true,
+          confirmButtonText: "확인",
+          confirmButtonColor: "#FFCD4A",
+          customClass: {
+            confirmButton: 'no-outline',
+          }
+      })
+        // alert("유효한 전화번호를 입력해주세요.");
         return;
       }
 
       // 시간 유효성 검사 (시작 시간이 종료 시간보다 늦으면 안 됨)
       if (cafeBasicInfo.startTime >= cafeBasicInfo.endTime) {
-        alert("카페 종료 시간은 시작 시간보다 늦어야 합니다.");
+        Swal.fire({
+          icon: "warning",
+          title: "",
+          text: `카페 종료 시간은 시작 시간보다 늦어야 합니다..`,
+          
+          confirmButton: true,
+          confirmButtonText: "확인",
+          confirmButtonColor: "#FFCD4A",
+          customClass: {
+            confirmButton: 'no-outline',
+          }
+      })
+        // alert("카페 종료 시간은 시작 시간보다 늦어야 합니다.");
         return;
       }
     }
 
     if (number === 4) {
       if (!cafeImages.titleFile || cafeImages.detailFiles.length === 0) {
-        alert("대표 사진과 상세 사진을 모두 업로드해주세요.");
+        Swal.fire({
+          icon: "warning",
+          title: "",
+          text: `대표 사진과 상세 사진을 모두 업로드해주세요..`,
+          
+          confirmButton: true,
+          confirmButtonText: "확인",
+          confirmButtonColor: "#FFCD4A",
+          customClass: {
+            confirmButton: 'no-outline',
+          }
+      })
+        // alert("대표 사진과 상세 사진을 모두 업로드해주세요.");
         return;
       }
     }

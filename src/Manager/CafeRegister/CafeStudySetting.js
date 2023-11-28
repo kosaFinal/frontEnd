@@ -64,7 +64,7 @@ const CafeStudySetting = ({ onStudySettingChange, onFinalSubmit,initialStudySett
                   id="cafeStatusTrue"
                   checked={studySetting === "Y"}
                   onChange={handleStudySettingRadioChange} /> 
-              <label htmlFor="cafeStatusTrue"> YES</label>
+              <label htmlFor="cafeStatusTrue">운영</label>
             </div>
             <div>
               <input
@@ -74,7 +74,7 @@ const CafeStudySetting = ({ onStudySettingChange, onFinalSubmit,initialStudySett
                 id="cafeStatusFalse"
                 checked={studySetting === "N"}
                 onChange={handleStudySettingRadioChange} /> 
-              <label htmlFor="cafeStatusFalse">NO</label>
+              <label htmlFor="cafeStatusFalse">미 운영</label>
             </div>
           </div>
         </div>

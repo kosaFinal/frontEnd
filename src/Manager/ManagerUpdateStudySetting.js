@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import './ManagerUpdateStudySetting.css';
 import {managerSettingRead,managerSettingCafeStudyUpdate, managerSettingCafeImgUpdate,managerSettingCafeTableUpdate, managerSettingCafeTableDelete} from "./../apis/ManagerUpdateAxios";
 import { async } from 'q';
+import Swal from 'sweetalert2';
 
 function ManagerUpdateStudySetting() {
     const [selectedFileName, setSelectedFileName] = useState('');
@@ -41,6 +42,7 @@ function ManagerUpdateStudySetting() {
           console.log("카공 여부 업데이트 실패: ", response.data.message);
         }
       } catch (error) {
+        
         console.error("API 호출 중 에러 발생: ", error);
       }
         
@@ -71,7 +73,19 @@ function ManagerUpdateStudySetting() {
     
     const handleFloorPlanSaveClick = async () => {
       if (!file) {
-        alert('이미지를 선택해주세요.');
+        Swal.fire({
+          icon: "warning",
+          title: "",
+          text: `이미지를 선택해주세요.`,
+          
+          confirmButton: true,
+          confirmButtonText: "확인",
+          confirmButtonColor: "#FFCD4A",
+          customClass: {
+            confirmButton: 'no-outline',
+          }
+      })
+        // alert('이미지를 선택해주세요.');
         setFloorPlanImage(dummyImg);
     setIsEditingFloorPlan(false);
         return;
@@ -172,7 +186,19 @@ function ManagerUpdateStudySetting() {
       }
     } catch (error) {
       console.error("API 호출 중 에러 발생: ", error);
-      alert("예약중인 좌석입니다!");
+      Swal.fire({
+        icon: "warning",
+        title: "",
+        text: `예약중인 좌석입니다!.`,
+        
+        confirmButton: true,
+        confirmButtonText: "확인",
+        confirmButtonColor: "#FFCD4A",
+        customClass: {
+          confirmButton: 'no-outline',
+        }
+    })
+      // alert("예약중인 좌석입니다!");
     }
   };
 
@@ -283,14 +309,16 @@ useEffect(() => {
             value="true" 
             checked={tempCafeStatus === true} 
             onChange={handleCafeStatusChange}
-          /> O
+            id='cafeUpdateStatustTrue'
+          /> <label htmlFor='cafeUpdateStatustTrue'>운영</label>
           <input 
             type="radio" 
             name="CafeIf-Change" 
             value="false" 
             checked={tempCafeStatus === false} 
             onChange={handleCafeStatusChange}
-          /> X
+            id='cafeUpdateStatusFalse'
+          /> <label htmlFor="cafeUpdateStatusFalse">미운영</label>
         </div>
       </div>
     </div>
