@@ -80,6 +80,8 @@
   font-size: 150%;
   font-weight: bold;
   border: none;
+  background-color: #ffcd4a;
+  border-radius: 10px;
 }
 .status_footer {
   margin-top: 10vh;
