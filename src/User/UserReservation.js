@@ -43,6 +43,7 @@ const UserReservation = () => {
         .map((time) => time.reserveStart)
         .join(", ");
       setFormattedSelecteTime(timeString);
+      console.log(selecteTime);
     } else {
     }
   }, [selecteTime]);
