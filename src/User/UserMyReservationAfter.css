@@ -13,7 +13,7 @@
   font-family: "HakgyoansimSantteutdotumL";
   height: 80px;
   border: 1px solid black;
-  margin: 10px auto;
+  margin: 20px auto;
   border-radius: 10px;
 }
 
@@ -63,7 +63,6 @@
   font-size: 150%;
   width: 100%;
   margin-top: 10px;
-  margin-left: 5px;
 }
 .user_reservation_cancle {
   margin-right: 10px;

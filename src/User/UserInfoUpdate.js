@@ -4,6 +4,8 @@ import "./UserInfoUpdate.css";
 import { addAuthHeader } from "../apis/axiosConfig";
 import { updatePassword } from "../apis/UserInfo";
 import { useState } from "react";
+import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 const UserInfoUpdate = () => {
   const [newPassword, setNewPassword] = useState("");
@@ -11,7 +13,17 @@ const UserInfoUpdate = () => {
 
   const changePassword = async () => {
     if (newPassword !== confirmPassword) {
-      alert("비밀번호가 일치하지 않습니다.");
+      Swal.fire({
+        icon: "error",
+        title: "",
+        text: "비밀번호 확인이 잘못되었습니다.",
+        confirmButton: true,
+        confirmButtonText: "확인",
+        confirmButtonColor: "#FFCD4A",
+        customClass: {
+          confirmButton: "no-outline",
+        },
+      });
       return;
     }
     console.log("newpassword :", newPassword);
@@ -47,9 +59,11 @@ const UserInfoUpdate = () => {
           />
         </div>
         <div className="userinfoupdatebutton">
-          <button onClick={changePassword}>
-            <h5>변경하기</h5>
-          </button>
+          <Link to="/user">
+            <button onClick={changePassword}>
+              <h5>변경하기</h5>
+            </button>
+          </Link>
         </div>
       </div>
       <Footer />

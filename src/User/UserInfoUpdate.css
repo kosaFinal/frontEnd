@@ -39,9 +39,12 @@
   margin: -10% auto auto;
 }
 .userinfoupdatebutton button {
-  width: 70%;
+  width: 50%;
   font-size: 130%;
   height: 50px;
+  border: none;
+  border-radius: 10px;
+  background-color: #ffcd4a;
 }
 .userinfoupdatebutton h5 {
   margin: auto;
