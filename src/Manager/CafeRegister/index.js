@@ -120,7 +120,7 @@ const CafeRegister = () => {
         Swal.fire({
           icon: "warning",
           title: "",
-          text: `유효한 전화번호를 입력해주세요..`,
+          text: `유효한 전화번호를 입력해주세요.`,
           
           confirmButton: true,
           confirmButtonText: "확인",
@@ -133,12 +133,28 @@ const CafeRegister = () => {
         return;
       }
 
+      if (!cafeBasicInfo.address.townAddress || !cafeBasicInfo.address.areaAddress) {
+        Swal.fire({
+          icon: "warning",
+          title: "",
+          text: `카페 주소를 입력해주세요.`,
+          
+          confirmButton: true,
+          confirmButtonText: "확인",
+          confirmButtonColor: "#FFCD4A",
+          customClass: {
+            confirmButton: 'no-outline',
+          }
+      })
+        return;
+      }
+
       // 시간 유효성 검사 (시작 시간이 종료 시간보다 늦으면 안 됨)
       if (cafeBasicInfo.startTime >= cafeBasicInfo.endTime) {
         Swal.fire({
           icon: "warning",
           title: "",
-          text: `카페 종료 시간은 시작 시간보다 늦어야 합니다..`,
+          text: `카페 종료 시간은 시작 시간보다 늦어야 합니다.`,
           
           confirmButton: true,
           confirmButtonText: "확인",

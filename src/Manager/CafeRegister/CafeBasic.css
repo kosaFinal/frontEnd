@@ -1,3 +1,6 @@
+.cafe-register-box{
+  margin-bottom: 4rem;
+}
 .cafe-register-basic{
   display: flex;
   flex-direction: column;
@@ -5,6 +8,7 @@
   border: 1px solid #ccc;
   width: 40rem;
   margin-bottom: 1rem;
+  
 }
 
 .cafe-register-basic p {

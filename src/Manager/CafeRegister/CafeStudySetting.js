@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./CafeStudySetting.css";
 import { Link, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 
 const CafeStudySetting = ({ onStudySettingChange, onFinalSubmit,initialStudySetting, initialFile  }) => {
@@ -37,9 +38,32 @@ const CafeStudySetting = ({ onStudySettingChange, onFinalSubmit,initialStudySett
 
   const handleFinalSubmitWrapper = () => {
     if (studySetting === '') {
-      alert('카공 운영 여부를 선택해주세요.');
+      Swal.fire({
+        icon: "warning",
+        title: "",
+        text: `카공 운영 여부를 선택해주세요.`,
+        
+        confirmButton: true,
+        confirmButtonText: "확인",
+        confirmButtonColor: "#FFCD4A",
+        customClass: {
+          confirmButton: 'no-outline',
+        }
+    })
+      // alert('카공 운영 여부를 선택해주세요.');
     } else if (studySetting === 'Y' && !selectedFile) {
-      alert('카공 운영을 선택한 경우, 평면도 이미지를 업로드해야 합니다.');
+      Swal.fire({
+        icon: "warning",
+        title: "",
+        text: `평면도 이미지를 업로드해야 합니다. `,
+        confirmButton: true,
+        confirmButtonText: "확인",
+        confirmButtonColor: "#FFCD4A",
+        customClass: {
+          confirmButton: 'no-outline',
+        }
+    })
+      // alert('카공 운영을 선택한 경우, 평면도 이미지를 업로드해야 합니다.');
     } else {
       onFinalSubmit(); // 실제 제출 함수 호출
       navigate('/manager'); // 여기서 페이지 이동

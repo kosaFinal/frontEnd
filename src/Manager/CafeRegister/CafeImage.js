@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./CafeImage.css";
+import Swal from "sweetalert2";
 
 const CafeImage = ({onImageChange, cafeImages }) => {
   const handleTitleFileChange = (event) => {
@@ -12,7 +13,19 @@ const CafeImage = ({onImageChange, cafeImages }) => {
   const handleDetailFileChange = (event) => {
     const files = Array.from(event.target.files);
     if (files.length > 5) {
-      alert("상세 사진은 최대 5장까지만 선택할 수 있습니다.");
+      Swal.fire({
+        icon: "warning",
+        title: "",
+        text: `상세 사진은 최대 5장까지만 선택할 수 있습니다..`,
+        
+        confirmButton: true,
+        confirmButtonText: "확인",
+        confirmButtonColor: "#FFCD4A",
+        customClass: {
+          confirmButton: 'no-outline',
+        }
+    })
+      // alert("상세 사진은 최대 5장까지만 선택할 수 있습니다.");
       event.target.value = ""; // input 필드 초기화
       return;
     }

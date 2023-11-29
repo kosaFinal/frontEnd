@@ -1,6 +1,7 @@
 .EmptyRegister-container {
   margin: 2rem;
   display: flex;
+  height: 50rem;
   justify-content: center;
   align-items: center; /* 아이템들을 수직 가운데 정렬합니다. */
 }
