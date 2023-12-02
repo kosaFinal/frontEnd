@@ -313,11 +313,14 @@
 }
 .no-results {
   margin: auto;
-  margin-top: 250px;
+  margin-top: 220px;
 }
 .no-results img {
   width: 10%;
-  border: 2px solid black;
+  border: 2px solid #c8c8c8;
   border-radius: 100px;
-  padding: 20px;
+  padding: 10px;
+}
+.no-results h4 {
+  color: #c8c8c8;
 }
