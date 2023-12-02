@@ -5,6 +5,7 @@ import CancleModal from "./CancleModal";
 import ConfirmModal from "./ConfirmModal";
 import { managerChangeCancle, managerChangeConfirm, managerReadUpcoming } from "../../apis/ManagerReservation";
 import Swal from "sweetalert2";
+import { PulseLoader } from "react-spinners";
 
 const UpcomingTabContent = () => {
   const [upcomingRevInfo, setUpcomingRevInfo] = useState(null);
@@ -120,16 +121,18 @@ const UpcomingTabContent = () => {
     setCurrentPage(pageNumber);
   };
 
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchUpcomingRevInfo = async () => {
       try {
-   
+        setLoading(true);
         //네트워크 통신
         const response = await managerReadUpcoming();
         //응답으로 받은 board 객체를 상태로 저장
         setUpcomingRevInfo(response.data);
         console.log("데이터 :", response.data);
+        setLoading(false); 
       } catch (error) {
         console.error("There was an error!", error);
       }
@@ -139,7 +142,18 @@ const UpcomingTabContent = () => {
 
   return (
     <div>
-      {upcomingRevInfo && upcomingRevInfo.data.length === 0 ? (
+      {loading? (
+        <div className="loading-list">
+          <p>예약 내역을 불러오는 중입니다</p>
+          <PulseLoader
+            color="#CCC"
+            margin={5}
+            speedMultiplier={0.8}
+          />
+        </div>
+      ) : (
+        <>
+          {upcomingRevInfo && upcomingRevInfo.data.length === 0 ? (
       <div className="reservation-no-exist">예정중인 예약 현황이 없습니다.</div>
     ) : (
       <>
@@ -196,6 +210,8 @@ const UpcomingTabContent = () => {
       )}
       </>
     )}
+        </>
+      )}
     </div>
   );
 };

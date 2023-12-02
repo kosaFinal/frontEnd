@@ -74,3 +74,12 @@
   border: none !important;
   box-shadow: none !important;
 }
+
+.loading-list{
+  margin-top: 16rem;
+}
+
+.loading-list p {
+  font-size: 1.4rem;
+  color: #a4a4a4;
+}

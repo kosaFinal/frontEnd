@@ -6,6 +6,7 @@ import "./StatusTabContent.css";
 import "./Paging.css";
 import { managerChangeCancle, managerChangeFinish, managerReadProgress } from "../../apis/ManagerReservation";
 import Swal from "sweetalert2";
+import { PulseLoader } from "react-spinners";
 
 const InProgressTabContent = () => {
   const [progressRevInfo, setProgressRevInfo] = useState(null);
@@ -79,6 +80,7 @@ const InProgressTabContent = () => {
     setIsFinishModalOpen(false);
   };
 
+
   const handleReservationFinish =  async (reservationIds) => {
     // 이용 종료 로직
     try {
@@ -121,16 +123,18 @@ const InProgressTabContent = () => {
     setCurrentPage(pageNumber);
   };
 
-
+  const [loading, setLoading] = useState(true);
+  
   useEffect(() => {
     const fetchProgressRevInfo = async () => {
       try {
-
+        setLoading(true);
         //네트워크 통신
         const response = await managerReadProgress();
         //응답으로 받은 board 객체를 상태로 저장
         setProgressRevInfo(response.data);
         console.log("데이터 :", response.data);
+        setLoading(false); 
       } catch (error) {
         console.error("There was an error!", error);
       }
@@ -140,7 +144,18 @@ const InProgressTabContent = () => {
 
   return (
     <div>
-       {progressRevInfo && progressRevInfo.data.length === 0 ? (
+      {loading? (
+        <div className="loading-list">
+          <p>예약 내역을 불러오는 중입니다</p>
+          <PulseLoader
+            color="#CCC"
+            margin={5}
+            speedMultiplier={0.8}
+          />
+        </div>
+      ) : (
+        <>
+          {progressRevInfo && progressRevInfo.data.length === 0 ? (
         <div className="reservation-no-exist">진행중인 예약 현황이 없습니다.</div>
        ) : (
       <>
@@ -164,39 +179,41 @@ const InProgressTabContent = () => {
             </div>
           ))}
 
-      {progressRevInfo && (
-        <ReactPaginate 
-          activePage={currentPage}
-          itemsCountPerPage={itemsPerPage}
-          totalItemsCount={progressRevInfo.data.length}
-          pageRangeDisplayed={5}
-          onChange={handlePageChange}
-          prevPageText={"‹"}
-          nextPageText={"›"}
-        />
-      )}
+        {progressRevInfo && (
+          <ReactPaginate 
+            activePage={currentPage}
+            itemsCountPerPage={itemsPerPage}
+            totalItemsCount={progressRevInfo.data.length}
+            pageRangeDisplayed={5}
+            onChange={handlePageChange}
+            prevPageText={"‹"}
+            nextPageText={"›"}
+          />
+        )}
 
-      {isFinishModalOpen && <div className="backdrop"></div>}
-      {isFinishModalOpen && (
-        <FinishModal
-          isOpen={isFinishModalOpen}
-          onClose={handleCloseFinishModal}
-          onConfirm={handleReservationFinish}
-          reservationIds={finishReservationIds}
-        />
-      )}
+        {isFinishModalOpen && <div className="backdrop"></div>}
+        {isFinishModalOpen && (
+          <FinishModal
+            isOpen={isFinishModalOpen}
+            onClose={handleCloseFinishModal}
+            onConfirm={handleReservationFinish}
+            reservationIds={finishReservationIds}
+          />
+        )}
 
-      {isCancleModalOpen && <div className="backdrop"></div>}
-      {isCancleModalOpen && (
-        <CancleModal
-          isOpen={isCancleModalOpen}
-          onClose={handleCloseCancleModal}
-          onConfirm={handleCancleConfirm}
-          reservationIds={cancleReservationIds}
-        />
-      )}
+        {isCancleModalOpen && <div className="backdrop"></div>}
+        {isCancleModalOpen && (
+          <CancleModal
+            isOpen={isCancleModalOpen}
+            onClose={handleCloseCancleModal}
+            onConfirm={handleCancleConfirm}
+            reservationIds={cancleReservationIds}
+          />
+        )}
       </>
     )}
+        </>
+      )}
     </div>
   );
 };
