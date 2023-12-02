@@ -3,6 +3,7 @@ import './ManagerUpdateStudySetting.css';
 import {managerSettingRead,managerSettingCafeStudyUpdate, managerSettingCafeImgUpdate,managerSettingCafeTableUpdate, managerSettingCafeTableDelete} from "./../apis/ManagerUpdateAxios";
 import { async } from 'q';
 import Swal from 'sweetalert2';
+import { PulseLoader } from 'react-spinners';
 
 function ManagerUpdateStudySetting() {
     const [selectedFileName, setSelectedFileName] = useState('');
@@ -70,7 +71,11 @@ function ManagerUpdateStudySetting() {
           reader.readAsDataURL(file);
       }
     };
-    
+
+    useEffect(() => {
+      fetchData();
+    }, [floorPlanImage]);
+
     const handleFloorPlanSaveClick = async () => {
       if (!file) {
         Swal.fire({
@@ -240,7 +245,12 @@ function ManagerUpdateStudySetting() {
 };
 
 
+
+const [isLoading, setIsLoading] = useState(false);
     async function fetchData() {
+      if (isLoading) return;
+      setIsLoading(true);
+      
         try {
             const response = await managerSettingRead();
             if (response.data.isSuccess) {
@@ -268,16 +278,22 @@ function ManagerUpdateStudySetting() {
             console.error('매니저 설정 로드 실패:', error);
         }
         finally {
-          console.log(floorPlanImage)
+          setIsLoading(false);
         }
     }
   
 
-useEffect(() => {
-  fetchData();
-}, [cafeStatus,floorPlanImage]);
+   
+
     return (
         <div className="ManagerUpdateStudySetting">
+           {isLoading ? (
+        <div className="Manager-res-spinner-container">
+          <PulseLoader color="#929292" margin={5} size={15} speedMultiplier={0.5}/>
+          <h4>예약 내역을 불러오는중</h4>
+        </div>
+      ) : (
+        <>
             <div className="ManagerUpdateStudySetting-Container">
                 <div className={`ManagerUpdateStudySetting-Container-Items ${!cafeStatus ? 'ManagerUpdateStudySetting-Container-Items-hidden' : ''}`}>
                     {/* 카페 카공 여부 */}
@@ -452,6 +468,8 @@ useEffect(() => {
             </div>
           </div> 
         </div>  
+        </>
+  )}
       </div> 
     );
 }

@@ -4,6 +4,7 @@ import DaumPost from "./Component/DaumPost";
 import { useOutletContext } from "react-router-dom"; 
 import {managerBasicRead, managerBasicCafeTelUpdate,managerBasicCafeAddressUpdate,managerBasicCafeRepImgUpdate} from "./../apis/ManagerUpdateAxios";
 import Swal from "sweetalert2";
+import { PulseLoader } from "react-spinners";
 
 
 function ManagerUpdateBasic() {
@@ -35,9 +36,10 @@ function ManagerUpdateBasic() {
     const [tempFloorPlanImage, setTempFloorPlanImage] = useState('');
     const [file, setFile] = useState(null);
     const [selectedFileName, setSelectedFileName] = useState('');
-
+    const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     const fetchData = async () => {
+      setIsLoading(true);
       try {
         const response = await managerBasicRead();
         if (response.data.isSuccess) {
@@ -64,6 +66,8 @@ function ManagerUpdateBasic() {
         }
       } catch (error) {
         console.error("API 호출 중 에러 발생: ", error);
+      }finally {
+        setIsLoading(false);
       }
     };
   
@@ -203,6 +207,13 @@ function ManagerUpdateBasic() {
 
   return (
     <div className="ManagerUpdateBasic">
+ {isLoading ? (
+        <div className="Manager-res-spinner-container">
+          <PulseLoader color="#929292" margin={5} size={15} speedMultiplier={0.5}/>
+          <h4>카페 정보를 불러오는중</h4>
+        </div>
+      ) : (
+        <>
       <div className="ManagerUpdateBasic-Container">
         <div className="ManagerUpdateBasic-Container-Items">
           <div className="ManagerUpdateBasic-Container-Names">
@@ -336,6 +347,7 @@ function ManagerUpdateBasic() {
       </div>
       </div>
     </div>
+    </>)}
     </div>
   );
 }

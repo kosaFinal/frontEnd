@@ -5,6 +5,7 @@ import DatePicker from "react-datepicker";
 import {managerDetailRead,managerDetailCafeTimeUpdate, managerDetailCafeFeatureUpdate} from "./../apis/ManagerUpdateAxios";
 import { async } from "q";
 import Swal from "sweetalert2";
+import { PulseLoader } from "react-spinners";
 
 function ManagerUpdateDetail() {
   const roundToHour = (date) => {
@@ -149,10 +150,11 @@ function ManagerUpdateDetail() {
       </button>
     );
   };
-
+  const [isLoading, setIsLoading] = useState(false);
   useEffect(() => {
     // API 호출을 통해 카페 정보를 가져옵니다.
     const fetchData = async () => {
+      setIsLoading(true);
       try {
         const response = await managerDetailRead(); // API 호출
         if (response.data.isSuccess) {
@@ -183,6 +185,8 @@ function ManagerUpdateDetail() {
         }
       } catch (error) {
         console.error("API 호출 중 오류 발생: ", error);
+      }finally {
+        setIsLoading(false);
       }
     };
 
@@ -191,6 +195,13 @@ function ManagerUpdateDetail() {
 
   return (
     <div className="ManagerUpdateDetail">
+       {isLoading ? (
+        <div className="Manager-res-spinner-container">
+          <PulseLoader color="#929292" margin={5} size={15} speedMultiplier={0.5}/>
+          <h4>예약 내역을 불러오는중</h4>
+        </div>
+      ) : (
+        <>
       <div className="ManagerUpdateDetail-Container">
         <div className="ManagerUpdateDetail-Container-Items">
           {/* 카페 운영시간 */}
@@ -326,9 +337,14 @@ function ManagerUpdateDetail() {
               </div>
             </div>
           )}
+         
         </div>
+        
       </div>
+      </>
+          )}
     </div>
+    
   );
 }
 
