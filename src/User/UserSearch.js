@@ -288,15 +288,7 @@ const UserSearch = () => {
             <img src="/assets/searchnav_map.png" alt="search map" />
             <h5>MAP</h5>
           </div>
-          <div className="searchnav_time">
-            <Link to={`/user/reservationstatus/${reservationId}`}>
-              <img src="/assets/searchnav_time.png" alt="search time" />
-              <h5>
-                실시간 예약
-                <br /> 현황
-              </h5>
-            </Link>
-          </div>
+          
           <div className="searchnav_mypage">
             <Link to="/user/myinfo">
               <img src="/assets/searchnav_mypage.png" alt="search mypage" />
@@ -307,7 +299,7 @@ const UserSearch = () => {
             <Link to="/user/myreservation">
               <img src="/assets/searchnav_calendar.png" alt="search calendar" />
               <h5>
-                날짜별 예약
+                내 예약
                 <br /> 내역 조회
               </h5>
             </Link>
