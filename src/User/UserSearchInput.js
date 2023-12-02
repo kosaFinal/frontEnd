@@ -3,6 +3,7 @@ import "./UserSearchInput.css";
 import UserSearchCafeInfo from "./UserSearchCafeInfo";
 import UserSearchFilter from "./UserSearchFilterModal";
 import { filterSearch } from "../apis/Search";
+import { PulseLoader } from "react-spinners";
 
 const UserSearchInput = ({
   onClose,
@@ -19,6 +20,7 @@ const UserSearchInput = ({
   const [totalPages, setTotalPages] = useState(0);
   const [displayedResults, setDisplayedResults] = useState([]);
   const [parentResults, setParentResults] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [buttonStates, setButtonStates] = useState({
     button1: "N",
     button2: "N",
@@ -118,6 +120,8 @@ const UserSearchInput = ({
   };
 
   const searchFilter = async (page = currentPage) => {
+    setLoading(true);
+    setDisplayedResults([]);
     const selectedFeatures = Object.entries(featureButtonStates)
       .filter(([key, value]) => value === "Y" && featureMapping[key])
       .map(([key]) => featureMapping[key])
@@ -145,8 +149,13 @@ const UserSearchInput = ({
       if (response.data.data.pager) {
         setTotalPages(response.data.data.pager.totalPageNo);
       }
+      if (response.data.data.searchCafes.length === 0) {
+        setDisplayedResults([]);
+      }
     } catch (error) {
       console.error("Search filter error:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -300,48 +309,62 @@ const UserSearchInput = ({
           </div>
         )}
         <hr />
-        {displayedResults.length > 0 && (
-          <div className="search_cafe_info_list">
-            {displayedResults.map((cafe, index) => (
-              <div
-                key={index}
-                className="search_cafe_info"
-                onClick={() => handleCafeClick(cafe.cafeId)}
-              >
-                <div className="search_cafe_info_img">
-                  <img
-                    src={`data:image/;base64,${cafe.cafeReqImg}`}
-                    alt={cafe.cafeName}
-                  />
-                </div>
-                <div className="search_cafe_info_text">
-                  <h5>{cafe.cafeName}</h5>
-                  <p>
-                    <span>이용시간 :</span> {cafe.startTime} ~ {cafe.endTime}
-                  </p>
-                  <p className="search_cafe_info_text-address">
-                    주소 : {cafe.address}
-                  </p>
-                </div>
-              </div>
-            ))}
+        {loading ? (
+          <div className="spinner-container">
+            <PulseLoader color="#929292" margin={5} size={11} />
+            <h4>검색 중</h4>
           </div>
-        )}
-        <div className="page_white">
-          {!parentResults && (
-            <div className="user_search_pagination">
-              {Array.from({ length: totalPages }, (_, index) => (
-                <button
-                  key={index + 1}
-                  onClick={() => handlePageChange(index + 1)}
-                  className={currentPage === index + 1 ? "active" : ""}
+        ) : displayedResults.length > 0 ? (
+          <>
+            <div className="search_cafe_info_list">
+              {displayedResults.map((cafe, index) => (
+                <div
+                  key={index}
+                  className="search_cafe_info"
+                  onClick={() => handleCafeClick(cafe.cafeId)}
                 >
-                  {index + 1}
-                </button>
+                  <div className="search_cafe_info_img">
+                    <img
+                      src={`data:image/;base64,${cafe.cafeReqImg}`}
+                      alt={cafe.cafeName}
+                    />
+                  </div>
+                  <div className="search_cafe_info_text">
+                    <h5>{cafe.cafeName}</h5>
+                    <p>
+                      <span>이용시간 :</span> {cafe.startTime} ~ {cafe.endTime}
+                    </p>
+                    <p className="search_cafe_info_text-address">
+                      주소 : {cafe.address}
+                    </p>
+                  </div>
+                </div>
               ))}
             </div>
-          )}
-        </div>
+            <div className="page_white">
+              {!parentResults && totalPages > 0 && (
+                <div className="user_search_pagination">
+                  {Array.from({ length: totalPages }, (_, index) => (
+                    <button
+                      key={index + 1}
+                      onClick={() => handlePageChange(index + 1)}
+                      className={currentPage === index + 1 ? "active" : ""}
+                    >
+                      {index + 1}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          </>
+        ) : (
+          <div className="no-results">
+            <h4>검색 결과가 없습니다.</h4>
+            <br />
+            <img src="/assets/search-x.png" />
+          </div>
+        )}
+
         {showInfo && (
           <div className="searchcafeinfo">
             <UserSearchCafeInfo

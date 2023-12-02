@@ -6,7 +6,7 @@
   border-left: 1px solid black;
 }
 
-.searchinput_form button{
+.searchinput_form button {
   font-size: 1rem;
   font-weight: normal;
 }
@@ -89,7 +89,6 @@
   border: 1.5px solid rgb(185, 185, 185);
   font-weight: normal;
   font-size: 16px;
-
 }
 .search_button_filter {
   width: 30%;
@@ -305,4 +304,20 @@
 .user_search_pagination button.active {
   font-weight: bold;
   color: #46a2f4;
+}
+.spinner-container {
+  margin: auto;
+  margin-top: 250px;
+
+  color: #929292;
+}
+.no-results {
+  margin: auto;
+  margin-top: 250px;
+}
+.no-results img {
+  width: 10%;
+  border: 2px solid black;
+  border-radius: 100px;
+  padding: 20px;
 }
