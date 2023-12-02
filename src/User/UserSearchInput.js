@@ -8,8 +8,8 @@ import { PulseLoader } from "react-spinners";
 const UserSearchInput = ({
   onClose,
   searchResults,
-  onPageChange,
-  onLocationDataReceived,
+  onDataReceivedFromChild,
+  userLocation,
 }) => {
   console.log("부모한테 받아옴:", searchResults);
   const [showInfo, setShowInfo] = useState(false);
@@ -103,9 +103,26 @@ const UserSearchInput = ({
   };
 
   const handleCafeClick = (cafeId) => {
-    setSelectedCafeId(cafeId);
-    setShowInfo(true);
-    console.log(cafeId);
+    console.log("handleCafeClick 호출됨", cafeId);
+    const selectedCafe = displayedResults.find(
+      (cafe) => cafe.cafeId === cafeId
+    );
+    if (selectedCafe) {
+      console.log("선택된 카페:", selectedCafe);
+      if (
+        selectedCafe.latitude !== userLocation.lat ||
+        selectedCafe.longitude !== userLocation.lon
+      ) {
+        console.log("위치 데이터 전송:", selectedCafe);
+        onDataReceivedFromChild({
+          latitude: selectedCafe.latitude,
+          longitude: selectedCafe.longitude,
+          distance: selectedCafe.distance,
+        });
+      }
+      setSelectedCafeId(cafeId);
+      setShowInfo(true);
+    }
   };
 
   const handleSearchClick = () => {
@@ -113,13 +130,27 @@ const UserSearchInput = ({
   };
 
   const handlePageChange = (newPage) => {
+    console.log("handlePageChange 함수 호출", newPage);
     if (!parentResults) {
       setCurrentPage(newPage);
       searchFilter(newPage); // 새 페이지에 대한 검색 결과 업데이트
     }
   };
 
+  useEffect(() => {
+    if (searchResults && searchResults.length > 0) {
+      console.log("검색 결과 데이터:", searchResults);
+      setDisplayedResults(searchResults);
+      setParentResults(true);
+      setTotalPages(0);
+    } else {
+      console.log("검색 결과 데이터가 없음:", searchResults);
+      setParentResults(false);
+    }
+  }, [searchResults]);
+
   const searchFilter = async (page = currentPage) => {
+    console.log("searchFilter 함수 호출", page);
     setLoading(true);
     setDisplayedResults([]);
     const selectedFeatures = Object.entries(featureButtonStates)
@@ -138,13 +169,15 @@ const UserSearchInput = ({
       preferSeat: modalData.preferSeat,
       word: word,
       pageNo: page,
+      longtitude: userLocation ? userLocation.lon : 126.88268,
+      latitude: userLocation ? userLocation.lat : 37.479943,
     };
     console.log(JSON.stringify(filterQueryData, null, 2));
 
     try {
       const response = await filterSearch(filterQueryData);
       setApiResponseData(response.data.data.searchCafes);
-      onLocationDataReceived(response.data.data);
+      onDataReceivedFromChild(response.data.data.searchCafes);
       setParentResults(null);
       if (response.data.data.pager) {
         setTotalPages(response.data.data.pager.totalPageNo);
@@ -168,17 +201,23 @@ const UserSearchInput = ({
   };
 
   useEffect(() => {
+    console.log("useEffect: displayedResults 업데이트", displayedResults);
     if (apiResponseData && apiResponseData.pager) {
       setTotalPages(apiResponseData.pager.totalPageNo);
     }
   }, [apiResponseData]);
 
   useEffect(() => {
+    console.log(
+      "UserSearchInput 컴포넌트: searchResults prop 변경됨",
+      searchResults
+    );
     if (
       searchResults &&
       searchResults.searchCafes &&
       searchResults.searchCafes.length > 0
     ) {
+      console.log("검색 결과 데이터:", searchResults.searchCafes);
       setDisplayedResults(searchResults.searchCafes);
       setParentResults(true);
       setTotalPages(0);
@@ -187,10 +226,27 @@ const UserSearchInput = ({
     }
   }, [searchResults]);
   useEffect(() => {
-    if (!parentResults && apiResponseData && apiResponseData.length > 0) {
-      setDisplayedResults(apiResponseData);
+    if (apiResponseData) {
+      onDataReceivedFromChild(apiResponseData);
     }
-  }, [apiResponseData, parentResults]);
+  }, [apiResponseData]);
+  useEffect(() => {
+    console.log("검색 결과 데이터:", searchResults);
+    if (searchResults && searchResults.length > 0) {
+      setDisplayedResults(searchResults);
+      setParentResults(true);
+      setTotalPages(0); // 또는 검색 결과에 따라 적절한 페이지 수 설정
+    } else {
+      console.log("검색 결과 데이터가 없음");
+      setDisplayedResults([]);
+      setParentResults(false);
+    }
+  }, [searchResults]);
+
+  useEffect(() => {
+    // displayedResults 상태가 업데이트될 때마다 로그를 출력
+    console.log("displayedResults 업데이트:", displayedResults);
+  }, [displayedResults]);
   return (
     <usersearchinput>
       <div className="searchinput_form">
@@ -314,10 +370,46 @@ const UserSearchInput = ({
             <PulseLoader color="#929292" margin={5} size={11} />
             <h4>검색 중</h4>
           </div>
-        ) : displayedResults.length > 0 ? (
+        ) : parentResults ? (
+          displayedResults.length > 0 ? (
+            <>
+              <div className="search_cafe_info_list">
+                {displayedResults.map((cafe, index) => (
+                  <div
+                    key={index}
+                    className="search_cafe_info"
+                    onClick={() => handleCafeClick(cafe.cafeId)}
+                  >
+                    <div className="search_cafe_info_img">
+                      <img
+                        src={`data:image/;base64,${cafe.cafeReqImg}`}
+                        alt={cafe.cafeName}
+                      />
+                    </div>
+                    <div className="search_cafe_info_text">
+                      <h5>{cafe.cafeName}</h5>
+                      <p>
+                        <span>이용시간 :</span> {cafe.startTime} ~{" "}
+                        {cafe.endTime}
+                      </p>
+                      <p className="search_cafe_info_text-address">
+                        주소 : {cafe.address}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </>
+          ) : (
+            <div className="no-results">
+              <img src="/assets/no_result.png" />
+              <h4>검색 결과가 없습니다.</h4>
+            </div>
+          )
+        ) : apiResponseData && apiResponseData.length > 0 ? (
           <>
             <div className="search_cafe_info_list">
-              {displayedResults.map((cafe, index) => (
+              {apiResponseData.map((cafe, index) => (
                 <div
                   key={index}
                   className="search_cafe_info"
@@ -342,7 +434,7 @@ const UserSearchInput = ({
               ))}
             </div>
             <div className="page_white">
-              {!parentResults && totalPages > 0 && (
+              {totalPages > 0 && (
                 <div className="user_search_pagination">
                   {Array.from({ length: totalPages }, (_, index) => (
                     <button
@@ -359,9 +451,8 @@ const UserSearchInput = ({
           </>
         ) : (
           <div className="no-results">
+            <img src="/assets/no_result.png" />
             <h4>검색 결과가 없습니다.</h4>
-            <br />
-            <img src="/assets/search-x.png" />
           </div>
         )}
 

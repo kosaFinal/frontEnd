@@ -8,11 +8,13 @@ const { kakao } = window;
 
 const UserSearch = () => {
   const [showInput, setShowInput] = useState(false);
+  const [searchResults, setSearchResults] = useState([]);
   const [map, setMap] = useState(null);
   const [showMarker, setShowMarker] = useState([]);
   const [mapCenter, setMapCenter] = useState(null);
   const [activeOverlays, setActiveOverlays] = useState([]);
   const [nowData, setNowData] = useState([]);
+  const [userLocation, setUserLocation] = useState(null);
   const { reservationId } = useParams();
 
   const toggleUserSearchInput = () => {
@@ -27,30 +29,26 @@ const UserSearch = () => {
     setActiveOverlays([]);
   }
 
-  const handleLocationData = (data) => {
-    console.log("Received data:", data);
+  const handleLocationData = (cafesData) => {
     clearMarkersAndOverlays();
 
-    data.locations.forEach((location) => {
-      const cafeInfo = data.searchCafes.find(
-        (cafe) => cafe.cafeName === location.cafeName
-      );
+    cafesData.forEach((cafeInfo) => {
+      const {
+        latitude,
+        longtitude,
+        cafeName,
+        cafeReqImg,
+        address,
+        startTime,
+        endTime,
+        cafeTel,
+      } = cafeInfo;
 
-      if (!cafeInfo) {
-        console.error("No cafeInfo found for:", location.cafeName);
-        return;
-      }
-
-      console.log("Creating marker for:", location.cafeName);
-      const position = new kakao.maps.LatLng(
-        location.latitude,
-        location.longtitude
-      );
-
+      const position = new kakao.maps.LatLng(latitude, longtitude);
       const marker = new kakao.maps.Marker({
         map: map,
         position: position,
-        title: location.cafeName,
+        title: cafeName,
         image: markerImage,
       });
 
@@ -60,17 +58,17 @@ const UserSearch = () => {
           <div class="wrap">
             <div class="info">
               <div class="title">
-                ${cafeInfo.cafeName}
+                ${cafeName}
                 <div class="close" title="닫기"></div>
               </div>
               <div class="body">
                 <div class="img">
-                  <img src="data:image/;base64,${cafeInfo.cafeReqImg}" width="73" height="70">
+                  <img src="data:image/;base64,${cafeReqImg}" width="73" height="70">
                 </div>
                 <div class="desc">
-                  <div class="ellipsis">${cafeInfo.address}</div>
-                  <div class="jibun ellipsis">운영 시간: ${cafeInfo.startTime} ~ ${cafeInfo.endTime}</div>
-                  <div class="ellipsis">전화번호: ${location.cafeTel}</div>
+                  <div class="ellipsis">${address}</div>
+                  <div class="jibun ellipsis">운영 시간: ${startTime} ~ ${endTime}</div>
+                  <div class="ellipsis">전화번호: ${cafeTel}</div>
                 </div>
               </div>
             </div>
@@ -126,6 +124,7 @@ const UserSearch = () => {
             const lat = position.coords.latitude;
             const lon = position.coords.longitude;
             initMap(lat, lon);
+            setUserLocation({ lat, lon });
           },
           () => {
             console.error("Cannot access user location");
@@ -137,6 +136,7 @@ const UserSearch = () => {
 
     initMapAtUserLocation();
   }, []);
+
   const handleClick = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -178,6 +178,14 @@ const UserSearch = () => {
       }
     };
   }, [map]);
+  useEffect(() => {
+    if (nowData && nowData.length > 0) {
+      console.log("nowData 변경됨:", nowData);
+      handleLocationData(nowData);
+    } else {
+      console.log("nowData가 비어있거나 유효하지 않음:", nowData);
+    }
+  }, [nowData]);
   const handleSearchInCurrentMap = () => {
     if (map) {
       // 현재 중심좌표 get
@@ -188,28 +196,23 @@ const UserSearch = () => {
       clearMarkersAndOverlays();
       locationSearch(lng, lat)
         .then((response) => {
-          const { locations, searchCafes } = response.data.data;
-          setNowData({ locations, searchCafes });
-          handleLocationData(response.data.data);
-          locations.forEach((location) => {
-            const cafeInfo = searchCafes.find(
-              (cafe) => cafe.cafeName === location.cafeName
-            );
-
-            if (!cafeInfo) {
-              console.error("No cafeInfo found for:", location.cafeName);
-              return;
-            }
-
+          console.log(
+            "UserSearch 컴포넌트: locationSearch 응답 데이터",
+            response.data.data.searchCafes
+          );
+          const searchCafes = response.data.data.searchCafes;
+          setNowData(searchCafes);
+          handleLocationData(searchCafes);
+          setSearchResults(searchCafes);
+          searchCafes.forEach((cafeInfo) => {
             const position = new kakao.maps.LatLng(
-              location.latitude,
-              location.longtitude
+              cafeInfo.latitude,
+              cafeInfo.longtitude
             );
-
             const marker = new kakao.maps.Marker({
               map: map,
               position: position,
-              title: location.cafeName,
+              title: cafeInfo.cafeName,
               image: markerImage,
             });
 
@@ -229,7 +232,7 @@ const UserSearch = () => {
                       <div class="desc">
                         <div class="ellipsis">${cafeInfo.address}</div>
                         <div class="jibun ellipsis">운영 시간: ${cafeInfo.startTime} ~ ${cafeInfo.endTime}</div>
-                        <div class="ellipsis">전화번호: ${location.cafeTel}</div>
+                        <div class="ellipsis">전화번호: ${cafeInfo.cafeTel}</div>
                       </div>
                     </div>
                   </div>
@@ -288,7 +291,7 @@ const UserSearch = () => {
             <img src="/assets/searchnav_map.png" alt="search map" />
             <h5>MAP</h5>
           </div>
-          
+
           <div className="searchnav_mypage">
             <Link to="/user/myinfo">
               <img src="/assets/searchnav_mypage.png" alt="search mypage" />
@@ -317,8 +320,9 @@ const UserSearch = () => {
           <div className="searchnav-right">
             <UserSearchInput
               onClose={toggleUserSearchInput}
-              onLocationDataReceived={handleLocationData}
-              searchResults={nowData}
+              onDataReceivedFromChild={handleLocationData}
+              searchResults={searchResults}
+              userLocation={userLocation}
             />
           </div>
         )}
