@@ -108,3 +108,10 @@
   height: 100%;
   object-fit: cover;
 }
+
+.user_reservation_loading{
+  font-size: 1.4rem;
+  color: #a4a4a4;
+  text-align: center;
+  margin: 11rem;
+}

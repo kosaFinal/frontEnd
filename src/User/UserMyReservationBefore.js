@@ -3,11 +3,13 @@ import "./UserMyReservation.css";
 import { useEffect, useState } from "react";
 import ReactPaginate from "react-js-pagination";
 import { reservationProgress } from "../apis/UserReservation";
+import { PulseLoader } from "react-spinners";
 
 const UserMyReservationBefore = () => {
   const [reservationBefore, setReservationBefore] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 3;
+  const [loading, setLoading] = useState(true);
 
   const paginate = (data) => {
     const startIndex = (currentPage - 1) * itemsPerPage;
@@ -21,11 +23,14 @@ const UserMyReservationBefore = () => {
   useEffect(() => {
     const reservationBeforeInfo = async () => {
       try {
+        setLoading(true);
         const response = await reservationProgress();
         setReservationBefore(response.data.data);
         console.log("잘 읽는중 : ", response.data);
       } catch (error) {
         console.error("잘좀 해봐 : ", error);
+      } finally {
+       setLoading(false);
       }
     };
     reservationBeforeInfo();
@@ -34,7 +39,18 @@ const UserMyReservationBefore = () => {
   return (
     <usermyreservationbefore>
       <div className="user_myReservation-container_before">
-        {reservationBefore.length === 0 ? (
+        {loading? (
+          <div className="user_myReservation_loading">
+            <p>예약 내역을 불러오는 중입니다</p>
+            <PulseLoader
+              color="#CCC"
+              margin={5}
+              speedMultiplier={0.8}
+            />
+          </div>
+        ) : (
+          <>
+            {reservationBefore.length === 0 ? (
           <div className="user_myReservation_no_exist">
             예약 현황이 없습니다.
           </div>
@@ -85,6 +101,8 @@ const UserMyReservationBefore = () => {
               prevPageText={"‹"}
               nextPageText={"›"}
             />
+          </>
+        )}
           </>
         )}
       </div>
