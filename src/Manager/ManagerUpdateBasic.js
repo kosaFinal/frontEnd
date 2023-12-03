@@ -307,7 +307,7 @@ function ManagerUpdateBasic() {
             </div>
           </div>
 
-{/* 평면도 수정 관련 UI */}
+{/* 대표 사진 변경 */}
 <div className="ManagerUpdateBasic-Container-RepImg">
           <div className="ManagerUpdateBasic-Container-RepImg-Update-labeling">
             <div className="ManagerUpdateBasic-Container-RepImg-Update-labeling-divs">

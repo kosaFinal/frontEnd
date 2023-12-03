@@ -32,7 +32,7 @@ const CafeRegister = () => {
      startTime: defaultStartTime, // 여기에서 초기값 설정
     endTime: defaultEndTime,     // 여기에서 초기값 설정
   });
-  
+
   const [cafeImages, setCafeImages] = useState({
     titleFile: null,
     detailFiles: [],
@@ -68,6 +68,7 @@ const CafeRegister = () => {
 
   const addNumber = () => {
     if (number === 1) {
+      
       if (cafeName.trim().length < 1) {
         Swal.fire({
           icon: "warning",
@@ -84,6 +85,7 @@ const CafeRegister = () => {
         // alert("카페이름은 1글자 이상 입력해야 합니다.");
         return;
       }
+
     }
 
     if (number === 2 && !cafeType) {
@@ -196,6 +198,18 @@ const CafeRegister = () => {
 
     setNumer((prevNumber) => {
       if (prevNumber >= 6) {
+        Swal.fire({
+          icon: "warning",
+          title: "",
+          text: `마지막 페이지 입니다.`,
+          
+          confirmButton: true,
+          confirmButtonText: "확인",
+          confirmButtonColor: "#FFCD4A",
+          customClass: {
+            confirmButton: 'no-outline',
+          }
+      })
         return 6;
       }
       return prevNumber + 1;
