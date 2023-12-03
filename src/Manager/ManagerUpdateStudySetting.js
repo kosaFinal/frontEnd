@@ -72,9 +72,7 @@ function ManagerUpdateStudySetting() {
       }
     };
 
-    useEffect(() => {
-      fetchData();
-    }, [floorPlanImage]);
+    
 
     const handleFloorPlanSaveClick = async () => {
       if (!file) {
@@ -98,10 +96,12 @@ function ManagerUpdateStudySetting() {
   
     const formData = new FormData();
     formData.append('studyImg', file);
+    // setIsLoading(true);
+
         try {
             const response = await managerSettingCafeImgUpdate(formData);
             if (response.data.isSuccess) {
-                setFloorPlanImage(tempFloorPlanImage); // 새로운 평면도 이미지 저장
+                setFloorPlanImage(response.data.data.studyImg); // 새로운 평면도 이미지 저장
                 setIsEditingFloorPlan(false);
             } else {
                 console.log("이미지 업데이트 실패: ", response.data.message);
@@ -165,7 +165,7 @@ function ManagerUpdateStudySetting() {
           updateSeatsWithSorting(section, newSeat); // 상태 업데이트와 정렬을 한 번에 처리
           // setSeats 호출 부분 제거
           setSeatInput(prevInput => ({ ...prevInput, [section]: '' })); // 입력 필드 초기화
-          await fetchData();
+          // await fetchData();
         } else {
           console.log("좌석 추가 실패: ", response.data.message);
         }
@@ -185,7 +185,7 @@ function ManagerUpdateStudySetting() {
           ...prevSeats,
           [section]: prevSeats[section].filter(seat => seat.id !== seatId),
         }));
-        await fetchData();
+        // await fetchData();
       } else {
         console.log("좌석 삭제 실패: ", response.data.message);
       }
@@ -247,9 +247,9 @@ function ManagerUpdateStudySetting() {
 
 
 const [isLoading, setIsLoading] = useState(false);
-    async function fetchData() {
-      if (isLoading) return;
-      setIsLoading(true);
+const fetchData = async () => {
+  if (isLoading) return;
+  setIsLoading(true);
       
         try {
             const response = await managerSettingRead();
@@ -283,6 +283,9 @@ const [isLoading, setIsLoading] = useState(false);
     }
   
 
+    useEffect(() => {
+      fetchData();
+    }, []);
    
 
     return (

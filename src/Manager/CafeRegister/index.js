@@ -12,6 +12,12 @@ import { managerCafeReg } from "./../../apis/CafeReg";
 import Swal from "sweetalert2";
 
 const CafeRegister = () => {
+  const defaultStartTime = new Date();
+  defaultStartTime.setHours(9, 0, 0); // 오전 9시로 설정
+
+  const defaultEndTime = new Date();
+  defaultEndTime.setHours(21, 0, 0); // 오후 9시(21시)로 설정
+
   const [number, setNumer] = useState(1);
   const [cafeName, setCafeName] = useState("");
   const [cafeType, setCafeType] = useState("");
@@ -23,9 +29,10 @@ const CafeRegister = () => {
       Y: "",
     },
     phoneNumber: "",
-    startTime: new Date(),
-    endTime: new Date(),
+     startTime: defaultStartTime, // 여기에서 초기값 설정
+    endTime: defaultEndTime,     // 여기에서 초기값 설정
   });
+  
   const [cafeImages, setCafeImages] = useState({
     titleFile: null,
     detailFiles: [],

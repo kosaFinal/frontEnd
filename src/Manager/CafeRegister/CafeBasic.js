@@ -5,20 +5,31 @@ import 'react-datepicker/dist/react-datepicker.css';
 import DaumPost from '../Component/DaumPost';
 
 const CafeBasic = ({ cafeBasicInfo, onBasicInfoChange  }) => {
+  const createDefaultStartTime = () => {
+    const startTime = new Date();
+    startTime.setHours(9, 0, 0);
+    return startTime;
+  };
+
+  // 오후 9시(21시)로 설정하는 함수
+  const createDefaultEndTime = () => {
+    const endTime = new Date();
+    endTime.setHours(21, 0, 0);
+    return endTime;
+  };
+
+ 
   // 시간
   const [showFindTime, setShowFindTime] = useState(false);
   const [showFindChips, setShowFindChips] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState('');
-  const [startTime, setStartTime] = useState(new Date());
-  const [endTime, setEndTime] = useState(new Date());
+  const [startTime, setStartTime] = useState(createDefaultStartTime());
+  const [endTime, setEndTime] = useState(createDefaultEndTime());
 
   const roundToHour = (date) => {
     date.setMinutes(0);
     return date;
   };
-
-  // const [startTime, setStartTime] = useState(roundToHour(new Date()));
-  // const [endTime, setEndTime] = useState(roundToHour(new Date()));
 
   const handleChangeStartTime = (time) => {
     setStartTime(time);
@@ -69,14 +80,6 @@ const CafeBasic = ({ cafeBasicInfo, onBasicInfoChange  }) => {
       }
     }
   }, []); 
-
-  useEffect(() => {
-    // 현재 시간을 기준으로 분을 버림하여 초기 시간 설정
-    const currentRoundedTime = roundToHour(new Date());
-    setStartTime(currentRoundedTime);
-    setEndTime(currentRoundedTime);
-  }, []);
-  
 
   useEffect(() => {
     // 종속성 배열에서 onBasicInfoChange 제거
