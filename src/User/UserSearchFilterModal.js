@@ -25,7 +25,6 @@ const UserSearchFilter = ({ isOpen, onFilterSubmit, onClose }) => {
     const filterData = {
       startTime,
       endTime,
-      userStudy,
       preferSeat,
     };
     onFilterSubmit(filterData);
