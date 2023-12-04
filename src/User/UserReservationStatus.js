@@ -53,7 +53,13 @@ const UserReservationStatus = () => {
       navigate(-1);
     }
     return () => clearInterval(interval);
-  }, [reservationStatus.status, reservationStatus.reservationId]);
+  }, [
+    reservationStatus.status,
+    reservationStatus.reservationId,
+    progress,
+    navigate,
+    reservationId,
+  ]);
 
   return (
     <userreservationstatus>
