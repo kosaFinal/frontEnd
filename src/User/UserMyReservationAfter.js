@@ -29,9 +29,9 @@ const UserMyReservationAfter = () => {
         const response = await reservationFinish();
         setReservationAfter(response.data.data);
         setCancleReservationId(response.data.data.reservationIds);
-        console.log("끝이 보인다 : ", response.data);
+       
       } catch (error) {
-        console.error("아직 끝이 아닌뎅 : ", error);
+        console.error("error : ", error);
       } finally {
         setLoading(false);
       }

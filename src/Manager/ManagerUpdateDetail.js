@@ -75,7 +75,7 @@ function ManagerUpdateDetail() {
       Swal.fire({
         icon: "warning",
         title: "",
-        text: `시작 시간은 종료 시간보다 빨라야 합니다..`,
+        text: `시작 시간은 종료 시간보다 빨라야 합니다.`,
         
         confirmButton: true,
         confirmButtonText: "확인",
@@ -198,7 +198,7 @@ function ManagerUpdateDetail() {
        {isLoading ? (
         <div className="Manager-res-spinner-container">
           <PulseLoader color="#929292" margin={5} size={15} speedMultiplier={0.5}/>
-          <h4>예약 내역을 불러오는중</h4>
+          <h4>카페 정보를 불러오는중</h4>
         </div>
       ) : (
         <>

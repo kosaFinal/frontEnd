@@ -293,7 +293,7 @@ const fetchData = async () => {
            {isLoading ? (
         <div className="Manager-res-spinner-container">
           <PulseLoader color="#929292" margin={5} size={15} speedMultiplier={0.5}/>
-          <h4>예약 내역을 불러오는중</h4>
+          <h4>카페 정보를 불러오는중</h4>
         </div>
       ) : (
         <>

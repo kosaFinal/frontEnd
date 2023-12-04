@@ -19,6 +19,7 @@ const ProtectedRoute = ({ children }) => {
       customClass: {
         confirmButton: 'no-outline',
       }
+    
   })
     
     return <Navigate to="/login" />;
