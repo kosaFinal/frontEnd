@@ -104,9 +104,11 @@ const UserSearchInput = ({
 
   const handleCafeClick = (cafeId) => {
     console.log("handleCafeClick 호출됨", cafeId);
+    setShowInfo(true);
     const selectedCafe = displayedResults.find(
       (cafe) => cafe.cafeId === cafeId
     );
+    setSelectedCafeId(cafeId); // 선택된 카페의 ID 설정
     if (selectedCafe) {
       console.log("선택된 카페:", selectedCafe);
       if (
@@ -478,6 +480,7 @@ const UserSearchInput = ({
           </div>
         )} */}
       </div>
+
       {isUserSearchFilterModal && <div className="search_modal"></div>}
       {isUserSearchFilterModal && (
         <UserSearchFilter
