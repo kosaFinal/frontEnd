@@ -127,6 +127,9 @@ const UserSearchInput = ({
     }
   };
 
+  const handleCafeTypeChange = (event) => {
+    setCafeType(event.target.value);
+  };
   const handleSearchClick = () => {
     searchFilter(1); // 현재 페이지 번호로 데이터 요청
   };
@@ -161,7 +164,7 @@ const UserSearchInput = ({
       .join(",");
 
     const filterQueryData = {
-      cafeType: searchFilterData.cafeType,
+      cafeType: cafeType,
       studyEnable: buttonStates.button1,
       people: buttonStates.button2,
       proceed: buttonStates.button3,
@@ -175,6 +178,7 @@ const UserSearchInput = ({
       latitude: userLocation ? userLocation.lat : 37.479943,
     };
     console.log(JSON.stringify(filterQueryData, null, 2));
+    console.log("API 요청 데이터:", filterQueryData);
 
     try {
       const response = await filterSearch(filterQueryData);
@@ -270,10 +274,7 @@ const UserSearchInput = ({
           </div>
         </div>
         <div className="searchinput_section1">
-          <select
-            value={cafeType}
-            onChange={(e) => setCafeType(e.target.value)}
-          >
+          <select value={cafeType} onChange={handleCafeTypeChange}>
             <option defaultChecked value="">
               카페 유형
             </option>
@@ -494,3 +495,4 @@ const UserSearchInput = ({
   );
 };
 export default UserSearchInput;
+// git push 전용
