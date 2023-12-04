@@ -82,12 +82,12 @@ const UserMyReservationBefore = () => {
                 </div>
                 {reservation.state === "A" && (
                   <div className="user_reservation_application_before">
-                    <h4>승인 중</h4>
+                    <h4>승인 전</h4>
                   </div>
                 )}
                 {reservation.state === "P" && (
                   <div className="user_reservation_progress_before">
-                    <h4>이용 중</h4>
+                    <h4>승인 완료</h4>
                   </div>
                 )}
               </div>
