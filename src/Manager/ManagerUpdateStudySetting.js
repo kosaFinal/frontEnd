@@ -147,31 +147,28 @@ function ManagerUpdateStudySetting() {
   };
 
   const handleAddSeat = async (section, seatNumber) => {
-    if (seatNumber) {
-      // 서버로 데이터 전송
-      try {
-        const tableNo = {
-          tableType: sectionMapping[section],
-          tableNumber: seatNumber
-        };
+    if (!seatNumber) return;
   
-        const response = await managerSettingCafeTableUpdate(tableNo);
-        if (response.data.isSuccess) {
-          // 응답으로 받은 좌석 정보로 로컬 상태 업데이트
-          const newSeat = {
-            id: response.data.newSeatId, // 예시: 응답으로 받은 새 좌석의 ID
-            number: seatNumber
-          };
-          updateSeatsWithSorting(section, newSeat); // 상태 업데이트와 정렬을 한 번에 처리
-          // setSeats 호출 부분 제거
-          setSeatInput(prevInput => ({ ...prevInput, [section]: '' })); // 입력 필드 초기화
-          // await fetchData();
-        } else {
-          console.log("좌석 추가 실패: ", response.data.message);
-        }
-      } catch (error) {
-        console.error("API 호출 중 에러 발생: ", error);
+    const tableNo = {
+      tableType: sectionMapping[section],
+      tableNumber: seatNumber
+    };
+  
+    try {
+      const response = await managerSettingCafeTableUpdate(tableNo);
+      if (response.data.isSuccess) {
+        const newSeat = {
+          id: response.data.data.tabledId, // 서버로부터 받은 새 좌석 ID
+          number: response.data.data.tableNumber, // 서버로부터 받은 좌석 번호
+          // 필요한 경우 다른 데이터도 추가할 수 있습니다.
+        };
+        updateSeatsWithSorting(section, newSeat);
+        setSeatInput(prevInput => ({ ...prevInput, [section]: '' }));
+      } else {
+        console.log("좌석 추가 실패: ", response.data.message);
       }
+    } catch (error) {
+      console.error("API 호출 중 에러 발생: ", error);
     }
   };
 
@@ -185,7 +182,7 @@ function ManagerUpdateStudySetting() {
           ...prevSeats,
           [section]: prevSeats[section].filter(seat => seat.id !== seatId),
         }));
-        // await fetchData();
+         //await fetchData();
       } else {
         console.log("좌석 삭제 실패: ", response.data.message);
       }
