@@ -104,9 +104,11 @@ const UserSearchInput = ({
 
   const handleCafeClick = (cafeId) => {
     console.log("handleCafeClick 호출됨", cafeId);
+    setShowInfo(true);
     const selectedCafe = displayedResults.find(
       (cafe) => cafe.cafeId === cafeId
     );
+    setSelectedCafeId(cafeId); // 선택된 카페의 ID 설정
     if (selectedCafe) {
       console.log("선택된 카페:", selectedCafe);
       if (
@@ -125,6 +127,9 @@ const UserSearchInput = ({
     }
   };
 
+  const handleCafeTypeChange = (event) => {
+    setCafeType(event.target.value);
+  };
   const handleSearchClick = () => {
     searchFilter(1); // 현재 페이지 번호로 데이터 요청
   };
@@ -159,7 +164,7 @@ const UserSearchInput = ({
       .join(",");
 
     const filterQueryData = {
-      cafeType: searchFilterData.cafeType,
+      cafeType: cafeType,
       studyEnable: buttonStates.button1,
       people: buttonStates.button2,
       proceed: buttonStates.button3,
@@ -173,6 +178,7 @@ const UserSearchInput = ({
       latitude: userLocation ? userLocation.lat : 37.479943,
     };
     console.log(JSON.stringify(filterQueryData, null, 2));
+    console.log("API 요청 데이터:", filterQueryData);
 
     try {
       const response = await filterSearch(filterQueryData);
@@ -268,10 +274,7 @@ const UserSearchInput = ({
           </div>
         </div>
         <div className="searchinput_section1">
-          <select
-            value={cafeType}
-            onChange={(e) => setCafeType(e.target.value)}
-          >
+          <select value={cafeType} onChange={handleCafeTypeChange}>
             <option defaultChecked value="">
               카페 유형
             </option>
@@ -478,6 +481,7 @@ const UserSearchInput = ({
           </div>
         )} */}
       </div>
+
       {isUserSearchFilterModal && <div className="search_modal"></div>}
       {isUserSearchFilterModal && (
         <UserSearchFilter
@@ -491,3 +495,4 @@ const UserSearchInput = ({
   );
 };
 export default UserSearchInput;
+// git push 전용
