@@ -55,6 +55,7 @@ const getTableStatusText = (tableStatusType) => {
   };
 
   const [isLoading, setIsLoading] = useState(false);
+  
   useEffect(() => {
     fetchReservationsForDate(selectedDate);
   }, [selectedDate]);

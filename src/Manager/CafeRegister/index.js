@@ -309,19 +309,27 @@ const CafeRegister = () => {
   return (
     <caferegister>
       <ManagerNav />
+      
       <div className="register-full-container">
-        <div className="register-number">
-          <span className="stepNumber">0{number}</span>
-          <span className="totalNumber">/ 06</span>
-        </div>
+      
+        
+        <div className="button-container-total">
+        <div className="bg"></div>
+        
         <div className="button-container">
+       
           {/* <div className="register-buttons"> */}
           <div className="button-previous">
             <button className="previous" onClick={subNumber}>
               {"<"}
             </button>
           </div>
+          
           <div className="register-stepbox">
+          <div className="register-number">
+          <span className="stepNumber">0{number}</span>
+          <span className="totalNumber">/ 06</span>
+        </div>
             {number === 1 && (
               <CafeName cafeName={cafeName} setCafeName={setCafeName} />
             )}
@@ -354,9 +362,14 @@ const CafeRegister = () => {
               {">"}
             </button>
           </div>
+          
+          </div>
+          <div className="bg"></div>
           {/* </div> */}
         </div>
+      
       </div>
+      
       <Footer />
     </caferegister>
   );
