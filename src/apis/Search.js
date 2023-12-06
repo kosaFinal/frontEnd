@@ -9,7 +9,7 @@ export function filterSearch(filterData, pageNo = 1) {
     arrayFormat: "repeat",
   });
 
-  return axios.get(`http://localhost:8080/user/search?${queryString}`);
+  return axios.get(`http://27.96.134.5:8080/user/search?${queryString}`);
 }
 
 export function locationSearch(x, y) {
