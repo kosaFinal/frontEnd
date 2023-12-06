@@ -134,9 +134,10 @@ const InProgressTabContent = () => {
         //응답으로 받은 board 객체를 상태로 저장
         setProgressRevInfo(response.data);
         console.log("데이터 :", response.data);
-        setLoading(false); 
       } catch (error) {
         console.error("There was an error!", error);
+      } finally {
+        setLoading(false);
       }
     };
     fetchProgressRevInfo();
@@ -160,7 +161,7 @@ const InProgressTabContent = () => {
        ) : (
       <>
         {progressRevInfo &&
-          progressRevInfo.data.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage).map((reservation, index) => (
+          paginate(progressRevInfo.data).map((reservation, index) => (
             <div className="reservation-item">
               <div className="reservation-name">{reservation.userRealName}</div>
               <div className="reservation-info">

@@ -2,9 +2,19 @@
   font-family: "HakgyoansimSantteutdotumL";
   src: url("/src/fonts/HakgyoansimSantteutdotumL.ttf") format("truetype");
 }
+.status-tab-full-container{
+  display: flex;
+  flex-direction: row;
+}
+.banner{
+  margin-right: -5rem;
+}
+.banner img{
+  width: 80%;
+}
 
 .status-tab-container {
-  width: 60%;
+  width: 70%;
   margin: auto;
 }
 
@@ -17,7 +27,7 @@
 .reservation-status-title {
   text-align: center;
   font-weight: bold;
-  font-size: 30px;
+  font-size: 40px;
   font-family: "HakgyoansimSantteutdotumL";
   margin: auto;
   margin-bottom: 15px;

@@ -27,7 +27,11 @@ const ManagerReservationStatus = () => {
   return (
     <managerreservationstatus>
       <ManagerNav />
-      <div className="status-tab-container">
+      <div className="status-tab-full-container">
+        <div className="banner">
+          <img src="/assets/banner2.png" />
+        </div>
+        <div className="status-tab-container">
           <div className="reservation-status-top">
             <p className="reservation-status-title">예약현황</p>
             <hr className="status-tab-hr"/>
@@ -42,6 +46,7 @@ const ManagerReservationStatus = () => {
             {activeTab === '진행' ? <InProgressTabContent /> : <UpcomingTabContent />}
           </div>
         </div>
+      </div>
       <Footer />
     </managerreservationstatus>
   );

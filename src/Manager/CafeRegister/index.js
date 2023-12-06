@@ -29,8 +29,8 @@ const CafeRegister = () => {
       Y: "",
     },
     phoneNumber: "",
-     startTime: defaultStartTime, // 여기에서 초기값 설정
-    endTime: defaultEndTime,     // 여기에서 초기값 설정
+    startTime: defaultStartTime, // 여기에서 초기값 설정
+    endTime: defaultEndTime, // 여기에서 초기값 설정
   });
 
   const [cafeImages, setCafeImages] = useState({
@@ -46,7 +46,6 @@ const CafeRegister = () => {
   useEffect(() => {
     console.log("파일: ", cafeStudySetting.floorPlanFile);
   }, [cafeStudySetting.floorPlanFile]);
-  
 
   const handleStudySettingChange = useCallback((setting) => {
     setCafeStudySetting(setting);
@@ -61,31 +60,29 @@ const CafeRegister = () => {
   }, []);
 
   const validatePhoneNumber = (number) => {
-    const regex = /^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})-?[0-9]{3,4}-?[0-9]{4}$/;
+    const regex =
+      /^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})-?[0-9]{3,4}-?[0-9]{4}$/;
     return regex.test(number);
   };
 
-
   const addNumber = () => {
     if (number === 1) {
-      
       if (cafeName.trim().length < 1) {
         Swal.fire({
           icon: "warning",
           title: "",
           text: `카페이름은 1글자 이상 입력해야 합니다..`,
-          
+
           confirmButton: true,
           confirmButtonText: "확인",
           confirmButtonColor: "#FFCD4A",
           customClass: {
-            confirmButton: 'no-outline',
-          }
-      })
+            confirmButton: "no-outline",
+          },
+        });
         // alert("카페이름은 1글자 이상 입력해야 합니다.");
         return;
       }
-
     }
 
     if (number === 2 && !cafeType) {
@@ -93,14 +90,14 @@ const CafeRegister = () => {
         icon: "warning",
         title: "",
         text: `카페 유형을 선택해주세요..`,
-        
+
         confirmButton: true,
         confirmButtonText: "확인",
         confirmButtonColor: "#FFCD4A",
         customClass: {
-          confirmButton: 'no-outline',
-        }
-    })
+          confirmButton: "no-outline",
+        },
+      });
       // alert("카페 유형을 선택해주세요.");
       return;
     }
@@ -112,14 +109,14 @@ const CafeRegister = () => {
           icon: "warning",
           title: "",
           text: `카페 기본 정보를 올바르게 입력해주세요.`,
-          
+
           confirmButton: true,
           confirmButtonText: "확인",
           confirmButtonColor: "#FFCD4A",
           customClass: {
-            confirmButton: 'no-outline',
-          }
-      })
+            confirmButton: "no-outline",
+          },
+        });
         // alert("카페 기본 정보를 올바르게 입력해주세요.");
         return;
       }
@@ -130,31 +127,34 @@ const CafeRegister = () => {
           icon: "warning",
           title: "",
           text: `유효한 전화번호를 입력해주세요.`,
-          
+
           confirmButton: true,
           confirmButtonText: "확인",
           confirmButtonColor: "#FFCD4A",
           customClass: {
-            confirmButton: 'no-outline',
-          }
-      })
+            confirmButton: "no-outline",
+          },
+        });
         // alert("유효한 전화번호를 입력해주세요.");
         return;
       }
 
-      if (!cafeBasicInfo.address.townAddress || !cafeBasicInfo.address.areaAddress) {
+      if (
+        !cafeBasicInfo.address.townAddress ||
+        !cafeBasicInfo.address.areaAddress
+      ) {
         Swal.fire({
           icon: "warning",
           title: "",
           text: `카페 주소를 입력해주세요.`,
-          
+
           confirmButton: true,
           confirmButtonText: "확인",
           confirmButtonColor: "#FFCD4A",
           customClass: {
-            confirmButton: 'no-outline',
-          }
-      })
+            confirmButton: "no-outline",
+          },
+        });
         return;
       }
 
@@ -164,14 +164,14 @@ const CafeRegister = () => {
           icon: "warning",
           title: "",
           text: `카페 종료 시간은 시작 시간보다 늦어야 합니다.`,
-          
+
           confirmButton: true,
           confirmButtonText: "확인",
           confirmButtonColor: "#FFCD4A",
           customClass: {
-            confirmButton: 'no-outline',
-          }
-      })
+            confirmButton: "no-outline",
+          },
+        });
         // alert("카페 종료 시간은 시작 시간보다 늦어야 합니다.");
         return;
       }
@@ -183,14 +183,14 @@ const CafeRegister = () => {
           icon: "warning",
           title: "",
           text: `대표 사진과 상세 사진을 모두 업로드해주세요..`,
-          
+
           confirmButton: true,
           confirmButtonText: "확인",
           confirmButtonColor: "#FFCD4A",
           customClass: {
-            confirmButton: 'no-outline',
-          }
-      })
+            confirmButton: "no-outline",
+          },
+        });
         // alert("대표 사진과 상세 사진을 모두 업로드해주세요.");
         return;
       }
@@ -202,14 +202,14 @@ const CafeRegister = () => {
           icon: "warning",
           title: "",
           text: `마지막 페이지 입니다.`,
-          
+
           confirmButton: true,
           confirmButtonText: "확인",
           confirmButtonColor: "#FFCD4A",
           customClass: {
-            confirmButton: 'no-outline',
-          }
-      })
+            confirmButton: "no-outline",
+          },
+        });
         return 6;
       }
       return prevNumber + 1;
@@ -237,63 +237,66 @@ const CafeRegister = () => {
   }, [cafeBasicInfo]);
 
   const handleFinalSubmit = async () => {
-    
-      // FormData 준비
-      const formData = new FormData();
+    // FormData 준비
+    const formData = new FormData();
 
-      // JSON 데이터를 문자열로 변환하여 추가
-      formData.append(
-        "cafeReg",
-        new Blob(
-          [
-            JSON.stringify({
-              cafeName,
-              cafeType,
-              startTime: cafeBasicInfo.startTime.toLocaleTimeString([], {
-                hour: "2-digit",
-                minute: "2-digit",
-                hour12: false
-              }),
-              endTime: cafeBasicInfo.endTime.toLocaleTimeString([], {
-                hour: "2-digit",
-                minute: "2-digit",
-                hour12: false
-              }),
-              address: `${cafeBasicInfo.address.townAddress}, ${cafeBasicInfo.address.areaAddress === null ? " " : cafeBasicInfo.address.areaAddress}`,
-              longtitude: cafeBasicInfo.address.X,
-              latitude: cafeBasicInfo.address.Y,
-              cafeTel: cafeBasicInfo.phoneNumber,
-              study: cafeStudySetting.studySetting,
+    // JSON 데이터를 문자열로 변환하여 추가
+    formData.append(
+      "cafeReg",
+      new Blob(
+        [
+          JSON.stringify({
+            cafeName,
+            cafeType,
+            startTime: cafeBasicInfo.startTime.toLocaleTimeString([], {
+              hour: "2-digit",
+              minute: "2-digit",
+              hour12: false,
             }),
-          ],
-          {
-            type: "application/json",
-          }
-        )
-      );
+            endTime: cafeBasicInfo.endTime.toLocaleTimeString([], {
+              hour: "2-digit",
+              minute: "2-digit",
+              hour12: false,
+            }),
+            address: `${cafeBasicInfo.address.townAddress}, ${
+              cafeBasicInfo.address.areaAddress === null
+                ? " "
+                : cafeBasicInfo.address.areaAddress
+            }`,
+            longtitude: cafeBasicInfo.address.X,
+            latitude: cafeBasicInfo.address.Y,
+            cafeTel: cafeBasicInfo.phoneNumber,
+            study: cafeStudySetting.studySetting,
+          }),
+        ],
+        {
+          type: "application/json",
+        }
+      )
+    );
 
-      // 이미지 파일 추가
-      if (cafeImages.titleFile) {
-        formData.append("cafeRepImg", cafeImages.titleFile);
-      }
-      cafeImages.detailFiles.forEach((file) => {
-        formData.append("cafeImgs", file);
-      });
+    // 이미지 파일 추가
+    if (cafeImages.titleFile) {
+      formData.append("cafeRepImg", cafeImages.titleFile);
+    }
+    cafeImages.detailFiles.forEach((file) => {
+      formData.append("cafeImgs", file);
+    });
 
-      // 평면도 추가 (있을 경우)
-      if (cafeStudySetting.floorPlanFile) {
-        formData.append("cafeStudyImg", cafeStudySetting.floorPlanFile);
-      }
+    // 평면도 추가 (있을 경우)
+    if (cafeStudySetting.floorPlanFile) {
+      formData.append("cafeStudyImg", cafeStudySetting.floorPlanFile);
+    }
 
-      // 특성 추가 (JSON 문자열로 변환하여 추가)
-      formData.append(
-        "cafeFeature",
-        new Blob([JSON.stringify(cafeFeatures)], { type: "application/json" })
-      );
+    // 특성 추가 (JSON 문자열로 변환하여 추가)
+    formData.append(
+      "cafeFeature",
+      new Blob([JSON.stringify(cafeFeatures)], { type: "application/json" })
+    );
 
-      // API 호출
-      const response = await managerCafeReg(formData);
-      try {
+    // API 호출
+    const response = await managerCafeReg(formData);
+    try {
       if (response.data.isSuccess) {
         // 등록 성공 처리
         console.log("등록 성공", response.data.data);
@@ -309,12 +312,11 @@ const CafeRegister = () => {
   return (
     <caferegister>
       <ManagerNav />
-      
+
       <div className="register-full-container">
-      
-        
         <div className="button-container-total">
-        <div className="bg"></div>
+
+        {/* <div className="bg"></div> */}
         
         <div className="button-container">
        
@@ -324,12 +326,13 @@ const CafeRegister = () => {
               {"<"}
             </button>
           </div>
-          
-          <div className="register-stepbox">
+          <div className="register-main-items">
           <div className="register-number">
           <span className="stepNumber">0{number}</span>
           <span className="totalNumber">/ 06</span>
         </div>
+          <div className="register-stepbox">
+          
             {number === 1 && (
               <CafeName cafeName={cafeName} setCafeName={setCafeName} />
             )}
@@ -357,6 +360,7 @@ const CafeRegister = () => {
               />
             )}
           </div>
+          </div>
           <div className="button-next">
             <button className="next" onClick={addNumber}>
               {">"}
@@ -364,12 +368,11 @@ const CafeRegister = () => {
           </div>
           
           </div>
-          <div className="bg"></div>
+          {/* <div className="bg"></div> */}
           {/* </div> */}
         </div>
-      
       </div>
-      
+
       <Footer />
     </caferegister>
   );
