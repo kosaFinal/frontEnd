@@ -315,61 +315,60 @@ const CafeRegister = () => {
 
       <div className="register-full-container">
         <div className="button-container-total">
-          <div className="bg"></div>
 
-          <div className="button-container">
-            {/* <div className="register-buttons"> */}
-            <div className="button-previous">
-              <button className="previous" onClick={subNumber}>
-                {"<"}
-              </button>
-            </div>
-
-            <div className="register-stepbox">
-              <div className="register-number">
-                <span className="stepNumber">0{number}</span>
-                <span className="totalNumber">/ 06</span>
-              </div>
-              {number === 1 && (
-                <CafeName cafeName={cafeName} setCafeName={setCafeName} />
-              )}
-              {number === 2 && (
-                <CafeType cafeType={cafeType} setCafeType={setCafeType} />
-              )}
-              {number === 3 && (
-                <CafeBasic
-                  cafeBasicInfo={cafeBasicInfo}
-                  onBasicInfoChange={handleBasicInfoChange}
-                />
-              )}
-              {number === 4 && (
-                <CafeImage
-                  onImageChange={handleImageChange}
-                  cafeImages={cafeImages}
-                />
-              )}
-              {number === 5 && (
-                <CafeFeature
-                  onFeaturesChange={handleFeaturesChange}
-                  selectedFeatures={cafeFeatures}
-                />
-              )}
-              {number === 6 && (
-                <CafeStudySetting
-                  onStudySettingChange={handleStudySettingChange}
-                  onFinalSubmit={handleFinalSubmit}
-                  initialStudySetting={cafeStudySetting.studySetting}
-                  initialFile={cafeStudySetting.floorPlanFile}
-                />
-              )}
-            </div>
-            <div className="button-next">
-              <button className="next" onClick={addNumber}>
-                {">"}
-              </button>
-            </div>
+        {/* <div className="bg"></div> */}
+        
+        <div className="button-container">
+       
+          {/* <div className="register-buttons"> */}
+          <div className="button-previous">
+            <button className="previous" onClick={subNumber}>
+              {"<"}
+            </button>
           </div>
-          <div className="bg"></div>
+          <div className="register-main-items">
+          <div className="register-number">
+          <span className="stepNumber">0{number}</span>
+          <span className="totalNumber">/ 06</span>
+        </div>
+          <div className="register-stepbox">
+          
+            {number === 1 && (
+              <CafeName cafeName={cafeName} setCafeName={setCafeName} />
+            )}
+            {number === 2 && (
+              <CafeType cafeType={cafeType} setCafeType={setCafeType} />
+            )}
+            {number === 3 && (
+              <CafeBasic
+                cafeBasicInfo={cafeBasicInfo}
+                onBasicInfoChange={handleBasicInfoChange}
+              
+              />
+            )}
+            {number === 4 && <CafeImage onImageChange={handleImageChange} cafeImages={cafeImages}/>}
+            {number === 5 && (
+              <CafeFeature onFeaturesChange={handleFeaturesChange}
+              selectedFeatures={cafeFeatures} />
+            )}
+            {number === 6 && (
+              <CafeStudySetting
+              onStudySettingChange={handleStudySettingChange}
+              onFinalSubmit={handleFinalSubmit}
+              initialStudySetting={cafeStudySetting.studySetting}
+              initialFile={cafeStudySetting.floorPlanFile}
+              />
+            )}
+          </div>
+          </div>
+          <div className="button-next">
+            <button className="next" onClick={addNumber}>
+              {">"}
+            </button>
+          </div>
+          
+          </div>
+          {/* <div className="bg"></div> */}
           {/* </div> */}
         </div>
       </div>
