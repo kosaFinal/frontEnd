@@ -131,10 +131,11 @@ const UpcomingTabContent = () => {
         const response = await managerReadUpcoming();
         //응답으로 받은 board 객체를 상태로 저장
         setUpcomingRevInfo(response.data);
-        console.log("데이터 :", response.data);
-        setLoading(false); 
+        console.log("데이터 :", response.data); 
       } catch (error) {
         console.error("There was an error!", error);
+      } finally {
+        setLoading(false);
       }
     };
     fetchUpcomingRevInfo();
@@ -158,7 +159,7 @@ const UpcomingTabContent = () => {
     ) : (
       <>
         {upcomingRevInfo &&
-        upcomingRevInfo.data.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage).map((reservation, index) => (
+        paginate(upcomingRevInfo.data).map((reservation, index) => (
           <div className="reservation-item">
             <div className="reservation-name">{reservation.userRealName}</div>
             <div className="reservation-info">
