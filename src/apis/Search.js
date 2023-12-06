@@ -1,14 +1,15 @@
 import axios from "axios";
 import qs from "qs";
 
-axios.defaults.baseURL = "http://localhost:8080";
+
+axios.defaults.baseURL = "http://27.96.134.5:8080";
 
 export function filterSearch(filterData, pageNo = 1) {
   const queryString = qs.stringify(filterData, {
     arrayFormat: "repeat",
   });
 
-  return axios.get(`http://localhost:8080/user/search?${queryString}`);
+  return axios.get(`http://27.96.134.5:8080/user/search?${queryString}`);
 }
 
 export function locationSearch(x, y) {
