@@ -25,7 +25,7 @@
 .register-time-picker{
   width: 19rem;
   height: 1.5rem;
-  font-size: 1.2rem;
+  font-size: 1.4rem !important;
   text-align: center;
 }
 
