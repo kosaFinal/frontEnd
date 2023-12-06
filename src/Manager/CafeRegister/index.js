@@ -314,7 +314,7 @@ const CafeRegister = () => {
       
         
         <div className="button-container-total">
-        <div className="bg"></div>
+        {/* <div className="bg"></div> */}
         
         <div className="button-container">
        
@@ -324,12 +324,13 @@ const CafeRegister = () => {
               {"<"}
             </button>
           </div>
-          
-          <div className="register-stepbox">
+          <div className="register-main-items">
           <div className="register-number">
           <span className="stepNumber">0{number}</span>
           <span className="totalNumber">/ 06</span>
         </div>
+          <div className="register-stepbox">
+          
             {number === 1 && (
               <CafeName cafeName={cafeName} setCafeName={setCafeName} />
             )}
@@ -357,6 +358,7 @@ const CafeRegister = () => {
               />
             )}
           </div>
+          </div>
           <div className="button-next">
             <button className="next" onClick={addNumber}>
               {">"}
@@ -364,7 +366,7 @@ const CafeRegister = () => {
           </div>
           
           </div>
-          <div className="bg"></div>
+          {/* <div className="bg"></div> */}
           {/* </div> */}
         </div>
       
