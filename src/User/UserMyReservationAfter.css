@@ -9,7 +9,7 @@
   align-items: center;
   justify-content: space-around;
   padding: 30px;
-  width: 80%;
+  width: 170%;
   font-family: "HakgyoansimSantteutdotumL";
   height: 80px;
   border: 1px solid black;
@@ -109,7 +109,7 @@
   object-fit: cover;
 }
 
-.user_reservation_loading{
+.user_reservation_loading {
   font-size: 1.4rem;
   color: #a4a4a4;
   text-align: center;
