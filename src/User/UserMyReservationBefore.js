@@ -90,15 +90,17 @@ const UserMyReservationBefore = () => {
                     )}
                   </div>
                 ))}
-                <ReactPaginate
-                  activePage={currentPage}
-                  itemsCountPerPage={itemsPerPage}
-                  totalItemsCount={reservationBefore.length}
-                  pageRangeDisplayed={5}
-                  onChange={handlePageChange}
-                  prevPageText={"‹"}
-                  nextPageText={"›"}
-                />
+                <div style={{ marginRight: "-470px" }}>
+                  <ReactPaginate
+                    activePage={currentPage}
+                    itemsCountPerPage={itemsPerPage}
+                    totalItemsCount={reservationBefore.length}
+                    pageRangeDisplayed={5}
+                    onChange={handlePageChange}
+                    prevPageText={"‹"}
+                    nextPageText={"›"}
+                  />
+                </div>
               </>
             )}
           </>
