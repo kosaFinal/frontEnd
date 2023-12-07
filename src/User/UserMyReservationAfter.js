@@ -47,7 +47,7 @@ const UserMyReservationAfter = () => {
             <PulseLoader color="#CCC" margin={5} speedMultiplier={0.8} />
           </div>
         ) : (
-          <div>
+          <div className="user_page">
             {reservationAfter.length === 0 ? (
               <div className="user_reservation_no_exist">
                 예약 현황이 없습니다.
@@ -93,7 +93,7 @@ const UserMyReservationAfter = () => {
                     </div>
                   </div>
                 ))}
-                <div className="user_paging">
+                <div className="user_paging" style={{ marginRight: "-470px" }}>
                   <ReactPaginate
                     activePage={currentPage}
                     itemsCountPerPage={itemsPerPage}
