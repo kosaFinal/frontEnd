@@ -25,6 +25,7 @@
   font-family: "HakgyoansimSantteutdotumL";
   margin-top: 50px;
   text-align: center;
+  margin-right: 20px;
 }
 .user_reservation-status-top {
   margin-left: 150px;
@@ -35,7 +36,7 @@
 }
 .user_tab-buttons {
   margin-top: 50px;
-  margin-left: 120px;
+  margin-left: 150px;
 }
 
 .user_tab-content {
@@ -55,7 +56,9 @@
   margin-top: -130px;
   margin-bottom: 50px;
   margin-left: 120px;
+  margin-right: -50px;
 }
 .pagination {
-  margin-left: 420px;
+  margin-left: 350px;
+  margin-right: -110px;
 }
