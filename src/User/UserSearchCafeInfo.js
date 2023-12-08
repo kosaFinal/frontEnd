@@ -14,23 +14,20 @@ const UserSearchCafeInfo = ({ cafeId, onClose }) => {
     onClose();
   };
   useEffect(() => {
-    console.log("Effect 실행: cafeId = ", cafeId);
     const searchCafeIdInfo = async () => {
       try {
         if (cafeId) {
           const response = await cafeInfo(cafeId);
           setCafeInfo(response.data.data);
-          console.log("카페 정보 : ", response.data);
         } else {
-          console.log("cafeId가 제공되지 않았습니다.");
+          console.error("cafeId가 제공되지 않았습니다.");
         }
       } catch (error) {
-        console.error("좀만 힘내 : ", error);
+        console.error(error);
       }
     };
     searchCafeIdInfo();
   }, [cafeId]);
-  console.log("넘어가", cafeId);
   return (
     <usersearchcafeinfo>
       <div className="UserSearchCafeInfo_header">

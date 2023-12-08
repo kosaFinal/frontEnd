@@ -44,7 +44,6 @@ const CafeRegister = () => {
     floorPlanFile: null,
   });
   useEffect(() => {
-    console.log("파일: ", cafeStudySetting.floorPlanFile);
   }, [cafeStudySetting.floorPlanFile]);
 
   const handleStudySettingChange = useCallback((setting) => {
@@ -233,7 +232,6 @@ const CafeRegister = () => {
   );
 
   useEffect(() => {
-    console.log("선택된 카페 유형: ", cafeBasicInfo);
   }, [cafeBasicInfo]);
 
   const handleFinalSubmit = async () => {

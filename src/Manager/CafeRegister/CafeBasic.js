@@ -59,7 +59,6 @@ const CafeBasic = ({ cafeBasicInfo, onBasicInfoChange  }) => {
   });
 
   useEffect(() => {
-    console.log("선택된 카페 유형: ", editAddressObj);
   }, [editAddressObj]);
 
   useEffect(() => {

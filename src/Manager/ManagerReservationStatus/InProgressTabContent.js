@@ -40,10 +40,7 @@ const InProgressTabContent = () => {
     // 취소 처리 로직
     try{
 
-      console.log('Reservation IDs:', reservationIds);
-      console.log('resaonId: ', reasonId)
       await managerChangeCancle({reservationIds: cancleReservationIds, cancleReasonId : reasonId});
-      console.log("취소 처리");
       
       Swal.fire({
         icon: "success",
@@ -85,9 +82,7 @@ const InProgressTabContent = () => {
     // 이용 종료 로직
     try {
 
-      console.log('Reservation IDs:', reservationIds);
       await managerChangeFinish({reservationIds: finishReservationIds});
-      console.log("이용종료");
 
       Swal.fire({
         icon: "success",
@@ -131,11 +126,9 @@ const InProgressTabContent = () => {
         setLoading(true);
         //네트워크 통신
         const response = await managerReadProgress();
-        //응답으로 받은 board 객체를 상태로 저장
         setProgressRevInfo(response.data);
-        console.log("데이터 :", response.data);
       } catch (error) {
-        console.error("There was an error!", error);
+        console.error(error);
       } finally {
         setLoading(false);
       }

@@ -39,10 +39,7 @@ const UpcomingTabContent = () => {
     // 취소 처리 로직
     try{
       
-      console.log('Reservation IDs:', reservationIds);
-      console.log('resaonId: ', reasonId)
       await managerChangeCancle({reservationIds: cancleReservationIds, cancleReasonId : reasonId});
-      console.log("취소 처리");
 
       Swal.fire({
         icon: "success",
@@ -83,9 +80,7 @@ const UpcomingTabContent = () => {
     // 예약 완료 로직
     try {
 
-      console.log('Reservation IDs:', reservationIds);
       await managerChangeConfirm({reservationIds: confirmReservationIds});
-      console.log("실행중");
       
       Swal.fire({
         icon: "success",
@@ -129,11 +124,9 @@ const UpcomingTabContent = () => {
         setLoading(true);
         //네트워크 통신
         const response = await managerReadUpcoming();
-        //응답으로 받은 board 객체를 상태로 저장
         setUpcomingRevInfo(response.data);
-        console.log("데이터 :", response.data); 
       } catch (error) {
-        console.error("There was an error!", error);
+        console.error(error);
       } finally {
         setLoading(false);
       }

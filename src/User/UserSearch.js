@@ -166,7 +166,6 @@ const UserSearch = () => {
         "center_changed",
         () => {
           const center = map.getCenter();
-          console.log("지도 중심 변경됨:", center.getLat(), center.getLng());
           setMapCenter({ lat: center.getLat(), lng: center.getLng() });
         }
       );
@@ -180,10 +179,8 @@ const UserSearch = () => {
   }, [map]);
   useEffect(() => {
     if (nowData && nowData.length > 0) {
-      console.log("nowData 변경됨:", nowData);
       handleLocationData(nowData);
     } else {
-      console.log("nowData가 비어있거나 유효하지 않음:", nowData);
     }
   }, [nowData]);
   const handleSearchInCurrentMap = () => {
@@ -192,14 +189,10 @@ const UserSearch = () => {
       const currentCenter = map.getCenter();
       const lng = currentCenter.getLng();
       const lat = currentCenter.getLat();
-      console.log("현재 위치 근처 검색:", lat, lng);
+
       clearMarkersAndOverlays();
       locationSearch(lng, lat)
         .then((response) => {
-          console.log(
-            "UserSearch 컴포넌트: locationSearch 응답 데이터",
-            response.data.data.searchCafes
-          );
           const searchCafes = response.data.data.searchCafes;
           setNowData(searchCafes);
           handleLocationData(searchCafes);

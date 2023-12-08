@@ -17,8 +17,7 @@ const UserSearchFilter = ({ isOpen, onFilterSubmit, onClose }) => {
   };
 
   useEffect(() => {
-    console.log(userStudy);
-    console.log(preferSeat);
+
   }, [userStudy, preferSeat]);
 
   const handleSubmit = () => {
@@ -28,8 +27,7 @@ const UserSearchFilter = ({ isOpen, onFilterSubmit, onClose }) => {
       preferSeat,
     };
     onFilterSubmit(filterData);
-    onClose();
-    console.log("모달데이터", filterData); // 모달을 닫습니다
+    onClose(); // 모달을 닫습니다
   };
   useEffect(() => {
     setEndTime(startTime);

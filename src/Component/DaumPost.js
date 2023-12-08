@@ -26,9 +26,7 @@ function DaumPost({ setAddressObj }) {
         if (status === window.kakao.maps.services.Status.OK) {
           KakaoX = result[0].x;
           KakaoY = result[0].y;
-          console.log("위도 : " + result[0].y);
-          console.log("경도 : " + result[0].x);
-
+          
           setAddressObj({
             // props 제거
             townAddress: fullAddress,

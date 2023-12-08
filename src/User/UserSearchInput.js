@@ -11,7 +11,6 @@ const UserSearchInput = ({
   onDataReceivedFromChild,
   userLocation,
 }) => {
-  console.log("부모한테 받아옴:", searchResults);
   const [showInfo, setShowInfo] = useState(false);
   const [cafeType, setCafeType] = useState("");
   const [showInput, setShowInput] = useState(false);
@@ -103,19 +102,16 @@ const UserSearchInput = ({
   };
 
   const handleCafeClick = (cafeId) => {
-    console.log("handleCafeClick 호출됨", cafeId);
     setShowInfo(true);
     const selectedCafe = displayedResults.find(
       (cafe) => cafe.cafeId === cafeId
     );
     setSelectedCafeId(cafeId); // 선택된 카페의 ID 설정
     if (selectedCafe) {
-      console.log("선택된 카페:", selectedCafe);
       if (
         selectedCafe.latitude !== userLocation.lat ||
         selectedCafe.longitude !== userLocation.lon
       ) {
-        console.log("위치 데이터 전송:", selectedCafe);
         onDataReceivedFromChild({
           latitude: selectedCafe.latitude,
           longitude: selectedCafe.longitude,
@@ -135,7 +131,6 @@ const UserSearchInput = ({
   };
 
   const handlePageChange = (newPage) => {
-    console.log("handlePageChange 함수 호출", newPage);
     if (!parentResults) {
       setCurrentPage(newPage);
       searchFilter(newPage); // 새 페이지에 대한 검색 결과 업데이트
@@ -144,18 +139,15 @@ const UserSearchInput = ({
 
   useEffect(() => {
     if (searchResults && searchResults.length > 0) {
-      console.log("검색 결과 데이터:", searchResults);
       setDisplayedResults(searchResults);
       setParentResults(true);
       setTotalPages(0);
     } else {
-      console.log("검색 결과 데이터가 없음:", searchResults);
       setParentResults(false);
     }
   }, [searchResults]);
 
   const searchFilter = async (page = currentPage) => {
-    console.log("searchFilter 함수 호출", page);
     setLoading(true);
     setDisplayedResults([]);
     const selectedFeatures = Object.entries(featureButtonStates)
@@ -177,8 +169,6 @@ const UserSearchInput = ({
       longtitude: userLocation ? userLocation.lon : 126.88268,
       latitude: userLocation ? userLocation.lat : 37.479943,
     };
-    console.log(JSON.stringify(filterQueryData, null, 2));
-    console.log("API 요청 데이터:", filterQueryData);
 
     try {
       const response = await filterSearch(filterQueryData);
@@ -207,23 +197,18 @@ const UserSearchInput = ({
   };
 
   useEffect(() => {
-    console.log("useEffect: displayedResults 업데이트", displayedResults);
     if (apiResponseData && apiResponseData.pager) {
       setTotalPages(apiResponseData.pager.totalPageNo);
     }
   }, [apiResponseData]);
 
   useEffect(() => {
-    console.log(
-      "UserSearchInput 컴포넌트: searchResults prop 변경됨",
-      searchResults
-    );
+
     if (
       searchResults &&
       searchResults.searchCafes &&
       searchResults.searchCafes.length > 0
     ) {
-      console.log("검색 결과 데이터:", searchResults.searchCafes);
       setDisplayedResults(searchResults.searchCafes);
       setParentResults(true);
       setTotalPages(0);
@@ -237,13 +222,11 @@ const UserSearchInput = ({
     }
   }, [apiResponseData]);
   useEffect(() => {
-    console.log("검색 결과 데이터:", searchResults);
     if (searchResults && searchResults.length > 0) {
       setDisplayedResults(searchResults);
       setParentResults(true);
       setTotalPages(0); // 또는 검색 결과에 따라 적절한 페이지 수 설정
     } else {
-      console.log("검색 결과 데이터가 없음");
       setDisplayedResults([]);
       setParentResults(false);
     }
@@ -251,7 +234,6 @@ const UserSearchInput = ({
 
   useEffect(() => {
     // displayedResults 상태가 업데이트될 때마다 로그를 출력
-    console.log("displayedResults 업데이트:", displayedResults);
   }, [displayedResults]);
   return (
     <usersearchinput>

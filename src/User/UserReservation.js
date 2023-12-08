@@ -25,7 +25,6 @@ const UserReservation = () => {
   const [tableInfo, setTableInfo] = useState(null);
   const [minReservationId, setMinReservationId] = useState(null);
   const { cafeId } = useParams();
-  console.log("cafeId:", cafeId);
   const [isUserReservationModal, setIsUserReservationModal] = useState(false);
   const [formattedSelecteTime, setFormattedSelecteTime] = useState("");
   const handleSelectTimeModal = () => {
@@ -43,7 +42,6 @@ const UserReservation = () => {
         .map((time) => time.reserveStart)
         .join(", ");
       setFormattedSelecteTime(timeString);
-      console.log(selecteTime);
     } else {
     }
   }, [selecteTime]);
@@ -68,13 +66,10 @@ const UserReservation = () => {
   useEffect(() => {
     const fetchTableInfo = async () => {
       try {
-        console.log("fetchTableInfo - cafeId:", cafeId);
         const response = await readTableList(cafeId);
         setTableInfo(response.data);
-        console.log("데이터 :", response.data);
-        console.log("테이블타입", tableInfo.data.tableInfo);
       } catch (error) {
-        console.error("There was an error!", error);
+        console.error(error);
       }
     };
     fetchTableInfo();
@@ -108,14 +103,13 @@ const UserReservation = () => {
     };
     try {
       const response = await createReservation(reservationData);
-      console.log("reservation 등록", response.data);
       const newMinReservationId = Math.min(
         ...response.data.data.reservationIds
       );
       setMinReservationId(newMinReservationId);
       navigate(`/user/reservationstatus/${newMinReservationId}`);
     } catch (error) {
-      console.error("아니시바라: ", error);
+      console.error(error);
     }
   };
   useEffect(() => {

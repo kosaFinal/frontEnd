@@ -16,7 +16,6 @@ const UserReservationStatus = () => {
     try {
       const response = await reservationNow(reservationId);
       setReservationStatus(response.data.data);
-      console.log("잘했네", response.data);
     } catch (error) {
       Swal.fire({
         icon: "error",

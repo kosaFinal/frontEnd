@@ -26,9 +26,8 @@ const UserMyReservationBefore = () => {
         setLoading(true);
         const response = await reservationProgress();
         setReservationBefore(response.data.data);
-        console.log("잘 읽는중 : ", response.data);
       } catch (error) {
-        console.error("잘좀 해봐 : ", error);
+        console.error(error);
       } finally {
         setLoading(false);
       }

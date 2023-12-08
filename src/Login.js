@@ -81,7 +81,6 @@ function Login() {
           addAuthHeader(response.data.data.accessToken);
 
           //Context에 인증 내용 저장
-          console.log(response.data.data);
           appContext.setUser(response.data.data.userName);
           appContext.setAccessToken(response.data.data.accessToken);
           appContext.setRole(response.data.data.role);

@@ -34,7 +34,7 @@ const UserMyInfo = () => {
         })
       }
     } catch (error) {
-      console.error("일단 불러오셈 :", error);
+      console.error(error);
     }
   };
   return (

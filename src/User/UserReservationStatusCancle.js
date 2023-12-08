@@ -14,9 +14,8 @@ const UserReservationStatusCancle = () => {
       try {
         const response = await reservationCancle(reservationId);
         setCancleReason(response.data.data);
-        console.log("성공 : ", response.data);
       } catch (error) {
-        console.error("실패", error);
+        console.error(error);
       }
     };
     cancleReservationCancle();

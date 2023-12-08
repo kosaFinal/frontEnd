@@ -37,7 +37,6 @@ const UserReservationModal = ({
     const fetchReservationTime = async () => {
       try {
         const response = await readReservationTime(formattedDate, tableId);
-        console.log("Response received:", response);
 
         if (response && response.data && Array.isArray(response.data.data)) {
           setModalSelectTime(response.data.data);
@@ -45,7 +44,7 @@ const UserReservationModal = ({
           console.error("Response data is not an array:", response.data);
         }
       } catch (error) {
-        console.error("Error fetching reservation times:", error);
+        console.error("Error : ", error);
       }
     };
 

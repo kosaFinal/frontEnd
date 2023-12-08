@@ -43,7 +43,6 @@ function Register() {
   const handleChangePw = useCallback(
     (event) => {
       const input = event.target.value;
-      console.log(input);
       setValidatePw(input);
       if (register.password === input) {
         setPwcheck(true);
@@ -60,11 +59,7 @@ function Register() {
         if (register.userRealName !== "") {
           if (pwcheck === true) {
             //로그인 요청
-            console.log(register.role);
             const response = await signup(register);
-
-            //Context에 인증 내용 저장
-            console.log(response.data.data);
 
             //상태 재초기화
             setRegister({
@@ -124,16 +119,11 @@ function Register() {
   const idCheckFun = useCallback(async () => {
     try {
       //로그인 요청
-      console.log(register.userName);
       if (register.userName !== "") {
         const response = await idCheck(register.userName);
 
-        //Context에 인증 내용 저장
-        console.log(response.data.data);
-
         if (response.data.data === false) {
           setDuplicate(false);
-          console.log("duplicate: " + duplicate);
         } else {
           setDuplicate(true);
           setDisable(true);
